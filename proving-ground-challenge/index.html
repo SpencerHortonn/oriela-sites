@@ -32,6 +32,13 @@ body{font-family:Archivo,system-ui,sans-serif;background:var(--blk);color:var(--
 .th-cream{--fg:#0b0b0b;--mut:rgba(11,11,11,.64);--ln:#0b0b0b;--soft:rgba(11,11,11,.14)}
 .th-lime{--fg:#0b0b0b;--mut:rgba(11,11,11,.66);--ln:#0b0b0b;--soft:rgba(11,11,11,.16)}
 section{color:var(--fg)}
+/* photographic texture depth, restored: chalk concrete + rubber floor photo beds */
+.tex{position:absolute;inset:-12% 0;z-index:0;pointer-events:none;background-size:560px;background-repeat:repeat;opacity:.5}
+.tex-chalk{background-image:url("assets/chalk-concrete.jpg")}
+.tex-rubber{background-image:url("assets/rubber-floor.jpg")}
+.tex-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(11,11,11,.82),rgba(11,11,11,.62))}
+section{position:relative;overflow:hidden}
+section>.wrap{position:relative;z-index:2}
 /* ============ LOADER ============ */
 #loader{position:fixed;inset:0;z-index:999;background:var(--blk);color:var(--lim);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;letter-spacing:.3em;transition:opacity .4s}
 #loader.done{opacity:0;pointer-events:none}
@@ -196,7 +203,7 @@ footer p+p{margin-top:10px}
 }
 /* ============ ROUND-5 DEPTH PASS ============ */
 /* chalk handprints: hero layers + divider stamps */
-.hp-wrap{position:absolute;z-index:0;pointer-events:none}
+.hp-wrap{position:absolute;z-index:2;pointer-events:none}
 .hp-wrap svg{display:block;width:100%;height:auto}
 .hpw-1{right:-5%;top:3%;width:min(46vmin,440px);opacity:.20}
 .hpw-2{left:-7%;bottom:-2%;width:min(38vmin,360px);opacity:.13;filter:blur(1px)}
@@ -308,6 +315,8 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
 
 <!-- ============ HERO ============ -->
 <section class="hero th-dark" id="top" data-theme="dark">
+  <div class="tex tex-chalk tx-par" data-speed="10" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="hp-wrap hpw-1 hp-par" data-speed="-30" aria-hidden="true"><svg viewBox="0 0 300 380"><use href="#hp-a"/></svg></div>
   <div class="hp-wrap hpw-2 hp-par" data-speed="24" aria-hidden="true"><svg viewBox="0 0 300 380"><use href="#hp-b"/></svg></div>
   <div class="hp-wrap hpw-3 hp-par" data-speed="48" aria-hidden="true"><svg viewBox="0 0 300 380"><use href="#hp-a"/></svg></div>
@@ -353,6 +362,8 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
 
 <!-- ============ PROGRAM ============ -->
 <section class="block th-dark" id="program" data-theme="dark">
+  <div class="tex tex-rubber tx-par" data-speed="8" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <span class="sec-tag rv">FILE 02 // TRAINING LOG</span>
     <h2 class="st rv">The program</h2>
@@ -492,6 +503,8 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
 
 <!-- ============ FAQ ============ -->
 <section class="block th-dark" id="faq" data-theme="dark">
+  <div class="tex tex-chalk tx-par" data-speed="8" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <span class="sec-tag rv">FILE 05 // INTEL</span>
     <h2 class="st rv">Questions</h2>
@@ -541,6 +554,8 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
 </section>
 
 <section class="notify-band th-dark" data-theme="dark">
+  <div class="tex tex-rubber tx-par" data-speed="6" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <span class="sec-tag rv">COMING 2027</span>
     <h2 class="rv">Be there at the start.</h2>
@@ -684,6 +699,12 @@ if(animOK){
     var sp=parseFloat(el.getAttribute("data-speed")||"24");
     gsap.to(el,{yPercent:sp,ease:"none",
       scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+  });
+  /* ---- photo texture beds: gentle parallax, each at its own rate ---- */
+  document.querySelectorAll(".tx-par").forEach(function(el){
+    var sp=parseFloat(el.getAttribute("data-speed")||"10");
+    gsap.to(el,{yPercent:sp,ease:"none",
+      scrollTrigger:{trigger:el.closest("section"),start:"top bottom",end:"bottom top",scrub:true}});
   });
   window.addEventListener("load",function(){setTimeout(slam,350);});
   setTimeout(slam,2600);
