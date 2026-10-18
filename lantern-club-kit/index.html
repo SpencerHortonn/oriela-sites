@@ -246,7 +246,12 @@ footer a:hover{color:var(--amber)}
       <div class="l-glow" data-base-top="168"></div>
       <div class="l-cone" data-base-top="198"></div>
       <svg width="76" viewBox="0 0 120 340">
-        <path class="rope-poly" d="M60,0 L60,186" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <g class="rope-g" fill="none" stroke-linecap="round">
+          <path class="rope-seg" d="M60,0 L60,186" stroke="#120c07" stroke-width="9"/>
+          <path class="rope-seg" d="M60,0 L60,186" stroke="#332412" stroke-width="6.5"/>
+          <path class="rope-seg" d="M60,0 L60,186" stroke="#7a5a34" stroke-width="6.5" stroke-dasharray="7 9" opacity="0.55"/>
+          <path class="rope-seg" d="M60,0 L60,186" stroke="#8a6a3e" stroke-width="2" opacity="0.8"/>
+        </g>
         <g class="lamp">
         <circle cx="60" cy="196" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,208 L78,208 L71,228 L49,228 Z" fill="url(#lgMetal)"/>
@@ -264,7 +269,12 @@ footer a:hover{color:var(--amber)}
       <div class="l-glow" data-base-top="257"></div>
       <div class="l-cone" data-base-top="293"></div>
       <svg width="92" viewBox="0 0 120 410">
-        <path class="rope-poly" d="M60,0 L60,256" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <g class="rope-g" fill="none" stroke-linecap="round">
+          <path class="rope-seg" d="M60,0 L60,256" stroke="#120c07" stroke-width="9"/>
+          <path class="rope-seg" d="M60,0 L60,256" stroke="#332412" stroke-width="6.5"/>
+          <path class="rope-seg" d="M60,0 L60,256" stroke="#7a5a34" stroke-width="6.5" stroke-dasharray="7 9" opacity="0.55"/>
+          <path class="rope-seg" d="M60,0 L60,256" stroke="#8a6a3e" stroke-width="2" opacity="0.8"/>
+        </g>
         <g class="lamp">
         <circle cx="60" cy="266" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,278 L78,278 L71,298 L49,298 Z" fill="url(#lgMetal)"/>
@@ -282,7 +292,12 @@ footer a:hover{color:var(--amber)}
       <div class="l-glow" data-base-top="160"></div>
       <div class="l-cone" data-base-top="185"></div>
       <svg width="64" viewBox="0 0 120 375">
-        <path class="rope-poly" d="M60,0 L60,221" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <g class="rope-g" fill="none" stroke-linecap="round">
+          <path class="rope-seg" d="M60,0 L60,221" stroke="#120c07" stroke-width="9"/>
+          <path class="rope-seg" d="M60,0 L60,221" stroke="#332412" stroke-width="6.5"/>
+          <path class="rope-seg" d="M60,0 L60,221" stroke="#7a5a34" stroke-width="6.5" stroke-dasharray="7 9" opacity="0.55"/>
+          <path class="rope-seg" d="M60,0 L60,221" stroke="#8a6a3e" stroke-width="2" opacity="0.8"/>
+        </g>
         <g class="lamp">
         <circle cx="60" cy="231" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,243 L78,243 L71,263 L49,263 Z" fill="url(#lgMetal)"/>
@@ -608,7 +623,7 @@ setTimeout(function(){
       cone.style.top = cone.getAttribute("data-base-top") + "px";
       return {
         el: el, ropeLen: ropeLen, scale: scale, seg: seg, pts: pts,
-        rope: el.querySelector(".rope-poly"), lamp: el.querySelector(".lamp"),
+        rope: el.querySelectorAll(".rope-seg"), lamp: el.querySelector(".lamp"),
         glow: glow, cone: cone, ph: Math.random() * 6.28
       };
     });
@@ -658,7 +673,7 @@ setTimeout(function(){
       }
       var l = pts[SEG_N];
       d += " L" + l.x.toFixed(1) + "," + l.y.toFixed(1);
-      S.rope.setAttribute("d", d);
+      for (var q = 0; q < S.rope.length; q++) S.rope[q].setAttribute("d", d);
     }
     var last = performance.now(), acc = 0;
     (function ropeFrame(now){
