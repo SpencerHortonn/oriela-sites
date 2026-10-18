@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oriela Command</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#1f3529; --forest-deep:#14241c; --cream:#f4ecdc; --cream-dim:#e9dfc9;
+    --gold:#c9a24b; --rust:#b0532b; --ink:#22302a; --ok:#3e8e4f; --down:#c0392b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+  header{background:var(--forest);color:var(--cream);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+  header h1{font-family:'Fraunces',serif;font-size:24px;font-weight:700;letter-spacing:.5px}
+  header h1 span{color:var(--gold)}
+  header .sub{font-size:12px;opacity:.7;margin-top:2px}
+  main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
+  section.card{background:#fffdf6;border:1px solid #ddd2b8;border-radius:14px;padding:22px;margin-bottom:24px;box-shadow:0 2px 10px rgba(31,53,41,.06)}
+  section.card h2{font-family:'Fraunces',serif;font-size:21px;color:var(--forest);margin-bottom:4px}
+  section.card .desc{font-size:13px;opacity:.65;margin-bottom:16px}
+  .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+  .sec-head h2{margin:0}
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:13px;border:none;border-radius:9px;padding:9px 16px;cursor:pointer;background:var(--forest);color:var(--cream);transition:transform .08s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.gold{background:var(--gold);color:var(--forest-deep)}
+  .btn.ghost{background:transparent;color:var(--forest);border:1.5px solid var(--forest)}
+  .btn.small{padding:6px 12px;font-size:12px}
+  .site-block{border:1px solid #e3d9bf;border-radius:10px;margin-bottom:14px;overflow:hidden}
+  .site-bar{display:flex;align-items:center;gap:12px;background:var(--forest);color:var(--cream);padding:10px 16px;cursor:pointer;user-select:none}
+  .site-bar .name{font-weight:700;font-size:14px;text-transform:capitalize}
+  .site-bar .count{background:var(--gold);color:var(--forest-deep);font-size:12px;font-weight:700;border-radius:20px;padding:2px 10px}
+  .site-bar .views{font-size:12px;opacity:.75;margin-left:auto}
+  .site-bar .chev{opacity:.6;font-size:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;padding:8px 16px;background:#f6efdd;color:var(--forest);font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+  td{padding:8px 16px;border-top:1px solid #eee4cb}
+  tr:nth-child(even) td{background:#fbf7ec}
+  .empty{padding:16px;font-size:13px;opacity:.6}
+  .status-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .stat{background:#fbf7ec;border:1px solid #e3d9bf;border-radius:10px;padding:14px}
+  .stat .label{font-weight:700;font-size:13px;color:var(--forest)}
+  .stat .url{font-size:11px;opacity:.55;word-break:break-all;margin:2px 0 8px}
+  .stat .row{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+  .dot{width:10px;height:10px;border-radius:50%;background:#bbb}
+  .dot.ok{background:var(--ok);box-shadow:0 0 6px rgba(62,142,79,.7)}
+  .dot.down{background:var(--down);box-shadow:0 0 6px rgba(192,57,43,.7)}
+  .links{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .links a{display:flex;align-items:center;gap:10px;background:var(--forest);color:var(--cream);text-decoration:none;border-radius:10px;padding:14px 16px;font-weight:600;font-size:14px}
+  .links a:hover{background:var(--forest-deep)}
+  .links a .go{margin-left:auto;color:var(--gold)}
+  #gate{position:fixed;inset:0;background:var(--forest-deep);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
+  #gate .box{background:var(--cream);border-radius:16px;padding:36px;width:100%;max-width:380px;text-align:center}
+  #gate h1{font-family:'Fraunces',serif;color:var(--forest);font-size:30px;margin-bottom:6px}
+  #gate h1 span{color:var(--rust)}
+  #gate p{font-size:13px;opacity:.65;margin-bottom:18px}
+  #gate input{width:100%;padding:12px 14px;border:1.5px solid #cfc39f;border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;margin-bottom:12px;background:#fffdf6}
+  #gate input:focus{outline:none;border-color:var(--gold)}
+  #gate .err{color:var(--down);font-size:13px;min-height:20px;margin-bottom:8px;font-weight:600}
+  .hidden{display:none!important}
+  .loading{font-size:13px;opacity:.6;padding:12px 0}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <h1>Oriela <span>Command</span></h1>
+    <p>Private. Enter the admin password to continue.</p>
+    <div class="err" id="gate-err"></div>
+    <input type="password" id="pw" placeholder="Admin password" autocomplete="off">
+    <button class="btn gold" id="unlock" style="width:100%">Unlock</button>
+  </div>
+</div>
+
+<header>
+  <div>
+    <h1>Oriela <span>Command</span></h1>
+    <div class="sub">email lists, site status, quick links</div>
+  </div>
+  <button class="btn ghost" id="lock" style="border-color:var(--cream);color:var(--cream)">Lock</button>
+</header>
+
+<main>
+  <section class="card" id="sec-lists">
+    <div class="sec-head">
+      <h2>Email lists</h2>
+      <button class="btn small" id="reload-lists">Refresh</button>
+    </div>
+    <div class="desc">Every signup captured by the sites, grouped per site. Password is never stored, only held in memory while this tab is open.</div>
+    <div id="lists"><div class="loading">Unlock to load.</div></div>
+  </section>
+
+  <section class="card" id="sec-status">
+    <div class="sec-head">
+      <h2>Site status</h2>
+      <button class="btn small" id="reload-status">Refresh</button>
+    </div>
+    <div class="desc">Live check of every Oriela property, measured from the worker.</div>
+    <div class="status-grid" id="status"><div class="loading">Unlock to load.</div></div>
+  </section>
+
+  <section class="card" id="sec-links">
+    <h2>Links</h2>
+    <div class="desc">The dashboards that matter.</div>
+    <div class="links">
+      <a href="https://dashboard.stripe.com" target="_blank" rel="noopener">Stripe dashboard <span class="go">→</span></a>
+      <a href="https://dash.cloudflare.com" target="_blank" rel="noopener">Cloudflare dashboard <span class="go">→</span></a>
+      <a href="https://mail.google.com" target="_blank" rel="noopener">Gmail <span class="go">→</span></a>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var WORKER = "https://oriela-mail.workers.dev";
+
+  var SITES = [
+    { slug: "orielaco",       label: "Oriela Co",          url: "https://orielaco.com" },
+    { slug: "studio",         label: "Oriela Studio",      url: "https://oriela-studio.pages.dev" },
+    { slug: "proving-ground", label: "Proving Ground",     url: "https://proving-ground-6bv.pages.dev" },
+    { slug: "podcast",        label: "Podcast Repurposing",url: "https://podcast-repurposing.pages.dev" },
+    { slug: "hearth",         label: "Hearth Key",         url: "https://hearth-key.pages.dev" },
+    { slug: "half-frame",     label: "Half Frame",         url: "https://half-frame.pages.dev" },
+    { slug: "proof",          label: "Proof",              url: "https://proof-lab.pages.dev" },
+    { slug: "lantern",        label: "Lantern Club",       url: "https://unplugged-kit.pages.dev" }
+  ];
+
+  var PW = null; // memory only, never localStorage
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function qp(){ return "?password=" + encodeURIComponent(PW); }
+  function fmtDate(ts){
+    try { return new Date(ts).toLocaleDateString(undefined, {year:"numeric", month:"short", day:"numeric"}); }
+    catch(e){ return ""; }
+  }
+
+  async function api(path){
+    var res = await fetch(WORKER + path + qp());
+    if (res.status === 403) throw new Error("wrong password");
+    if (!res.ok) throw new Error("request failed");
+    return res.json();
+  }
+
+  function downloadCSV(site, rows){
+    var csv = "email,signed_up\n" + rows.map(function(r){
+      return '"' + String(r.email).replace(/"/g,'""') + '","' + new Date(r.at).toISOString() + '"';
+    }).join("\n");
+    var blob = new Blob([csv], {type:"text/csv"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "signups-" + site + ".csv";
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+
+  async function loadLists(){
+    var box = document.getElementById("lists");
+    box.innerHTML = '<div class="loading">Loading email lists...</div>';
+    try {
+      var data = await api("/api/admin/signups");
+      var stats = {};
+      try { stats = await api("/api/admin/stats"); } catch(e){ /* views optional */ }
+      var html = "";
+      SITES.forEach(function(s){
+        var rows = data[s.slug] || [];
+        var v = (stats.views && stats.views[s.slug]) || 0;
+        var vt = (stats.viewsToday && stats.viewsToday[s.slug]) || 0;
+        html += '<div class="site-block" data-site="' + s.slug + '">'
+          + '<div class="site-bar"><span class="name">' + esc(s.label) + '</span>'
+          + '<span class="count">' + rows.length + ' signups</span>'
+          + '<span class="views">' + v + ' views total, ' + vt + ' today</span>'
+          + '<button class="btn gold small csv-btn" data-site="' + s.slug + '">Export CSV</button>'
+          + '<span class="chev">▾</span></div>'
+          + '<div class="site-table hidden"><table><thead><tr><th>Email</th><th>Signed up</th></tr></thead><tbody>'
+          + (rows.length ? rows.map(function(r){
+              return "<tr><td>" + esc(r.email) + "</td><td>" + esc(fmtDate(r.at)) + "</td></tr>";
+            }).join("") : '<tr><td colspan="2" class="empty">No signups yet.</td></tr>')
+          + "</tbody></table></div></div>";
+      });
+      box.innerHTML = html;
+      box._data = data;
+      box.querySelectorAll(".site-bar").forEach(function(bar){
+        bar.addEventListener("click", function(e){
+          if (e.target.classList.contains("csv-btn")) return;
+          bar.parentElement.querySelector(".site-table").classList.toggle("hidden");
+        });
+      });
+      box.querySelectorAll(".csv-btn").forEach(function(btn){
+        btn.addEventListener("click", function(e){
+          e.stopPropagation();
+          var site = btn.getAttribute("data-site");
+          downloadCSV(site, box._data[site] || []);
+        });
+      });
+    } catch(e){
+      box.innerHTML = '<div class="empty">Could not load email lists: ' + esc(e.message) + '</div>';
+    }
+  }
+
+  async function loadStatus(){
+    var box = document.getElementById("status");
+    box.innerHTML = '<div class="loading">Checking sites...</div>';
+    try {
+      var results = await api("/api/admin/status");
+      var byUrl = {};
+      results.forEach(function(r){ byUrl[r.url] = r; });
+      box.innerHTML = SITES.map(function(s){
+        var r = byUrl[s.url];
+        var cls = r && r.ok ? "ok" : "down";
+        var txt = r ? (r.ok ? "up" : "down") + " · " + r.ms + " ms" : "no data";
+        return '<div class="stat"><div class="label">' + esc(s.label) + '</div>'
+          + '<div class="url">' + esc(s.url) + '</div>'
+          + '<div class="row"><span class="dot ' + cls + '"></span>' + esc(txt) + '</div></div>';
+      }).join("");
+    } catch(e){
+      box.innerHTML = '<div class="empty">Could not check status: ' + esc(e.message) + '</div>';
+    }
+  }
+
+  function unlock(pw){
+    PW = pw;
+    var err = document.getElementById("gate-err");
+    err.textContent = "";
+    api("/api/admin/stats").then(function(){
+      document.getElementById("gate").classList.add("hidden");
+      document.getElementById("pw").value = "";
+      loadLists(); loadStatus();
+    }).catch(function(e){
+      PW = null;
+      err.textContent = e.message === "wrong password" ? "Wrong password. Try again." : "Could not reach the worker. Is it deployed?";
+    });
+  }
+
+  document.getElementById("unlock").addEventListener("click", function(){
+    unlock(document.getElementById("pw").value);
+  });
+  document.getElementById("pw").addEventListener("keydown", function(e){
+    if (e.key === "Enter") unlock(e.target.value);
+  });
+  document.getElementById("lock").addEventListener("click", function(){
+    PW = null;
+    document.getElementById("gate").classList.remove("hidden");
+    document.getElementById("lists").innerHTML = '<div class="loading">Unlock to load.</div>';
+    document.getElementById("status").innerHTML = '<div class="loading">Unlock to load.</div>';
+    document.getElementById("pw").focus();
+  });
+  document.getElementById("reload-lists").addEventListener("click", function(){ if (PW) loadLists(); });
+  document.getElementById("reload-status").addEventListener("click", function(){ if (PW) loadStatus(); });
+  document.getElementById("pw").focus();
+})();
+</script>
+</body>
+</html>
