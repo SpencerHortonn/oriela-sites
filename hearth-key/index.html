@@ -29,7 +29,20 @@ body{font-family:var(--sans);color:var(--tx);line-height:1.75;-webkit-font-smoot
 ::selection{background:var(--amber);color:#1c1108}
 #embers{position:fixed;inset:0;z-index:30;pointer-events:none}
 .grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:31;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain-drift 9s steps(1,end) infinite}
+@keyframes grain-drift{0%{transform:translate(0,0)}20%{transform:translate(-1.5%,1%)}40%{transform:translate(1%,-1.5%)}60%{transform:translate(-1%,-.5%)}80%{transform:translate(1.5%,1.5%)}100%{transform:translate(0,0)}}
+/* dawn atmosphere: three fixed bands, opacity only, cross-faded by scroll */
+.dawn{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0}
+.dawn-a{background:linear-gradient(180deg,#0d0804 0%,#1a1007 55%,#251407 100%)}
+.dawn-b{background:radial-gradient(120% 48% at 50% 46%,rgba(255,138,42,.20) 0%,rgba(214,104,32,.12) 36%,rgba(120,58,20,.06) 56%,transparent 74%)}
+.dawn-c{background:linear-gradient(180deg,transparent 30%,rgba(247,231,201,.50) 66%,rgba(248,239,220,.88) 100%)}
+/* the embers' collective glow: breathes on its own layer, pure CSS, no canvas work */
+.ember-glow{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:1}
+.ember-glow-breathe{position:absolute;inset:0;
+  background:radial-gradient(105% 46% at 50% 102%,rgba(255,140,50,.34),rgba(200,90,30,.13) 46%,transparent 72%);
+  animation:breathe 7s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.5}50%{opacity:1}}
 main{position:relative;z-index:2}
 .col{max-width:38em;margin:0 auto;padding:0 28px}
 
@@ -68,14 +81,24 @@ h1 em,h2 em{font-style:italic;color:var(--amber)}
 .proof{margin-top:28px;font-size:14px;color:var(--dim);text-align:center}
 .proof strong{color:var(--mut);font-weight:600}
 
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 80px;text-align:center}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 80px;text-align:center;position:relative}
+.hero-vignette{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(115% 90% at 50% 42%,transparent 58%,rgba(24,12,4,.30) 100%)}
 .key-visual{width:150px;height:150px;border-radius:50%;display:block;margin:6px auto 40px;
   box-shadow:0 0 80px rgba(232,163,61,.3),0 30px 70px rgba(0,0,0,.5)}
 
 /* the one cinematic beat: the key pins, three uses cross-fade */
-.beat{background:#171009;position:relative}
+.beat{background:#130d06;position:relative}
+/* stage light: soft pool of light beneath the token, painted, not animated */
+.beat::before{content:"";position:absolute;left:50%;top:64px;width:min(640px,94vw);height:380px;
+  transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(50% 50% at 50% 42%,rgba(255,170,80,.20),rgba(232,140,50,.07) 55%,transparent 78%)}
+/* stage vignette: closes in while the token is pinned, releases after */
+.beat-vignette{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(100% 100% at 50% 45%,transparent 42%,rgba(12,6,2,.38) 72%,rgba(8,4,1,.78) 100%)}
 .beat-inner{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 0;gap:56px}
-.beat .key-visual{margin:0;width:128px;height:128px}
+.beat .key-visual{margin:0;width:128px;height:128px;
+  box-shadow:0 0 110px rgba(232,163,61,.42),0 46px 100px rgba(0,0,0,.70),0 12px 30px rgba(0,0,0,.50)}
 .beat-count{font-size:12px;letter-spacing:.3em;color:rgba(246,238,218,.4);text-transform:uppercase}
 .beat-slides{display:grid;width:100%;max-width:34em;margin:0 auto}
 .slide{grid-area:1/1;opacity:0;text-align:center;padding:0 28px}
@@ -130,12 +153,19 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
 @media (prefers-reduced-motion:reduce){
   #loader{display:none}
   .rv.in{transition:none}
+  .grain{animation:none}
+  .ember-glow{display:none}
+  .dawn{display:none}
 }
 </style>
 </head>
 <body>
 <canvas id="embers" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
+<div class="dawn dawn-a" aria-hidden="true"></div>
+<div class="dawn dawn-b" aria-hidden="true"></div>
+<div class="dawn dawn-c" aria-hidden="true"></div>
+<div class="ember-glow" aria-hidden="true"><div class="ember-glow-breathe"></div></div>
 
 <div id="loader" aria-hidden="true"><div class="lm">Hearth</div><div class="ld"></div></div>
 
@@ -146,6 +176,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
 
 <main>
 <header class="hero" id="top">
+  <div class="hero-vignette" aria-hidden="true"></div>
   <div class="col">
     <p class="kicker rv">Hearth · A Lantern Club object</p>
     <svg class="key-visual rv" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
@@ -194,6 +225,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
 </section>
 
 <section class="beat" id="uses">
+  <div class="beat-vignette" aria-hidden="true"></div>
   <div class="beat-inner">
     <svg class="key-visual" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
       <circle cx="74" cy="74" r="72" fill="url(#woodG)"/>
@@ -467,12 +499,30 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
         }
       }
     });
+    /* the vignette closes in while the key is pinned, then releases */
+    tl.fromTo(".beat-vignette", { opacity: 0, scale: 1.14 }, { opacity: 1, scale: 1, duration: 1.0, ease: "none" }, 0)
+      .to(".beat-vignette", { opacity: 0, duration: 0.45, ease: "none" }, 1.55);
     tl.to(".s1", { opacity: 0, duration: 0.4 }, 0.6)
       .fromTo(".s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.6)
       .to(".s2", { opacity: 0, duration: 0.4 }, 1.6)
       .fromTo(".s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.6);
   } else {
     document.documentElement.classList.add("no-pin");
+  }
+
+  /* Dawn atmosphere: three bands cross-fade as the page scrolls, like time
+     passing. Opacity only, one scrubbed timeline. Layers default to opacity 0
+     in CSS so no-JS visitors keep the base gradient unchanged. */
+  if (hasST && !reduceMotion){
+    gsap.set(".dawn-a", { opacity: 1 });
+    var dawnTl = gsap.timeline({
+      scrollTrigger: { trigger: "main", start: "top top", end: "bottom bottom", scrub: 1 }
+    });
+    dawnTl.to(".dawn-a", { opacity: 0, duration: 0.30, ease: "none" }, 0.10)
+      .fromTo(".dawn-b", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "none" }, 0.12)
+      .to(".dawn-b", { opacity: 0, duration: 0.28, ease: "none" }, 0.55)
+      .fromTo(".dawn-c", { opacity: 0 }, { opacity: 1, duration: 0.30, ease: "none" }, 0.58)
+      .to(".ember-glow", { opacity: 0, duration: 0.18, ease: "none" }, 0.62);
   }
 
   window.addEventListener("load", function(){ if (hasST) ScrollTrigger.refresh(); });

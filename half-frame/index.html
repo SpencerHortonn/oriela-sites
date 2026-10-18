@@ -38,6 +38,11 @@ animation:grain .7s steps(6) infinite}
 .leak.l1{left:-12%;background:linear-gradient(100deg,rgba(255,150,50,0) 18%,rgba(255,150,50,.6) 48%,rgba(255,60,30,.28) 70%,rgba(255,60,30,0) 96%)}
 .leak.l2{right:-14%;background:linear-gradient(260deg,rgba(255,190,90,0) 15%,rgba(255,170,70,.5) 50%,rgba(200,60,20,.22) 74%,rgba(200,60,20,0) 96%)}
 
+/* safelight: faint red-darkroom glow breathing at the bottom corners */
+.safelight{position:fixed;left:0;right:0;bottom:0;height:36vh;pointer-events:none;z-index:2;mix-blend-mode:screen;
+background:radial-gradient(58% 100% at 10% 100%,rgba(192,57,43,.13),rgba(192,57,43,0) 62%),
+radial-gradient(58% 100% at 90% 100%,rgba(192,57,43,.13),rgba(192,57,43,0) 62%)}
+
 /* preloader: film leader countdown */
 #loader{position:fixed;inset:0;z-index:100;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px}
 .leader{position:relative;width:190px;height:190px;border:1px solid rgba(242,234,216,.28);border-radius:50%;display:flex;align-items:center;justify-content:center}
@@ -51,12 +56,14 @@ animation:grain .7s steps(6) infinite}
 #iris svg{width:min(300px,60vw);height:auto;filter:drop-shadow(0 18px 40px rgba(0,0,0,.6))}
 #iris .blade rect{fill:url(#bladeGrad);stroke:rgba(232,163,61,.6);stroke-width:1.5}
 
-/* sprocket rails: fixed film edges */
+/* sprocket rails: punched film with groove depth */
 .rail{position:fixed;top:0;bottom:0;width:var(--rail);z-index:65;pointer-events:none;background-color:#171715;
-background-image:radial-gradient(circle at 50% 26px,#050505 8px,transparent 8.5px);
+background-image:
+ radial-gradient(circle at 50% 26px, rgba(0,0,0,0) 6.2px, rgba(255,255,255,.10) 6.8px, rgba(255,255,255,.02) 9.4px, rgba(0,0,0,0) 10.4px),
+ radial-gradient(circle at 50% 26px, #030303 6.8px, rgba(0,0,0,0) 7.6px);
 background-size:var(--rail) 52px;background-repeat:repeat-y}
-.rail-l{left:0;box-shadow:inset -1px 0 0 #2b2b26,inset 1px 0 0 #000}
-.rail-r{right:0;box-shadow:inset 1px 0 0 #2b2b26,inset -1px 0 0 #000}
+.rail-l{left:0;box-shadow:inset -1px 0 0 #2b2b26,inset 1px 0 0 #000,inset 0 0 26px rgba(0,0,0,.88),inset -7px 0 10px -6px rgba(255,255,255,.07)}
+.rail-r{right:0;box-shadow:inset 1px 0 0 #2b2b26,inset -1px 0 0 #000,inset 0 0 26px rgba(0,0,0,.88),inset 7px 0 10px -6px rgba(255,255,255,.07)}
 
 /* HUD: fixed top bar, doubles as camera readout */
 #hud{position:fixed;top:0;left:0;right:0;z-index:70;height:62px;display:flex;align-items:center;justify-content:space-between;
@@ -64,7 +71,7 @@ padding:0 calc(var(--rail) + 14px);background:#0b0b0a;border-bottom:1px solid #2
 .hud-brand{font-family:Fraunces,Georgia,serif;font-size:20px;letter-spacing:.02em;text-decoration:none}
 .hud-brand em{font-style:italic;color:var(--gold)}
 .hud-meta{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--gold);font-variant-numeric:tabular-nums}
-.hud-dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:blink 1.6s steps(2) infinite}
+.hud-dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:blink 1.6s steps(2) infinite;box-shadow:0 0 10px rgba(192,57,43,.85)}
 @keyframes blink{50%{opacity:.15}}
 .hud-sep{color:#4a463c}
 #hudExp{color:var(--dim)}
@@ -74,7 +81,8 @@ padding:0 calc(var(--rail) + 14px);background:#0b0b0a;border-bottom:1px solid #2
 
 /* the strip */
 .strip{max-width:1180px;margin:0 auto;padding:62px calc(var(--rail) + 10px) 0}
-.frame{background:var(--strip);border-top:2px solid #23231e;scroll-snap-align:start;scroll-margin-top:62px;position:relative}
+.frame{background:var(--strip);border-top:2px solid #23231e;scroll-snap-align:start;scroll-margin-top:62px;position:relative;
+box-shadow:0 -38px 56px -34px rgba(0,0,0,.95),0 38px 56px -34px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.035)}
 .frame:first-child{border-top:none}
 .edge{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 22px;border-bottom:1px solid var(--edge);
 font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:#8f8672;white-space:nowrap;overflow:hidden}
@@ -95,6 +103,15 @@ h2 em{font-style:italic;color:var(--gold);font-weight:300}
 
 /* hero frame */
 #camera .frame-body{text-align:center;padding-top:clamp(70px,10vw,130px)}
+/* enlarger cone: soft beam of light over the hero frame */
+.cone{position:absolute;top:-64px;left:50%;transform:translateX(-50%);width:min(760px,90vw);height:520px;pointer-events:none;z-index:0;
+background:linear-gradient(to bottom,rgba(242,234,216,.11),rgba(242,234,216,.035) 52%,rgba(242,234,216,0) 76%);
+clip-path:polygon(41% 0,59% 0,100% 100%,0 100%);mix-blend-mode:screen;filter:blur(7px)}
+#camera .frame-body>*:not(.cone){position:relative;z-index:1}
+/* curled corner: the hero print lifts at the top-right corner */
+#camera .frame-body::after{content:"";position:absolute;top:0;right:0;width:110px;height:110px;pointer-events:none;
+background:linear-gradient(to bottom left,rgba(0,0,0,0) 49%,#453f31 50%,#28261d 100%);
+filter:drop-shadow(-9px 9px 12px rgba(0,0,0,.55))}
 .rec-row{display:flex;justify-content:space-between;align-items:center;max-width:1060px;margin:0 auto 34px;
 font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--dim)}
 .rec{display:flex;align-items:center;gap:8px}
@@ -136,6 +153,11 @@ font-family:var(--mono);font-size:11px;letter-spacing:.26em;color:var(--dim)}
 .dev-track{display:flex;will-change:transform}
 .dev-panel{flex:0 0 100%;display:grid;grid-template-columns:1.15fr 1fr;min-height:380px}
 .dev-shot{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-right:1px solid var(--edge)}
+/* print gloss: slow diagonal highlight sweep across each stock */
+.dev-shot::after{content:"";position:absolute;inset:-25%;pointer-events:none;z-index:2;
+background:linear-gradient(115deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.11) 48%,rgba(255,255,255,.03) 54%,rgba(255,255,255,0) 61%);
+transform:translateX(-62%);animation:gloss 9s ease-in-out infinite}
+@keyframes gloss{0%,100%{transform:translateX(-62%)}50%{transform:translateX(62%)}}
 .dev-shot .big{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(72px,9vw,120px);color:rgba(242,234,216,.92);text-shadow:0 4px 30px rgba(0,0,0,.6)}
 .dev-shot .stamp{position:absolute;right:18px;bottom:14px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:rgba(232,163,61,.9)}
 .dp-warm{background:radial-gradient(circle at 70% 30%,rgba(232,163,61,.35),transparent 60%),linear-gradient(160deg,#241a10,#0d0a06)}
@@ -156,11 +178,15 @@ font-family:var(--mono);font-size:11px;letter-spacing:.26em;color:var(--dim)}
 
 /* darkroom frames */
 .cfilm-inner{display:flex;gap:26px;justify-content:center;flex-wrap:wrap}
-.cframe{width:210px;background:#0c0c0c;border:2px solid #262626;padding:10px 10px 40px;position:relative;box-shadow:0 24px 50px -18px rgba(0,0,0,.9)}
+.cframe{width:210px;background:#0c0c0c;border:2px solid #262626;padding:10px 10px 40px;position:relative;box-shadow:0 24px 50px -18px rgba(0,0,0,.9),0 44px 70px -40px rgba(0,0,0,.9)}
 .cframe:nth-child(1){transform:rotate(1.2deg)}
 .cframe:nth-child(2){transform:rotate(-1.6deg);margin-top:12px}
 .cframe:nth-child(3){transform:rotate(.8deg);margin-top:-6px}
 .cframe:nth-child(4){transform:rotate(-1deg);margin-top:8px}
+/* one print with a dog-eared corner */
+.cframe:nth-child(2)::after{content:"";position:absolute;bottom:0;right:0;width:46px;height:46px;pointer-events:none;
+background:linear-gradient(to top left,rgba(0,0,0,0) 49%,#3a382e 50%,#232218 100%);
+filter:drop-shadow(-5px -5px 6px rgba(0,0,0,.5))}
 .cframe .shot{height:120px;position:relative;overflow:hidden;box-shadow:inset 0 0 24px rgba(0,0,0,.5)}
 .cframe .note{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:var(--caveat);font-weight:500;font-size:20px;line-height:1.1;color:#e9d6a4;transform:rotate(-1deg);padding:0 8px}
 
@@ -194,11 +220,13 @@ footer p{margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.
 footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font-size:11px;letter-spacing:.26em;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(232,163,61,.4);padding-bottom:4px}
 
 @media (max-width:900px){.spec-grid{grid-template-columns:repeat(2,1fr)}.dev-panel{grid-template-columns:1fr;min-height:0}.dev-shot{min-height:260px;border-right:none;border-bottom:1px solid var(--edge)}}
-@media (max-width:760px){.hud-nav{display:none}:root{--rail:30px}.rail{background-size:var(--rail) 44px;background-image:radial-gradient(circle at 50% 22px,#050505 6px,transparent 6.5px)}}
+@media (max-width:760px){.hud-nav{display:none}:root{--rail:30px}.rail{background-size:var(--rail) 44px;background-image:
+ radial-gradient(circle at 50% 22px, rgba(0,0,0,0) 5.2px, rgba(255,255,255,.10) 5.8px, rgba(255,255,255,.02) 8px, rgba(0,0,0,0) 9px),
+ radial-gradient(circle at 50% 22px, #030303 5.8px, rgba(0,0,0,0) 6.6px)}}
 @media (max-width:560px){.spec-grid{grid-template-columns:1fr 1fr;gap:10px}.cell h3{font-size:16px}.edge{font-size:9px;letter-spacing:.14em;padding:10px 14px}.edge .stock-c{display:none}}
 @media (prefers-reduced-motion:reduce){
-  .grain,.hud-dot,.rec i{animation:none}
-  .leaks,#iris{display:none}
+  .grain,.hud-dot,.rec i,.dev-shot::after{animation:none}
+  .leaks,#iris,.cone{display:none}
   html{scroll-snap-type:none}
 }
 </style>
@@ -231,6 +259,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
 </div>
 <div class="grain" aria-hidden="true"></div>
 <div class="leaks" aria-hidden="true"><div class="leak l1"></div><div class="leak l2"></div></div>
+<div class="safelight" aria-hidden="true"></div>
 <div class="rail rail-l" aria-hidden="true"></div>
 <div class="rail rail-r" aria-hidden="true"></div>
 
@@ -261,6 +290,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
         <span>FEB 2027</span>
       </div>
       <div class="frame-body">
+        <div class="cone" aria-hidden="true"></div>
         <div class="rec-row">
           <span class="rec"><i></i>REC</span>
           <span>1/125 · f/2.8 · ISO 400</span>

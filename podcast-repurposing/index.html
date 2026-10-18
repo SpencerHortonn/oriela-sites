@@ -7,6 +7,7 @@
 <meta name="description" content="We turn every podcast episode into show notes, social posts, a newsletter draft, and quote graphics. Done for you, every week.">
 <style>
 :root{
+  --inknoise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -0.6 0.9'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23i)'/%3E%3C/svg%3E");
   --paper:#ece1c8; --paper2:#e3d4b4; --ink:#211a0c; --ink-dim:rgba(33,26,12,.66);
   --ink-faint:rgba(33,26,12,.42); --line:rgba(33,26,12,.24); --rule:rgba(96,124,168,.30);
   --red:#9c3a24; --red-dim:rgba(156,58,36,.14); --ease:cubic-bezier(.16,1,.3,1);
@@ -169,6 +170,30 @@ footer.site{border-top:2px solid var(--ink);padding:2.2rem 1.5rem;text-align:cen
   font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
 footer.site .fmark{font-family:var(--serif);font-size:1.15rem;letter-spacing:0;text-transform:none;color:var(--ink);margin-bottom:.5rem}
 footer.site .fmark b{color:var(--red);font-style:italic}
+/* ---- round 5 depth pass: paper, ink, binder ---- */
+/* manila folder grain, full page, sits under the loader */
+body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.13 0 0 0 0 0.10 0 0 0 0 0.05 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* folder tab shading on each entry header strip */
+.meta{position:relative}
+.meta::before{content:"";position:absolute;left:0;top:-16px;width:110px;height:17px;
+  background:linear-gradient(to bottom,#e7d6af 0%,#d9c294 58%,#c8aa72 100%);
+  border:1px solid var(--line);border-bottom:none;border-radius:8px 14px 0 0;
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.55),inset 0 -4px 5px rgba(33,26,12,.25)}
+/* evidence cards: stacked paper beneath, slight pile tilt per card */
+.exhibit{z-index:calc(2 + var(--i,0));transform:rotate(calc(var(--i,0) * -0.55deg)) translateX(calc(var(--i,0) * 7px));
+  box-shadow:8px 8px 0 rgba(33,26,12,.16),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(33,26,12,.07)}
+.exhibit::before,.exhibit::after{content:"";position:absolute;inset:0;border:2px solid var(--ink);z-index:-1}
+.exhibit::before{background:var(--paper2);transform:translate(11px,11px) rotate(.8deg)}
+.exhibit::after{background:var(--paper);transform:translate(5px,5px) rotate(-.45deg)}
+/* ink stamps: multiply into the paper with uneven ink */
+.stamp-tag,.spine .status,#loader .stamp{mix-blend-mode:multiply;
+  -webkit-mask-image:var(--inknoise);-webkit-mask-size:170px;mask-image:var(--inknoise);mask-size:170px}
+.hotflag{-webkit-mask-image:var(--inknoise);-webkit-mask-size:170px;mask-image:var(--inknoise);mask-size:170px}
+/* spine: binder gutter edge, active item raised */
+.spine{box-shadow:inset -12px 0 16px -12px rgba(33,26,12,.5),inset 4px 0 8px -4px rgba(255,255,255,.45)}
+.spine a.active{box-shadow:0 3px 9px rgba(156,58,36,.45),inset 0 1px 0 rgba(255,255,255,.55);
+  text-shadow:0 1px 0 rgba(255,255,255,.45)}
 /* declarative animation registry states */
 [data-anim="wipe"]{clip-path:inset(0 0 100% 0);transition:clip-path 1s var(--ease)}
 [data-anim="wipe"].on{clip-path:inset(0 0 -5% 0)}
