@@ -130,6 +130,11 @@ h1 em,h2 em{font-style:italic;color:var(--amber)}
 .step .n{font-family:var(--serif);font-weight:300;font-size:30px;color:#a05a24;margin-bottom:8px}
 .step h3{font-family:var(--serif);font-weight:400;font-size:21px;margin-bottom:8px}
 .step p{font-size:16px;color:var(--mut)}
+.setup-steps{list-style:none;margin:20px 0 6px;counter-reset:st}
+.setup-steps li{counter-increment:st;position:relative;padding:12px 0 12px 52px;font-size:15.5px;color:var(--mut);border-top:1px solid var(--line)}
+.setup-steps li::before{content:counter(st,decimal-leading-zero);position:absolute;left:0;top:14px;font-family:var(--serif);font-size:15px;color:#a05a24}
+.setup-steps li strong{color:var(--tx);font-weight:600}
+.setup-note{font-size:14px;color:var(--dim);font-style:italic;margin-top:14px}
 
 .honest-note{margin-top:16vh;text-align:center}
 .honest-note h3{font-family:var(--serif);font-weight:300;font-style:italic;font-size:26px;color:#a05a24;margin-bottom:14px}
@@ -306,7 +311,14 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
   <div class="col">
     <h2 class="rv">The <em>ritual</em></h2>
     <p class="body-copy rv">No apps to install. No accounts. Your phone already knows how to do this, the key just gives you a reason to.</p>
-    <div class="step rv"><div class="n">01</div><h3>Set it up once</h3><p>Scan your key with the Shortcuts app and link it to a Focus mode. Takes 30 seconds. We send a video that walks you through it.</p></div>
+    <div class="step rv"><div class="n">01</div><h3>Set it up once</h3><p>Thirty seconds in the Shortcuts app, then the key just works. We send a video that walks you through it, but here is the whole thing:</p>
+      <ol class="setup-steps">
+        <li>Open <strong>Shortcuts</strong>, tap <strong>Automation</strong>, then <strong>New Automation</strong>.</li>
+        <li>Choose <strong>NFC</strong>, tap <strong>Scan</strong>, and hold the key near the top of your iPhone. Name it "Hearth".</li>
+        <li>Set it to <strong>Run Immediately</strong> so there is no pop-up asking permission.</li>
+        <li>Add the <strong>Set Focus</strong> action, pick your rest Focus, and set it to <strong>Toggle</strong>. One tap turns it on, the next tap turns it off.</li>
+      </ol>
+      <p class="setup-note">Works with iPhone Xs and later. No app to install, no account, nothing to charge.</p></div>
     <div class="step rv"><div class="n">02</div><h3>Tap to rest</h3><p>Dinner, deep work, bedtime, a Lantern night. Tap the key and your problem apps disappear behind Focus. The phone is still there for calls and maps.</p></div>
     <div class="step rv"><div class="n">03</div><h3>Tap to return</h3><p>Tap again and everything comes back. You're in control the whole time. The key is a ritual, not a lock.</p></div>
     <div class="honest-note rv">

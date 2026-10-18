@@ -163,6 +163,22 @@ body.menu-open .mi:nth-child(1){transition-delay:.18s}body.menu-open .mi:nth-chi
 /* about + contact close */
 .about-sec{border-top:1px solid var(--line);background:var(--bg2)}
 .about-sec .sec-head{padding-bottom:14vh}
+.proc-sec{border-top:1px solid var(--line);padding-bottom:14vh}
+.proc-grid{max-width:1360px;margin:0 auto;padding:0 6vw;display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+.proc-n{font-family:'Fraunces',serif;font-style:italic;color:var(--amber);font-size:15px;display:block;margin-bottom:14px}
+.proc h3{font-size:21px;margin-bottom:10px;font-weight:600}
+.proc p{font-size:15.5px;color:var(--mut);line-height:1.7}
+.faq-sec{border-top:1px solid var(--line);padding-bottom:14vh}
+.faq-list{max-width:860px;margin:0 auto;padding:0 6vw}
+.qa{border-top:1px solid var(--line);padding:22px 0}
+.qa:last-child{border-bottom:1px solid var(--line)}
+.qa summary{font-size:18px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:'Fraunces',serif;font-style:italic;color:var(--amber);font-size:22px}
+.qa[open] summary::after{content:"\2013"}
+.qa p{margin-top:12px;font-size:15.5px;color:var(--mut);line-height:1.7;max-width:60ch}
+@media(max-width:900px){.proc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.proc-grid{grid-template-columns:1fr}}
 .about-sec p.big{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,3.4vw,40px);line-height:1.3;max-width:24ch;margin-top:28px}
 .about-sec p.big em{color:var(--amber);font-style:italic}
 .about-sec p.small{color:var(--dim);max-width:58ch;margin-top:24px;font-size:16px}
@@ -317,6 +333,26 @@ footer a{color:var(--amber);text-decoration:none}
 
 <section class="about-sec" id="about">
 <div class="sec-head"><div class="kicker">About</div><h2 class="h2 rv">One studio,<br><em>no handoffs.</em></h2><p class="big rv">Oriela Studio is the <em>service arm</em> of Oriela Co.</p><p class="small rv">Video production, websites that book, content retainers, and business automations from one team, so nothing gets lost between vendors. You talk to the person making the thing, and the thing ships.</p></div>
+</section>
+
+<section class="proc-sec" id="process">
+<div class="sec-head"><div class="kicker">Process</div><h2 class="h2 rv">Four steps,<br><em>no mystery.</em></h2></div>
+<div class="proc-grid">
+<div class="proc rv"><span class="proc-n">01</span><h3>The call</h3><p>Fifteen minutes. You describe what you need, I tell you honestly if I am the right person to build it. If not, I point you somewhere better.</p></div>
+<div class="proc rv"><span class="proc-n">02</span><h3>The plan</h3><p>Scope, timeline, and a fixed price in writing before anything starts. No hourly meters, no surprise invoices.</p></div>
+<div class="proc rv"><span class="proc-n">03</span><h3>The build</h3><p>You see progress as it happens, not a big reveal at the end. Feedback goes in while it is cheap to change things.</p></div>
+<div class="proc rv"><span class="proc-n">04</span><h3>The handoff</h3><p>It ships, you own everything, and you know how to run it. Support after launch, not a disappearing act.</p></div>
+</div>
+</section>
+
+<section class="faq-sec" id="faq">
+<div class="sec-head"><div class="kicker">Questions</div><h2 class="h2 rv">Asked <em>often.</em></h2></div>
+<div class="faq-list">
+<details class="qa rv"><summary>How much does it cost?</summary><p>Every project is scoped and fixed-price before work starts. As a reference point, podcast repurposing retainers run $297 to $447 a month depending on episode volume.</p></details>
+<details class="qa rv"><summary>How fast can we start?</summary><p>Usually within two weeks of the first call. One project at a time gets my full attention, so the calendar is honest about what is free.</p></details>
+<details class="qa rv"><summary>Who actually does the work?</summary><p>Me. You talk to the person filming, editing, and building. Nothing gets handed off to a junior or a subcontractor you have never met.</p></details>
+<details class="qa rv"><summary>What if I only need one video, not a retainer?</summary><p>One-off projects are fine. The retainers exist for people who want content handled every month without thinking about it.</p></details>
+</div>
 </section>
 
 <section class="contact-sec" id="contact">
