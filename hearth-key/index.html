@@ -353,6 +353,27 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
     resize();
     window.addEventListener("resize", resize);
 
+    /* Perf: pre-render ember sprites once. Creating a radial gradient per
+       particle per frame was the lag source; drawImage of a cached sprite
+       is an order of magnitude cheaper. */
+    var SPRITES = [];
+    for (var sp = 0; sp < 6; sp++){
+      var sc = document.createElement("canvas"); sc.width = sc.height = 64;
+      var sx = sc.getContext("2d");
+      var shue = 16 + sp * 5;
+      var sg = sx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      sg.addColorStop(0, "hsla(" + (shue + 8) + ",100%,72%,1)");
+      sg.addColorStop(0.4, "hsla(" + shue + ",95%,55%,0.55)");
+      sg.addColorStop(1, "hsla(18,90%,42%,0)");
+      sx.fillStyle = sg; sx.fillRect(0, 0, 64, 64);
+      SPRITES.push(sc);
+    }
+
+    var inView = true;
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function(en){ inView = en[0].isIntersecting; }, { threshold: 0 }).observe(canvas);
+    }
+
     var heat = 0, lastY = window.scrollY, lastT = performance.now();
     window.addEventListener("scroll", function(){
       var now = performance.now(), y = window.scrollY, dt = Math.max(16, now - lastT);
@@ -373,6 +394,7 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
       p.freq = 0.5 + Math.random() * 1.1;
       p.sway = (0.2 + Math.random() * 0.9) * dpr;
       p.hue = 16 + Math.random() * 24;
+      p.spr = (Math.random() * SPRITES.length) | 0;
       p.life = 0;
       p.maxLife = 380 + Math.random() * 460;
       p.flick = Math.random() * 6.2832;
@@ -382,10 +404,9 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
     var running = true;
     document.addEventListener("visibilitychange", function(){
       running = !document.hidden;
-      if (running) requestAnimationFrame(tick);
     });
     function tick(){
-      if (!running) return;
+      if (running && inView) {
       t += 0.016;
       heat *= 0.95;
       var active = 24 + Math.round(heat * 18);
@@ -406,18 +427,15 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
         if (alpha > 1) alpha = 1;
         if (alpha > 0.004){
           var rr = p.r * (0.8 + 0.3 * Math.sin(p.flick * 1.7)) * 4;
-          var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr);
-          g.addColorStop(0, "hsla(" + Math.round(p.hue + 8) + ",100%,72%," + alpha.toFixed(3) + ")");
-          g.addColorStop(0.4, "hsla(" + Math.round(p.hue) + ",95%,55%," + (alpha * 0.55).toFixed(3) + ")");
-          g.addColorStop(1, "hsla(18,90%,42%,0)");
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, rr, 0, 6.2832);
-          ctx.fill();
+          var sz = rr * 2;
+          ctx.globalAlpha = alpha > 1 ? 1 : alpha;
+          ctx.drawImage(SPRITES[p.spr], p.x - sz / 2, p.y - sz / 2, sz, sz);
+          ctx.globalAlpha = 1;
         }
         if (p.life >= p.maxLife || p.y < -30 * dpr) spawn(p, false);
       }
       ctx.globalCompositeOperation = "source-over";
+      }
       requestAnimationFrame(tick);
     }
     tick();

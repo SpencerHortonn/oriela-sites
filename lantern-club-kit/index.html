@@ -242,12 +242,12 @@ footer a:hover{color:var(--amber)}
         <stop offset="0%" stop-color="#fffdf0"/><stop offset="45%" stop-color="#ffd76e"/><stop offset="100%" stop-color="#ff9f1f" stop-opacity="0"/>
       </radialGradient>
     </defs></svg>
-    <div class="lantern" style="left:4%">
-      <div class="l-glow" style="top:166px"></div>
-      <div class="l-cone" style="top:197px"></div>
+    <div class="lantern" style="left:4%" data-rope="186" data-scale="0.6333">
+      <div class="l-glow" data-base-top="168"></div>
+      <div class="l-cone" data-base-top="198"></div>
       <svg width="76" viewBox="0 0 120 340">
-        <line x1="60" y1="0" x2="60" y2="186" stroke="#1f150c" stroke-width="5"/>
-        <line x1="62" y1="0" x2="62" y2="186" stroke="#6b543c" stroke-width="1.5" opacity="0.7"/>
+        <polyline class="rope-poly" points="60,0 60,186" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <g class="lamp">
         <circle cx="60" cy="196" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,208 L78,208 L71,228 L49,228 Z" fill="url(#lgMetal)"/>
         <line x1="46" y1="212" x2="74" y2="212" stroke="#8a6f4d" stroke-width="1.5" opacity="0.8"/>
@@ -257,14 +257,15 @@ footer a:hover{color:var(--amber)}
         <line x1="68" y1="230" x2="68" y2="298" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
         <path class="flame" d="M60,246 C69,258 71,268 60,280 C49,268 51,258 60,246 Z" fill="url(#lgFlame)"/>
         <rect x="40" y="300" width="40" height="12" rx="5" fill="url(#lgMetal)"/>
+        </g>
       </svg>
     </div>
-    <div class="lantern" style="left:84%">
-      <div class="l-glow" style="top:255px"></div>
-      <div class="l-cone" style="top:293px"></div>
+    <div class="lantern" style="left:84%" data-rope="256" data-scale="0.7667">
+      <div class="l-glow" data-base-top="257"></div>
+      <div class="l-cone" data-base-top="293"></div>
       <svg width="92" viewBox="0 0 120 410">
-        <line x1="60" y1="0" x2="60" y2="256" stroke="#1f150c" stroke-width="5"/>
-        <line x1="62" y1="0" x2="62" y2="256" stroke="#6b543c" stroke-width="1.5" opacity="0.7"/>
+        <polyline class="rope-poly" points="60,0 60,256" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <g class="lamp">
         <circle cx="60" cy="266" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,278 L78,278 L71,298 L49,298 Z" fill="url(#lgMetal)"/>
         <line x1="46" y1="282" x2="74" y2="282" stroke="#8a6f4d" stroke-width="1.5" opacity="0.8"/>
@@ -274,14 +275,15 @@ footer a:hover{color:var(--amber)}
         <line x1="68" y1="300" x2="68" y2="368" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
         <path class="flame" d="M60,316 C69,328 71,338 60,350 C49,338 51,328 60,316 Z" fill="url(#lgFlame)"/>
         <rect x="40" y="370" width="40" height="12" rx="5" fill="url(#lgMetal)"/>
+        </g>
       </svg>
     </div>
-    <div class="lantern" style="left:72%">
-      <div class="l-glow" style="top:159px"></div>
-      <div class="l-cone" style="top:185px"></div>
+    <div class="lantern" style="left:72%" data-rope="221" data-scale="0.5333">
+      <div class="l-glow" data-base-top="160"></div>
+      <div class="l-cone" data-base-top="185"></div>
       <svg width="64" viewBox="0 0 120 375">
-        <line x1="60" y1="0" x2="60" y2="221" stroke="#1f150c" stroke-width="5"/>
-        <line x1="62" y1="0" x2="62" y2="221" stroke="#6b543c" stroke-width="1.5" opacity="0.7"/>
+        <polyline class="rope-poly" points="60,0 60,221" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <g class="lamp">
         <circle cx="60" cy="231" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,243 L78,243 L71,263 L49,263 Z" fill="url(#lgMetal)"/>
         <line x1="46" y1="247" x2="74" y2="247" stroke="#8a6f4d" stroke-width="1.5" opacity="0.8"/>
@@ -291,6 +293,7 @@ footer a:hover{color:var(--amber)}
         <line x1="68" y1="265" x2="68" y2="333" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
         <path class="flame" d="M60,281 C69,293 71,303 60,315 C49,303 51,293 60,281 Z" fill="url(#lgFlame)"/>
         <rect x="40" y="335" width="40" height="12" rx="5" fill="url(#lgMetal)"/>
+        </g>
       </svg>
     </div>
   </div>
@@ -586,18 +589,26 @@ setTimeout(function(){
     })();
   }
 
-  /* swinging lanterns: real pendulum physics, scroll gives them a push */
+  /* swinging lanterns: verlet rope simulation, the rope flexes and the lamp lags */
   (function(){
     var els = Array.prototype.slice.call(document.querySelectorAll(".lantern"));
     if (!els.length || reduceMotion) return;
-    var L = els.map(function(el, i){
-      return { el: el, a: (i - 1) * 0.05, v: 0, len: 200 + i * 45, ph: Math.random() * 6.28 };
+    var sims = els.map(function(el){
+      var ropeLen = parseFloat(el.getAttribute("data-rope") || "186");
+      var scale = parseFloat(el.getAttribute("data-scale") || "0.6");
+      var N = 10, seg = ropeLen / N, pts = [];
+      for (var i = 0; i <= N; i++) pts.push({ x: 60, y: seg * i, px: 60, py: seg * i });
+      return {
+        el: el, ropeLen: ropeLen, scale: scale, N: N, seg: seg, pts: pts,
+        poly: el.querySelector(".rope-poly"), lamp: el.querySelector(".lamp"),
+        glow: el.querySelector(".l-glow"), cone: el.querySelector(".l-cone"),
+        glowTop: parseFloat(el.querySelector(".l-glow").getAttribute("data-base-top")),
+        coneTop: parseFloat(el.querySelector(".l-cone").getAttribute("data-base-top")),
+        ph: Math.random() * 6.28
+      };
     });
-    function push(sv){
-      for (var i = 0; i < L.length; i++) {
-        L[i].v += sv * 0.00045 * (300 / L[i].len);
-      }
-    }
+    var wind = 0;
+    function push(sv){ wind += sv * 0.05; }
     if (lenis) { lenis.on("scroll", function(e){ push(e.velocity || 0); }); }
     else {
       var lastY = window.scrollY, lastT = performance.now();
@@ -607,19 +618,45 @@ setTimeout(function(){
       }, { passive: true });
     }
     var last = performance.now();
-    (function swing(now){
-      var dt = Math.min(0.05, (now - last) / 1000); last = now;
-      var t = now / 1000;
-      for (var i = 0; i < L.length; i++) {
-        var o = L[i];
-        var breeze = Math.sin(t * 0.8 + o.ph) * 0.35 * dt;
-        var acc = -(9.8 / (o.len / 55)) * Math.sin(o.a) - 0.6 * o.v;
-        o.v += acc * dt + breeze * 0.03;
-        o.a += o.v * dt;
-        if (o.a > 0.5) o.a = 0.5; if (o.a < -0.5) o.a = -0.5;
-        o.el.style.transform = "rotate(" + o.a + "rad)";
+    (function ropeFrame(now){
+      var dt = Math.min(0.033, (now - last) / 1000); last = now;
+      var t = now / 1000, dt2 = dt * dt;
+      wind *= 0.93;
+      for (var s = 0; s < sims.length; s++) {
+        var S = sims[s], pts = S.pts;
+        var breeze = Math.sin(t * 0.9 + S.ph) * 26 + wind * 9;
+        for (var i = 1; i <= S.N; i++) {
+          var p = pts[i];
+          var vx = (p.x - p.px) * 0.985, vy = (p.y - p.py) * 0.985;
+          p.px = p.x; p.py = p.y;
+          p.x += vx + breeze * (i / S.N) * 60 * dt2;
+          p.y += vy + 1400 * dt2;
+        }
+        for (var k = 0; k < 5; k++) {
+          pts[0].x = 60; pts[0].y = 0;
+          for (var j = 0; j < S.N; j++) {
+            var a = pts[j], b = pts[j + 1];
+            var dx = b.x - a.x, dy = b.y - a.y;
+            var d = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+            var diff = (d - S.seg) / d;
+            if (j === 0) { b.x -= dx * diff; b.y -= dy * diff; }
+            else { var f = 0.5 * diff; a.x += dx * f; a.y += dy * f; b.x -= dx * f; b.y -= dy * f; }
+          }
+        }
+        var str = "";
+        for (var m = 0; m <= S.N; m++) str += pts[m].x.toFixed(1) + "," + pts[m].y.toFixed(1) + " ";
+        S.poly.setAttribute("points", str);
+        var e = pts[S.N], pe = pts[S.N - 1];
+        var ang = Math.atan2(e.x - pe.x, e.y - pe.y) * 180 / Math.PI;
+        var ldx = e.x - 60, ldy = e.y - S.ropeLen;
+        S.lamp.setAttribute("transform", "translate(" + ldx.toFixed(1) + "," + ldy.toFixed(1) + ") rotate(" + ang.toFixed(2) + " 60 " + S.ropeLen + ")");
+        var gx = (ldx * S.scale).toFixed(1), gy = (ldy * S.scale).toFixed(1);
+        S.glow.style.top = S.glowTop + "px";
+        S.glow.style.transform = "translate(-50%,-50%) translate(" + gx + "px," + gy + "px)";
+        S.cone.style.top = S.coneTop + "px";
+        S.cone.style.transform = "translateX(-50%) translate(" + gx + "px," + gy + "px)";
       }
-      requestAnimationFrame(swing);
+      requestAnimationFrame(ropeFrame);
     })(last);
   })();
 
