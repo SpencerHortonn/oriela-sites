@@ -78,7 +78,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;transition:background-color 
 .btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 34px -12px var(--accent)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .btn.ghost:hover{box-shadow:none;border-color:var(--accent)}
-.scroll-cue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+.scroll-cue{position:absolute;bottom:36px;right:44px;display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+@media(max-width:640px){.scroll-cue{display:none}}
 .scroll-cue .wheel{width:22px;height:36px;border:1.5px solid var(--muted);border-radius:12px;position:relative}
 .scroll-cue .wheel::after{content:"";position:absolute;top:7px;left:50%;width:3px;height:8px;margin-left:-1.5px;border-radius:3px;background:var(--accent);animation:cue 1.8s var(--ease) infinite}
 @keyframes cue{0%{transform:translateY(0);opacity:1}70%{transform:translateY(10px);opacity:0}100%{opacity:0}}
@@ -173,8 +174,8 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
   <div class="player orb" data-depth="0.14" aria-hidden="true"></div>
   <div class="wrap" style="position:relative">
     <p class="hero-eyebrow rv">Oriela Co. A holding company.</p>
-    <h1 class="h1" aria-label="I build what matters.">
-      <span class="mask"><span class="line">I build</span></span>
+    <h1 class="h1" aria-label="We build what matters.">
+      <span class="mask"><span class="line">We build</span></span>
       <span class="cycle-wrap"><span id="cycler">companies.</span></span>
     </h1>
     <p class="hero-sub rv">I'm Spencer. I'm 18. No funding, no office, no car. Six live businesses, all built by hand in Texas. This is the holding company.</p>
@@ -404,10 +405,10 @@ setTimeout(function(){
     navBrand.textContent = "";
     navBrand.appendChild(lWord);
     lWord.style.fontSize = ""; lWord.classList.remove("l-word");
-    var flip = Flip.from(state, { duration: 0.9, ease: "expo.inOut", absolute: true,
+    var flip = Flip.from(state, { duration: 1.25, ease: "expo.inOut", absolute: true,
       onComplete: function(){ gsap.set(navBrand, { clearProps: "all" }); gsap.set(navBrand, { opacity: 1 }); } });
     gsap.set(navBrand, { opacity: 1 });
-    var wipe = gsap.to(loader, { clipPath: "inset(0 0 100% 0)", duration: 1.15, ease: "expo.inOut",
+    var wipe = gsap.to(loader, { clipPath: "inset(0 0 100% 0)", duration: 1.7, ease: "expo.inOut",
       onComplete: function(){ loader.style.display = "none"; } });
     flip.play(0); wipe.play(0);
     heroIntro();
@@ -422,8 +423,8 @@ setTimeout(function(){
     if (lenis) lenis.stop();
     var cnt = { v: 0 };
     var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
-    var minTime = new Promise(function(r){ setTimeout(r, 400); });
-    var counted = gsap.to(cnt, { v: 100, duration: 1.6, ease: "power2.inOut",
+    var minTime = new Promise(function(r){ setTimeout(r, 700); });
+    var counted = gsap.to(cnt, { v: 100, duration: 2.6, ease: "power2.inOut",
       onUpdate: function(){
         var n = Math.round(cnt.v);
         lCount.textContent = (n < 10 ? "0" : "") + n;
@@ -431,7 +432,7 @@ setTimeout(function(){
       }});
     Promise.race([
       Promise.all([fontsReady, minTime, counted.then()]),
-      new Promise(function(r){ setTimeout(r, 3200); })
+      new Promise(function(r){ setTimeout(r, 4800); })
     ]).then(function(){
       try { sessionStorage.setItem("oriela-seen", "1"); } catch(e){}
       if (lenis) lenis.start();
@@ -454,7 +455,7 @@ setTimeout(function(){
   styleCycler(ventures[0]);
   function startCycler(){
     if (reduceMotion || !cycling) return;
-    var ticks = 0, total = ventures.length * 2;
+    var ticks = 0, total = ventures.length;
     var iv = setInterval(function(){
       ticks++; vi = (vi + 1) % ventures.length;
       gsap.timeline()
