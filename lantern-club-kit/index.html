@@ -246,7 +246,7 @@ footer a:hover{color:var(--amber)}
       <div class="l-glow" data-base-top="168"></div>
       <div class="l-cone" data-base-top="198"></div>
       <svg width="76" viewBox="0 0 120 340">
-        <polyline class="rope-poly" points="60,0 60,186" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <path class="rope-poly" d="M60,0 L60,186" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
         <g class="lamp">
         <circle cx="60" cy="196" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,208 L78,208 L71,228 L49,228 Z" fill="url(#lgMetal)"/>
@@ -264,7 +264,7 @@ footer a:hover{color:var(--amber)}
       <div class="l-glow" data-base-top="257"></div>
       <div class="l-cone" data-base-top="293"></div>
       <svg width="92" viewBox="0 0 120 410">
-        <polyline class="rope-poly" points="60,0 60,256" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <path class="rope-poly" d="M60,0 L60,256" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
         <g class="lamp">
         <circle cx="60" cy="266" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,278 L78,278 L71,298 L49,298 Z" fill="url(#lgMetal)"/>
@@ -282,7 +282,7 @@ footer a:hover{color:var(--amber)}
       <div class="l-glow" data-base-top="160"></div>
       <div class="l-cone" data-base-top="185"></div>
       <svg width="64" viewBox="0 0 120 375">
-        <polyline class="rope-poly" points="60,0 60,221" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
+        <path class="rope-poly" d="M60,0 L60,221" fill="none" stroke="#1f150c" stroke-width="5" stroke-linecap="round"/>
         <g class="lamp">
         <circle cx="60" cy="231" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
         <path d="M42,243 L78,243 L71,263 L49,263 Z" fill="url(#lgMetal)"/>
@@ -589,26 +589,31 @@ setTimeout(function(){
     })();
   }
 
-  /* swinging lanterns: verlet rope simulation, the rope flexes and the lamp lags */
+  /* hanging lanterns: fixed-timestep verlet rope with real gravity.
+     Canonical technique: integrate at a fixed 120Hz step (gravity folded in as
+     g*h*h so motion is frame-rate independent), relax the distance constraints
+     over many iterations, give the lamp end extra mass so it swings like a real
+     weight, and render the rope as a smooth curve instead of a kinked polyline. */
   (function(){
     var els = Array.prototype.slice.call(document.querySelectorAll(".lantern"));
     if (!els.length || reduceMotion) return;
+    var SEG_N = 22, ITER = 12, STEP = 1 / 120, GRAV = 2800, DAMP = 0.992;
     var sims = els.map(function(el){
       var ropeLen = parseFloat(el.getAttribute("data-rope") || "186");
       var scale = parseFloat(el.getAttribute("data-scale") || "0.6");
-      var N = 10, seg = ropeLen / N, pts = [];
-      for (var i = 0; i <= N; i++) pts.push({ x: 60, y: seg * i, px: 60, py: seg * i });
+      var seg = ropeLen / SEG_N, pts = [];
+      for (var i = 0; i <= SEG_N; i++) pts.push({ x: 60, y: seg * i, px: 60, py: seg * i });
+      var glow = el.querySelector(".l-glow"), cone = el.querySelector(".l-cone");
+      glow.style.top = glow.getAttribute("data-base-top") + "px";
+      cone.style.top = cone.getAttribute("data-base-top") + "px";
       return {
-        el: el, ropeLen: ropeLen, scale: scale, N: N, seg: seg, pts: pts,
-        poly: el.querySelector(".rope-poly"), lamp: el.querySelector(".lamp"),
-        glow: el.querySelector(".l-glow"), cone: el.querySelector(".l-cone"),
-        glowTop: parseFloat(el.querySelector(".l-glow").getAttribute("data-base-top")),
-        coneTop: parseFloat(el.querySelector(".l-cone").getAttribute("data-base-top")),
-        ph: Math.random() * 6.28
+        el: el, ropeLen: ropeLen, scale: scale, seg: seg, pts: pts,
+        rope: el.querySelector(".rope-poly"), lamp: el.querySelector(".lamp"),
+        glow: glow, cone: cone, ph: Math.random() * 6.28
       };
     });
     var wind = 0;
-    function push(sv){ wind += sv * 0.05; }
+    function push(sv){ wind += sv * 0.06; }
     if (lenis) { lenis.on("scroll", function(e){ push(e.velocity || 0); }); }
     else {
       var lastY = window.scrollY, lastT = performance.now();
@@ -617,43 +622,65 @@ setTimeout(function(){
         push((y - lastY) / dt * 16); lastY = y; lastT = now;
       }, { passive: true });
     }
-    var last = performance.now();
+    function stepSim(S, h, t){
+      var pts = S.pts, hh = h * h;
+      var breeze = Math.sin(t * 0.8 + S.ph) * 34 + wind * 10;
+      var i, p, vx, vy, mass, sway;
+      for (i = 1; i <= SEG_N; i++) {
+        p = pts[i];
+        vx = (p.x - p.px) * DAMP; vy = (p.y - p.py) * DAMP;
+        p.px = p.x; p.py = p.y;
+        mass = (i === SEG_N) ? 2.6 : 1;   /* heavy lamp on the end pulls like a weight */
+        sway = breeze * (i / SEG_N);      /* rope catches air along its length */
+        p.x += vx + sway * hh;
+        p.y += vy + GRAV * mass * hh;
+      }
+      for (var k = 0; k < ITER; k++) {
+        pts[0].x = 60; pts[0].y = 0;
+        for (var j = 0; j < SEG_N; j++) {
+          var a = pts[j], b = pts[j + 1];
+          var dx = b.x - a.x, dy = b.y - a.y;
+          var d = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+          var diff = (d - S.seg) / d;
+          if (j === 0) { b.x -= dx * diff; b.y -= dy * diff; }
+          else { var f = 0.5 * diff; a.x += dx * f; a.y += dy * f; b.x -= dx * f; b.y -= dy * f; }
+        }
+      }
+      pts[0].x = 60; pts[0].y = 0;
+    }
+    function drawRope(S){
+      var pts = S.pts;
+      var d = "M" + pts[0].x.toFixed(1) + "," + pts[0].y.toFixed(1);
+      for (var i = 1; i < SEG_N; i++) {
+        var xc = ((pts[i].x + pts[i + 1].x) / 2).toFixed(1);
+        var yc = ((pts[i].y + pts[i + 1].y) / 2).toFixed(1);
+        d += " Q" + pts[i].x.toFixed(1) + "," + pts[i].y.toFixed(1) + " " + xc + "," + yc;
+      }
+      var l = pts[SEG_N];
+      d += " L" + l.x.toFixed(1) + "," + l.y.toFixed(1);
+      S.rope.setAttribute("d", d);
+    }
+    var last = performance.now(), acc = 0;
     (function ropeFrame(now){
-      var dt = Math.min(0.033, (now - last) / 1000); last = now;
-      var t = now / 1000, dt2 = dt * dt;
-      wind *= 0.93;
-      for (var s = 0; s < sims.length; s++) {
-        var S = sims[s], pts = S.pts;
-        var breeze = Math.sin(t * 0.9 + S.ph) * 26 + wind * 9;
-        for (var i = 1; i <= S.N; i++) {
-          var p = pts[i];
-          var vx = (p.x - p.px) * 0.985, vy = (p.y - p.py) * 0.985;
-          p.px = p.x; p.py = p.y;
-          p.x += vx + breeze * (i / S.N) * 60 * dt2;
-          p.y += vy + 1400 * dt2;
-        }
-        for (var k = 0; k < 5; k++) {
-          pts[0].x = 60; pts[0].y = 0;
-          for (var j = 0; j < S.N; j++) {
-            var a = pts[j], b = pts[j + 1];
-            var dx = b.x - a.x, dy = b.y - a.y;
-            var d = Math.sqrt(dx * dx + dy * dy) || 0.0001;
-            var diff = (d - S.seg) / d;
-            if (j === 0) { b.x -= dx * diff; b.y -= dy * diff; }
-            else { var f = 0.5 * diff; a.x += dx * f; a.y += dy * f; b.x -= dx * f; b.y -= dy * f; }
-          }
-        }
-        var str = "";
-        for (var m = 0; m <= S.N; m++) str += pts[m].x.toFixed(1) + "," + pts[m].y.toFixed(1) + " ";
-        S.poly.setAttribute("points", str);
-        var e = pts[S.N], pe = pts[S.N - 1];
+      var dt = Math.min(0.05, (now - last) / 1000); last = now;
+      var t = now / 1000;
+      wind *= Math.exp(-2.5 * dt);
+      acc += dt;
+      var n = 0;
+      while (acc >= STEP && n < 8) {
+        for (var s = 0; s < sims.length; s++) stepSim(sims[s], STEP, t);
+        acc -= STEP; n++;
+      }
+      if (n === 8) acc = 0;
+      for (var q = 0; q < sims.length; q++) {
+        var S = sims[q], pts = S.pts;
+        drawRope(S);
+        var e = pts[SEG_N], pe = pts[SEG_N - 1];
         var ang = Math.atan2(e.x - pe.x, e.y - pe.y) * 180 / Math.PI;
         var ldx = e.x - 60, ldy = e.y - S.ropeLen;
         S.lamp.setAttribute("transform", "translate(" + ldx.toFixed(1) + "," + ldy.toFixed(1) + ") rotate(" + ang.toFixed(2) + " 60 " + S.ropeLen + ")");
         var gx = (ldx * S.scale).toFixed(1), gy = (ldy * S.scale).toFixed(1);
-        S.glow.style.top = S.glowTop + "px";
         S.glow.style.transform = "translate(-50%,-50%) translate(" + gx + "px," + gy + "px)";
-        S.cone.style.top = S.coneTop + "px";
         S.cone.style.transform = "translateX(-50%) translate(" + gx + "px," + gy + "px)";
       }
       requestAnimationFrame(ropeFrame);
