@@ -292,11 +292,21 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrambleTextPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+/* Kill-switch: if the animation script ever fails, never trap the visitor on the loader */
+setTimeout(function(){
+  var l = document.getElementById("loader");
+  if (l && l.style.display !== "none" && !window.__orielaOpened) {
+    l.style.transition = "opacity .5s"; l.style.opacity = "0";
+    setTimeout(function(){ l.style.display = "none"; }, 550);
+  }
+}, 6000);
+</script>
 <script>
 (function(){
   "use strict";
@@ -308,7 +318,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
     var l = document.getElementById("loader"); if (l) l.style.display = "none";
     return;
   }
-  gsap.registerPlugin(ScrollTrigger, Flip, ScrambleTextPlugin);
+  gsap.registerPlugin.apply(gsap, [ScrollTrigger, Flip, ScrambleTextPlugin].filter(function(p){ return typeof p !== "undefined"; }));
   gsap.defaults({ ease: "expo.out", duration: 1 });
 
   /* ---------- Lenis smooth scroll ---------- */
@@ -374,6 +384,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
   }
 
   function openSite(){
+    window.__orielaOpened = true;
     if (reduceMotion) { loader.style.display = "none"; gsap.set(navBrand,{opacity:1,y:0}); return; }
     /* FLIP: the wordmark flies out of the loader and docks into the nav */
     var state = Flip.getState(lWord);
@@ -381,8 +392,8 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
     navBrand.appendChild(lWord);
     lWord.style.fontSize = ""; lWord.classList.remove("l-word");
     var flip = Flip.from(state, { duration: 0.9, ease: "expo.inOut", absolute: true,
-      onComplete: function(){ gsap.set(navBrand, { clearProps: "all" }); } });
-    gsap.set(navBrand, { opacity: 1, y: 0 });
+      onComplete: function(){ gsap.set(navBrand, { clearProps: "all" }); gsap.set(navBrand, { opacity: 1 }); } });
+    gsap.set(navBrand, { opacity: 1 });
     var wipe = gsap.to(loader, { clipPath: "inset(0 0 100% 0)", duration: 1.15, ease: "expo.inOut",
       onComplete: function(){ loader.style.display = "none"; } });
     flip.play(0); wipe.play(0);
@@ -484,7 +495,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
     ch.addEventListener("mouseenter", function(){
       cursor.classList.add("on");
       gsap.fromTo(zoom, { scale: 1.07 }, { scale: 1, duration: 0.9, ease: "expo.out" });
-      ScrambleTextPlugin && gsap.to(name, { duration: 0.7, scrambleText: { text: name.textContent, chars: ".:/<>*+", speed: 0.6 } });
+      if (typeof ScrambleTextPlugin !== "undefined") gsap.to(name, { duration: 0.7, scrambleText: { text: name.textContent, chars: ".:/<>*+", speed: 0.6 } });
     });
     ch.addEventListener("mouseleave", function(){ cursor.classList.remove("on"); });
   });
