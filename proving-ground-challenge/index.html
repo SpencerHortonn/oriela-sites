@@ -14,7 +14,7 @@
 <meta name="twitter:description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;600;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:wght@600&family=Inter:wght@400;600;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#101012; --bg2:#161618; --card:#1a1a1d;
@@ -61,6 +61,10 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 #loader .clock{font-family:Oswald,sans-serif;font-weight:600;font-size:clamp(52px,12vw,96px);letter-spacing:.02em;color:var(--volt);font-variant-numeric:tabular-nums}
 #loader .lbar{width:min(320px,70vw);height:3px;background:rgba(244,246,242,.1);overflow:hidden;border-radius:2px}
 #loader .lbar i{display:block;height:100%;width:100%;background:var(--volt);transform-origin:left;transform:scaleX(0)}
+/* hand-drawn chalk stopwatch doodle */
+.swatch{width:92px;margin:0 auto 10px;rotate:-7deg;opacity:.95;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))}
+.sw-second{transform-origin:60px 70px;animation:swspin 14s linear infinite}
+@keyframes swspin{to{transform:rotate(360deg)}}
 /* HERO */
 .hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;position:relative;overflow:hidden;
   box-shadow:inset 0 0 180px rgba(0,0,0,.6),inset 0 -4px 0 rgba(0,0,0,.55)}
@@ -113,19 +117,38 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 .card p b{color:var(--ink)}
 .card .step-n{font-family:Oswald,sans-serif;font-weight:600;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(212,245,66,.6);margin-bottom:18px;display:block}
 /* PROGRAM */
-.week{border:1px solid rgba(244,246,242,.14);border-radius:12px;margin-top:16px;overflow:hidden;background:var(--card);
+.week{border:1px solid rgba(244,246,242,.14);border-radius:12px;margin-top:30px;position:relative;background:var(--card);
   box-shadow:0 24px 50px -18px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,246,242,.09)}
+/* training-log wall: alternating offsets, slight hand-pinned rotations (rotate property survives GSAP inline transforms) */
+.week[data-w="1"]{rotate:-.9deg;margin-right:8%}
+.week[data-w="2"]{rotate:.7deg;margin-left:10%}
+.week[data-w="3"]{rotate:-.6deg;margin-left:3%;margin-right:10%}
+.week[data-w="4"]{rotate:1deg;margin-left:8%;margin-right:3%}
+/* masking tape corners */
+.week::before,.week::after{content:"";position:absolute;top:-14px;width:96px;height:28px;background:rgba(233,224,194,.5);box-shadow:0 3px 8px rgba(0,0,0,.4);z-index:2;pointer-events:none}
+.week::before{left:38px;rotate:-5deg}
+.week::after{right:46px;rotate:4.5deg}
+@media(max-width:759px){
+  .week[data-w="1"]{margin-right:4%}
+  .week[data-w="2"]{margin-left:5%}
+  .week[data-w="3"]{margin-left:2%;margin-right:5%}
+  .week[data-w="4"]{margin-left:5%;margin-right:2%}
+  .week::before{left:24px;width:74px}
+  .week::after{right:26px;width:74px}
+}
 .week-head{display:flex;align-items:center;gap:18px;padding:24px 26px;cursor:pointer;user-select:none;transition:background .3s var(--ease)}
 .week-head:hover{background:rgba(244,246,242,.03)}
 .week.open .week-head{background:var(--volt-dim)}
-.week-badge{font-family:Oswald,sans-serif;font-weight:700;font-size:15px;letter-spacing:.06em;color:#101012;background:var(--volt);width:52px;height:52px;flex:0 0 52px;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.35)}
-.week[data-w="4"] .week-badge{background:var(--ink);color:#101012}
+.week-badge{background:none;border-radius:0;box-shadow:none;width:66px;height:54px;flex:0 0 66px;display:flex;align-items:center;justify-content:center}
+.week-badge .tally{width:100%;height:100%;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
+.week-head{border-radius:11px}
+.week.open .week-head{border-radius:11px 11px 0 0}
 .week-info{flex:1}
 .week-info h3{font-size:clamp(20px,4.5vw,26px)}
 .week-info p{color:var(--faint);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-top:4px;font-weight:600}
 .week-plus{font-size:28px;color:var(--volt);font-weight:300;transition:transform .3s var(--ease);line-height:1}
 .week.open .week-plus{transform:rotate(45deg)}
-.week-body{padding:0 26px;max-height:0;overflow:hidden;transition:max-height .6s var(--ease),padding .4s var(--ease)}
+.week-body{padding:0 26px;max-height:0;overflow:hidden;border-radius:0 0 11px 11px;transition:max-height .6s var(--ease),padding .4s var(--ease)}
 .week.open .week-body{padding:6px 26px 28px;max-height:1400px}
 .week-body ul{list-style:none;margin-top:6px}
 .week-body li{padding:13px 0;border-top:1px solid var(--line);font-size:15px;color:var(--dim);display:flex;gap:12px}
@@ -133,8 +156,11 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 .week-body li b{color:var(--volt);font-weight:800;letter-spacing:.06em;min-width:86px;text-transform:uppercase;font-size:13px;padding-top:2px;flex-shrink:0}
 .scored-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#101012;background:var(--volt);border-radius:4px;padding:3px 9px;margin-left:10px;vertical-align:2px}
 /* PRIZE */
-.prize{background:linear-gradient(160deg,#1d200f 0%,var(--bg2) 55%);border:1px solid rgba(212,245,66,.3);border-radius:16px;padding:clamp(30px,6vw,56px);margin-top:44px;position:relative;overflow:hidden;
+.prize{background:linear-gradient(rgba(15,15,17,.95),rgba(15,15,17,.95)),var(--chalk);background-size:auto,460px;border:1px solid rgba(212,245,66,.3);border-radius:16px;padding:clamp(30px,6vw,56px);margin-top:44px;position:relative;overflow:hidden;
   box-shadow:0 44px 90px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(244,246,242,.12),inset 0 -5px 0 rgba(0,0,0,.4)}
+/* chalk-board marginalia */
+.chalk-note{font-family:Caveat,cursive;font-weight:500;font-size:clamp(24px,4.5vw,30px);color:#f4f6f2;opacity:.92;margin-top:22px;rotate:-2.2deg;display:inline-block;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.chalk-squiggle{display:block;width:132px;height:12px;margin:5px auto 0}
 .prize::before{content:"$";position:absolute;right:-30px;top:-70px;font-family:Fraunces,serif;font-size:340px;color:rgba(212,245,66,.06);line-height:1;pointer-events:none}
 .prize h3{font-size:clamp(26px,5.5vw,40px);margin-bottom:14px;position:relative}
 .prize h3 .volt{color:var(--volt)}
@@ -172,7 +198,7 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 .divrow ul{list-style:none;margin-top:4px}
 .divrow li{font-size:14.5px;color:var(--dim);padding:9px 0 9px 26px;position:relative;border-top:1px solid var(--line)}
 .divrow li:first-child{border-top:none}
-.divrow li::before{content:"\203A";position:absolute;left:8px;color:var(--volt);font-weight:800}
+.divrow li::before{content:"";position:absolute;left:8px;top:15px;width:9px;height:13px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 16'%3E%3Cpath d='M2.5,2 C4.5,5.5 6.5,9.5 10,13.5' fill='none' stroke='%23d4f542' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;background-size:contain}
 /* FAQ */
 .faq{border-top:1px solid var(--line);margin-top:40px}
 .faq-item{border-bottom:1px solid var(--line)}
@@ -191,7 +217,7 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 .final .price-line{margin:26px 0 8px;font-family:Oswald,sans-serif;font-weight:600;font-size:24px;color:var(--ink);letter-spacing:.06em}
 .final .lede{text-shadow:0 2px 12px rgba(0,0,0,.7)}
 .guarantee{display:inline-flex;align-items:center;gap:10px;margin-top:26px;font-size:13.5px;color:var(--dim);border:1px solid var(--line);border-radius:100px;padding:10px 22px;background:rgba(10,10,11,.6)}
-.guarantee i{color:var(--volt);font-style:normal;font-size:18px}
+.guarantee .gcheck{width:18px;height:18px;flex:0 0 18px}
 /* STICKY BAR */
 .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:100;background:rgba(16,16,18,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:14px;transform:translateY(110%);transition:transform .4s var(--ease)}
 .stickybar.show{transform:none}
@@ -205,6 +231,7 @@ footer{padding:44px 0 110px;text-align:center;color:var(--faint);font-size:13px}
 footer a{color:var(--volt);text-decoration:none}
 @media(prefers-reduced-motion:reduce){
   .marquee-track{animation:none}
+  .sw-second{animation:none}
   html{scroll-behavior:auto}
   .speedlines{display:none}
   #chalkdust{display:none}
@@ -229,6 +256,32 @@ footer a{color:var(--volt);text-decoration:none}
   <div class="tex-scrim heavy" aria-hidden="true"></div>
   <div class="wrap hero-inner">
     <span class="hero-tag rv">Cohort 01 <b>&nbsp;&middot;&nbsp;</b> 4-Week Hybrid Challenge</span>
+    <div class="swatch rv" aria-hidden="true">
+      <svg viewBox="0 0 120 132" style="width:100%;height:auto;display:block" fill="none" stroke="#f2f4ef" stroke-linecap="round">
+        <path d="M52,16 C52,11 55,9 58,10 L62,10 C65,9 68,11 68,16" stroke-width="2.6" opacity=".9"/>
+        <path d="M60,16 C60,19 60,22 60,24" stroke-width="2.6" opacity=".85"/>
+        <path d="M60,27 C83,27 103,46 103,70 C103,94 83,113 59,113 C35,113 17,93 17,69 C17,45 37,26 60,27 Z" stroke-width="3" opacity=".9"/>
+        <path d="M60,30 C81,30 100,47 100,70 C100,92 81,110 60,110 C39,110 20,91 20,69 C20,48 40,29 60,30 Z" stroke-width="1.2" opacity=".3"/>
+        <g stroke-width="2.4">
+          <line x1="61.3" y1="32" x2="61.6" y2="24" opacity=".9"/>
+          <line x1="79.6" y1="37.4" x2="83.7" y2="30.6" opacity=".7"/>
+          <line x1="92.2" y1="49.9" x2="99" y2="45.6" opacity=".85"/>
+          <line x1="98" y1="72" x2="106" y2="72.4" opacity=".95"/>
+          <line x1="93.6" y1="87.8" x2="100.6" y2="91.6" opacity=".7"/>
+          <line x1="77.8" y1="103.6" x2="81.6" y2="110.6" opacity=".88"/>
+          <line x1="60.7" y1="108" x2="60.8" y2="116" opacity=".8"/>
+          <line x1="39.3" y1="101.9" x2="34.9" y2="108.6" opacity=".92"/>
+          <line x1="27.8" y1="90.1" x2="21" y2="94.4" opacity=".75"/>
+          <line x1="22" y1="68.7" x2="14" y2="68.4" opacity=".9"/>
+          <line x1="26.4" y1="52.2" x2="19.4" y2="48.4" opacity=".65"/>
+          <line x1="42.7" y1="36.1" x2="39.1" y2="29" opacity=".85"/>
+        </g>
+        <path d="M60,70 C56,64 53,59 49,54" stroke-width="3.4" opacity=".95"/>
+        <path d="M60,70 C65,61 69,51 72,41" stroke-width="2.6" opacity=".9"/>
+        <path class="sw-second" d="M60,70 C67,74 74,77 82,80" stroke-width="1.4" opacity=".8"/>
+        <circle cx="60" cy="70" r="3.4" fill="#f2f4ef" stroke="none" opacity=".95"/>
+      </svg>
+    </div>
     <h1>
       <span class="mask"><span class="line"><span class="stroke">4 Weeks.</span></span></span>
       <span class="mask"><span class="line"><span class="volt">Prove It.</span></span></span>
@@ -284,7 +337,7 @@ footer a{color:var(--volt);text-decoration:none}
     <p class="lede rv">Real programming, written like a coach. Barbell first, dumbbell and minimal-equipment scaling on everything. Tap a week to see what is inside.</p>
 
     <div class="week rv" data-w="1">
-      <div class="week-head"><div class="week-badge">W1</div><div class="week-info"><h3>Baseline</h3><p>Set your numbers</p></div><div class="week-plus">+</div></div>
+      <div class="week-head"><div class="week-badge" aria-hidden="true"><svg class="tally" viewBox="0 0 64 52"><path d="M32,6 C33,18 30,32 32,46" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".92"/></svg></div><div class="week-info"><h3>Baseline</h3><p>Set your numbers</p></div><div class="week-plus">+</div></div>
       <div class="week-body"><ul>
         <li><b>Mon</b><span><b>Test day.</b> 1-mile run all out, 10-min AMRAP (5 pull-ups / 10 push-ups / 15 air squats), 3-rep max back squat.</span></li>
         <li><b>Tue</b><span><b>Run intervals.</b> 6 x 400m at mile pace minus 10 to 15 seconds. 90s rest.</span></li>
@@ -295,7 +348,7 @@ footer a{color:var(--volt);text-decoration:none}
     </div>
 
     <div class="week rv" data-w="2">
-      <div class="week-head"><div class="week-badge">W2</div><div class="week-info"><h3>Build</h3><p>Volume goes up</p></div><div class="week-plus">+</div></div>
+      <div class="week-head"><div class="week-badge" aria-hidden="true"><svg class="tally" viewBox="0 0 64 52"><path d="M22,8 C23,20 20,34 22,44" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".88"/><path d="M44,6 C43,18 45,32 43,45" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".95"/></svg></div><div class="week-info"><h3>Build</h3><p>Volume goes up</p></div><div class="week-plus">+</div></div>
       <div class="week-body"><ul>
         <li><b>Mon</b><span><b>Lower strength.</b> Back squat 5x5, Romanian deadlift 3x8, walking lunges, EMOM finisher.</span></li>
         <li><b>Tue</b><span><b>Run intervals.</b> 8 x 400m. Hold pace across all eight.</span></li>
@@ -306,7 +359,7 @@ footer a{color:var(--volt);text-decoration:none}
     </div>
 
     <div class="week rv" data-w="3">
-      <div class="week-head"><div class="week-badge">W3</div><div class="week-info"><h3>Peak</h3><p>Heaviest week</p></div><div class="week-plus">+</div></div>
+      <div class="week-head"><div class="week-badge" aria-hidden="true"><svg class="tally" viewBox="0 0 64 52"><path d="M14,8 C15,20 12,32 14,44" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".9"/><path d="M33,6 C32,18 34,32 32,45" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".85"/><path d="M52,9 C51,20 53,33 51,43" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".93"/></svg></div><div class="week-info"><h3>Peak</h3><p>Heaviest week</p></div><div class="week-plus">+</div></div>
       <div class="week-body"><ul>
         <li><b>Mon</b><span><b>Lower strength.</b> Back squat 4x4 at 80%, front squat, Bulgarian split squats.</span></li>
         <li><b>Tue</b><span><b>Run intervals.</b> 5 x 800m at hard, sustainable 5K effort. 2:30 rest.</span></li>
@@ -317,7 +370,7 @@ footer a{color:var(--volt);text-decoration:none}
     </div>
 
     <div class="week rv" data-w="4">
-      <div class="week-head"><div class="week-badge">W4</div><div class="week-info"><h3>Test week</h3><p>Everything counts</p></div><div class="week-plus">+</div></div>
+      <div class="week-head"><div class="week-badge" aria-hidden="true"><svg class="tally" viewBox="0 0 64 52"><path d="M10,6 C12,18 8,30 10,44" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".9"/><path d="M26,7 C25,19 27,31 25,43" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".86"/><path d="M42,6 C44,18 40,32 42,44" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".92"/><path d="M58,8 C56,20 59,30 57,42" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".88"/><path d="M4,38 C22,30 42,20 60,10" fill="none" stroke="#f4f6f2" stroke-width="5" stroke-linecap="round" opacity=".9"/></svg></div><div class="week-info"><h3>Test week</h3><p>Everything counts</p></div><div class="week-plus">+</div></div>
       <div class="week-body"><ul>
         <li><b>Mon</b><span><b>Mile retest.</b> All out, same course as week 1. Then light pump work and go home.</span></li>
         <li><b>Tue</b><span><b>Recovery.</b> Walk, stretch, mobility. That is the whole day.</span></li>
@@ -343,13 +396,14 @@ footer a{color:var(--volt);text-decoration:none}
       <div class="pool-math">
         <div class="pool-cell"><div class="n num" data-count="100">100</div><div class="l">Athletes</div></div>
         <div class="pool-cell"><div class="n num" data-count="9900" data-prefix="$" data-comma="1">$9,900</div><div class="l">Collected</div></div>
-        <div class="pool-cell"><div class="n num" data-count="3960" data-prefix="$" data-comma="1">$3,960</div><div class="l">Prize pool</div></div>
+        <div class="pool-cell"><div class="n num" data-count="3960" data-prefix="$" data-comma="1">$3,960</div><svg class="chalk-squiggle" viewBox="0 0 140 14" aria-hidden="true"><path d="M4,9 C 26,4 46,11 68,7 C 90,3 110,10 136,6" fill="none" stroke="#f4f6f2" stroke-width="3" stroke-linecap="round" opacity=".75"/></svg><div class="l">Prize pool</div></div>
       </div>
       <div class="payout">
         <div class="row"><div class="rank">01</div><div class="t">1st place</div><div class="p num" data-count="50" data-suffix="%">50%</div></div>
         <div class="row"><div class="rank">02</div><div class="t">2nd place</div><div class="p num" data-count="30" data-suffix="%">30%</div></div>
         <div class="row"><div class="rank">03</div><div class="t">3rd place</div><div class="p num" data-count="20" data-suffix="%">20%</div></div>
       </div>
+      <span class="chalk-note rv">winner takes half</span>
       <p class="prize-note"><b>Kept honest by video.</b> Any score that puts you in prize position must be backed by unedited video submitted within 24 hours. No video, no prize, no exceptions. Random audits run all month.</p>
       <div class="prize-links">
         <a href="leaderboard.html">Live leaderboard</a>
@@ -460,7 +514,7 @@ footer a{color:var(--volt);text-decoration:none}
     <div class="cta-row rv">
       <a class="btn btn-primary" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Claim your spot &middot; $99</a>
     </div>
-    <div class="rv"><span class="guarantee"><i>&#10003;</i> Full refund before day one. Paid out within 7 days of results.</span></div>
+    <div class="rv"><span class="guarantee"><svg class="gcheck" viewBox="0 0 22 22" aria-hidden="true"><path d="M3.5,11.5 C6,13.5 8,15.5 9.5,18 C12.5,12 15.5,7.5 19.5,4" fill="none" stroke="#d4f542" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Full refund before day one. Paid out within 7 days of results.</span></div>
   </div>
 </section>
 
