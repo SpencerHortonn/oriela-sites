@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oriela</title>
+<meta name="description" content="Oriela is the parent company over a family of small brands. Built on craft and grit.">
+<meta property="og:title" content="Oriela">
+<meta property="og:description" content="Oriela is the parent company over a family of small brands. Built on craft and grit.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://orielaco.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oriela">
+<meta name="twitter:description" content="Oriela is the parent company over a family of small brands. Built on craft and grit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4ecdc;
+    --paper:#fbf7ec;
+    --forest:#1f3529;
+    --rust:#b0532b;
+    --gold:#c9a24b;
+    --ink:#2b2620;
+    --muted:#6f6353;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.7;overflow-x:hidden;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  }
+  ::selection{background:var(--rust);color:var(--cream)}
+  h1,h2,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.15}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:40;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1rem 2rem;min-height:64px;
+    background:rgba(244,236,220,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(31,53,41,.12);
+  }
+  nav .wordmark{font-family:'Fraunces',serif;font-size:1.35rem;color:var(--forest);text-decoration:none;min-height:44px;display:flex;align-items:center}
+  nav .links a{color:var(--forest);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:.75;min-height:44px;display:inline-flex;align-items:center}
+  nav .links a:hover{opacity:1}
+
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;position:relative;padding:7rem 1.5rem 4rem;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(201,162,75,.20), transparent 60%),
+      radial-gradient(900px 500px at 50% 110%, rgba(176,83,43,.12), transparent 60%),
+      var(--cream);
+  }
+  .sunmark{width:min(150px,44vw);height:auto;margin-bottom:2rem;filter:drop-shadow(0 10px 30px rgba(176,83,43,.25))}
+  .sunmark .rays{transform-origin:75px 75px;animation:spin 90s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .sunmark .pulse{transform-origin:75px 75px;animation:pulse 6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.06);opacity:1}}
+  .hero h1{font-size:clamp(3rem,14vw,6.5rem);color:var(--forest);letter-spacing:.01em}
+  .pronounce{font-family:'Fraunces',serif;font-style:italic;color:var(--rust);font-size:1.25rem;margin-top:.4rem}
+  .ethos{margin-top:1.4rem;font-size:1rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 1rem}
+  .ethos .dot{color:var(--gold);margin:0 .5rem}
+
+  .contact-block{background:var(--paper);padding:6rem 1.5rem;text-align:center}
+  .wrap{max-width:720px;margin:0 auto}
+
+  .businesses{background:var(--cream);padding:6rem 1.5rem;scroll-margin-top:64px}
+  .biz-wrap{max-width:1060px;margin:0 auto;text-align:center}
+  .biz-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:3rem;text-align:left}
+  @media(min-width:720px){.biz-grid{grid-template-columns:repeat(2,1fr)}}
+  .biz-card{
+    background:var(--paper);border:1px solid rgba(31,53,41,.14);border-radius:20px;
+    padding:2.2rem 2rem;display:flex;flex-direction:column;gap:.6rem;
+    transition:transform .3s,box-shadow .3s;text-decoration:none;color:var(--ink);
+  }
+  .biz-card:hover{transform:translateY(-5px);box-shadow:0 22px 44px rgba(31,53,41,.12)}
+  .biz-card .biz-kicker{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .biz-card h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.55rem;color:var(--forest);line-height:1.2}
+  .biz-card p{font-size:.98rem;color:var(--muted);line-height:1.65}
+  .biz-card .biz-price{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--rust);margin-top:.2rem}
+  .biz-card .biz-link{margin-top:auto;padding-top:1rem;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--forest)}
+  .biz-card .biz-link span{color:var(--rust)}
+  .kicker{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:1rem}
+  h2.section-title{font-size:clamp(2rem,4.6vw,3rem);color:var(--forest);margin-bottom:1rem}
+  .lede{font-size:1.1rem;color:var(--muted);max-width:52ch;margin:0 auto}
+  .email-row{display:flex;gap:.75rem;justify-content:center;align-items:center;margin-top:2.2rem;flex-wrap:wrap}
+  .email-pill{
+    font-family:'Fraunces',serif;font-size:1.2rem;color:var(--forest);
+    background:#fff;border:1px solid rgba(31,53,41,.2);
+    padding:.8rem 1.6rem;border-radius:999px;overflow-wrap:anywhere;
+  }
+  .btn{
+    cursor:pointer;border:none;border-radius:999px;padding:.85rem 1.7rem;min-height:48px;
+    background:var(--forest);color:var(--cream);font-size:.85rem;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;transition:background .25s, transform .25s;
+  }
+  .btn:hover{background:var(--rust);transform:translateY(-2px)}
+  .ig-link{margin-top:1.5rem;display:inline-block;color:var(--rust);font-weight:600;text-decoration:none;border-bottom:2px solid rgba(176,83,43,.35);padding-bottom:2px;min-height:44px}
+  .ig-link:hover{border-color:var(--rust)}
+
+  footer{
+    text-align:center;padding:2rem 1.5rem;font-size:.85rem;letter-spacing:.06em;color:var(--muted);
+    border-top:1px solid rgba(31,53,41,.12);background:var(--cream);
+  }
+  footer .fmark{font-family:'Fraunces',serif;color:var(--forest);font-size:1.05rem;margin-bottom:.3rem}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .sunmark .rays,.sunmark .pulse{animation:none}
+    .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="wordmark" href="#top">Oriela</a>
+  <div class="links"><a href="#businesses">Businesses</a><a href="#contact" style="margin-left:1.5rem">Contact</a></div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="sunmark" viewBox="0 0 150 150" aria-hidden="true">
+    <g class="rays" stroke="#b0532b" stroke-width="3" stroke-linecap="round">
+      <line x1="75" y1="6" x2="75" y2="26"/><line x1="75" y1="124" x2="75" y2="144"/>
+      <line x1="6" y1="75" x2="26" y2="75"/><line x1="124" y1="75" x2="144" y2="75"/>
+      <line x1="26" y1="26" x2="40" y2="40"/><line x1="110" y1="110" x2="124" y2="124"/>
+      <line x1="124" y1="26" x2="110" y2="40"/><line x1="40" y1="110" x2="26" y2="124"/>
+    </g>
+    <g class="rays" stroke="#c9a24b" stroke-width="2.5" stroke-linecap="round" style="animation-duration:140s;animation-direction:reverse">
+      <line x1="75" y1="18" x2="75" y2="30"/><line x1="75" y1="120" x2="75" y2="132"/>
+      <line x1="18" y1="75" x2="30" y2="75"/><line x1="120" y1="75" x2="132" y2="75"/>
+      <line x1="34" y1="34" x2="43" y2="43"/><line x1="107" y1="107" x2="116" y2="116"/>
+      <line x1="116" y1="34" x2="107" y2="43"/><line x1="43" y1="107" x2="34" y2="116"/>
+    </g>
+    <circle cx="75" cy="75" r="34" fill="none" stroke="#c9a24b" stroke-width="3"/>
+    <g class="pulse"><circle cx="75" cy="75" r="10" fill="#b0532b"/></g>
+  </svg>
+  <h1>Oriela</h1>
+  <div class="pronounce">or-ee-EL-uh</div>
+  <div class="ethos">Built on craft <span class="dot">·</span> grit</div>
+</header>
+
+<section class="businesses" id="businesses">
+  <div class="biz-wrap reveal">
+    <div class="kicker">Our businesses</div>
+    <h2 class="section-title">One company, built many ways.</h2>
+    <p class="lede">Everything under Oriela is live and running. Take a look around.</p>
+    <div class="biz-grid">
+      <a class="biz-card" href="https://chipper-jelly-7857dd.netlify.app" target="_blank" rel="noopener">
+        <div class="biz-kicker">Lantern Club</div>
+        <h3>Unplugged</h3>
+        <p>A phone-free night in a box. Conversation cards, a canvas phone pouch, a candle, and a host guide.</p>
+        <div class="biz-price">$35 preorder</div>
+        <div class="biz-link">Visit site <span>&rarr;</span></div>
+      </a>
+      <a class="biz-card" href="https://fancy-tarsier-90aec5.netlify.app" target="_blank" rel="noopener">
+        <div class="biz-kicker">Fitness</div>
+        <h3>Proving Ground Challenge</h3>
+        <p>A 4-week hybrid fitness challenge with real programming, divisions for every level, and a prize pool.</p>
+        <div class="biz-price">$99 entry</div>
+        <div class="biz-link">Visit site <span>&rarr;</span></div>
+      </a>
+      <a class="biz-card" href="https://magical-griffin-9c9224.netlify.app" target="_blank" rel="noopener">
+        <div class="biz-kicker">Services</div>
+        <h3>Oriela Studio</h3>
+        <p>Full-service media: brand films, short-form video, websites that book, content retainers, automations.</p>
+        <div class="biz-price">Project pricing</div>
+        <div class="biz-link">Visit site <span>&rarr;</span></div>
+      </a>
+      <a class="biz-card" href="https://hearth-key.netlify.app" target="_blank" rel="noopener">
+        <div class="biz-kicker">Hearth</div>
+        <h3>Hearth Key</h3>
+        <p>A beautiful wooden token with an NFC chip inside. One tap puts your phone to bed.</p>
+        <div class="biz-price">$39 waitlist</div>
+        <div class="biz-link">Visit site <span>&rarr;</span></div>
+      </a>
+      <a class="biz-card" href="https://half-frame-app.netlify.app" target="_blank" rel="noopener">
+        <div class="biz-kicker">Apps</div>
+        <h3>Half Frame</h3>
+        <p>A film-look camera for your phone. 36 shots per roll, grain, halation, date stamps.</p>
+        <div class="biz-price">Free prototype</div>
+        <div class="biz-link">Try it <span>&rarr;</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact-block" id="contact">
+  <div class="wrap reveal">
+    <div class="kicker">Contact</div>
+    <h2 class="section-title">Say hello.</h2>
+    <p class="lede">For partnerships, press, and everything else.</p>
+    <div class="email-row">
+      <span class="email-pill">hello@orielaco.com</span>
+      <button class="btn" id="copyBtn">Copy email</button>
+    </div>
+    <a class="ig-link" href="https://www.instagram.com/orielaco" target="_blank" rel="noopener">@orielaco on Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fmark">Oriela</div>
+  <div>© 2026 Oriela · Tyler, Texas</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const hero = document.querySelector('.hero');
+  const sun = document.querySelector('.sunmark');
+  let ticking = false;
+  window.addEventListener('scroll', ()=>{
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(()=>{
+      const y = window.scrollY;
+      if(y < window.innerHeight){ sun.style.transform = 'translateY(' + (y * .18) + 'px)'; }
+      ticking = false;
+    });
+  }, {passive:true});
+
+  const btn = document.getElementById('copyBtn');
+  btn.addEventListener('click', async ()=>{
+    try{
+      await navigator.clipboard.writeText('hello@orielaco.com');
+      btn.textContent = 'Copied';
+    }catch(err){
+      btn.textContent = 'hello@orielaco.com';
+    }
+    setTimeout(()=>{ btn.textContent = 'Copy email'; }, 2000);
+  });
+</script>
+</body>
+</html>
