@@ -13,198 +13,123 @@
 <meta name="twitter:description" content="A beautiful wooden token with an NFC chip inside. Tap it, and your phone goes to bed. First batch of 50.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --night:#14161f; --ink2:#1b1f2c; --amber:#e8a33d; --cream:#f4ecdc;
-  --ink:#241a10; --ember:#ff9a2e;
-  --mut:rgba(244,236,220,.64); --dim:rgba(244,236,220,.44);
-  --line:rgba(244,236,220,.14); --card:rgba(244,236,220,.045);
+  --cream:#f6eeda; --ink:#2b1d0f; --amber:#e8a33d;
+  --tx:var(--cream); --mut:rgba(246,238,218,.72); --dim:rgba(246,238,218,.48); --line:rgba(246,238,218,.16);
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',-apple-system,sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);
-  --linen:url("assets/linen.jpg"); --char:url("assets/charred-wood.jpg");
 }
+.light{--tx:#2b1d0f; --mut:rgba(43,29,15,.7); --dim:rgba(43,29,15,.48); --line:rgba(43,29,15,.18)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-body{font-family:'Inter',-apple-system,sans-serif;background:var(--night);color:var(--cream);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-::selection{background:var(--amber);color:var(--night)}
-#embers{position:fixed;inset:0;z-index:35;pointer-events:none}
-.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:3;opacity:.07;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grainShift 9s steps(10) infinite}
-@keyframes grainShift{0%,100%{transform:translate(0,0)}25%{transform:translate(-2%,2%)}50%{transform:translate(2%,-1%)}75%{transform:translate(-1%,-2%)}}
+body{font-family:var(--sans);color:var(--tx);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background:linear-gradient(180deg,#1c1108 0%,#2b1b0d 20%,#4a2c14 32%,#7d5228 40%,#bd8f56 45%,#e3c086 49%,#f2e2ba 56%,#f8efdc 100%)}
+::selection{background:var(--amber);color:#1c1108}
+#embers{position:fixed;inset:0;z-index:30;pointer-events:none}
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:31;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
 main{position:relative;z-index:2}
+.col{max-width:38em;margin:0 auto;padding:0 28px}
 
 /* loader: dependency-free, kill-switched from JS */
-#loader{position:fixed;inset:0;z-index:100;background:
-  radial-gradient(420px 420px at 50% 55%, rgba(232,163,61,.14), transparent 65%),
-  var(--night);
-  display:flex;flex-direction:column;gap:20px;align-items:center;justify-content:center;transition:opacity .9s ease}
+#loader{position:fixed;inset:0;z-index:100;background:#1c1108;display:flex;flex-direction:column;gap:20px;align-items:center;justify-content:center;transition:opacity .9s ease}
 #loader.done{opacity:0;pointer-events:none}
-#loader .lm{font-family:'Fraunces',serif;font-weight:300;font-size:34px;letter-spacing:.14em;color:var(--cream);font-variation-settings:"opsz" 144}
+#loader .lm{font-family:var(--serif);font-weight:300;font-size:32px;letter-spacing:.14em;color:var(--cream)}
 #loader .ld{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 26px 7px rgba(232,163,61,.7);animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.5);opacity:1}}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:16px 32px;background:rgba(14,10,6,.68);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-nav .wordmark{font-family:'Fraunces',serif;font-weight:300;font-size:21px;color:var(--cream);text-decoration:none;letter-spacing:.02em;font-variation-settings:"opsz" 144}
+nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:rgba(28,17,8,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(246,238,218,.1)}
+nav .wordmark{font-family:var(--serif);font-weight:300;font-size:20px;color:var(--cream);text-decoration:none;letter-spacing:.02em}
 nav .wordmark span{color:var(--amber);font-style:italic}
-nav a.cta-small{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--night);background:var(--amber);padding:11px 24px;border-radius:999px;text-decoration:none;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
-nav a.cta-small:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,163,61,.35)}
+nav a.cta-small{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#1c1108;background:var(--amber);padding:11px 24px;border-radius:999px;text-decoration:none;transition:transform .35s var(--ease)}
+nav a.cta-small:hover{transform:translateY(-2px)}
 
-.wrap{max-width:920px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
-
-/* ---- texture sections ---- */
-.wood-dark{position:relative;background:
-  linear-gradient(rgba(11,7,3,.66),rgba(11,7,3,.78)),
-  var(--char);
-  background-size:cover;background-position:center;
-  box-shadow:inset 0 0 170px rgba(0,0,0,.62)}
-.linen-light{position:relative;color:var(--ink);
-  --mut:rgba(36,26,16,.74); --dim:rgba(36,26,16,.52); --line:rgba(36,26,16,.18);
-  background:
-  linear-gradient(rgba(244,236,220,.8),rgba(244,236,220,.86)),
-  var(--linen);
-  background-size:340px;
-  box-shadow:inset 0 0 150px rgba(120,80,30,.24)}
-
-/* ember-glow scrims behind headlines */
-h2.st{position:relative;z-index:1}
-h2.st::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-58%);width:min(700px,96vw);height:230px;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse at center, rgba(232,163,61,.22), rgba(232,163,61,0) 66%)}
-.linen-light h2.st::before{background:radial-gradient(ellipse at center, rgba(176,83,43,.16), rgba(176,83,43,0) 66%)}
-
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:130px 28px 90px;position:relative;overflow:hidden}
-.hero .ember-bed{position:absolute;left:50%;bottom:-140px;transform:translateX(-50%);width:min(900px,120vw);height:420px;pointer-events:none;
-  background:radial-gradient(ellipse at center, rgba(255,154,46,.3), rgba(232,163,61,.1) 45%, transparent 70%)}
-.kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:26px;position:relative;z-index:1}
-
-/* wooden token emblem with 3D tilt: hand-drawn SVG, grain lines, burned-in H */
-.token-stage{perspective:1000px;margin:10px 0 44px;position:relative;z-index:1}
-.token-halo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:340px;height:340px;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle, rgba(255,170,70,.34), rgba(232,163,61,.1) 48%, transparent 68%)}
-.token-tilt{transform-style:preserve-3d;will-change:transform}
-.key-visual{width:148px;height:148px;border-radius:50%;display:block;
-  box-shadow:0 0 70px rgba(232,163,61,.32),0 30px 70px rgba(0,0,0,.55);
-  animation:breathe 6s ease-in-out infinite}
-@keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 60px rgba(232,163,61,.28),0 30px 70px rgba(0,0,0,.55)}50%{transform:scale(1.035);box-shadow:0 0 96px rgba(232,163,61,.44),0 30px 70px rgba(0,0,0,.55)}}
-
-/* hand-written caveat annotations, Caveat face */
-.caveat{font-family:'Caveat',cursive;font-weight:600;color:var(--amber);font-size:24px;line-height:1.25}
-.caveat-token{margin:2px 0 0;transform:rotate(-3.5deg);position:relative;z-index:1}
-.caveat-token .caveat-under{display:block;width:118px;height:10px;margin:2px auto 0}
-.caveat-price{position:absolute;top:-18px;right:20px;transform:rotate(3deg);background:#f4ecdc;color:#241a10;
-  padding:5px 15px 7px;border-radius:3px;font-size:20px;box-shadow:0 6px 18px rgba(0,0,0,.42);white-space:nowrap;z-index:5}
-.linen-light .caveat{color:#8a4a22}
-
-/* stitched canvas pouch sketch, hero */
-.pouch-sketch{margin:26px 0 0;position:relative;z-index:1;transform:rotate(2deg)}
-.pouch-sketch svg{display:block;margin:0 auto;width:118px;height:118px;filter:drop-shadow(0 10px 22px rgba(0,0,0,.4))}
-
-/* hand-stitched borders: JS draws a wobbly dashed thread rect inside */
-.stitched{position:relative}
-.stitch-frame{position:absolute;left:7px;top:7px;pointer-events:none;z-index:3;overflow:visible}
-.stitch-path{fill:none;stroke:var(--thread,#f4ecdc);stroke-width:2;stroke-linecap:round;stroke-dasharray:7 4 5 6;opacity:.85}
-.stitch-cream{--thread:#f4ecdc}
-.stitch-brown{--thread:#8a5a33}
-
-/* embroidered X-stitch section divider */
-.xstitch{text-align:center;padding:26px 0;background:#0d0906}
-.xstitch svg{width:min(680px,88vw);height:26px}
-
-.hero h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(42px,8vw,76px);line-height:1.06;max-width:15ch;letter-spacing:.005em;font-variation-settings:"opsz" 144;position:relative;z-index:1}
-.hero h1 em{font-style:italic;color:var(--amber)}
-.hero .sub{margin-top:24px;font-size:18px;color:var(--mut);max-width:54ch;position:relative;z-index:1}
-.btn{display:inline-block;background:var(--amber);color:var(--night);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:17px 42px;border-radius:999px;text-decoration:none;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s,color .35s}
+/* fade-only reveals, one idea per viewport */
+.js .rv{opacity:0}
+.rv.in{opacity:1;transition:opacity 1.4s ease}
+.band{padding:24vh 0}
+section[id]{scroll-margin-top:70px}
+.kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:26px;text-align:center}
+.light .kicker{color:#a05a24}
+h1,h2{font-family:var(--serif);font-weight:300;letter-spacing:.005em;line-height:1.12;text-align:center}
+h1{font-size:clamp(44px,8vw,80px);max-width:14ch;margin:0 auto}
+h2{font-size:clamp(34px,5.5vw,54px);max-width:16ch;margin:0 auto 26px}
+h1 em,h2 em{font-style:italic;color:var(--amber)}
+.light h1 em,.light h2 em{color:#a05a24}
+.body-copy{color:var(--mut);font-size:18px;max-width:56ch;margin:26px auto 0;text-align:center}
+.body-copy + .body-copy{margin-top:18px}
+.btn{display:inline-block;background:var(--amber);color:#1c1108;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:17px 42px;border-radius:999px;text-decoration:none;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
 .btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(232,163,61,.35)}
-.btn.ghost{background:transparent;color:var(--cream);border:1.5px solid rgba(244,236,220,.32)}
+.btn.ghost{background:transparent;color:var(--tx);border:1.5px solid var(--line)}
 .btn.ghost:hover{border-color:var(--amber);color:var(--amber);box-shadow:none}
-.linen-light .btn.ghost{color:var(--ink);border-color:rgba(36,26,16,.34)}
-.linen-light .btn.ghost:hover{border-color:#b0532b;color:#b0532b}
-.cta-row{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
-.proof{margin-top:26px;font-size:14px;color:var(--dim);position:relative;z-index:1}
+.cta-row{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.proof{margin-top:28px;font-size:14px;color:var(--dim);text-align:center}
 .proof strong{color:var(--mut);font-weight:600}
-.scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);animation:hint 3.2s ease-in-out infinite;z-index:1}
-@keyframes hint{0%,100%{opacity:.45;transform:translate(-50%,0)}50%{opacity:.9;transform:translate(-50%,8px)}}
 
-section{padding:130px 0;position:relative}
-h2.st{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(32px,5vw,48px);text-align:center;margin-bottom:18px;letter-spacing:.005em;font-variation-settings:"opsz" 144}
-h2.st em{font-style:italic;color:var(--amber)}
-.linen-light h2.st em{color:#b0532b}
-.lede{text-align:center;color:var(--mut);max-width:58ch;margin:0 auto 64px;font-size:17px}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 80px;text-align:center}
+.key-visual{width:150px;height:150px;border-radius:50%;display:block;margin:6px auto 40px;
+  box-shadow:0 0 80px rgba(232,163,61,.3),0 30px 70px rgba(0,0,0,.5)}
 
-/* ritual steps: staggered vertical path, hand-drawn dashed thread behind */
-.how-steps{position:relative;padding:10px 0 6px}
-.thread-line{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
-.thread-line path{fill:none;stroke:#8a5a33;stroke-width:2;stroke-linecap:round;stroke-dasharray:6 5;opacity:.6;vector-effect:non-scaling-stroke}
+/* the one cinematic beat: the key pins, three uses cross-fade */
+.beat{background:#171009;position:relative}
+.beat-inner{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 0;gap:56px}
+.beat .key-visual{margin:0;width:128px;height:128px}
+.beat-count{font-size:12px;letter-spacing:.3em;color:rgba(246,238,218,.4);text-transform:uppercase}
+.beat-slides{display:grid;width:100%;max-width:34em;margin:0 auto}
+.slide{grid-area:1/1;opacity:0;text-align:center;padding:0 28px}
+.slide.s1{opacity:1}
+.slide .n{font-family:var(--serif);font-weight:300;font-style:italic;font-size:15px;letter-spacing:.24em;color:var(--amber);margin-bottom:18px}
+.slide h3{font-family:var(--serif);font-weight:300;font-size:clamp(30px,5vw,46px);color:var(--cream);margin-bottom:18px}
+.slide p{color:var(--mut);font-size:17px;max-width:48ch;margin:0 auto}
+.slide .price-line{margin-top:22px;color:var(--cream);font-weight:600;font-size:15px;letter-spacing:.04em}
+/* fallbacks: no GSAP, or reduced motion: stack the slides statically */
+.no-pin .beat-slides,.reduced .beat-slides{display:block}
+.no-pin .slide,.reduced .slide{opacity:1!important;margin:0 auto 64px}
+.no-pin .slide:last-child,.reduced .slide:last-child{margin-bottom:0}
+.no-pin .beat-inner,.reduced .beat-inner{min-height:0}
 
-/* raised cards with deep soft shadows */
-.step{position:relative;z-index:2;background:linear-gradient(180deg,#fbf6e9,#f2e8d1);border:1px solid rgba(36,26,16,.12);border-radius:20px;padding:38px 34px;margin-bottom:26px;color:var(--ink);width:min(560px,88%);
-  box-shadow:0 26px 55px -20px rgba(60,40,15,.5),0 4px 14px rgba(60,40,15,.14),inset 0 1px 0 rgba(255,255,255,.65)}
-.step:last-child{margin-bottom:0}
-.step.s-left{margin-right:auto;margin-left:0;transform:rotate(-1deg)}
-.step.s-right{margin-left:auto;margin-right:0;transform:rotate(1deg)}
-.step .n{font-family:'Fraunces',serif;font-weight:300;font-size:36px;color:#b0532b;opacity:.95;font-variation-settings:"opsz" 144}
-.step h3{font-family:'Fraunces',serif;font-weight:400;font-size:22px;margin:12px 0 10px;color:var(--ink);font-variation-settings:"opsz" 144}
-.step p{font-size:15.5px;color:rgba(36,26,16,.74)}
+/* quiet pricing rows, hairlines instead of cards */
+.tier{padding:44px 0;border-bottom:1px solid var(--line)}
+.tier:first-of-type{border-top:1px solid var(--line);margin-top:54px}
+.tier h3{font-family:var(--serif);font-weight:300;font-size:24px}
+.tier .price{font-family:var(--serif);font-weight:300;font-size:56px;margin:10px 0 2px}
+.tier .per{font-size:14px;color:var(--dim);margin-bottom:20px}
+.tier .move{font-style:italic;color:#a05a24;font-size:15px;margin-bottom:20px}
+.tier ul{list-style:none;margin-bottom:28px}
+.tier li{font-size:15.5px;color:var(--mut);padding:6px 0}
 
-.honest{max-width:680px;margin:0 auto;background:
-  linear-gradient(rgba(8,5,2,.62),rgba(8,5,2,.72)),
-  var(--char);
-  background-size:cover;background-position:center;
-  border:1px solid rgba(232,163,61,.22);border-radius:24px;padding:56px 48px;text-align:center;
-  box-shadow:0 40px 90px -30px rgba(0,0,0,.7),inset 0 0 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(244,236,220,.12)}
-.honest h3{font-family:'Fraunces',serif;font-weight:300;font-style:italic;font-size:27px;margin-bottom:16px;color:var(--amber);font-variation-settings:"opsz" 144}
-.honest p{color:var(--mut);font-size:16.5px}
+/* quiet steps, plain numbered text */
+.step{padding:34px 0;border-bottom:1px solid var(--line)}
+.step:first-of-type{border-top:1px solid var(--line);margin-top:54px}
+.step .n{font-family:var(--serif);font-weight:300;font-size:30px;color:#a05a24;margin-bottom:8px}
+.step h3{font-family:var(--serif);font-weight:400;font-size:21px;margin-bottom:8px}
+.step p{font-size:16px;color:var(--mut)}
 
-.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;max-width:680px;margin:0 auto}
-.tier{position:relative;background:
-  linear-gradient(rgba(10,6,2,.6),rgba(10,6,2,.72)),
-  var(--char);
-  background-size:cover;background-position:center;
-  border:1px solid rgba(232,163,61,.22);border-radius:20px;padding:44px 34px;text-align:center;color:var(--cream);
-  box-shadow:0 34px 70px -22px rgba(30,15,2,.6),0 6px 18px rgba(30,15,2,.25),inset 0 1px 0 rgba(244,236,220,.12)}
-.tier.featured{border:1.5px solid rgba(232,163,61,.65);
-  box-shadow:0 0 70px rgba(232,163,61,.16),0 40px 80px -24px rgba(30,15,2,.65),inset 0 1px 0 rgba(244,236,220,.14)}
-.tier h3{font-family:'Fraunces',serif;font-weight:400;font-size:23px;color:var(--cream);font-variation-settings:"opsz" 144}
-.tier .price{font-family:'Fraunces',serif;font-weight:300;font-size:52px;color:var(--cream);margin:14px 0 4px;font-variation-settings:"opsz" 144}
-.tier .per{font-size:14px;color:var(--dim);margin-bottom:24px}
-.tier ul{list-style:none;text-align:left;margin-bottom:28px}
-.tier li{font-size:15px;color:var(--mut);padding:7px 0 7px 30px;position:relative}
-.tier li::before{content:"";position:absolute;left:0;top:10px;width:17px;height:17px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M2.6,8.8 C4.2,9.8 5.2,10.8 6.6,12.8 C9.2,8.2 11.8,5.2 14.4,3.6' fill='none' stroke='%23e8a33d' stroke-width='2.3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain}
-.tier .btn{width:100%}
+.honest-note{margin-top:16vh;text-align:center}
+.honest-note h3{font-family:var(--serif);font-weight:300;font-style:italic;font-size:26px;color:#a05a24;margin-bottom:14px}
+.honest-note p{color:var(--mut);font-size:16.5px;max-width:52ch;margin:0 auto}
 
-.faq{max-width:700px;margin:0 auto}
-.qa{border-bottom:1px solid var(--line);padding:26px 4px}
-.qa h3{font-size:17px;font-weight:600;color:var(--cream);margin-bottom:10px}
-.qa p{font-size:15px;color:var(--mut)}
+.qa{padding:26px 0;border-bottom:1px solid var(--line)}
+.qa:first-of-type{border-top:1px solid var(--line);margin-top:54px}
+.qa h3{font-size:17px;font-weight:600;margin-bottom:8px}
+.qa p{font-size:15.5px;color:var(--mut)}
 
-.waitlist{position:relative;background:
-  linear-gradient(rgba(10,6,2,.55),rgba(10,6,2,.68)),
-  var(--char);
-  background-size:cover;background-position:center;
-  border:1px solid rgba(232,163,61,.32);border-radius:26px;padding:80px 36px;text-align:center;margin:0 24px;max-width:860px;margin-left:auto;margin-right:auto;
-  box-shadow:0 50px 100px -34px rgba(30,15,2,.65),0 0 80px rgba(232,163,61,.08),inset 0 0 100px rgba(0,0,0,.5),inset 0 1px 0 rgba(244,236,220,.14);overflow:hidden}
-.waitlist .ember-bed{position:absolute;left:50%;bottom:-160px;transform:translateX(-50%);width:760px;height:380px;pointer-events:none;
-  background:radial-gradient(ellipse at center, rgba(255,154,46,.32), rgba(232,163,61,.08) 48%, transparent 70%)}
-.waitlist h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(30px,5vw,44px);margin-bottom:16px;color:var(--cream);font-variation-settings:"opsz" 144;position:relative}
-.waitlist h2 em{font-style:italic;color:var(--amber)}
-.waitlist p{color:var(--mut);max-width:50ch;margin:0 auto 34px;font-size:16.5px;position:relative}
-.waitlist .btn{position:relative}
+.waitlist{text-align:center}
+.waitlist p{color:var(--mut);max-width:50ch;margin:0 auto 34px;font-size:16.5px}
 
-footer{background:#100c08;text-align:center;padding:56px 24px 64px;font-size:14px;color:var(--dim);box-shadow:inset 0 1px 0 rgba(244,236,220,.08)}
-footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;color:var(--cream);font-size:19px;margin-bottom:8px;font-variation-settings:"opsz" 144}
+footer{padding:60px 24px 70px;text-align:center;font-size:14px;color:var(--dim)}
+footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:var(--ink);font-size:19px;margin-bottom:8px}
 
 @media (max-width:640px){
-  .step{width:94%}
-  section{padding:96px 0}
-  .waitlist{margin:0 16px;padding:60px 24px}
-  nav{padding:14px 18px}
+  .band{padding:16vh 0}
+  nav{padding:13px 18px}
+  .beat-inner{gap:40px}
 }
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
   #loader{display:none}
+  .rv.in{transition:none}
 }
 </style>
 </head>
@@ -216,157 +141,160 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
 
 <nav>
   <a class="wordmark" href="#top">Hearth <span>Key</span></a>
-  <a class="cta-small" href="#waitlist">Join the waitlist</a>
+  <a class="cta-small" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
 </nav>
 
 <main>
-<header class="hero wood-dark" id="top">
-  <div class="ember-bed" aria-hidden="true"></div>
-  <div class="kicker rv-hero">Hearth · A Lantern Club object</div>
-  <div class="token-stage rv-hero">
-    <div class="token-halo" aria-hidden="true"></div>
-    <div class="token-tilt" id="tokenTilt">
-      <svg class="key-visual" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
-        <defs>
-          <radialGradient id="woodG" cx="35%" cy="30%" r="85%">
-            <stop offset="0" stop-color="#9a6130"/><stop offset=".58" stop-color="#53300f"/><stop offset="1" stop-color="#2b1a0d"/>
-          </radialGradient>
-        </defs>
-        <circle cx="74" cy="74" r="72" fill="url(#woodG)"/>
-        <g fill="none" stroke="#241204" stroke-width="1.4" opacity=".42">
-          <path d="M16,63 C40,55 68,69 132,57"/>
-          <path d="M18,87 C48,79 78,93 130,83"/>
-          <path d="M26,41 C52,35 82,45 120,39"/>
-          <path d="M32,109 C58,103 90,115 118,107"/>
-          <path d="M20,75 C24,74 28,74 32,75"/>
-        </g>
-        <ellipse cx="101" cy="69" rx="7" ry="5" fill="none" stroke="#1c0e04" stroke-width="1.4" opacity=".5"/>
-        <circle cx="74" cy="74" r="70" fill="none" stroke="#120a04" stroke-width="2" opacity=".55"/>
-        <circle cx="74" cy="74" r="50" fill="none" stroke="#f4ecdc" stroke-width="1.5" opacity=".25"/>
-        <g fill="none" stroke="#190c03" stroke-width="8" stroke-linecap="round" opacity=".94">
-          <path d="M59,53 C58,67 60,83 58,95"/>
-          <path d="M91,55 C92,69 90,85 92,95"/>
-          <path d="M59,75 C69,73 81,77 91,74"/>
-        </g>
-        <g fill="none" stroke="#6b3d17" stroke-width="1.6" stroke-linecap="round" opacity=".7">
-          <path d="M63,53 C62,67 64,83 62,95"/>
-          <path d="M87,55 C88,69 86,85 88,95"/>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <p class="caveat caveat-token rv-hero">tap it and the house goes quiet<svg class="caveat-under" viewBox="0 0 120 10" aria-hidden="true"><path d="M4,6 C30,3 62,8 116,5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></p>
-  <h1 class="rv-hero">One tap puts the <em>phone to bed.</em></h1>
-  <p class="sub rv-hero">The Hearth Key is a beautiful wooden token with an NFC chip inside. Tap it to your iPhone and your distracting apps go quiet. Tap again when you're ready to come back.</p>
-  <div class="cta-row rv-hero">
-    <a class="btn" href="#waitlist">Join the waitlist</a>
-    <a class="btn ghost" href="#how">How it works</a>
-  </div>
-  <p class="proof rv-hero"><strong>First batch of 50.</strong> $39. Waitlist gets first dibs.</p>
-  <div class="pouch-sketch rv-hero" aria-hidden="true">
-    <svg viewBox="0 0 150 150">
-      <rect x="52" y="8" width="46" height="52" rx="9" fill="#20242f" stroke="#0b0d13" stroke-width="2"/>
-      <line x1="66" y1="17" x2="84" y2="17" stroke="#3a4152" stroke-width="2" stroke-linecap="round"/>
-      <path d="M40,58 C38,92 42,116 46,138 C64,144 96,144 114,138 C118,116 122,92 120,58 C100,70 60,70 40,58 Z" fill="#d9c39a" stroke="#7a5a34" stroke-width="2"/>
-      <path d="M46,60 C62,69 98,69 114,60" fill="none" stroke="#4a3220" stroke-width="1.6" opacity=".7"/>
-      <g fill="none" stroke="#a8854f" stroke-width="1" opacity=".55">
-        <path d="M43,92 C64,98 96,98 117,92"/>
-        <path d="M45,108 C65,113 95,113 115,108"/>
-        <path d="M47,122 C66,127 94,127 113,122"/>
+<header class="hero" id="top">
+  <div class="col">
+    <p class="kicker rv">Hearth · A Lantern Club object</p>
+    <svg class="key-visual rv" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
+      <defs>
+        <radialGradient id="woodG" cx="35%" cy="30%" r="85%">
+          <stop offset="0" stop-color="#9a6130"/><stop offset=".58" stop-color="#53300f"/><stop offset="1" stop-color="#2b1a0d"/>
+        </radialGradient>
+      </defs>
+      <circle cx="74" cy="74" r="72" fill="url(#woodG)"/>
+      <g fill="none" stroke="#241204" stroke-width="1.4" opacity=".42">
+        <path d="M16,63 C40,55 68,69 132,57"/>
+        <path d="M18,87 C48,79 78,93 130,83"/>
+        <path d="M26,41 C52,35 82,45 120,39"/>
+        <path d="M32,109 C58,103 90,115 118,107"/>
+        <path d="M20,75 C24,74 28,74 32,75"/>
       </g>
-      <path d="M50,66 C48,94 51,114 54,130 C68,135 92,135 106,130 C109,114 112,94 110,66" fill="none" stroke="#5d3f22" stroke-width="1.6" stroke-dasharray="5 4" stroke-linecap="round" opacity=".9"/>
-      <path d="M80,138 C80,144 78,147 74,148" fill="none" stroke="#7a5a34" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="101" cy="69" rx="7" ry="5" fill="none" stroke="#1c0e04" stroke-width="1.4" opacity=".5"/>
+      <circle cx="74" cy="74" r="70" fill="none" stroke="#120a04" stroke-width="2" opacity=".55"/>
+      <circle cx="74" cy="74" r="50" fill="none" stroke="#f4ecdc" stroke-width="1.5" opacity=".25"/>
+      <g fill="none" stroke="#190c03" stroke-width="8" stroke-linecap="round" opacity=".94">
+        <path d="M59,53 C58,67 60,83 58,95"/>
+        <path d="M91,55 C92,69 90,85 92,95"/>
+        <path d="M59,75 C69,73 81,77 91,74"/>
+      </g>
+      <g fill="none" stroke="#6b3d17" stroke-width="1.6" stroke-linecap="round" opacity=".7">
+        <path d="M63,53 C62,67 64,83 62,95"/>
+        <path d="M87,55 C88,69 86,85 88,95"/>
+      </g>
     </svg>
+    <h1 class="rv">One tap puts the <em>phone to bed.</em></h1>
+    <p class="body-copy rv">The Hearth Key is a beautiful wooden token with an NFC chip inside. Tap it to your iPhone and your distracting apps go quiet. Tap again when you're ready to come back.</p>
+    <div class="cta-row rv">
+      <a class="btn" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
+      <a class="btn ghost" href="#how">How it works</a>
+    </div>
+    <p class="proof rv"><strong>First batch of 50.</strong> $39. Waitlist gets first dibs.</p>
   </div>
-  <div class="scroll-hint">Scroll</div>
 </header>
 
-<section class="linen-light" id="how">
-  <div class="wrap">
-    <h2 class="st rv">The <em>ritual</em></h2>
-    <p class="lede rv">No apps to install. No accounts. Your phone already knows how to do this, the key just gives you a reason to.</p>
-    <div class="how-steps">
-      <svg class="thread-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M52,3 C84,18 20,34 50,49 C80,64 22,80 50,97"/>
-      </svg>
-      <div class="step s-left stitched stitch-brown rv"><div class="n">01</div><h3>Set it up once</h3><p>Scan your key with the Shortcuts app and link it to a Focus mode. Takes 30 seconds. We send a video that walks you through it.</p></div>
-      <div class="step s-right stitched stitch-brown rv"><div class="n">02</div><h3>Tap to rest</h3><p>Dinner, deep work, bedtime, a Lantern night. Tap the key and your problem apps disappear behind Focus. The phone is still there for calls and maps.</p></div>
-      <div class="step s-left stitched stitch-brown rv"><div class="n">03</div><h3>Tap to return</h3><p>Tap again and everything comes back. You're in control the whole time. The key is a ritual, not a lock.</p></div>
+<section class="band" id="problem">
+  <div class="col">
+    <h2 class="rv">The phone by <em>the bed.</em></h2>
+    <p class="body-copy rv">Bedtime, deep work, dinner, a Lantern night. The phone wants to come to all of them, glowing.</p>
+    <p class="body-copy rv">It can stay, for calls and maps. Everything else can rest.</p>
+  </div>
+</section>
+
+<section class="beat" id="uses">
+  <div class="beat-inner">
+    <svg class="key-visual" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
+      <circle cx="74" cy="74" r="72" fill="url(#woodG)"/>
+      <g fill="none" stroke="#241204" stroke-width="1.4" opacity=".42">
+        <path d="M16,63 C40,55 68,69 132,57"/>
+        <path d="M18,87 C48,79 78,93 130,83"/>
+        <path d="M26,41 C52,35 82,45 120,39"/>
+        <path d="M32,109 C58,103 90,115 118,107"/>
+      </g>
+      <circle cx="74" cy="74" r="70" fill="none" stroke="#120a04" stroke-width="2" opacity=".55"/>
+      <circle cx="74" cy="74" r="50" fill="none" stroke="#f4ecdc" stroke-width="1.5" opacity=".25"/>
+      <g fill="none" stroke="#190c03" stroke-width="8" stroke-linecap="round" opacity=".94">
+        <path d="M59,53 C58,67 60,83 58,95"/>
+        <path d="M91,55 C92,69 90,85 92,95"/>
+        <path d="M59,75 C69,73 81,77 91,74"/>
+      </g>
+    </svg>
+    <div class="beat-count" id="beatCount" aria-hidden="true">01 / 03</div>
+    <div class="beat-slides">
+      <article class="slide s1">
+        <p class="n">01</p>
+        <h3>The phone key</h3>
+        <p>A wooden token with an NFC chip inside. Tap it to your iPhone and your distracting apps go quiet behind Focus. Tap again and they come back. A ritual, not a lock.</p>
+        <p class="price-line">$39 · First batch of 50</p>
+      </article>
+      <article class="slide s2">
+        <p class="n">02</p>
+        <h3>The phone bed</h3>
+        <p>A little wooden bed for your phone, with a charging slot. A proper place for it to sleep while you do. Coming next.</p>
+      </article>
+      <article class="slide s3">
+        <p class="n">03</p>
+        <h3>The Lent kit</h3>
+        <p>Phone-fast kits for churches, arriving for Lent 2027. A whole congregation, resting together.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="wood-dark">
-  <div class="wrap">
-    <div class="honest rv">
+<section class="band light" id="pricing">
+  <div class="col">
+    <h2 class="rv">First batch <em>pricing</em></h2>
+    <p class="body-copy rv">50 keys. Laser-engraved wood, NFC inside, setup card with the video. When they're gone, batch two.</p>
+    <div class="tier rv">
+      <h3>One key</h3>
+      <div class="price">$39</div>
+      <div class="per">for you</div>
+      <ul>
+        <li>Engraved wooden Hearth Key</li>
+        <li>NFC chip, iPhone-ready</li>
+        <li>Setup card + video</li>
+      </ul>
+      <a class="btn ghost" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
+    </div>
+    <div class="tier rv">
+      <h3>Three keys</h3>
+      <div class="price">$99</div>
+      <div class="per">one for you, two for people you love</div>
+      <p class="move">the 3-pack is the move</p>
+      <ul>
+        <li>Everything in the single key</li>
+        <li>Three keys, gift-ready</li>
+        <li>Save $18</li>
+      </ul>
+      <a class="btn" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
+    </div>
+  </div>
+</section>
+
+<section class="band light" id="how">
+  <div class="col">
+    <h2 class="rv">The <em>ritual</em></h2>
+    <p class="body-copy rv">No apps to install. No accounts. Your phone already knows how to do this, the key just gives you a reason to.</p>
+    <div class="step rv"><div class="n">01</div><h3>Set it up once</h3><p>Scan your key with the Shortcuts app and link it to a Focus mode. Takes 30 seconds. We send a video that walks you through it.</p></div>
+    <div class="step rv"><div class="n">02</div><h3>Tap to rest</h3><p>Dinner, deep work, bedtime, a Lantern night. Tap the key and your problem apps disappear behind Focus. The phone is still there for calls and maps.</p></div>
+    <div class="step rv"><div class="n">03</div><h3>Tap to return</h3><p>Tap again and everything comes back. You're in control the whole time. The key is a ritual, not a lock.</p></div>
+    <div class="honest-note rv">
       <h3>Honest by design</h3>
       <p>The Hearth Key won't stop you from overriding it. Nothing short of a lockbox can. What it does is give the moment a physical anchor: a small, beautiful object that marks the choice to be present. That's what makes it stick.</p>
     </div>
   </div>
 </section>
 
-<div class="xstitch" aria-hidden="true">
-  <svg viewBox="0 0 680 26" preserveAspectRatio="xMidYMid meet">
-    <defs>
-      <pattern id="xpat" width="30" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-2)">
-        <path d="M9,7 L21,19 M21,7 L9,19" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" opacity=".85"/>
-      </pattern>
-    </defs>
-    <rect x="0" y="0" width="680" height="26" fill="url(#xpat)"/>
-  </svg>
-</div>
-
-<section class="linen-light" id="pricing">
-  <div class="wrap">
-    <h2 class="st rv">First batch <em>pricing</em></h2>
-    <p class="lede rv">50 keys. Laser-engraved wood, NFC inside, setup card with the video. When they're gone, batch two.</p>
-    <div class="price-grid">
-      <div class="tier rv">
-        <h3>One key</h3>
-        <div class="price">$39</div>
-        <div class="per">for you</div>
-        <ul>
-          <li>Engraved wooden Hearth Key</li>
-          <li>NFC chip, iPhone-ready</li>
-          <li>Setup card + video</li>
-        </ul>
-        <a class="btn ghost" href="#waitlist">Join the waitlist</a>
-      </div>
-      <div class="tier featured rv">
-        <span class="caveat caveat-price">the 3-pack is the move</span>
-        <h3>Three keys</h3>
-        <div class="price">$99</div>
-        <div class="per">one for you, two for people you love</div>
-        <ul>
-          <li>Everything in the single key</li>
-          <li>Three keys, gift-ready</li>
-          <li>Save $18</li>
-        </ul>
-        <a class="btn" href="#waitlist">Join the waitlist</a>
-      </div>
-    </div>
+<section class="band light" id="faq">
+  <div class="col">
+    <h2 class="rv"><em>Questions</em></h2>
+    <div class="qa rv"><h3>Does it work with Android?</h3><p>The key is an NFC tag, so Android phones can read it, but the one-tap Focus automation is an iPhone Shortcuts feature. Batch one is built for iPhone. Android support is on the roadmap.</p></div>
+    <div class="qa rv"><h3>What if I lose the key?</h3><p>Your Focus mode still works manually from Control Center. The key is a shortcut, not the thing itself. And replacements will be available.</p></div>
+    <div class="qa rv"><h3>Can I really not override it?</h3><p>You can, and that's the point. The key is a ritual object, not a punishment device. It works because you chose it, not because it forced you.</p></div>
+    <div class="qa rv"><h3>When do keys ship?</h3><p>Batch one ships after the prototype run wraps in November. Waitlist members get the ship date first and first dibs on all 50.</p></div>
+    <div class="qa rv"><h3>What's coming next?</h3><p>The Hearth phone bed (a little wooden bed for your phone, with a charging slot), and Lent phone-fast kits for churches in early 2027.</p></div>
   </div>
 </section>
 
-<section class="wood-dark" id="faq">
-  <div class="wrap">
-    <h2 class="st rv"><em>Questions</em></h2>
-    <div class="faq">
-      <div class="qa rv"><h3>Does it work with Android?</h3><p>The key is an NFC tag, so Android phones can read it, but the one-tap Focus automation is an iPhone Shortcuts feature. Batch one is built for iPhone. Android support is on the roadmap.</p></div>
-      <div class="qa rv"><h3>What if I lose the key?</h3><p>Your Focus mode still works manually from Control Center. The key is a shortcut, not the thing itself. And replacements will be available.</p></div>
-      <div class="qa rv"><h3>Can I really not override it?</h3><p>You can, and that's the point. The key is a ritual object, not a punishment device. It works because you chose it, not because it forced you.</p></div>
-      <div class="qa rv"><h3>When do keys ship?</h3><p>Batch one ships after the prototype run wraps in November. Waitlist members get the ship date first and first dibs on all 50.</p></div>
-      <div class="qa rv"><h3>What's coming next?</h3><p>The Hearth phone bed (a little wooden bed for your phone, with a charging slot), and Lent phone-fast kits for churches in early 2027.</p></div>
+<section class="band light" id="waitlist">
+  <div class="col waitlist">
+    <h2 class="rv">First batch: <em>50 keys</em></h2>
+    <p class="body-copy rv">Join the waitlist and you'll get first dibs when batch one opens, plus the setup video the moment it's ready.</p>
+    <div class="cta-row rv">
+      <a class="btn" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
     </div>
-  </div>
-</section>
-
-<section class="linen-light" id="waitlist">
-  <div class="waitlist stitched stitch-cream rv">
-    <div class="ember-bed" aria-hidden="true"></div>
-    <h2>First batch: <em>50 keys</em></h2>
-    <p>Join the waitlist and you'll get first dibs when batch one opens, plus the setup video the moment it's ready.</p>
-    <a class="btn" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
   </div>
 </section>
 
@@ -378,15 +306,16 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 (function(){
   "use strict";
+  document.documentElement.classList.add("js");
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.scrollTo(0, 0);
 
   var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  var finePointer = !!(window.matchMedia && window.matchMedia("(pointer: fine)").matches);
+  if (reduceMotion) document.documentElement.classList.add("reduced");
+
   var hasGsap = (typeof gsap !== "undefined");
   var hasST = hasGsap && (typeof ScrollTrigger !== "undefined");
   if (hasST) gsap.registerPlugin(ScrollTrigger);
@@ -403,10 +332,9 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
   setTimeout(hideLoader, 6000);
   window.addEventListener("load", function(){ setTimeout(hideLoader, 700); });
 
-  /* Ember particles: real rise physics. Buoyancy accelerates each ember
-     upward, a sine wind drifts it sideways, it flickers, fades, dies at the
-     top and respawns at the bottom. Scroll velocity stokes the fire: more
-     embers spawn and the glow burns brighter, then settles. */
+  /* Ember particles: sprite-cached (no per-frame radial gradients), paused
+     offscreen via IntersectionObserver and on tab hide. Smaller, calmer
+     pool than before: this page is quiet. */
   (function embers(){
     var canvas = document.getElementById("embers");
     if (!canvas || reduceMotion) return;
@@ -423,9 +351,6 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
     resize();
     window.addEventListener("resize", resize);
 
-    /* Perf: pre-render ember sprites once. Creating a radial gradient per
-       particle per frame was the lag source; drawImage of a cached sprite
-       is an order of magnitude cheaper. */
     var SPRITES = [];
     for (var sp = 0; sp < 6; sp++){
       var sc = document.createElement("canvas"); sc.width = sc.height = 64;
@@ -452,7 +377,7 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
       heat = Math.min(1.5, heat + Math.min(1, v / 55));
     }, { passive: true });
 
-    var POOL = 70, parts = [], t = 0;
+    var POOL = 26, parts = [], t = 0;
     function spawn(p, anywhere){
       p.x = Math.random() * w;
       p.y = anywhere ? Math.random() * h : h + 12 * dpr;
@@ -463,7 +388,6 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
       p.phase = Math.random() * 6.2832;
       p.freq = 0.5 + Math.random() * 1.1;
       p.sway = (0.2 + Math.random() * 0.9) * dpr;
-      p.hue = 16 + Math.random() * 24;
       p.spr = (Math.random() * SPRITES.length) | 0;
       p.life = 0;
       p.maxLife = 380 + Math.random() * 460;
@@ -479,7 +403,7 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
       if (running && inView) {
       t += 0.016;
       heat *= 0.95;
-      var active = 24 + Math.round(heat * 18);
+      var active = 12 + Math.round(heat * 10);
       var glow = 1 + heat * 0.85;
       ctx.clearRect(0, 0, w, h);
       ctx.globalCompositeOperation = "lighter";
@@ -511,137 +435,45 @@ footer .fmark{font-family:'Fraunces',serif;font-weight:300;font-style:italic;col
     tick();
   })();
 
-  /* Wooden token: 3D tilt follows the mouse, eased */
-  (function tokenTilt(){
-    var el = document.getElementById("tokenTilt");
-    if (!el || reduceMotion || !finePointer) return;
-    var tx = 0, ty = 0, cx = 0, cy = 0, MAX = 16;
-    window.addEventListener("mousemove", function(e){
-      tx = ((e.clientX / window.innerWidth) - 0.5) * 2 * MAX;
-      ty = -((e.clientY / window.innerHeight) - 0.5) * 2 * MAX;
-    }, { passive: true });
-    document.addEventListener("mouseleave", function(){ tx = 0; ty = 0; });
-    (function ease(){
-      cx += (tx - cx) * 0.07;
-      cy += (ty - cy) * 0.07;
-      el.style.transform = "rotateX(" + cy.toFixed(2) + "deg) rotateY(" + cx.toFixed(2) + "deg)";
-      requestAnimationFrame(ease);
-    })();
+  /* Fade-only reveals: vanilla IntersectionObserver, zero dependencies */
+  (function reveals(){
+    var els = document.querySelectorAll(".rv");
+    if (!("IntersectionObserver" in window)){
+      els.forEach(function(el){ el.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    els.forEach(function(el){ io.observe(el); });
   })();
 
-  /* Lenis smooth scroll, guarded */
-  var lenis = null;
-  if (typeof Lenis !== "undefined" && !reduceMotion){
-    lenis = new Lenis({ lerp: 0.09 });
-    if (hasST){
-      lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add(function(tt){ lenis.raf(tt * 1000); });
-      gsap.ticker.lagSmoothing(0);
-    } else {
-      var rafL = function(tt){ lenis.raf(tt); requestAnimationFrame(rafL); };
-      requestAnimationFrame(rafL);
-    }
-  }
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener("click", function(e){
-      var id = a.getAttribute("href");
-      if (id.length > 1 && document.querySelector(id)){
-        e.preventDefault();
-        var el = document.querySelector(id);
-        if (lenis) lenis.scrollTo(el, { offset: -70, duration: 1.4 });
-        else el.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  });
-
-  /* Hero entrance: slow masked fade-up, one house ease */
+  /* The one cinematic beat: the key pins while its three uses cross-fade,
+     then releases. ScrollTrigger only. Native scroll everywhere else. */
+  var beatCount = document.getElementById("beatCount");
   if (hasST && !reduceMotion){
-    gsap.fromTo(".rv-hero",
-      { y: 44, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.6, ease: "expo.out", stagger: 0.12, delay: 0.35 });
-  }
-
-  /* Scroll reveals: slow masked fade-up */
-  if (hasST && !reduceMotion){
-    gsap.utils.toArray(".rv").forEach(function(el){
-      gsap.fromTo(el,
-        { y: 44, opacity: 0, clipPath: "inset(0 0 30px 0)" },
-        { y: 0, opacity: 1, clipPath: "inset(0 0 0px 0)",
-          duration: 1.6, ease: "expo.out",
-          scrollTrigger: { trigger: el, start: "top 86%", once: true } });
-    });
-  }
-
-  /* Hand-stitched borders: JS draws a slightly wobbly dashed thread rect
-     inside every .stitched card. Seeded per-card so the wobble is stable
-     across repaints; rebuilt on load and resize. */
-  (function stitches(){
-    "use strict";
-    var els = document.querySelectorAll(".stitched");
-    if (!els.length || !document.createElementNS) return;
-    var NS = "http://www.w3.org/2000/svg";
-    function mulberry(seed){
-      return function(){
-        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
-        var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-        return ((t ^ t >>> 14) >>> 0) / 4294967296;
-      };
-    }
-    function rrPath(w, h, rand){
-      var pts = [];
-      function line(x1, y1, x2, y2, n){
-        for (var i = 0; i < n; i++){
-          var t = i / n;
-          pts.push([x1 + (x2 - x1) * t, y1 + (y2 - y1) * t]);
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".beat",
+        start: "top top",
+        end: "+=240%",
+        pin: true,
+        scrub: 0.6,
+        anticipatePin: 1,
+        onUpdate: function(self){
+          if (beatCount) beatCount.textContent = "0" + Math.min(3, 1 + Math.floor(self.progress * 3)) + " / 03";
         }
       }
-      var xn = Math.max(8, Math.round(w / 26)), yn = Math.max(5, Math.round(h / 26));
-      line(0, 0, w, 0, xn); line(w, 0, w, h, yn);
-      line(w, h, 0, h, xn); line(0, h, 0, 0, yn);
-      var out = pts.map(function(p, i){
-        var a = (i / pts.length) * Math.PI * 2;
-        var wob = (rand() - 0.5) * 3.4;
-        return [p[0] + Math.cos(a) * wob, p[1] + Math.sin(a) * wob];
-      });
-      var n = out.length, d = "M" + out[0][0].toFixed(1) + "," + out[0][1].toFixed(1);
-      for (var i = 0; i < n; i++){
-        var p0 = out[(i - 1 + n) % n], p1 = out[i],
-            p2 = out[(i + 1) % n], p3 = out[(i + 2) % n];
-        var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
-        var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
-        d += " C" + c1x.toFixed(1) + "," + c1y.toFixed(1) + " " +
-             c2x.toFixed(1) + "," + c2y.toFixed(1) + " " +
-             p2[0].toFixed(1) + "," + p2[1].toFixed(1);
-      }
-      return d + " Z";
-    }
-    function build(){
-      els.forEach(function(el, idx){
-        var old = el.querySelector("svg.stitch-frame");
-        if (old && old.parentNode) old.parentNode.removeChild(old);
-        var w = el.clientWidth - 14, h = el.clientHeight - 14;
-        if (w < 40 || h < 40) return;
-        var svg = document.createElementNS(NS, "svg");
-        svg.setAttribute("class", "stitch-frame");
-        svg.setAttribute("width", w); svg.setAttribute("height", h);
-        svg.setAttribute("viewBox", "0 0 " + w + " " + h);
-        svg.setAttribute("aria-hidden", "true");
-        var p = document.createElementNS(NS, "path");
-        p.setAttribute("d", rrPath(w, h, mulberry(idx + 7)));
-        p.setAttribute("class", "stitch-path");
-        svg.appendChild(p);
-        el.appendChild(svg);
-      });
-    }
-    var t = null;
-    window.addEventListener("load", build);
-    window.addEventListener("resize", function(){
-      if (t) clearTimeout(t);
-      t = setTimeout(build, 180);
     });
-    build();
-  })();
+    tl.to(".s1", { opacity: 0, duration: 0.4 }, 0.6)
+      .fromTo(".s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.6)
+      .to(".s2", { opacity: 0, duration: 0.4 }, 1.6)
+      .fromTo(".s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.6);
+  } else {
+    document.documentElement.classList.add("no-pin");
+  }
 
   window.addEventListener("load", function(){ if (hasST) ScrollTrigger.refresh(); });
 })();
