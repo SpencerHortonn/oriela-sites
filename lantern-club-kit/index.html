@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,SOFT,WONK,wght@0,9..144,0..100,0..1,100..900;1,9..144,0..100,0..1,100..900&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --ease:cubic-bezier(0.16,1,0.3,1);
@@ -31,7 +31,7 @@ a{color:inherit}
 
 /* wood sections */
 .wood-dark{background:linear-gradient(rgba(20,12,6,.58),rgba(20,12,6,.66)),var(--planks);background-size:cover;background-position:center;box-shadow:inset 0 0 140px rgba(0,0,0,.5)}
-.wood-warm{background:linear-gradient(rgba(240,230,208,.74),rgba(240,230,208,.8)),var(--planks);background-size:cover;background-position:center;color:var(--ink)}
+.wood-warm{background:linear-gradient(rgba(240,230,208,.66),rgba(240,230,208,.72)),var(--planks);background-size:cover;background-position:center;color:var(--ink);box-shadow:inset 0 0 120px rgba(120,80,30,.25)}
 .grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:200;opacity:.06;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 8s steps(10) infinite}
@@ -84,7 +84,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800}
 /* sections */
 section.block{padding:120px 0;position:relative}
 .sec-head{margin-bottom:60px}
-.kicker{font-size:13px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);margin-bottom:18px}
+.h1,.st,.brand,.step h3,.event h3,.kit h3,.dcard p,.final h2,.pull,#loader .l-word,.price,.stat b{font-variation-settings:"opsz" 144,"SOFT" 55,"WONK" 1}
+.kicker{font-family:Caveat,cursive;font-size:27px;font-weight:600;letter-spacing:.02em;color:var(--rust);margin-bottom:14px}
 .wood-dark .kicker{color:var(--gold)}
 .st{font-family:Fraunces,serif;font-weight:500;font-size:clamp(36px,5.2vw,66px);line-height:1.08;letter-spacing:-.02em}
 .st em{font-style:italic;color:var(--rust)}
@@ -109,7 +110,8 @@ section.block{padding:120px 0;position:relative}
 .step{background:linear-gradient(rgba(20,12,6,.42),rgba(20,12,6,.55)),var(--planks);background-size:cover;border-radius:18px;padding:34px 28px;color:var(--cream);
   border:1px solid rgba(201,162,75,.25);transition:transform .45s var(--ease-pop),box-shadow .45s}
 .step:hover{transform:translateY(-6px);box-shadow:0 24px 50px -20px rgba(0,0,0,.6)}
-.step .n{font-family:Fraunces,serif;font-style:italic;font-size:15px;color:var(--gold);letter-spacing:.2em;margin-bottom:14px}
+.step{box-shadow:0 26px 55px -20px rgba(0,0,0,.6),inset 0 1px 0 rgba(244,236,220,.14)}
+.step .n{font-family:Caveat,cursive;font-size:24px;font-weight:600;color:var(--gold);margin-bottom:10px}
 .step h3{font-family:Fraunces,serif;font-weight:500;font-size:24px;margin-bottom:12px;letter-spacing:-.01em}
 .step p{font-size:15px;line-height:1.65;color:rgba(244,236,220,.72)}
 .step .t{display:inline-block;margin-top:16px;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
@@ -121,6 +123,7 @@ section.block{padding:120px 0;position:relative}
   background:radial-gradient(circle,rgba(224,168,62,.3),rgba(224,168,62,0) 62%)}
 .event h3{font-family:Fraunces,serif;font-weight:500;font-size:clamp(34px,4.6vw,56px);letter-spacing:-.02em;margin:14px 0 18px}
 .event h3 em{color:var(--amber)}
+.event{box-shadow:0 50px 100px -40px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,236,220,.16)}
 .event ul{list-style:none;margin:26px 0 34px;display:grid;gap:14px}
 .event li{display:flex;gap:14px;align-items:baseline;font-size:16px;color:rgba(244,236,220,.85)}
 .event li b{color:var(--gold);font-weight:600;min-width:74px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
@@ -140,6 +143,7 @@ section.block{padding:120px 0;position:relative}
 .kit li{display:flex;gap:14px;align-items:flex-start;font-size:16px;line-height:1.6}
 .kit li .ico{font-size:22px;line-height:1.2}
 .kit li b{font-weight:600}
+.kit{box-shadow:0 44px 90px -30px rgba(20,10,2,.55),inset 0 1px 0 rgba(255,255,255,.5)}
 .prod-copy p{font-size:18px;line-height:1.75;color:var(--ink-soft);margin-bottom:20px}
 .prod-copy p strong{color:var(--ink)}
 
@@ -150,9 +154,10 @@ section.block{padding:120px 0;position:relative}
 .dcard{background:var(--linen);background-size:220px;border-radius:16px;padding:30px 26px;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;
   border:1px solid rgba(42,29,18,.12);box-shadow:0 18px 40px -22px rgba(42,29,18,.4);transition:transform .45s var(--ease-pop)}
 .dcard:hover{transform:translateY(-6px) rotate(-.6deg)}
-.dcard .cat{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);margin-bottom:16px}
+.dcard .cat{font-family:Caveat,cursive;font-size:23px;font-weight:600;color:var(--rust);margin-bottom:14px}
 .dcard p{font-family:Fraunces,serif;font-size:21px;line-height:1.45;color:var(--ink)}
 .dcard .num{margin-top:18px;font-size:13px;color:var(--ink-soft);letter-spacing:.1em}
+.dcard{box-shadow:0 30px 60px -24px rgba(20,10,2,.5),inset 0 1px 0 rgba(255,255,255,.45)}
 
 /* faq */
 .faq{max-width:760px}
@@ -176,6 +181,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
 footer a{color:rgba(244,236,220,.75);text-decoration:none}
 footer a:hover{color:var(--amber)}
 .rv{will-change:transform}
+
+/* swinging lanterns */
+.lanterns{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.lantern{position:absolute;top:-8px;transform-origin:top center;will-change:transform}
+.lantern svg{display:block;overflow:visible}
+.lantern .l-glow{position:absolute;left:50%;transform:translate(-50%,-50%);width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,190,90,.42),rgba(255,190,90,0) 65%);animation:flick 3.4s ease-in-out infinite}
+@media(max-width:640px){.lanterns{display:none}}
+.hero-scrim{position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 55% at 32% 46%,rgba(15,9,4,.55),rgba(15,9,4,0) 70%)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
   #loader{display:none}
@@ -208,7 +223,43 @@ footer a:hover{color:var(--amber)}
 <!-- HERO -->
 <header class="hero wood-dark" id="top">
   <div class="lantern-glow" aria-hidden="true"></div>
-  <div class="wrap" style="position:relative">
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="lanterns" aria-hidden="true">
+    <div class="lantern" style="left:5%">
+      <div class="l-glow" style="top:148px"></div>
+      <svg width="76" viewBox="0 0 120 300">
+        <line x1="60" y1="0" x2="60" y2="192" stroke="#241708" stroke-width="5"/>
+        <rect x="50" y="186" width="20" height="12" rx="4" fill="#241708"/>
+        <rect x="32" y="198" width="56" height="72" rx="16" fill="#f2a93b" opacity="0.94" stroke="#241708" stroke-width="5"/>
+        <line x1="60" y1="198" x2="60" y2="270" stroke="#241708" stroke-width="3" opacity="0.55"/>
+        <circle cx="60" cy="234" r="15" fill="#ffe6a8"/>
+        <rect x="40" y="270" width="40" height="12" rx="5" fill="#241708"/>
+      </svg>
+    </div>
+    <div class="lantern" style="left:88%">
+      <div class="l-glow" style="top:230px"></div>
+      <svg width="92" viewBox="0 0 120 370">
+        <line x1="60" y1="0" x2="60" y2="258" stroke="#241708" stroke-width="5"/>
+        <rect x="50" y="252" width="20" height="12" rx="4" fill="#241708"/>
+        <rect x="32" y="264" width="56" height="72" rx="16" fill="#f2a93b" opacity="0.94" stroke="#241708" stroke-width="5"/>
+        <line x1="60" y1="264" x2="60" y2="336" stroke="#241708" stroke-width="3" opacity="0.55"/>
+        <circle cx="60" cy="300" r="15" fill="#ffe6a8"/>
+        <rect x="40" y="336" width="40" height="12" rx="5" fill="#241708"/>
+      </svg>
+    </div>
+    <div class="lantern" style="left:73%">
+      <div class="l-glow" style="top:139px"></div>
+      <svg width="64" viewBox="0 0 120 330">
+        <line x1="60" y1="0" x2="60" y2="218" stroke="#241708" stroke-width="5"/>
+        <rect x="50" y="212" width="20" height="12" rx="4" fill="#241708"/>
+        <rect x="32" y="224" width="56" height="72" rx="16" fill="#f2a93b" opacity="0.94" stroke="#241708" stroke-width="5"/>
+        <line x1="60" y1="224" x2="60" y2="296" stroke="#241708" stroke-width="3" opacity="0.55"/>
+        <circle cx="60" cy="260" r="15" fill="#ffe6a8"/>
+        <rect x="40" y="296" width="40" height="12" rx="5" fill="#241708"/>
+      </svg>
+    </div>
+  </div>
+  <div class="wrap" style="position:relative;z-index:2">
     <p class="announce rv">Night One: <b>Clay Night</b> &middot; Nov 5 &middot; Tyler, TX &middot; <b>20 spots</b></p>
     <p class="hero-eyebrow rv" style="margin-top:34px">Why this exists</p>
     <h1 class="h1" aria-label="Real nights. No phones.">
@@ -499,6 +550,43 @@ setTimeout(function(){
       requestAnimationFrame(loop);
     })();
   }
+
+  /* swinging lanterns: real pendulum physics, scroll gives them a push */
+  (function(){
+    var els = Array.prototype.slice.call(document.querySelectorAll(".lantern"));
+    if (!els.length || reduceMotion) return;
+    var L = els.map(function(el, i){
+      return { el: el, a: (i - 1) * 0.05, v: 0, len: 200 + i * 45, ph: Math.random() * 6.28 };
+    });
+    function push(sv){
+      for (var i = 0; i < L.length; i++) {
+        L[i].v += sv * 0.00045 * (300 / L[i].len);
+      }
+    }
+    if (lenis) { lenis.on("scroll", function(e){ push(e.velocity || 0); }); }
+    else {
+      var lastY = window.scrollY, lastT = performance.now();
+      window.addEventListener("scroll", function(){
+        var now = performance.now(), y = window.scrollY, dt = Math.max(1, now - lastT);
+        push((y - lastY) / dt * 16); lastY = y; lastT = now;
+      }, { passive: true });
+    }
+    var last = performance.now();
+    (function swing(now){
+      var dt = Math.min(0.05, (now - last) / 1000); last = now;
+      var t = now / 1000;
+      for (var i = 0; i < L.length; i++) {
+        var o = L[i];
+        var breeze = Math.sin(t * 0.8 + o.ph) * 0.35 * dt;
+        var acc = -(9.8 / (o.len / 55)) * Math.sin(o.a) - 0.6 * o.v;
+        o.v += acc * dt + breeze * 0.03;
+        o.a += o.v * dt;
+        if (o.a > 0.5) o.a = 0.5; if (o.a < -0.5) o.a = -0.5;
+        o.el.style.transform = "rotate(" + o.a + "rad)";
+      }
+      requestAnimationFrame(swing);
+    })(last);
+  })();
 
   /* faq accordion */
   document.querySelectorAll(".faq-item").forEach(function(it){
