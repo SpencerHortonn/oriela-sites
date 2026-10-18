@@ -106,6 +106,7 @@ section.block{padding:120px 0;position:relative}
 .ch-name{font-family:Fraunces,serif;font-weight:500;font-size:clamp(34px,4.6vw,58px);letter-spacing:-.02em;line-height:1.05;margin-bottom:16px}
 .ch-name a{text-decoration:none}
 .ch-desc{max-width:560px;color:var(--muted);font-size:17px;line-height:1.7;margin-bottom:26px}
+.ch-why{font-family:Fraunces,serif;font-style:italic;font-size:19px;color:var(--accent);margin-bottom:18px;max-width:560px;line-height:1.55}
 .ch-meta{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .ch-price{font-weight:600;font-size:15px;color:var(--ink)}
 .ch-link{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:var(--accent);text-decoration:none}
@@ -133,13 +134,6 @@ section.block{padding:120px 0;position:relative}
 .socials a:hover{color:var(--accent)}
 footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px;transition:border-color .7s var(--ease)}
 
-/* ============ CURSOR ============ */
-#cursor{position:fixed;top:0;left:0;z-index:950;pointer-events:none;display:none}
-@media(pointer:fine){#cursor{display:block}}
-#cursor .pill{display:flex;align-items:center;justify-content:center;padding:10px 20px;border-radius:100px;background:var(--accent);color:var(--bg);
-  font-size:13px;font-weight:600;white-space:nowrap;transform:translate(-50%,-50%) scale(0);transition:transform .35s var(--ease-pop)}
-#cursor.on .pill{transform:translate(-50%,-50%) scale(1)}
-
 /* reveal defaults (JS enhances) */
 .rv{will-change:transform}
 @media(prefers-reduced-motion:reduce){
@@ -152,7 +146,6 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
 
 <div class="grain" aria-hidden="true"></div>
 <div id="progress" aria-hidden="true"></div>
-<div id="cursor" aria-hidden="true"><div class="pill">Visit</div></div>
 
 <!-- PRELOADER -->
 <div id="loader" aria-hidden="true">
@@ -180,11 +173,11 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
   <div class="player orb" data-depth="0.14" aria-hidden="true"></div>
   <div class="wrap" style="position:relative">
     <p class="hero-eyebrow rv">Oriela Co. A holding company.</p>
-    <h1 class="h1" aria-label="Oriela builds what matters.">
-      <span class="mask"><span class="line">Oriela builds</span></span>
-      <span class="cycle-wrap"><span id="cycler">Studio</span></span>
+    <h1 class="h1" aria-label="I build what matters.">
+      <span class="mask"><span class="line">I build</span></span>
+      <span class="cycle-wrap"><span id="cycler">companies.</span></span>
     </h1>
-    <p class="hero-sub rv">Six ventures, one standard: craft and grit. We make phone-free nights, fitness challenges, media, and tools worth keeping.</p>
+    <p class="hero-sub rv">I'm Spencer. I'm 18. No funding, no office, no car. Six live businesses, all built by hand in Texas. This is the holding company.</p>
     <div class="hero-cta rv">
       <a class="btn" href="#businesses">See the businesses</a>
       <a class="btn ghost" href="mailto:hello@orielaco.com">Say hello</a>
@@ -192,6 +185,17 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="wheel"></div><span>Scroll</span></div>
 </header>
+
+<!-- STANDARD -->
+<section class="block" style="padding-bottom:40px" data-theme="cream">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:0">
+      <p class="kicker">The standard</p>
+      <h2 class="st"><span class="hl"></span>Craft and grit.</h2>
+      <p class="hero-sub rv" style="margin-top:20px">Two values. Everything here is built by hand and built to last. No hype, no vapor. If it is on this page, it is live and you can buy it.</p>
+    </div>
+  </div>
+</section>
 
 <!-- BUSINESSES -->
 <main id="businesses">
@@ -207,17 +211,19 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
         <div class="ch-body">
           <p class="ch-kicker">Lantern Club</p>
           <h3 class="ch-name"><a href="https://unplugged-kit.pages.dev" target="_blank" rel="noopener">Unplugged</a></h3>
+          <p class="ch-why">I was lonely in rooms full of people. So I built the thing that fixes it.</p>
           <p class="ch-desc">A phone-free night in a box. Canvas pouch, 50 conversation cards, a candle, and a host guide. Put the phones away. Get the night back.</p>
           <div class="ch-meta"><span class="ch-price">$35 preorder</span><a class="ch-link" href="https://unplugged-kit.pages.dev" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
         <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
       </article>
 
-      <article class="chapter rv" data-theme="forest" data-url="https://proving-ground-6bv.pages.dev">
+      <article class="chapter rv" data-theme="cream" data-url="https://proving-ground-6bv.pages.dev">
         <div class="ch-num">02</div>
         <div class="ch-body">
           <p class="ch-kicker">Fitness</p>
           <h3 class="ch-name"><a href="https://proving-ground-6bv.pages.dev" target="_blank" rel="noopener">Proving Ground</a></h3>
+          <p class="ch-why">I wanted a race worth training for. So I built one.</p>
           <p class="ch-desc">A 4-week hybrid fitness challenge. Real programming, divisions for every level, video-verified leaderboard, and a prize pool.</p>
           <div class="ch-meta"><span class="ch-price">$99 entry</span><a class="ch-link" href="https://proving-ground-6bv.pages.dev" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
@@ -229,17 +235,19 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
         <div class="ch-body">
           <p class="ch-kicker">Services</p>
           <h3 class="ch-name"><a href="https://oriela-studio.pages.dev" target="_blank" rel="noopener">Oriela Studio</a></h3>
+          <p class="ch-why">Five years behind a camera. Now it is a company.</p>
           <p class="ch-desc">Full-service media: brand films, short-form video, websites that book, content retainers, and business automations.</p>
           <div class="ch-meta"><span class="ch-price">Project pricing</span><a class="ch-link" href="https://oriela-studio.pages.dev" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
         <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
       </article>
 
-      <article class="chapter rv" data-theme="forest" data-url="https://podcast-repurposing.pages.dev">
+      <article class="chapter rv" data-theme="cream" data-url="https://podcast-repurposing.pages.dev">
         <div class="ch-num">04</div>
         <div class="ch-body">
           <p class="ch-kicker">Oriela Studio</p>
           <h3 class="ch-name"><a href="https://podcast-repurposing.pages.dev" target="_blank" rel="noopener">Podcast Repurposing</a></h3>
+          <p class="ch-why">Great episodes die in the feed. We bring them back.</p>
           <p class="ch-desc">Every episode turned into show notes, 8 social posts, a newsletter, and quote graphics. Done for you in 48 hours.</p>
           <div class="ch-meta"><span class="ch-price">From $297/mo</span><a class="ch-link" href="https://podcast-repurposing.pages.dev" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
@@ -251,17 +259,19 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
         <div class="ch-body">
           <p class="ch-kicker">Hearth</p>
           <h3 class="ch-name"><a href="https://hearth-key.pages.dev" target="_blank" rel="noopener">Hearth Key</a></h3>
+          <p class="ch-why">Willpower loses to the phone every time. So we take it out of the room.</p>
           <p class="ch-desc">A beautiful wooden token with an NFC chip inside. One tap puts your phone to bed.</p>
           <div class="ch-meta"><span class="ch-price">$39 waitlist</span><a class="ch-link" href="https://hearth-key.pages.dev" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
         <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
       </article>
 
-      <article class="chapter rv" data-theme="forest" data-url="https://half-frame.pages.dev">
+      <article class="chapter rv" data-theme="cream" data-url="https://half-frame.pages.dev">
         <div class="ch-num">06</div>
         <div class="ch-body">
           <p class="ch-kicker">Apps</p>
           <h3 class="ch-name"><a href="https://half-frame.pages.dev" target="_blank" rel="noopener">Half Frame</a></h3>
+          <p class="ch-why">One app at a time. This one makes your phone shoot like film.</p>
           <p class="ch-desc">A film-look camera for your phone. 36 shots per roll, grain, halation, date stamps. One app at a time, shipped.</p>
           <div class="ch-meta"><span class="ch-price">Free prototype</span><a class="ch-link" href="https://half-frame.pages.dev" target="_blank" rel="noopener">Try it <span class="arr">&rarr;</span></a></div>
         </div>
@@ -272,7 +282,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
   </section>
 
   <!-- CONTACT -->
-  <section class="contact" id="contact" data-theme="forest">
+  <section class="contact" id="contact" data-theme="cream">
     <div class="wrap">
       <p class="kicker">Contact</p>
       <h2 class="st"><span class="hl"></span>Say hello.</h2>
@@ -310,6 +320,9 @@ setTimeout(function(){
 <script>
 (function(){
   "use strict";
+  /* Always start at the top: kill scroll restoration or reloads land mid-page */
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine = window.matchMedia("(pointer: fine)").matches;
 
@@ -428,9 +441,9 @@ setTimeout(function(){
 
   /* ---------- Font-cycling venture word ---------- */
   var ventures = [
-    { w: "Studios.", s: "600 normal" }, { w: "Lantern Club.", s: "400 italic" },
-    { w: "Second Shutter.", s: "300 normal" }, { w: "Half Frame.", s: "500 italic" },
-    { w: "Hearth.", s: "500 normal" }, { w: "Proving Ground.", s: "400 italic" }
+    { w: "nights.", s: "600 normal" }, { w: "races.", s: "400 italic" },
+    { w: "films.", s: "300 normal" }, { w: "shows.", s: "500 italic" },
+    { w: "keys.", s: "500 normal" }, { w: "apps.", s: "400 italic" }
   ];
   var cycler = document.getElementById("cycler"), vi = 0, cycling = true;
   function styleCycler(v){
@@ -475,16 +488,9 @@ setTimeout(function(){
     });
   }
 
-  /* ---------- Card aliveness: scramble titles + zoom settle + cursor pill ---------- */
-  var cursor = document.getElementById("cursor"), cx = -100, cy = -100, tx = -100, ty = -100;
-  if (fine) {
-    window.addEventListener("mousemove", function(e){ tx = e.clientX; ty = e.clientY; });
-    (function loop(){
-      cx += (tx - cx) * 0.16; cy += (ty - cy) * 0.16;
-      cursor.style.transform = "translate(" + cx + "px," + cy + "px)";
-      requestAnimationFrame(loop);
-    })();
-  }
+  /* ---------- Custom cursor: removed (was stupid) ---------- */
+
+  /* ---------- Card hover aliveness: scramble titles + zoom settle ---------- */
   document.querySelectorAll(".chapter").forEach(function(ch){
     var name = ch.querySelector(".ch-name a"), zoom = ch.querySelector(".zoom"), url = ch.getAttribute("data-url");
     ch.addEventListener("click", function(e){
@@ -493,11 +499,9 @@ setTimeout(function(){
     });
     if (!fine || reduceMotion) return;
     ch.addEventListener("mouseenter", function(){
-      cursor.classList.add("on");
       gsap.fromTo(zoom, { scale: 1.07 }, { scale: 1, duration: 0.9, ease: "expo.out" });
       if (typeof ScrambleTextPlugin !== "undefined") gsap.to(name, { duration: 0.7, scrambleText: { text: name.textContent, chars: ".:/<>*+", speed: 0.6 } });
     });
-    ch.addEventListener("mouseleave", function(){ cursor.classList.remove("on"); });
   });
 
   /* ---------- Pointer parallax hero (2.5D, no WebGL) ---------- */
