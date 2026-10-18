@@ -3,346 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oriela Studio | Done-for-you content systems</title>
-<meta name="description" content="Oriela Studio is the service arm of Oriela. Podcast repurposing, short-form video, and websites with booking and automation built in.">
+<title>Oriela Studio | Video, Websites, Content, Automations</title>
+<meta name="description" content="Oriela Studio is a full-service media company. Brand films, short-form video, websites that book customers, content retainers, and business automations.">
+<meta property="og:title" content="Oriela Studio | We build the media your business runs on">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --cream:#f4ecdc;
-    --paper:#fbf7ec;
-    --forest:#1f3529;
-    --rust:#b0532b;
-    --gold:#c9a24b;
-    --ink:#2b2620;
-    --muted:#6f6353;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Inter',system-ui,sans-serif;
-    background:var(--cream);color:var(--ink);line-height:1.7;overflow-x:hidden;
-  }
-  body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  }
-  ::selection{background:var(--rust);color:var(--cream)}
-  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.15}
-
-  nav{
-    position:fixed;top:0;left:0;right:0;z-index:40;
-    display:flex;justify-content:space-between;align-items:center;
-    padding:1rem 1.25rem;min-height:64px;
-    background:rgba(244,236,220,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(31,53,41,.12);
-  }
-  nav .wordmark{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--forest);text-decoration:none;min-height:44px;display:flex;align-items:center}
-  nav .links a{color:var(--forest);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:.75;min-height:44px;display:inline-flex;align-items:center;margin-left:1.25rem}
-  nav .links a:hover{opacity:1}
-
-  .hero{
-    min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;position:relative;padding:7rem 1.5rem 4rem;
-    background:
-      radial-gradient(1200px 600px at 50% -10%, rgba(201,162,75,.20), transparent 60%),
-      radial-gradient(900px 500px at 50% 110%, rgba(176,83,43,.12), transparent 60%),
-      var(--cream);
-  }
-  .sunmark{width:min(120px,36vw);height:auto;margin-bottom:1.75rem;filter:drop-shadow(0 10px 30px rgba(176,83,43,.25))}
-  .sunmark .rays{transform-origin:75px 75px;animation:spin 90s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .sunmark .pulse{transform-origin:75px 75px;animation:pulse 6s ease-in-out infinite}
-  @keyframes pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.06);opacity:1}}
-  .kicker{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:1rem}
-  .hero h1{font-size:clamp(2.6rem,12vw,5.5rem);color:var(--forest);letter-spacing:.01em}
-  .lede{font-size:1.1rem;color:var(--muted);max-width:34rem;margin:1.25rem auto 0}
-  .hero-cta{margin-top:2.25rem;display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
-
-  .btn{
-    cursor:pointer;border:none;border-radius:999px;padding:.9rem 1.8rem;min-height:48px;
-    background:var(--forest);color:var(--cream);font-size:.85rem;font-weight:600;
-    letter-spacing:.08em;text-transform:uppercase;transition:background .25s, transform .25s;
-    text-decoration:none;display:inline-flex;align-items:center;
-  }
-  .btn:hover{background:var(--rust);transform:translateY(-2px)}
-  .btn.ghost{background:transparent;color:var(--forest);border:1px solid rgba(31,53,41,.35)}
-  .btn.ghost:hover{background:var(--forest);color:var(--cream)}
-
-  section{padding:5rem 1.5rem}
-  .wrap{max-width:1080px;margin:0 auto}
-  .section-head{text-align:center;max-width:640px;margin:0 auto 3rem}
-  .section-head h2{font-size:clamp(1.9rem,5vw,2.8rem);color:var(--forest);margin-bottom:.75rem}
-  .section-head p{color:var(--muted)}
-
-  .cards{display:grid;grid-template-columns:1fr;gap:1.5rem}
-  .card{
-    background:var(--paper);border:1px solid rgba(31,53,41,.14);border-radius:1.25rem;
-    padding:2.25rem 1.75rem;display:flex;flex-direction:column;
-  }
-  .card.popular{border:2px solid var(--rust);position:relative}
-  .card .tag{
-    position:absolute;top:-0.85rem;left:50%;transform:translateX(-50%);
-    background:var(--rust);color:var(--cream);font-size:.7rem;font-weight:600;
-    letter-spacing:.14em;text-transform:uppercase;padding:.3rem .9rem;border-radius:999px;white-space:nowrap;
-  }
-  .card h3{font-size:1.5rem;color:var(--forest);margin-bottom:.5rem}
-  .card .svc{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:.75rem}
-  .card p{color:var(--muted);font-size:.98rem;margin-bottom:1.25rem}
-  .card ul{list-style:none;margin-bottom:1.5rem;flex:1}
-  .card li{padding:.45rem 0 .45rem 1.6rem;position:relative;font-size:.95rem;color:var(--ink)}
-  .card li::before{content:"";position:absolute;left:0;top:.95rem;width:.55rem;height:.55rem;border-radius:50%;background:var(--gold)}
-  .price-row{display:flex;align-items:baseline;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
-  .price{font-family:'Fraunces',serif;font-size:2rem;color:var(--forest)}
-  .price-note{font-size:.85rem;color:var(--muted)}
-  .card .btn{align-self:flex-start}
-
-  .steps{display:grid;grid-template-columns:1fr;gap:1.5rem;counter-reset:step}
-  .step{
-    background:var(--paper);border:1px solid rgba(31,53,41,.14);border-radius:1.25rem;
-    padding:2rem 1.75rem;position:relative;
-  }
-  .step::before{
-    counter-increment:step;content:counter(step);
-    font-family:'Fraunces',serif;font-size:2.5rem;color:var(--gold);display:block;margin-bottom:.5rem;
-  }
-  .step h3{color:var(--forest);font-size:1.35rem;margin-bottom:.5rem}
-  .step p{color:var(--muted);font-size:.98rem}
-
-  .band{background:var(--forest);color:var(--cream)}
-  .band .section-head h2{color:var(--cream)}
-  .band .section-head p{color:rgba(244,236,220,.75)}
-  .empty{
-    border:1px dashed rgba(244,236,220,.4);border-radius:1.25rem;
-    padding:3rem 1.5rem;text-align:center;color:rgba(244,236,220,.75);
-    font-family:'Fraunces',serif;font-style:italic;font-size:1.25rem;
-  }
-
-  .faq{max-width:720px;margin:0 auto}
-  .faq details{
-    background:var(--paper);border:1px solid rgba(31,53,41,.14);border-radius:1rem;
-    padding:1.1rem 1.4rem;margin-bottom:.9rem;
-  }
-  .faq summary{cursor:pointer;font-weight:600;color:var(--forest);font-size:1rem;min-height:44px;display:flex;align-items:center}
-  .faq summary::marker{color:var(--rust)}
-  .faq p{color:var(--muted);font-size:.95rem;margin-top:.5rem}
-
-  .contact-block{background:var(--paper);text-align:center}
-  .contact-block h2{font-size:clamp(2rem,5vw,3rem);color:var(--forest);margin-bottom:1rem}
-  .contact-block .lede{margin:0 auto}
-  .contact-rows{display:flex;flex-direction:column;gap:1rem;align-items:center;margin-top:2.25rem}
-  .contact-pill{
-    font-family:'Fraunces',serif;font-size:1.15rem;color:var(--forest);
-    background:#fff;border:1px solid rgba(31,53,41,.2);
-    padding:.8rem 1.6rem;border-radius:999px;overflow-wrap:anywhere;text-decoration:none;
-  }
-  a.contact-pill:hover{border-color:var(--rust)}
-
-  footer{
-    text-align:center;padding:2rem 1.5rem;font-size:.85rem;letter-spacing:.06em;color:var(--muted);
-    border-top:1px solid rgba(31,53,41,.12);background:var(--cream);
-  }
-  footer .fmark{font-family:'Fraunces',serif;color:var(--forest);font-size:1.05rem;margin-bottom:.3rem}
-  footer a{color:var(--rust);text-decoration:none}
-
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease}
-  .reveal.in{opacity:1;transform:none}
-
-  @media(min-width:720px){
-    nav{padding:1rem 2rem}
-    .cards{grid-template-columns:repeat(3,1fr)}
-    .steps{grid-template-columns:repeat(3,1fr)}
-    .contact-rows{flex-direction:row;justify-content:center}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .sunmark .rays,.sunmark .pulse{animation:none}
-    .reveal{opacity:1;transform:none;transition:none}
-    html{scroll-behavior:auto}
-  }
+:root{--cream:#f4ecdc;--paper:#faf6ec;--forest:#1f3529;--rust:#b0532b;--gold:#c9a24b;--ink:#2a2620;--soft:#5c554a;--line:rgba(31,53,41,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:14px 28px;background:rgba(244,236,220,.92);border-bottom:1px solid var(--line)}
+nav .wordmark{font-family:'Fraunces',serif;font-size:20px;color:var(--forest);text-decoration:none}
+nav .wordmark span{color:var(--rust)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 24px 80px}
+.kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:20px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(42px,8vw,76px);line-height:1.05;color:var(--forest);max-width:18ch}
+.hero h1 em{font-style:italic;color:var(--rust)}
+.hero .sub{margin-top:22px;font-size:18px;color:var(--soft);max-width:56ch}
+.cta-row{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-block;background:var(--forest);color:var(--cream);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;padding:16px 38px;border-radius:999px;text-decoration:none}
+.client-strip{margin-top:56px;display:flex;gap:36px;flex-wrap:wrap;justify-content:center;opacity:.65}
+.client-strip span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);font-weight:600}
+section{padding:96px 0}
+h2.st{font-family:'Fraunces',serif;font-size:clamp(32px,5vw,48px);color:var(--forest);text-align:center;margin-bottom:16px}
+.lede{text-align:center;color:var(--soft);max-width:60ch;margin:0 auto 60px;font-size:17px}
+.svc-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:860px){.svc-grid{grid-template-columns:1fr 1fr}}
+.svc{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:40px 34px}
+.svc .num{font-family:'Fraunces',serif;font-style:italic;color:var(--rust)}
+.svc h3{font-family:'Fraunces',serif;font-size:26px;color:var(--forest);margin:10px 0 12px}
+.svc p{color:var(--soft);font-size:15.5px;margin-bottom:18px}
+.svc ul{list-style:none;margin-bottom:24px}
+.svc li{font-size:14.5px;color:var(--soft);padding:7px 0 7px 24px;position:relative}
+.svc li::before{content:"→";position:absolute;left:0;color:var(--rust);font-weight:700}
+.svc .from{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--forest);font-weight:700}
+.svc .from span{color:var(--rust)}
+.work-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:720px){.work-grid{grid-template-columns:repeat(3,1fr)}}
+.work{background:var(--forest);color:var(--cream);border-radius:18px;padding:34px 28px}
+.work .type{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
+.work h3{font-family:'Fraunces',serif;font-size:21px;margin-bottom:10px}
+.work p{font-size:14.5px;color:rgba(244,236,220,.7)}
+.cta-final{background:var(--forest);border-radius:28px;padding:72px 32px;text-align:center;color:var(--cream);margin:0 24px}
+.cta-final h2{font-family:'Fraunces',serif;font-size:clamp(30px,5vw,44px);margin-bottom:14px}
+.cta-final h2 em{font-style:italic;color:var(--gold)}
+.cta-final p{color:rgba(244,236,220,.75);max-width:48ch;margin:0 auto 32px}
+.cta-final .btn{background:var(--rust)}
+footer{text-align:center;padding:44px 24px;font-size:14px;color:var(--soft)}
+footer a{color:var(--rust);text-decoration:none}
 </style>
 </head>
 <body>
-
-<nav>
-  <a class="wordmark" href="#top">Oriela Studio</a>
-  <div class="links"><a href="#services">Services</a><a href="#contact">Contact</a></div>
-</nav>
-
+<nav><a class="wordmark" href="#top">Oriela <span>Studio</span></a></nav>
 <header class="hero" id="top">
-  <svg class="sunmark" viewBox="0 0 150 150" aria-hidden="true">
-    <g class="rays" stroke="#b0532b" stroke-width="3" stroke-linecap="round">
-      <line x1="75" y1="6" x2="75" y2="26"/><line x1="75" y1="124" x2="75" y2="144"/>
-      <line x1="6" y1="75" x2="26" y2="75"/><line x1="124" y1="75" x2="144" y2="75"/>
-      <line x1="26" y1="26" x2="40" y2="40"/><line x1="110" y1="110" x2="124" y2="124"/>
-      <line x1="124" y1="26" x2="110" y2="40"/><line x1="40" y1="110" x2="26" y2="124"/>
-    </g>
-    <g class="rays" stroke="#c9a24b" stroke-width="2.5" stroke-linecap="round" style="animation-duration:140s;animation-direction:reverse">
-      <line x1="75" y1="18" x2="75" y2="30"/><line x1="75" y1="120" x2="75" y2="132"/>
-      <line x1="18" y1="75" x2="30" y2="75"/><line x1="120" y1="75" x2="132" y2="75"/>
-      <line x1="34" y1="34" x2="43" y2="43"/><line x1="107" y1="107" x2="116" y2="116"/>
-      <line x1="116" y1="34" x2="107" y2="43"/><line x1="43" y1="107" x2="34" y2="116"/>
-    </g>
-    <circle cx="75" cy="75" r="34" fill="none" stroke="#c9a24b" stroke-width="3"/>
-    <g class="pulse"><circle cx="75" cy="75" r="10" fill="#b0532b"/></g>
-  </svg>
-  <div class="kicker">The service arm of Oriela</div>
-  <h1>Oriela Studio</h1>
-  <p class="lede">Done-for-you content systems for businesses that do not have time to make content. You run the business. We run the content.</p>
-  <div class="hero-cta">
-    <a class="btn" href="#contact">Start a project</a>
-    <a class="btn ghost" href="#services">See services</a>
-  </div>
+<div class="kicker">The service arm of Oriela Co</div>
+<h1>We build the <em>media</em> your business runs on.</h1>
+<p class="sub">Brand films. Short-form video. Websites that book customers. Content retainers. Business automations. One studio, everything you need to be seen, trusted, and chosen.</p>
+<div class="cta-row"><a class="btn" href="#contact">Start a project</a></div>
+<div class="client-strip"><span>Matador</span><span>Onno</span><span>Lightbox Collective</span><span>Chick-fil-A</span><span>Christus Health</span></div>
 </header>
-
-<section id="services">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">Services</div>
-      <h2>Three ways we take work off your plate</h2>
-      <p>Every service is done for you, on a simple monthly plan, with no long contracts.</p>
-    </div>
-    <div class="cards">
-      <div class="card reveal">
-        <div class="svc">Podcast repurposing</div>
-        <h3>Turn episodes into content</h3>
-        <p>Send us your episode audio. We turn it into show notes with chapters, ready-to-post social content, and a newsletter draft. Your show keeps publishing while your content keeps working.</p>
-        <div class="price-row">
-          <span class="price">$297</span><span class="price-note">/mo starter, 4 episodes</span>
-        </div>
-        <ul>
-          <li>Growth plan: $347/mo, 8 episodes</li>
-          <li>Scale plan: $447/mo, 12 episodes</li>
-          <li>SEO show notes with chapters</li>
-          <li>Social posts and quote graphics</li>
-        </ul>
-        <a class="btn" href="#contact">Repurpose my show</a>
-      </div>
-      <div class="card popular reveal">
-        <div class="tag">Most popular</div>
-        <div class="svc">Short-form video</div>
-        <h3>Video for local businesses</h3>
-        <p>We shoot and edit scroll-stopping short-form video for your business: reels, TikToks, and shorts that bring customers through the door.</p>
-        <div class="price-row">
-          <span class="price">Free</span><span class="price-note">first video, no strings</span>
-        </div>
-        <ul>
-          <li>First video is completely free</li>
-          <li>Simple monthly packages after that</li>
-          <li>We shoot, edit, and deliver</li>
-          <li>Built for Instagram and TikTok</li>
-        </ul>
-        <a class="btn" href="#contact">Get my free video</a>
-      </div>
-      <div class="card reveal">
-        <div class="svc">Websites and automation</div>
-        <h3>Sites that book customers</h3>
-        <p>Fast, clean websites with booking, contact forms, and follow-up automations built in. Your site stops being a brochure and starts being a salesperson.</p>
-        <div class="price-row">
-          <span class="price">Custom</span><span class="price-note">quoted per project</span>
-        </div>
-        <ul>
-          <li>Mobile-first website design</li>
-          <li>Online booking and scheduling</li>
-          <li>Missed-call text back and follow-up</li>
-          <li>Review and reminder automations</li>
-        </ul>
-        <a class="btn" href="#contact">Get a quote</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="how">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">How it works</div>
-      <h2>From first call to shipped in three steps</h2>
-    </div>
-    <div class="steps">
-      <div class="step reveal">
-        <h3>Tell us what you need</h3>
-        <p>One call, text, or email. Tell us about your business and what is eating your time. We will tell you honestly if we are the right fit.</p>
-      </div>
-      <div class="step reveal">
-        <h3>We build it</h3>
-        <p>We shoot, write, design, or wire up whatever your plan covers. You keep running your business while the work gets done.</p>
-      </div>
-      <div class="step reveal">
-        <h3>You approve, we ship</h3>
-        <p>Nothing goes live without your sign-off. Once you approve, we publish, post, or hand over the keys.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="stories">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker" style="color:var(--gold)">Client stories</div>
-      <h2>Results speak louder than promises</h2>
-    </div>
-    <div class="empty reveal">Client stories coming soon.</div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">FAQ</div>
-      <h2>Questions, answered</h2>
-    </div>
-    <div class="faq">
-      <details class="reveal">
-        <summary>How fast is the turnaround?</summary>
-        <p>Podcast episodes are turned around within 5 business days. Short-form video is delivered within a week of the shoot. Websites are quoted with a timeline up front, usually 2 to 4 weeks.</p>
-      </details>
-      <details class="reveal">
-        <summary>Do I need to be on camera?</summary>
-        <p>For podcast repurposing, never. For short-form video, being on camera helps, but we can build videos around your product, your space, your team, or your customers if you prefer to stay behind the scenes.</p>
-      </details>
-      <details class="reveal">
-        <summary>Who owns the content?</summary>
-        <p>You do. Everything we make is yours, with full rights to use it anywhere, forever. We may ask to feature finished work in our portfolio.</p>
-      </details>
-      <details class="reveal">
-        <summary>Can I cancel anytime?</summary>
-        <p>Yes. Monthly plans are month to month. Cancel before your next billing date and you keep everything we have delivered so far.</p>
-      </details>
-      <details class="reveal">
-        <summary>How does the free first video work?</summary>
-        <p>We come shoot one short-form video for your business, edit it, and hand it over. No strings, no pitch ambush. If you like it, we talk about a monthly package. If not, the video is still yours.</p>
-      </details>
-      <details class="reveal">
-        <summary>Do you work outside Tyler, Texas?</summary>
-        <p>Podcast repurposing and websites are fully remote, so anywhere works. Video shoots are in person, so those start in the Tyler area and expand from there.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<section class="contact-block" id="contact">
-  <div class="wrap reveal">
-    <div class="kicker">Contact</div>
-    <h2>Let's build something.</h2>
-    <p class="lede">One message is all it takes. Tell us what you need and we will take it from there.</p>
-    <div class="contact-rows">
-      <a class="contact-pill" href="mailto:hello@orielaco.com">hello@orielaco.com</a>
-      <a class="contact-pill" href="tel:+19035216471">903-521-6471</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="fmark">Oriela Studio</div>
-  <div>The service arm of <a href="https://orielaco.com">Oriela</a> · © 2026 Oriela · Tyler, Texas</div>
-</footer>
-
-<script>
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-</script>
+<section id="services"><div class="wrap">
+<div class="kicker" style="text-align:center">Services</div>
+<h2 class="st">Everything, under one roof.</h2>
+<p class="lede">Most businesses hire a videographer, a web designer, and a social media person who never talk to each other. We are all three, plus the systems that tie it together.</p>
+<div class="svc-grid">
+<div class="svc"><div class="num">01</div><h3>Video Production</h3><p>Brand films, commercials, event coverage, and short-form video that actually gets watched.</p><ul><li>Brand films and company stories</li><li>Short-form: reels, TikToks, shorts</li><li>Event and conference coverage</li><li>Product and commercial spots</li></ul><div class="from">From <span>$497</span> per project</div></div>
+<div class="svc"><div class="num">02</div><h3>Websites That Book</h3><p>Fast, clean websites designed to turn visitors into customers. Booking and follow-up built in.</p><ul><li>Custom design, mobile-first</li><li>Online booking and scheduling</li><li>Contact forms that convert</li><li>Launch in weeks, not months</li></ul><div class="from">From <span>$1,500</span> per site</div></div>
+<div class="svc"><div class="num">03</div><h3>Content Retainers</h3><p>Your content, handled. Monthly short-form video, podcast repurposing, or both.</p><ul><li>Short-form video monthly</li><li>Podcast repurposing packs</li><li>Done for you, simple monthly plan</li><li>No long contracts</li></ul><div class="from">From <span>$297</span>/mo</div></div>
+<div class="svc"><div class="num">04</div><h3>Business Automations</h3><p>Systems that save you hours every week. Running while you sleep.</p><ul><li>Missed-call text back</li><li>Booking confirmations</li><li>Review and referral automations</li><li>Lead follow-up sequences</li></ul><div class="from">From <span>$497</span> setup</div></div>
+</div>
+</div></section>
+<section id="work"><div class="wrap">
+<div class="kicker" style="text-align:center">Selected work</div>
+<h2 class="st">We have done this before.</h2>
+<div class="work-grid">
+<div class="work"><div class="type">UGC / Brand</div><h3>Onno</h3><p>Content and brand video for an outdoor apparel company.</p></div>
+<div class="work"><div class="type">Brand Film</div><h3>Matador</h3><p>Brand work for a travel gear company.</p></div>
+<div class="work"><div class="type">Production</div><h3>Lightbox Collective</h3><p>Assistant producer and AD on Christus Health films.</p></div>
+<div class="work"><div class="type">Commercial</div><h3>Chick-fil-A</h3><p>Commercial production work.</p></div>
+<div class="work"><div class="type">Sports</div><h3>3 Years, Sidelines</h3><p>Sports photo and video. Fast, live, no second takes.</p></div>
+<div class="work"><div class="type">Ongoing</div><h3>Your Business</h3><p>The next one on this list.</p></div>
+</div>
+</div></section>
+<section id="contact"><div class="cta-final">
+<h2>Let's build <em>something.</em></h2>
+<p>Film, website, content handled monthly, or systems that save you hours. Reply within one business day.</p>
+<a class="btn" href="mailto:hello@orielaco.com?subject=Oriela%20Studio%20project">Start a project</a>
+</div></section>
+<footer><div>© 2026 Oriela Studio · A part of <a href="https://orielaco.com">Oriela Co</a></div></footer>
 </body>
 </html>
