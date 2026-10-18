@@ -3,385 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unplugged by Lantern Club</title>
-<meta name="description" content="Unplugged by Lantern Club: a phone-free night in a box. Pouch, 50 conversation cards, candle, host guide. $35 preorder.">
+<title>Unplugged by Lantern Club. Put the phones away. Get the night back.</title>
+<meta name="description" content="Unplugged is a phone-free night in a box. $35, free shipping, 30-day guarantee.">
+<meta property="og:title" content="Unplugged by Lantern Club. Put the phones away.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --cream:#f4ecdc;
-    --paper:#fbf7ec;
-    --forest:#1f3529;
-    --rust:#b0532b;
-    --gold:#c9a24b;
-    --ink:#2b2620;
-    --muted:#6f6353;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Inter',system-ui,sans-serif;
-    background:var(--cream);color:var(--ink);line-height:1.7;overflow-x:hidden;
-  }
-  body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  }
-  ::selection{background:var(--rust);color:var(--cream)}
-  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.15}
-
-  nav{
-    position:fixed;top:0;left:0;right:0;z-index:40;
-    display:flex;justify-content:space-between;align-items:center;
-    padding:1rem 1.5rem;min-height:64px;
-    background:rgba(244,236,220,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(31,53,41,.12);
-  }
-  nav .wordmark{font-family:'Fraunces',serif;font-size:1.25rem;color:var(--forest);text-decoration:none;display:flex;align-items:center;min-height:44px}
-  nav .wordmark .by{font-size:.8rem;color:var(--muted);font-family:'Inter',sans-serif;margin-left:.4rem}
-  nav .cta{color:var(--cream);background:var(--forest);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.65rem 1.2rem;border-radius:999px;min-height:44px;display:inline-flex;align-items:center}
-
-  .hero{
-    min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;position:relative;padding:7rem 1.5rem 4rem;
-    background:
-      radial-gradient(1200px 600px at 50% -10%, rgba(201,162,75,.20), transparent 60%),
-      radial-gradient(900px 500px at 50% 110%, rgba(176,83,43,.12), transparent 60%),
-      var(--cream);
-  }
-  .kicker{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:1.2rem}
-  .hero h1{font-size:clamp(3.2rem,15vw,7rem);color:var(--forest);letter-spacing:.01em}
-  .hero .tagline{font-family:'Fraunces',serif;font-style:italic;color:var(--rust);font-size:clamp(1.2rem,4.5vw,1.6rem);margin-top:.8rem;max-width:24ch}
-  .hero .lede{margin-top:1.4rem;color:var(--muted);max-width:44ch;font-size:1.05rem}
-  .price-row{display:flex;gap:.75rem;justify-content:center;align-items:center;margin-top:2.2rem;flex-wrap:wrap}
-  .price-pill{
-    font-family:'Fraunces',serif;font-size:1.4rem;color:var(--forest);
-    background:#fff;border:1px solid rgba(31,53,41,.2);
-    padding:.7rem 1.5rem;border-radius:999px;
-  }
-  .price-pill small{font-family:'Inter',sans-serif;font-size:.8rem;color:var(--muted);display:block;letter-spacing:.04em}
-  .btn{
-    cursor:pointer;border:none;border-radius:999px;padding:1rem 2rem;min-height:52px;
-    background:var(--rust);color:var(--cream);font-size:.9rem;font-weight:700;
-    letter-spacing:.08em;text-transform:uppercase;transition:background .25s, transform .25s;
-    text-decoration:none;display:inline-flex;align-items:center;
-  }
-  .btn:hover{background:var(--forest);transform:translateY(-2px)}
-  .btn-dark{background:var(--forest)}
-  .btn-dark:hover{background:var(--rust)}
-  .hero .note{margin-top:1.2rem;font-size:.85rem;color:var(--muted)}
-
-  section.block{padding:5rem 1.5rem}
-  .wrap{max-width:960px;margin:0 auto}
-  .wrap-narrow{max-width:680px;margin:0 auto}
-  .section-title{font-size:clamp(2rem,6vw,3rem);color:var(--forest);margin-bottom:.8rem;text-align:center}
-  .section-sub{text-align:center;color:var(--muted);max-width:52ch;margin:0 auto 3rem}
-
-  .story{background:var(--paper)}
-  .story p{font-size:1.1rem;color:var(--ink);margin-bottom:1.2rem;max-width:60ch;margin-left:auto;margin-right:auto}
-  .story p:last-child{margin-bottom:0}
-
-  .box-grid{display:grid;grid-template-columns:1fr;gap:1.25rem}
-  @media(min-width:700px){.box-grid{grid-template-columns:1fr 1fr}}
-  .box-card{
-    background:var(--paper);border:1px solid rgba(31,53,41,.14);border-radius:18px;
-    padding:2rem 1.75rem;transition:transform .25s, box-shadow .25s;
-  }
-  .box-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(31,53,41,.12)}
-  .box-icon{
-    width:52px;height:52px;border-radius:16px;background:var(--forest);color:var(--cream);
-    display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem;
-  }
-  .box-icon svg{width:26px;height:26px}
-  .box-card h3{color:var(--forest);font-size:1.35rem;margin-bottom:.5rem}
-  .box-card p{color:var(--muted);font-size:.98rem}
-
-  .steps{background:var(--forest);color:var(--cream)}
-  .steps .section-title{color:var(--cream)}
-  .steps .section-sub{color:rgba(244,236,220,.7)}
-  .step-list{display:grid;grid-template-columns:1fr;gap:1.25rem;counter-reset:step}
-  @media(min-width:700px){.step-list{grid-template-columns:1fr 1fr}}
-  .step{
-    background:rgba(244,236,220,.06);border:1px solid rgba(244,236,220,.14);
-    border-radius:18px;padding:2rem 1.75rem;position:relative;
-  }
-  .step::before{
-    counter-increment:step;content:counter(step);
-    font-family:'Fraunces',serif;font-size:2.6rem;color:var(--gold);display:block;margin-bottom:.6rem;
-  }
-  .step h3{color:var(--cream);font-size:1.25rem;margin-bottom:.5rem}
-  .step p{color:rgba(244,236,220,.75);font-size:.98rem}
-
-  .cards-grid{display:grid;grid-template-columns:1fr;gap:1.25rem}
-  @media(min-width:560px){.cards-grid{grid-template-columns:1fr 1fr}}
-  @media(min-width:900px){.cards-grid{grid-template-columns:1fr 1fr 1fr}}
-  .play-card{
-    background:#fff;border:1px solid rgba(31,53,41,.14);border-radius:16px;
-    padding:1.75rem 1.5rem;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;
-    transition:transform .25s, box-shadow .25s;cursor:default;
-  }
-  .play-card:hover{transform:translateY(-4px) rotate(-.5deg);box-shadow:0 16px 36px rgba(176,83,43,.14)}
-  .play-card .cat{
-    align-self:flex-start;font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--rust);border:1px solid rgba(176,83,43,.4);border-radius:999px;padding:.3rem .8rem;margin-bottom:1rem;
-  }
-  .play-card .q{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--forest);line-height:1.4}
-  .deck-note{text-align:center;margin-top:2.5rem;color:var(--muted);font-size:.95rem}
-  .deck-note strong{color:var(--forest)}
-
-  .pricing{background:var(--paper);text-align:center}
-  .price-card{
-    background:var(--forest);color:var(--cream);border-radius:24px;
-    padding:3rem 2rem;max-width:520px;margin:0 auto;
-    box-shadow:0 24px 60px rgba(31,53,41,.25);
-  }
-  .price-card .amount{font-family:'Fraunces',serif;font-size:4rem;line-height:1;color:var(--cream)}
-  .price-card .per{color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-size:.8rem;font-weight:600;margin-top:.4rem}
-  .price-card ul{list-style:none;margin:1.8rem 0;text-align:left}
-  .price-card li{padding:.55rem 0;border-bottom:1px solid rgba(244,236,220,.14);font-size:.98rem;color:rgba(244,236,220,.9)}
-  .price-card li:last-child{border-bottom:none}
-  .price-card li::before{content:"✓";color:var(--gold);font-weight:700;margin-right:.7rem}
-  .price-card .fine{margin-top:1.4rem;font-size:.85rem;color:rgba(244,236,220,.65)}
-
-  .faq-list{max-width:720px;margin:0 auto}
-  details.faq{
-    background:var(--paper);border:1px solid rgba(31,53,41,.14);border-radius:14px;
-    margin-bottom:.9rem;overflow:hidden;
-  }
-  details.faq summary{
-    cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;
-    padding:1.3rem 1.5rem;font-weight:600;color:var(--forest);font-size:1.02rem;min-height:56px;
-  }
-  details.faq summary::-webkit-details-marker{display:none}
-  details.faq summary .plus{color:var(--rust);font-size:1.5rem;line-height:1;flex-shrink:0;transition:transform .25s}
-  details.faq[open] summary .plus{transform:rotate(45deg)}
-  details.faq .answer{padding:0 1.5rem 1.4rem;color:var(--muted);font-size:.98rem}
-
-  .final-cta{
-    background:
-      radial-gradient(900px 500px at 50% 0%, rgba(201,162,75,.18), transparent 60%),
-      var(--cream);
-    text-align:center;
-  }
-  .final-cta .section-title{margin-bottom:1rem}
-  .final-cta p{color:var(--muted);max-width:46ch;margin:0 auto 2rem}
-
-  footer{
-    text-align:center;padding:2.5rem 1.5rem;font-size:.85rem;letter-spacing:.06em;color:var(--muted);
-    border-top:1px solid rgba(31,53,41,.12);background:var(--cream);
-  }
-  footer .fmark{font-family:'Fraunces',serif;color:var(--forest);font-size:1.1rem;margin-bottom:.4rem}
-  footer a{color:var(--rust);text-decoration:none;font-weight:600}
-
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease}
-  .reveal.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){
-    .reveal{opacity:1;transform:none;transition:none}
-    html{scroll-behavior:auto}
-  }
+:root{--cream:#f4ecdc;--paper:#faf6ec;--forest:#1f3529;--rust:#b0532b;--gold:#c9a24b;--ink:#2a2620;--soft:#5c554a;--line:rgba(31,53,41,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.08}
+.hero{padding:70px 0 90px;text-align:center}
+.hero h1{font-size:clamp(46px,9vw,104px);color:var(--forest);max-width:12ch;margin:0 auto 26px}
+.hero h1 em{font-style:italic;color:var(--rust)}
+.hero .lede{font-size:clamp(17px,2.4vw,21px);color:var(--soft);max-width:560px;margin:0 auto 38px}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;font-weight:600;font-size:16px;padding:17px 42px;border-radius:999px;text-decoration:none;border:none;cursor:pointer}
+.btn-primary{background:var(--rust);color:#fff}
+.hero-note{margin-top:20px;font-size:13.5px;color:var(--soft)}
+.hero-note b{color:var(--forest)}
+.contents{padding:40px 0 90px}
+.contents h2{text-align:center;font-size:clamp(34px,5vw,54px);color:var(--forest);margin-bottom:56px}
+.box-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:720px){.box-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1020px){.box-grid{grid-template-columns:repeat(4,1fr)}}
+.box-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:38px 28px}
+.box-card h3{font-size:23px;color:var(--forest);margin-bottom:10px}
+.box-card p{font-size:15px;color:var(--soft)}
+.pricing{padding:30px 0 90px}
+.price-card{background:#152419;color:var(--cream);border-radius:30px;padding:64px 34px;text-align:center;max-width:640px;margin:0 auto}
+.price-card h2{font-size:clamp(30px,4.5vw,44px);margin-bottom:8px}
+.price-card h2 em{font-style:italic;color:var(--gold)}
+.price{font-family:'Fraunces',serif;font-size:84px;color:#fff;margin:18px 0 4px}
+.ship{color:var(--gold);font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:30px}
+.includes{list-style:none;text-align:left;max-width:380px;margin:0 auto 36px}
+.includes li{padding:11px 0;border-bottom:1px solid rgba(244,236,220,.14);font-size:15.5px;color:rgba(244,236,220,.88)}
+.includes li::before{content:"✓ ";color:var(--gold);font-weight:700}
+.guarantee{margin-top:26px;font-size:13.5px;color:rgba(244,236,220,.6)}
+.faq{padding:0 0 90px;max-width:760px;margin:0 auto}
+.faq h2{text-align:center;font-size:clamp(32px,4.5vw,48px);color:var(--forest);margin-bottom:48px}
+.faq-item{border-bottom:1px solid var(--line);padding:24px 0}
+.faq-item h3{font-size:20px;color:var(--forest);margin-bottom:8px}
+.faq-item p{font-size:16px;color:var(--soft)}
+.final{background:var(--rust);border-radius:34px;margin:0 12px 90px;padding:90px 30px;text-align:center;color:#fff}
+.final h2{font-size:clamp(34px,6vw,60px);margin-bottom:36px}
+.final .btn-primary{background:#fff;color:var(--rust)}
+footer{padding:0 0 60px;text-align:center}
+footer p{font-size:13px;color:var(--soft);margin-top:10px}
 </style>
 </head>
 <body>
-
-<nav>
-  <a class="wordmark" href="#top">Unplugged <span class="by">by Lantern Club</span></a>
-  <a class="cta" href="#preorder">Preorder</a>
-</nav>
-
-<header class="hero" id="top">
-  <div class="kicker reveal">A Lantern Club product</div>
-  <h1 class="reveal">Unplugged</h1>
-  <div class="tagline reveal">Put the phones away. Get the night back.</div>
-  <p class="lede reveal">A phone-free night in a box. Everything you need to host an evening where nobody touches their phone and everybody actually talks.</p>
-  <div class="price-row reveal">
-    <span class="price-pill">$35<small>free shipping</small></span>
-    <a class="btn" href="mailto:hello@orielaco.com?subject=Unplugged%20preorder">Preorder now</a>
-  </div>
-  <p class="note reveal">Preorder today. First run ships once we hit 100 preorders.</p>
+<div class="wrap">
+<header class="hero">
+<p style="font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);margin-bottom:20px">A Lantern Club product</p>
+<h1>Put the phones away. <em>Get the night back.</em></h1>
+<p class="lede">Unplugged is a phone-free night in a box. Everything you need to host an evening where nobody touches their phone and everybody actually talks.</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="https://buy.stripe.com/aFa00j8mQ6KNcSO2UheIw01" target="_blank" rel="noopener">Preorder now · $35</a>
+</div>
+<p class="hero-note"><b>$35</b> · free shipping · ships in 4 to 6 weeks</p>
 </header>
-
-<section class="block story">
-  <div class="wrap-narrow">
-    <h2 class="section-title reveal">Why this exists</h2>
-    <div class="reveal">
-      <p>Lantern Club started with a simple rule: phones go in the pouch at the door. What happened next surprised us. People stayed longer. Conversations went deeper. Nobody reached for a screen because there wasn't one to reach for.</p>
-      <p>We kept getting the same message from people in other cities: "I wish this existed where I live." So we put the night in a box. Same pouch. Same cards. Same candle on the table. Everything we use at our nights, shipped to your door.</p>
-    </div>
-  </div>
+</div>
+<section class="contents">
+<div class="wrap">
+<h2>Four things. Nothing you don’t need.</h2>
+<div class="box-grid">
+<div class="box-card"><h3>The Pouch</h3><p>Heavy canvas, holds 4 to 6 phones. Sits by the front door.</p></div>
+<div class="box-card"><h3>The Deck</h3><p>Fifty conversation cards. Deep ones, funny ones, story starters.</p></div>
+<div class="box-card"><h3>The Candle</h3><p>One small candle for the table. Light it when the phones go away.</p></div>
+<div class="box-card"><h3>The Host Guide</h3><p>A single card that tells you exactly how to run the night.</p></div>
+</div>
+</div>
 </section>
-
-<section class="block">
-  <div class="wrap">
-    <h2 class="section-title reveal">What's in the box</h2>
-    <p class="section-sub reveal">Four things. Nothing you don't need, nothing missing.</p>
-    <div class="box-grid">
-      <div class="box-card reveal">
-        <div class="box-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V7a5 5 0 0 1 10 0v1"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 12v4"/></svg>
-        </div>
-        <h3>The Pouch</h3>
-        <p>Heavy canvas, holds 4 to 6 phones. Goes by the front door. The first thing every guest does when they walk in.</p>
-      </div>
-      <div class="box-card reveal">
-        <div class="box-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
-        </div>
-        <h3>The Deck</h3>
-        <p>50 conversation cards. Deep ones, funny ones, ones that start stories. No cheesy icebreakers, we promise.</p>
-      </div>
-      <div class="box-card reveal">
-        <div class="box-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 2 3 3.5 3 6a3 3 0 0 1-6 0c0-2.5 2-4 3-6z"/><path d="M9 13h6v7a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>
-        </div>
-        <h3>The Candle</h3>
-        <p>One small candle for the table. Light it when the phones go away. That's the signal: we're offline now.</p>
-      </div>
-      <div class="box-card reveal">
-        <div class="box-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.8.3-.9 1-.9 1.7"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg>
-        </div>
-        <h3>The Host Guide</h3>
-        <p>A single card that tells you exactly how to run the night. Read it once and you're ready to host.</p>
-      </div>
-    </div>
-  </div>
+<section class="pricing">
+<div class="wrap">
+<div class="price-card">
+<h2>Get the night <em>in a box.</em></h2>
+<div class="price">$35</div>
+<p class="ship">Free shipping · Ships in 4 to 6 weeks</p>
+<ul class="includes">
+<li>Canvas phone pouch (holds 4 to 6 phones)</li>
+<li>50-card conversation deck</li>
+<li>Table candle</li>
+<li>Host guide card</li>
+</ul>
+<a class="btn btn-primary" href="https://buy.stripe.com/aFa00j8mQ6KNcSO2UheIw01" target="_blank" rel="noopener">Preorder now · $35</a>
+<p class="guarantee">30-day guarantee. Full refund within 30 days of delivery, no questions asked.</p>
+</div>
+</div>
 </section>
-
-<section class="block steps">
-  <div class="wrap">
-    <h2 class="section-title reveal">How a night works</h2>
-    <p class="section-sub reveal">No planning, no prep. Just do this.</p>
-    <div class="step-list">
-      <div class="step reveal">
-        <h3>Pouch the phones</h3>
-        <p>Guests arrive. Phones go in the pouch by the door. First thing, no exceptions, no awkwardness.</p>
-      </div>
-      <div class="step reveal">
-        <h3>Light the candle</h3>
-        <p>One flame on the table. That's the signal for the whole room: we're offline now.</p>
-      </div>
-      <div class="step reveal">
-        <h3>Draw a card</h3>
-        <p>Someone draws a card and reads it out loud. Everyone answers. Then draw another.</p>
-      </div>
-      <div class="step reveal">
-        <h3>Talk until you're done</h3>
-        <p>That's it. No agenda, no timer. Most nights run 2 to 3 hours and nobody wants to leave.</p>
-      </div>
-    </div>
-  </div>
+<section class="faq">
+<div class="wrap">
+<h2>Questions, answered.</h2>
+<div class="faq-item"><h3>When will my kit ship?</h3><p>First run ships 4 to 6 weeks after the preorder closes.</p></div>
+<div class="faq-item"><h3>What if I don’t like it?</h3><p>Full refund within 30 days of delivery, no questions.</p></div>
+<div class="faq-item"><h3>How many people is one kit for?</h3><p>The pouch holds 4 to 6 phones, the sweet spot for a real conversation.</p></div>
+</div>
 </section>
-
-<section class="block">
-  <div class="wrap">
-    <h2 class="section-title reveal">From the deck</h2>
-    <p class="section-sub reveal">7 of the 50 cards. The other 43 are in the box.</p>
-    <div class="cards-grid">
-      <div class="play-card reveal">
-        <span class="cat">Deep</span>
-        <p class="q">What's something you believed at 15 that you don't believe anymore?</p>
-      </div>
-      <div class="play-card reveal">
-        <span class="cat">Hot Take</span>
-        <p class="q">What's a hill you'll die on that nobody agrees with?</p>
-      </div>
-      <div class="play-card reveal">
-        <span class="cat">Fun</span>
-        <p class="q">What's your go-to karaoke song, and why is it that one?</p>
-      </div>
-      <div class="play-card reveal">
-        <span class="cat">Story</span>
-        <p class="q">Tell us about a stranger who changed your day.</p>
-      </div>
-      <div class="play-card reveal">
-        <span class="cat">Reflective</span>
-        <p class="q">What are you grateful for that you rarely say out loud?</p>
-      </div>
-      <div class="play-card reveal">
-        <span class="cat">Deep</span>
-        <p class="q">What does success actually mean to you, not the Instagram version?</p>
-      </div>
-      <div class="play-card reveal">
-        <span class="cat">Fun</span>
-        <p class="q">If you could have dinner with anyone, living or dead, who's at the table and what's your first question?</p>
-      </div>
-    </div>
-    <p class="deck-note reveal">Plus <strong>43 more</strong>, from stories to hot takes to the ones that get quiet in the best way.</p>
-  </div>
-</section>
-
-<section class="block pricing" id="preorder">
-  <div class="wrap">
-    <h2 class="section-title reveal">Get the box</h2>
-    <p class="section-sub reveal">One price. Everything included.</p>
-    <div class="price-card reveal">
-      <div class="amount">$35</div>
-      <div class="per">Preorder · Free shipping</div>
-      <ul>
-        <li>Canvas phone pouch (holds 4 to 6 phones)</li>
-        <li>50-card conversation deck</li>
-        <li>Table candle</li>
-        <li>Host guide card</li>
-        <li>30-day full refund, keep the deck</li>
-      </ul>
-      <a class="btn" href="mailto:hello@orielaco.com?subject=Unplugged%20preorder&body=Hi!%20I'd%20like%20to%20preorder%20the%20Unplugged%20kit%20($35).%20My%20name%20is:%0A%0AMy%20shipping%20address%20is:%0A%0A">Preorder for $35</a>
-      <p class="fine">First run ships once we hit 100 preorders. You'll get tracking the day yours leaves.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="wrap">
-    <h2 class="section-title reveal">Questions</h2>
-    <p class="section-sub reveal">Everything people ask before they preorder.</p>
-    <div class="faq-list">
-      <details class="faq reveal">
-        <summary>When will my kit ship?<span class="plus">+</span></summary>
-        <div class="answer">The first run ships once we hit 100 preorders. We're manufacturing against preorders so nothing goes to waste. You'll get tracking the day yours leaves.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>What if I don't like it?<span class="plus">+</span></summary>
-        <div class="answer">Full refund within 30 days of delivery, no questions asked. Keep the deck.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>How many people is one kit for?<span class="plus">+</span></summary>
-        <div class="answer">The pouch holds 4 to 6 phones, which is the sweet spot. Hosting 8? Grab two kits, or have the extra phones go in a bowl. The rule matters more than the pouch.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>Is the candle scented?<span class="plus">+</span></summary>
-        <div class="answer">Yes, lightly. One calm scent, nothing overpowering. If you're sensitive to fragrance, just don't light it. The night works the same.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>Can I get this outside the US?<span class="plus">+</span></summary>
-        <div class="answer">US shipping only for the first run. International is on the roadmap if the demand is there.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>Is this a Lantern Club event?<span class="plus">+</span></summary>
-        <div class="answer">No. This is the at-home version. Lantern Club nights are in-person gatherings (Tyler, TX for now). Unplugged is how you run your own night wherever you are.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<section class="block final-cta">
-  <div class="wrap-narrow">
-    <h2 class="section-title reveal">Ready for a real night?</h2>
-    <p class="reveal">Preorder Unplugged for $35. Email us and we'll hold your spot in the first run.</p>
-    <a class="btn btn-dark reveal" href="mailto:hello@orielaco.com?subject=Unplugged%20preorder">hello@orielaco.com</a>
-  </div>
-</section>
-
+<div class="final">
+<h2>Your best nights had no screens.</h2>
+<a class="btn btn-primary" href="https://buy.stripe.com/aFa00j8mQ6KNcSO2UheIw01" target="_blank" rel="noopener">Preorder now · $35</a>
+</div>
 <footer>
-  <div class="fmark">Unplugged by Lantern Club</div>
-  <div>A Lantern Club product · <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></div>
+<div class="wrap">
+<p>Lantern Club · Unplugged · A Lantern Club product</p>
+<p>Questions? hello@orielaco.com</p>
+</div>
 </footer>
-
-<script>
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.1});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-</script>
 </body>
 </html>
