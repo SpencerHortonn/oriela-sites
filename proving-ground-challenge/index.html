@@ -4,219 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proving Ground Challenge | 4 Weeks. $99. Prove It.</title>
-<meta name="description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions. Cohort 01 forming now.">
+<meta name="description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions.">
 <meta property="og:title" content="Proving Ground Challenge | 4 Weeks. $99.">
-<meta property="og:description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://fancy-tarsier-90aec5.netlify.app">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Proving Ground Challenge | 4 Weeks. $99.">
-<meta name="twitter:description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0e0f0d;--bg2:#151613;--card:#191a16;--cream:#f4ecdc;--cream-dim:rgba(244,236,220,.62);--cream-faint:rgba(244,236,220,.38);--line:rgba(244,236,220,.12);--rust:#b0532b;--rust-hot:#d4683a;--gold:#c9a24b}
+:root{--bg:#0e0f0d;--cream:#f4ecdc;--cream-dim:rgba(244,236,220,.62);--line:rgba(244,236,220,.12);--rust:#b0532b;--rust-hot:#d4683a;--gold:#c9a24b}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--cream);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.01em;line-height:1.02}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',system-ui,sans-serif;line-height:1.6}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-section{padding:84px 0;position:relative}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
-.eyebrow::before{content:"";width:34px;height:2px;background:var(--gold);display:inline-block}
-.secnum{font-family:'Archivo Black',sans-serif;font-size:13px;color:var(--rust);letter-spacing:.3em;margin-bottom:14px;display:block}
-h2.sec-title{font-size:clamp(34px,7vw,58px);margin-bottom:16px}
-.lede{color:var(--cream-dim);font-size:clamp(16px,2.6vw,19px);max-width:640px}
-.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;position:relative;overflow:hidden}
-.hero-inner{position:relative;z-index:2;text-align:center;width:100%}
-.hero-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);border:1px solid var(--line);border-radius:100px;padding:9px 20px;margin-bottom:30px;background:rgba(20,21,18,.6)}
-.hero-tag b{color:var(--gold)}
-.hero h1{font-size:clamp(58px,15vw,150px);line-height:.94;margin-bottom:8px}
+h1,h2{font-family:'Oswald',sans-serif;text-transform:uppercase;line-height:1.02}
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;text-align:center}
+.hero h1{font-size:clamp(58px,15vw,150px);line-height:.94}
 .hero h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--cream)}
 .hero h1 .rust{color:var(--rust-hot)}
-.hero-sub{color:var(--cream-dim);font-size:clamp(16px,2.8vw,20px);max-width:620px;margin:26px auto 0}
-.hero-sub b{color:var(--cream)}
-.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;padding:18px 42px;border-radius:6px;text-decoration:none;cursor:pointer;border:none;min-height:60px}
-.btn-primary{background:linear-gradient(135deg,var(--rust-hot),var(--rust));color:#fff}
-.btn-ghost{background:transparent;color:var(--cream);border:1px solid var(--line)}
-.hero-fine{margin-top:20px;font-size:13px;color:var(--cream-faint)}
-.hero-fine b{color:var(--gold);font-weight:600}
+.hero-sub{color:var(--cream-dim);font-size:20px;max-width:620px;margin:26px auto 0}
+.cta-row{display:flex;gap:14px;justify-content:center;margin-top:38px}
+.btn{display:inline-block;font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;padding:18px 42px;border-radius:6px;text-decoration:none;background:linear-gradient(135deg,var(--rust-hot),var(--rust));color:#fff}
 .hero-stats{display:flex;justify-content:center;margin-top:56px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.hstat{padding:22px 34px;text-align:center;min-width:150px}
-.hstat+.hstat{border-left:1px solid var(--line)}
-.hstat .n{font-family:'Archivo Black',sans-serif;font-size:clamp(24px,5vw,36px);color:var(--gold)}
-.hstat .l{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-faint);margin-top:6px}
-.grid2{display:grid;grid-template-columns:1fr;gap:18px;margin-top:44px}
-@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:32px 28px}
-.card .k{font-family:'Archivo Black',sans-serif;font-size:12px;letter-spacing:.24em;color:var(--rust);text-transform:uppercase;margin-bottom:14px;display:block}
-.card h3{font-size:24px;margin-bottom:12px}
-.card p{color:var(--cream-dim);font-size:15px}
-.card p b{color:var(--cream)}
-.card .step-n{font-family:'Archivo Black',sans-serif;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(201,162,75,.55);margin-bottom:18px;display:block}
-.week{border:1px solid var(--line);border-radius:12px;margin-top:16px;overflow:hidden;background:var(--card)}
-.week-head{display:flex;align-items:center;gap:18px;padding:24px 26px;cursor:pointer}
-.week-badge{font-family:'Archivo Black',sans-serif;font-size:13px;color:var(--bg);background:var(--gold);width:52px;height:52px;flex:0 0 52px;border-radius:10px;display:flex;align-items:center;justify-content:center}
-.week-info{flex:1}
-.week-info h3{font-size:clamp(20px,4.5vw,26px)}
-.week-info p{color:var(--cream-faint);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
-.week-body{padding:6px 26px 28px}
-.week-body ul{list-style:none;margin-top:6px}
-.week-body li{padding:13px 0;border-top:1px solid var(--line);font-size:15px;color:var(--cream-dim);display:flex;gap:12px}
-.week-body li b{color:var(--gold);font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.06em;min-width:86px;text-transform:uppercase;font-size:13px;flex-shrink:0}
-.prize{background:linear-gradient(160deg,#1a1409 0%,var(--bg2) 55%);border:1px solid rgba(201,162,75,.3);border-radius:16px;padding:clamp(30px,6vw,56px);margin-top:44px}
-.prize h3{font-size:clamp(26px,5.5vw,40px);margin-bottom:14px}
-.prize h3 .gold{color:var(--gold)}
-.pool-math{display:flex;margin:30px 0;flex-wrap:wrap;border:1px solid rgba(201,162,75,.25);border-radius:10px;overflow:hidden}
-.pool-cell{flex:1 1 140px;padding:20px;text-align:center;background:rgba(201,162,75,.05)}
-.pool-cell+.pool-cell{border-left:1px solid rgba(201,162,75,.2)}
-.pool-cell .n{font-family:'Archivo Black',sans-serif;font-size:clamp(20px,4.5vw,30px);color:var(--gold)}
-.pool-cell .l{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-faint);margin-top:6px}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-q{width:100%;background:none;border:none;color:var(--cream);text-align:left;cursor:pointer;font-family:'Oswald',sans-serif;font-size:clamp(17px,3.6vw,21px);font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:24px 0;display:block}
-.faq-a p{padding:0 0 26px;color:var(--cream-dim);font-size:15.5px;max-width:720px}
-.faq-a p b{color:var(--cream)}
+.hstat{padding:22px 34px;text-align:center}
+.hstat .n{font-family:'Archivo Black',sans-serif;font-size:36px;color:var(--gold)}
+.hstat .l{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim);margin-top:6px}
 .final{text-align:center;padding:84px 0}
-.final h2{font-size:clamp(42px,10vw,92px);line-height:.95;margin-bottom:18px}
+.final h2{font-size:clamp(42px,10vw,92px)}
 .final h2 .gold{color:var(--gold)}
-.final .price-line{margin:26px 0 8px;font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--cream)}
-footer{padding:44px 0;text-align:center;color:var(--cream-faint);font-size:13px}
-footer a{color:var(--gold);text-decoration:none}
-.stickybar{position:fixed;left:0;right:0;bottom:0;z-index:100;background:rgba(14,15,13,.92);border-top:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:14px}
-.stickybar .t{flex:1;line-height:1.25}
-.stickybar .t b{display:block;font-family:'Oswald',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.06em}
-.stickybar .t span{font-size:12.5px;color:var(--cream-faint)}
-.stickybar .btn{padding:13px 26px;min-height:48px;font-size:15px;white-space:nowrap}
+.price-line{margin:26px 0 8px;font-family:'Archivo Black',sans-serif;font-size:20px}
+footer{padding:44px 0;text-align:center;color:var(--cream-dim);font-size:13px}
+footer a{color:var(--gold)}
 </style>
 </head>
 <body>
-<header class="hero">
-  <div class="wrap hero-inner">
-    <span class="hero-tag">Cohort 01 <b>&nbsp;·&nbsp;</b> 4-Week Hybrid Challenge</span>
-    <h1><span class="stroke">4 Weeks.</span><br><span class="rust">Prove It.</span></h1>
-    <p class="hero-sub">Lift. Run. Score. 28 days of hybrid programming built to find out what you are <b>actually</b> made of. Cash on the line. No hiding.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Enter for $99</a>
-      <a class="btn btn-ghost" href="#program">See the program</a>
-    </div>
-    <p class="hero-fine">Full refund any time before day one. <b>No questions asked.</b></p>
-    <div class="hero-stats">
-      <div class="hstat"><div class="n">28</div><div class="l">Days</div></div>
-      <div class="hstat"><div class="n">370</div><div class="l">Points</div></div>
-      <div class="hstat"><div class="n">3</div><div class="l">Divisions</div></div>
-      <div class="hstat"><div class="n">40%</div><div class="l">To prize pool</div></div>
-    </div>
-  </div>
-</header>
-<section id="how">
-  <div class="wrap">
-    <span class="secnum">01</span>
-    <h2 class="sec-title">How it works</h2>
-    <p class="lede">Simple on purpose. You train, you log, you get scored. The leaderboard does the rest.</p>
-    <div class="grid2">
-      <div class="card"><span class="step-n">01</span><h3>Enter</h3><p>Pay <b>$99</b>, pick your division, join the cohort. Your entry feeds the prize pool from day one.</p></div>
-      <div class="card"><span class="step-n">02</span><h3>Test</h3><p>Week 1 sets your baseline: a <b>1-mile run</b>, a <b>10-minute AMRAP</b>, and a <b>3-rep max squat</b>.</p></div>
-      <div class="card"><span class="step-n">03</span><h3>Train</h3><p>Five days a week. Strength plus running, programmed for you.</p></div>
-      <div class="card"><span class="step-n">04</span><h3>Prove it</h3><p>Test week. Retest every baseline, then the <b>Final Exam</b>.</p></div>
-    </div>
-  </div>
-</section>
-<section id="program" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-  <div class="wrap">
-    <span class="secnum">02</span>
-    <h2 class="sec-title">The program</h2>
-    <p class="lede">Real programming, written like a coach. Four weeks, five days a week.</p>
-    <div class="week">
-      <div class="week-head"><div class="week-badge">W1</div><div class="week-info"><h3>Baseline</h3><p>Set your numbers</p></div></div>
-      <div class="week-body"><ul>
-        <li><b>Mon</b>1-mile run, 10-min AMRAP, 3-rep max back squat.</li>
-        <li><b>Tue</b>6 x 400m run intervals.</li>
-        <li><b>Wed</b>Upper strength: bench, pull-ups, press.</li>
-        <li><b>Thu</b>20-min tempo run.</li>
-        <li><b>Fri</b>Hybrid WOD: 4 rounds run/swings/burpees.</li>
-      </ul></div>
-    </div>
-    <div class="week">
-      <div class="week-head"><div class="week-badge">W2</div><div class="week-info"><h3>Build</h3><p>Volume goes up</p></div></div>
-      <div class="week-body"><ul>
-        <li><b>Mon</b>Lower strength: squat 5x5, deadlift, lunges.</li>
-        <li><b>Tue</b>8 x 400m run intervals.</li>
-        <li><b>Wed</b>Upper strength: bench 5x5, pull-ups.</li>
-        <li><b>Thu</b>40-50 min easy run.</li>
-        <li><b>Fri</b>Scored WOD: runs, deadlifts, pull-ups.</li>
-      </ul></div>
-    </div>
-    <div class="week">
-      <div class="week-head"><div class="week-badge">W3</div><div class="week-info"><h3>Peak</h3><p>Heaviest week</p></div></div>
-      <div class="week-body"><ul>
-        <li><b>Mon</b>Lower strength: squat 4x4, front squat.</li>
-        <li><b>Tue</b>5 x 800m run intervals.</li>
-        <li><b>Wed</b>Upper strength: bench 4x4, dips.</li>
-        <li><b>Thu</b>Tempo plus strides.</li>
-        <li><b>Fri</b>Scored WOD: 5 rounds run/thrusters/box jumps.</li>
-      </ul></div>
-    </div>
-    <div class="week">
-      <div class="week-head"><div class="week-badge">W4</div><div class="week-info"><h3>Test week</h3><p>Everything counts</p></div></div>
-      <div class="week-body"><ul>
-        <li><b>Mon</b>Mile retest.</li>
-        <li><b>Tue</b>Recovery.</li>
-        <li><b>Wed</b>AMRAP retest.</li>
-        <li><b>Thu</b>Shakeout.</li>
-        <li><b>Fri</b>Squat retest plus Final Exam.</li>
-      </ul></div>
-    </div>
-  </div>
-</section>
-<section id="prize">
-  <div class="wrap">
-    <span class="secnum">03</span>
-    <h2 class="sec-title">The prize pool</h2>
-    <p class="lede">40% of every entry goes straight into the pool. 100 athletes = $3,960. Paid 50/30/20.</p>
-    <div class="prize">
-      <h3>40% of every entry.<br><span class="gold">100% of the pressure.</span></h3>
-      <div class="pool-math">
-        <div class="pool-cell"><div class="n">100</div><div class="l">Athletes</div></div>
-        <div class="pool-cell"><div class="n">$9,900</div><div class="l">Collected</div></div>
-        <div class="pool-cell"><div class="n">$3,960</div><div class="l">Prize pool</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="faq">
-  <div class="wrap">
-    <span class="secnum">04</span>
-    <h2 class="sec-title">Questions</h2>
-    <div class="faq-item">
-      <button class="faq-q">What is the refund policy?</button>
-      <div class="faq-a"><p><b>Full refund any time before the cohort starts</b>, no questions asked. Once day one begins, entries lock because your $99 is already feeding the prize pool.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q">How do you stop cheating?</button>
-      <div class="faq-a"><p>Any score in prize position needs <b>unedited video within 24 hours</b>. No video, no prize, no exceptions.</p></div>
-    </div>
-  </div>
-</section>
-<section class="final" id="enter">
-  <div class="wrap">
-    <h2>Stop wondering.<br><span class="gold">Start proving.</span></h2>
-    <p class="price-line">$99 entry</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Claim your spot · $99</a>
-    </div>
-  </div>
-</section>
-<footer>
-  <div class="wrap">
-    <p>Proving Ground Challenge · an Oriela Co project</p>
-    <p style="margin-top:8px">Questions? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></p>
-  </div>
-</footer>
-<div class="stickybar">
-  <div class="t"><b>Proving Ground</b><span>$99 · 4 weeks · cash prizes</span></div>
-  <a class="btn btn-primary" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Enter</a>
+<header class="hero"><div class="wrap">
+<h1><span class="stroke">4 Weeks.</span><br><span class="rust">Prove It.</span></h1>
+<p class="hero-sub">Lift. Run. Score. 28 days of hybrid programming. Cash on the line. No hiding.</p>
+<div class="cta-row"><a class="btn" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Enter for $99</a></div>
+<div class="hero-stats">
+<div class="hstat"><div class="n">28</div><div class="l">Days</div></div>
+<div class="hstat"><div class="n">370</div><div class="l">Points</div></div>
+<div class="hstat"><div class="n">3</div><div class="l">Divisions</div></div>
+<div class="hstat"><div class="n">40%</div><div class="l">To prize pool</div></div>
 </div>
+</div></header>
+<section class="final"><div class="wrap">
+<h2>Stop wondering.<br><span class="gold">Start proving.</span></h2>
+<p class="price-line">$99 entry</p>
+<div class="cta-row"><a class="btn" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Claim your spot · $99</a></div>
+</div></section>
+<footer><div class="wrap"><p>Proving Ground Challenge · <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></p></div></footer>
 </body>
 </html>
