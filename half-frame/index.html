@@ -521,7 +521,7 @@ setTimeout(function(){
       goTo(href);
       return;
     }
-    gsap.timeline({ onComplete: function(){ goTo(href); } })
+    gsap.timeline()
       .set(iris, { opacity: 1 }, 0)
       .to("#iris .blade", { rotation: function(i){ return i * 45 - 12; }, svgOrigin: "200 200", duration: 0.32, ease: "expo.in" }, 0)
       .to(flash, { opacity: 0.85, duration: 0.16, ease: "power1.in" }, 0.1)
@@ -530,7 +530,14 @@ setTimeout(function(){
       .to(iris, { opacity: 0, duration: 0.3 }, 0.6);
   }
   document.querySelectorAll(".shutter").forEach(function(b){
-    b.addEventListener("click", function(e){ e.preventDefault(); fireShutter(b); });
+    b.addEventListener("click", function(e){
+      var isSubmit = b.tagName === "BUTTON" && b.type === "submit";
+      if (isSubmit) return; /* let the form submit; never block it */
+      e.preventDefault();
+      fireShutter(b);
+      var href = b.tagName === "A" ? b.getAttribute("href") : null;
+      if (href && href.charAt(0) === "#") goTo(href); /* navigate right away, snap plays during the scroll */
+    });
   });
   document.querySelectorAll('a[href^="#"]:not(.shutter)').forEach(function(a){
     a.addEventListener("click", function(e){
