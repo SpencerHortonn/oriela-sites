@@ -182,12 +182,17 @@ footer a{color:rgba(244,236,220,.75);text-decoration:none}
 footer a:hover{color:var(--amber)}
 .rv{will-change:transform}
 
-/* swinging lanterns */
-.lanterns{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+/* swinging lanterns: fixed to the viewport, always hanging around */
+.lanterns{position:fixed;top:0;left:0;right:0;height:100vh;pointer-events:none;z-index:700;overflow:hidden}
 .lantern{position:absolute;top:-8px;transform-origin:top center;will-change:transform}
 .lantern svg{display:block;overflow:visible}
-.lantern .l-glow{position:absolute;left:50%;transform:translate(-50%,-50%);width:200px;height:200px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,190,90,.42),rgba(255,190,90,0) 65%);animation:flick 3.4s ease-in-out infinite}
+.lantern .l-glow{position:absolute;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,196,100,.5),rgba(255,170,70,.14) 45%,rgba(255,170,70,0) 68%);animation:flick 3.4s ease-in-out infinite}
+.lantern .l-cone{position:absolute;left:50%;transform:translateX(-50%);width:150px;height:280px;
+  background:linear-gradient(rgba(255,185,90,.16),rgba(255,185,90,0));
+  clip-path:polygon(36% 0,64% 0,100% 100%,0% 100%)}
+.flame{transform-box:fill-box;transform-origin:50% 92%;animation:flameFlick 1.7s ease-in-out infinite}
+@keyframes flameFlick{0%,100%{transform:scale(1,1)}30%{transform:scale(.94,1.08)}55%{transform:scale(1.05,.94)}80%{transform:scale(.96,1.04)}}
 @media(max-width:640px){.lanterns{display:none}}
 .hero-scrim{position:absolute;inset:0;pointer-events:none;z-index:0;
   background:radial-gradient(ellipse 70% 55% at 32% 46%,rgba(15,9,4,.55),rgba(15,9,4,0) 70%)}
@@ -225,37 +230,67 @@ footer a:hover{color:var(--amber)}
   <div class="lantern-glow" aria-hidden="true"></div>
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="lanterns" aria-hidden="true">
-    <div class="lantern" style="left:5%">
-      <div class="l-glow" style="top:148px"></div>
-      <svg width="76" viewBox="0 0 120 300">
-        <line x1="60" y1="0" x2="60" y2="192" stroke="#241708" stroke-width="5"/>
-        <rect x="50" y="186" width="20" height="12" rx="4" fill="#241708"/>
-        <rect x="32" y="198" width="56" height="72" rx="16" fill="#f2a93b" opacity="0.94" stroke="#241708" stroke-width="5"/>
-        <line x1="60" y1="198" x2="60" y2="270" stroke="#241708" stroke-width="3" opacity="0.55"/>
-        <circle cx="60" cy="234" r="15" fill="#ffe6a8"/>
-        <rect x="40" y="270" width="40" height="12" rx="5" fill="#241708"/>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <radialGradient id="lgGlass" cx="50%" cy="42%" r="65%">
+        <stop offset="0%" stop-color="#fff6cf"/><stop offset="35%" stop-color="#ffcf6a"/>
+        <stop offset="70%" stop-color="#e8932a"/><stop offset="100%" stop-color="#8a4a10"/>
+      </radialGradient>
+      <linearGradient id="lgMetal" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#6b543c"/><stop offset="45%" stop-color="#241a0e"/><stop offset="100%" stop-color="#4a3826"/>
+      </linearGradient>
+      <radialGradient id="lgFlame" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fffdf0"/><stop offset="45%" stop-color="#ffd76e"/><stop offset="100%" stop-color="#ff9f1f" stop-opacity="0"/>
+      </radialGradient>
+    </defs></svg>
+    <div class="lantern" style="left:4%">
+      <div class="l-glow" style="top:166px"></div>
+      <div class="l-cone" style="top:197px"></div>
+      <svg width="76" viewBox="0 0 120 340">
+        <line x1="60" y1="0" x2="60" y2="186" stroke="#1f150c" stroke-width="5"/>
+        <line x1="62" y1="0" x2="62" y2="186" stroke="#6b543c" stroke-width="1.5" opacity="0.7"/>
+        <circle cx="60" cy="196" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
+        <path d="M42,208 L78,208 L71,228 L49,228 Z" fill="url(#lgMetal)"/>
+        <line x1="46" y1="212" x2="74" y2="212" stroke="#8a6f4d" stroke-width="1.5" opacity="0.8"/>
+        <rect x="34" y="228" width="52" height="72" rx="18" fill="url(#lgGlass)"/>
+        <rect x="41" y="236" width="9" height="56" rx="4.5" fill="#ffffff" opacity="0.22"/>
+        <line x1="52" y1="230" x2="52" y2="298" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
+        <line x1="68" y1="230" x2="68" y2="298" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
+        <path class="flame" d="M60,246 C69,258 71,268 60,280 C49,268 51,258 60,246 Z" fill="url(#lgFlame)"/>
+        <rect x="40" y="300" width="40" height="12" rx="5" fill="url(#lgMetal)"/>
       </svg>
     </div>
-    <div class="lantern" style="left:88%">
-      <div class="l-glow" style="top:230px"></div>
-      <svg width="92" viewBox="0 0 120 370">
-        <line x1="60" y1="0" x2="60" y2="258" stroke="#241708" stroke-width="5"/>
-        <rect x="50" y="252" width="20" height="12" rx="4" fill="#241708"/>
-        <rect x="32" y="264" width="56" height="72" rx="16" fill="#f2a93b" opacity="0.94" stroke="#241708" stroke-width="5"/>
-        <line x1="60" y1="264" x2="60" y2="336" stroke="#241708" stroke-width="3" opacity="0.55"/>
-        <circle cx="60" cy="300" r="15" fill="#ffe6a8"/>
-        <rect x="40" y="336" width="40" height="12" rx="5" fill="#241708"/>
+    <div class="lantern" style="left:90%">
+      <div class="l-glow" style="top:255px"></div>
+      <div class="l-cone" style="top:293px"></div>
+      <svg width="92" viewBox="0 0 120 410">
+        <line x1="60" y1="0" x2="60" y2="256" stroke="#1f150c" stroke-width="5"/>
+        <line x1="62" y1="0" x2="62" y2="256" stroke="#6b543c" stroke-width="1.5" opacity="0.7"/>
+        <circle cx="60" cy="266" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
+        <path d="M42,278 L78,278 L71,298 L49,298 Z" fill="url(#lgMetal)"/>
+        <line x1="46" y1="282" x2="74" y2="282" stroke="#8a6f4d" stroke-width="1.5" opacity="0.8"/>
+        <rect x="34" y="298" width="52" height="72" rx="18" fill="url(#lgGlass)"/>
+        <rect x="41" y="306" width="9" height="56" rx="4.5" fill="#ffffff" opacity="0.22"/>
+        <line x1="52" y1="300" x2="52" y2="368" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
+        <line x1="68" y1="300" x2="68" y2="368" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
+        <path class="flame" d="M60,316 C69,328 71,338 60,350 C49,338 51,328 60,316 Z" fill="url(#lgFlame)"/>
+        <rect x="40" y="370" width="40" height="12" rx="5" fill="url(#lgMetal)"/>
       </svg>
     </div>
-    <div class="lantern" style="left:73%">
-      <div class="l-glow" style="top:139px"></div>
-      <svg width="64" viewBox="0 0 120 330">
-        <line x1="60" y1="0" x2="60" y2="218" stroke="#241708" stroke-width="5"/>
-        <rect x="50" y="212" width="20" height="12" rx="4" fill="#241708"/>
-        <rect x="32" y="224" width="56" height="72" rx="16" fill="#f2a93b" opacity="0.94" stroke="#241708" stroke-width="5"/>
-        <line x1="60" y1="224" x2="60" y2="296" stroke="#241708" stroke-width="3" opacity="0.55"/>
-        <circle cx="60" cy="260" r="15" fill="#ffe6a8"/>
-        <rect x="40" y="296" width="40" height="12" rx="5" fill="#241708"/>
+    <div class="lantern" style="left:72%">
+      <div class="l-glow" style="top:159px"></div>
+      <div class="l-cone" style="top:185px"></div>
+      <svg width="64" viewBox="0 0 120 375">
+        <line x1="60" y1="0" x2="60" y2="221" stroke="#1f150c" stroke-width="5"/>
+        <line x1="62" y1="0" x2="62" y2="221" stroke="#6b543c" stroke-width="1.5" opacity="0.7"/>
+        <circle cx="60" cy="231" r="8" fill="none" stroke="url(#lgMetal)" stroke-width="4"/>
+        <path d="M42,243 L78,243 L71,263 L49,263 Z" fill="url(#lgMetal)"/>
+        <line x1="46" y1="247" x2="74" y2="247" stroke="#8a6f4d" stroke-width="1.5" opacity="0.8"/>
+        <rect x="34" y="263" width="52" height="72" rx="18" fill="url(#lgGlass)"/>
+        <rect x="41" y="271" width="9" height="56" rx="4.5" fill="#ffffff" opacity="0.22"/>
+        <line x1="52" y1="265" x2="52" y2="333" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
+        <line x1="68" y1="265" x2="68" y2="333" stroke="#1f150c" stroke-width="2" opacity="0.3"/>
+        <path class="flame" d="M60,281 C69,293 71,303 60,315 C49,303 51,293 60,281 Z" fill="url(#lgFlame)"/>
+        <rect x="40" y="335" width="40" height="12" rx="5" fill="url(#lgMetal)"/>
       </svg>
     </div>
   </div>
