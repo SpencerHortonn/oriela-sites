@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Half Frame</title>
+<meta name="description" content="Half Frame: a film-look camera. 36 shots, grain, halation, date stamps. Prototype.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:#0a0a0a;font-family:-apple-system,'SF Pro Text',Inter,sans-serif;color:#f4ecdc;user-select:none;-webkit-user-select:none}
+#app{position:fixed;inset:0;display:flex;flex-direction:column}
+#viewfinder{position:relative;flex:1;overflow:hidden;background:#000}
+#video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#canvas{display:none}
+.frame-lines{position:absolute;inset:0;pointer-events:none;border:1px solid rgba(244,236,220,.25);margin:14px}
+.frame-lines::before{content:"";position:absolute;top:50%;left:0;right:0;border-top:1px dashed rgba(244,236,220,.18)}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.45) 100%)}
+#topbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(14px + env(safe-area-inset-top)) 22px 14px;z-index:5}
+#topbar .brand{font-family:Georgia,serif;font-size:20px;letter-spacing:.04em}
+#topbar .brand em{font-style:italic;color:#c9a24b}
+#roll{font-size:13px;letter-spacing:.18em;color:#c9a24b;font-variant-numeric:tabular-nums}
+#lookbar{position:absolute;bottom:118px;left:0;right:0;display:flex;justify-content:center;gap:10px;z-index:5}
+.look{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:9px 18px;border-radius:999px;border:1px solid rgba(244,236,220,.35);color:rgba(244,236,220,.75);background:rgba(0,0,0,.45);backdrop-filter:blur(8px);cursor:pointer}
+.look.active{background:#f4ecdc;color:#1f3529;border-color:#f4ecdc}
+#shutterbar{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;padding:22px 0 calc(26px + env(safe-area-inset-bottom));z-index:5}
+#shutter{width:78px;height:78px;border-radius:50%;border:4px solid #f4ecdc;background:rgba(244,236,220,.15);cursor:pointer;position:relative;transition:transform .08s}
+#shutter:active{transform:scale(.92)}
+#shutter::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#b0532b}
+#develop{position:absolute;bottom:34px;right:26px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,236,220,.6);background:none;border:1px solid rgba(244,236,220,.3);border-radius:999px;padding:8px 14px;cursor:pointer;z-index:5}
+#develop.on{color:#0a0a0a;background:#c9a24b;border-color:#c9a24b}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:10}
+#start{position:fixed;inset:0;z-index:50;background:#0a0a0a;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px}
+#start h1{font-family:Georgia,serif;font-weight:500;font-size:44px;margin-bottom:10px}
+#start h1 em{font-style:italic;color:#c9a24b}
+#start p{color:rgba(244,236,220,.65);font-size:15px;max-width:300px;margin-bottom:34px;line-height:1.6}
+#start button{font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:#b0532b;color:#fff;border:none;border-radius:999px;padding:17px 46px;cursor:pointer}
+#toast{position:fixed;top:calc(70px + env(safe-area-inset-top));left:50%;transform:translateX(-50%) translateY(-16px);background:rgba(20,20,20,.92);border:1px solid rgba(201,162,75,.5);color:#f4ecdc;font-size:14px;padding:12px 22px;border-radius:999px;opacity:0;transition:opacity .3s,transform .3s;z-index:60;pointer-events:none;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#gallery-strip{position:absolute;bottom:30px;left:22px;z-index:5;width:52px;height:52px;border-radius:10px;border:2px solid rgba(244,236,220,.5);background-size:cover;background-position:center;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="viewfinder">
+    <video id="video" playsinline muted autoplay></video>
+    <div class="frame-lines"></div>
+    <div class="vignette"></div>
+    <div id="topbar">
+      <div class="brand">Half <em>Frame</em></div>
+      <div id="roll">36 / 36</div>
+    </div>
+    <div id="lookbar">
+      <button class="look active" data-look="halfframe">Half Frame</button>
+      <button class="look" data-look="digicam">2000s</button>
+      <button class="look" data-look="disposable">Disposable</button>
+    </div>
+    <div id="gallery-strip" title="Last shot"></div>
+    <button id="develop" title="Develop overnight">Develop overnight</button>
+    <div id="shutterbar"><button id="shutter" aria-label="Shutter"></button></div>
+    <div id="flash"></div>
+  </div>
+</div>
+<div id="start">
+  <h1>Half <em>Frame</em></h1>
+  <p>A film-look camera. 36 shots per roll. Grain, halation, date stamps. Prototype build 0.1.</p>
+  <button id="enable">Open camera</button>
+</div>
+<div id="toast"></div>
+<canvas id="canvas"></canvas>
+
+<script>
+const video=document.getElementById('video'),canvas=document.getElementById('canvas'),
+ctx=canvas.getContext('2d'),rollEl=document.getElementById('roll'),
+flash=document.getElementById('flash'),toast=document.getElementById('toast'),
+strip=document.getElementById('gallery-strip'),devBtn=document.getElementById('develop');
+let shots=36,look='halfframe',developMode=false,stream=null;
+
+const LOOKS={
+ halfframe:{warm:18,fade:14,grain:26,halation:.5,leak:0,cool:0,stamp:true,contrast:1.06},
+ digicam:{warm:0,fade:0,grain:10,halation:0,leak:0,cool:14,stamp:true,contrast:1.12,flashy:true},
+ disposable:{warm:10,fade:22,grain:44,halation:.8,leak:.7,cool:0,stamp:true,contrast:.98}
+};
+
+document.getElementById('enable').onclick=async()=>{
+ try{
+  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080}},audio:false});
+  video.srcObject=stream;
+  document.getElementById('start').style.display='none';
+  showToast('Roll loaded: 36 shots');
+ }catch(e){showToast('Camera blocked. Allow access and reload.');}
+};
+document.querySelectorAll('.look').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.look').forEach(x=>x.classList.remove('active'));
+ b.classList.add('active');look=b.dataset.look;showToast(b.textContent+' look');
+});
+devBtn.onclick=()=>{developMode=!developMode;devBtn.classList.toggle('on',developMode);
+ showToast(developMode?'Develop overnight: shots appear tomorrow':'Develop overnight off');};
+strip.onclick=()=>showToast('Shots save to your downloads / camera roll');
+
+function showToast(msg){toast.textContent=msg;toast.classList.add('show');
+ clearTimeout(showToast.t);showToast.t=setTimeout(()=>toast.classList.remove('show'),2200);}
+
+document.getElementById('shutter').onclick=()=>{
+ if(!stream){showToast('Open the camera first');return;}
+ if(shots<=0){showToast('Roll finished. New roll loading...');shots=36;updateRoll();return;}
+ flash.style.transition='none';flash.style.opacity='.85';
+ requestAnimationFrame(()=>{flash.style.transition='opacity .35s';flash.style.opacity='0';});
+ capture();
+};
+
+function updateRoll(){rollEl.textContent=shots+' / 36';}
+
+function grainOverlay(c,w,h,amount){
+ const g=document.createElement('canvas');g.width=w;g.height=h;
+ const gx=g.getContext('2d'),id=gx.createImageData(w,h),d=id.data;
+ for(let i=0;i<d.length;i+=4){const n=(Math.random()-.5)*2*amount;d[i]=d[i+1]=d[i+2]=n;d[i+3]=255;}
+ gx.putImageData(id,0,0);c.globalAlpha=.5;c.drawImage(g,0,0);c.globalAlpha=1;
+}
+function lightLeak(c,w,h,strength){
+ const grd=c.createLinearGradient(w*.7,0,w,h*.5);
+ grd.addColorStop(0,'rgba(255,120,40,0)');grd.addColorStop(1,'rgba(255,110,30,'+(.35*strength)+')');
+ c.fillStyle=grd;c.fillRect(0,0,w,h);
+}
+function halation(c,w,h,strength){
+ c.save();c.globalCompositeOperation='screen';c.globalAlpha=.18*strength;
+ c.filter='blur(18px) brightness(1.6)';c.drawImage(canvas,0,0);c.restore();
+ c.filter='none';c.globalAlpha=1;
+}
+function dateStamp(c,w,h){
+ const d=new Date(),s=String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0')+".'"+String(d.getFullYear()).slice(2);
+ c.save();c.font='700 '+Math.round(h*.045)+'px "Courier New",monospace';
+ c.fillStyle='rgba(255,180,60,.92)';c.textAlign='right';
+ c.fillText(s,w*.96,h*.94);c.restore();
+}
+function capture(){
+ const vw=video.videoWidth,vh=video.videoHeight;
+ const targetW=1600,targetH=Math.round(targetW*vh/vw);
+ canvas.width=targetW;canvas.height=targetH;
+ const L=LOOKS[look];
+ ctx.drawImage(video,0,0,targetW,targetH);
+ // color grade
+ const id=ctx.getImageData(0,0,targetW,targetH),px=id.data;
+ const warm=L.warm/100,cool=L.cool/100,fade=L.fade/100,con=L.contrast;
+ for(let i=0;i<px.length;i+=4){
+  let r=px[i],g=px[i+1],b=px[i+2];
+  r=((r/255-.5)*con+.5)*255;g=((g/255-.5)*con+.5)*255;b=((b/255-.5)*con+.5)*255;
+  r+=warm*22;g+=warm*8;b-=warm*14;
+  b+=cool*20;g+=cool*6;r-=cool*10;
+  r=r*(1-fade)+255*fade*.5;g=g*(1-fade)+255*fade*.5;b=b*(1-fade)+255*fade*.5;
+  if(L.flashy){const m=(r+g+b)/3;r+=(255-r)*.06;g+=(255-g)*.06;b+=(255-b)*.06;}
+  px[i]=r;px[i+1]=g;px[i+2]=b;
+ }
+ ctx.putImageData(id,0,0);
+ halation(ctx,targetW,targetH,L.halation);
+ if(L.leak)lightLeak(ctx,targetW,targetH,L.leak);
+ grainOverlay(ctx,targetW,targetH,L.grain);
+ if(L.stamp)dateStamp(ctx,targetW,targetH);
+ // vignette baked in
+ const v=ctx.createRadialGradient(targetW/2,targetH/2,targetH*.35,targetW/2,targetH/2,targetH*.75);
+ v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.4)');
+ ctx.fillStyle=v;ctx.fillRect(0,0,targetW,targetH);
+
+ shots--;updateRoll();
+ const save=()=>{
+  const a=document.createElement('a');
+  a.download='halfframe-'+Date.now()+'.jpg';
+  a.href=canvas.toDataURL('image/jpeg',.92);a.click();
+  strip.style.backgroundImage='url('+canvas.toDataURL('image/jpeg',.5)+')';
+  showToast(shots>0?('Shot '+ (36-shots) +' saved'):'Roll finished. New roll loaded.');
+ };
+ if(developMode){showToast('Exposed. Developing overnight...');setTimeout(save,1500);}
+ else save();
+}
+</script>
+</body>
+</html>
