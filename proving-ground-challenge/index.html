@@ -14,12 +14,13 @@
 <meta name="twitter:description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;600;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#101012; --bg2:#161618; --card:#1a1a1d;
   --ink:#f4f6f2; --dim:rgba(244,246,242,.62); --faint:rgba(244,246,242,.38);
   --line:rgba(244,246,242,.12); --volt:#d4f542; --volt-dim:rgba(212,245,66,.12);
+  --floor:url("assets/rubber-floor.jpg"); --chalk:url("assets/chalk-concrete.jpg");
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -38,6 +39,17 @@ section{padding:84px 0;position:relative}
 .secnum{font-family:Fraunces,serif;font-size:14px;color:var(--volt);letter-spacing:.3em;margin-bottom:14px;display:block}
 h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 .lede{color:var(--dim);font-size:clamp(16px,2.6vw,19px);max-width:640px}
+/* ============ GRIT: real textures, layered depth ============ */
+.tex-wrap{overflow:hidden;box-shadow:inset 0 0 160px rgba(0,0,0,.55),inset 0 3px 0 rgba(0,0,0,.55),inset 0 -3px 0 rgba(0,0,0,.55)}
+.tex-wrap>.wrap{position:relative;z-index:2}
+.tex{position:absolute;inset:-12% 0;pointer-events:none;z-index:0;background-size:520px;background-repeat:repeat;will-change:transform}
+.tex-rubber{background-image:var(--floor)}
+.tex-chalk{background-image:var(--chalk)}
+.tex-scrim{position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(180deg,rgba(9,9,10,.84),rgba(9,9,10,.7))}
+.tex-scrim.heavy{background:radial-gradient(ellipse 92% 72% at 50% 42%,rgba(5,5,6,.86),rgba(5,5,6,.68) 58%,rgba(5,5,6,.92) 100%)}
+.tex-scrim.volt{background:radial-gradient(800px 400px at 50% 100%,rgba(212,245,66,.1),transparent 65%),linear-gradient(180deg,rgba(8,8,9,.88),rgba(8,8,9,.78))}
+#chalkdust{position:fixed;inset:0;z-index:90;pointer-events:none}
 /* speed-line divider */
 .speedlines{height:26px;overflow:hidden;transform:skewX(-18deg);opacity:.9;
   background:repeating-linear-gradient(-55deg,var(--volt) 0 3px,transparent 3px 16px);margin:0 -5%}
@@ -46,36 +58,37 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 #loader{position:fixed;inset:0;z-index:999;background:#0b0b0c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .5s var(--ease)}
 #loader.done{opacity:0;pointer-events:none}
 #loader .lap{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--faint);font-weight:800}
-#loader .clock{font-family:Fraunces,serif;font-size:clamp(52px,12vw,96px);letter-spacing:-.02em;color:var(--volt);font-variant-numeric:tabular-nums}
+#loader .clock{font-family:Oswald,sans-serif;font-weight:600;font-size:clamp(52px,12vw,96px);letter-spacing:.02em;color:var(--volt);font-variant-numeric:tabular-nums}
 #loader .lbar{width:min(320px,70vw);height:3px;background:rgba(244,246,242,.1);overflow:hidden;border-radius:2px}
 #loader .lbar i{display:block;height:100%;width:100%;background:var(--volt);transform-origin:left;transform:scaleX(0)}
 /* HERO */
-.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background:
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;position:relative;overflow:hidden;
+  box-shadow:inset 0 0 180px rgba(0,0,0,.6),inset 0 -4px 0 rgba(0,0,0,.55)}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:
   radial-gradient(900px 480px at 50% -8%, rgba(212,245,66,.10), transparent 60%),
   radial-gradient(700px 420px at 90% 110%, rgba(212,245,66,.05), transparent 60%)}
 .hero-inner{position:relative;z-index:2;text-align:center;width:100%}
-.hero-tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);border-radius:100px;padding:9px 20px;margin-bottom:30px;background:rgba(22,22,24,.6)}
+.hero-tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);border-radius:100px;padding:9px 20px;margin-bottom:30px;background:rgba(16,16,18,.72);box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .hero-tag b{color:var(--volt)}
-.hero h1{font-size:clamp(60px,15vw,150px);line-height:.94}
+.hero h1{font-size:clamp(60px,15vw,150px);line-height:.94;text-shadow:0 6px 34px rgba(0,0,0,.65)}
 .hero h1 .mask{display:block;overflow:hidden}
 .hero h1 .line{display:block}
 .hero h1 .volt{color:var(--volt)}
 .hero h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--ink)}
-.hero-sub{color:var(--dim);font-size:clamp(16px,2.8vw,20px);max-width:620px;margin:26px auto 0}
+.hero-sub{color:var(--dim);font-size:clamp(16px,2.8vw,20px);max-width:620px;margin:26px auto 0;text-shadow:0 2px 14px rgba(0,0,0,.7)}
 .hero-sub b{color:var(--ink)}
 .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:.08em;text-transform:uppercase;padding:18px 42px;border-radius:6px;text-decoration:none;cursor:pointer;border:none;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease);min-height:60px}
 .btn-primary{background:var(--volt);color:#101012;box-shadow:0 12px 40px rgba(212,245,66,.25)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 54px rgba(212,245,66,.4)}
-.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost{background:rgba(16,16,18,.6);color:var(--ink);border:1px solid var(--line)}
 .btn-ghost:hover{border-color:var(--volt);color:var(--volt)}
-.hero-fine{margin-top:20px;font-size:13px;color:var(--faint)}
+.hero-fine{margin-top:20px;font-size:13px;color:var(--faint);text-shadow:0 2px 10px rgba(0,0,0,.7)}
 .hero-fine b{color:var(--volt);font-weight:600}
-.hero-stats{display:flex;justify-content:center;margin-top:56px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hero-stats{display:flex;justify-content:center;margin-top:56px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(10,10,11,.55);box-shadow:0 20px 50px -20px rgba(0,0,0,.7)}
 .hstat{padding:22px 34px;text-align:center;min-width:150px}
 .hstat+.hstat{border-left:1px solid var(--line)}
-.hstat .n{font-family:Fraunces,serif;font-size:clamp(26px,5vw,38px);color:var(--volt);font-variant-numeric:tabular-nums}
+.hstat .n{font-family:Oswald,sans-serif;font-weight:600;font-size:clamp(28px,5vw,40px);color:var(--volt);font-variant-numeric:tabular-nums}
 .hstat .l{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-top:6px;font-weight:800}
 .marquee{overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);padding:16px 0;position:relative;z-index:3}
 .marquee-track{display:inline-flex;animation:mq 26s linear infinite}
@@ -85,19 +98,27 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 /* GRIDS */
 .grid2{display:grid;grid-template-columns:1fr;gap:18px;margin-top:44px}
 @media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:32px 28px;position:relative;overflow:hidden;transition:transform .35s var(--ease),border-color .35s var(--ease)}
+.card{background:var(--card);border:1px solid rgba(244,246,242,.14);border-radius:12px;padding:32px 28px;position:relative;overflow:hidden;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.75),inset 0 1px 0 rgba(244,246,242,.1),inset 0 -4px 0 rgba(0,0,0,.4);
+  transition:transform .35s var(--ease),border-color .35s var(--ease)}
 .card:hover{transform:translateY(-4px);border-color:rgba(212,245,66,.4)}
+.card::after{content:"";position:absolute;top:12px;left:14px;right:14px;height:8px;pointer-events:none;
+  background:
+    radial-gradient(circle 3.5px at 4px 4px, rgba(244,246,242,.34) 55%, rgba(0,0,0,.5) 62%, transparent 72%),
+    radial-gradient(circle 3.5px at calc(100% - 4px) 4px, rgba(244,246,242,.34) 55%, rgba(0,0,0,.5) 62%, transparent 72%);
+  background-repeat:no-repeat}
 .card .k{font-weight:800;font-size:12px;letter-spacing:.24em;color:var(--volt);text-transform:uppercase;margin-bottom:14px;display:block}
 .card h3{font-size:24px;margin-bottom:12px}
 .card p{color:var(--dim);font-size:15px}
 .card p b{color:var(--ink)}
-.card .step-n{font-family:Fraunces,serif;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(212,245,66,.6);margin-bottom:18px;display:block}
+.card .step-n{font-family:Oswald,sans-serif;font-weight:600;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(212,245,66,.6);margin-bottom:18px;display:block}
 /* PROGRAM */
-.week{border:1px solid var(--line);border-radius:12px;margin-top:16px;overflow:hidden;background:var(--card)}
+.week{border:1px solid rgba(244,246,242,.14);border-radius:12px;margin-top:16px;overflow:hidden;background:var(--card);
+  box-shadow:0 24px 50px -18px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,246,242,.09)}
 .week-head{display:flex;align-items:center;gap:18px;padding:24px 26px;cursor:pointer;user-select:none;transition:background .3s var(--ease)}
 .week-head:hover{background:rgba(244,246,242,.03)}
 .week.open .week-head{background:var(--volt-dim)}
-.week-badge{font-family:Fraunces,serif;font-size:13px;color:#101012;background:var(--volt);width:52px;height:52px;flex:0 0 52px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.week-badge{font-family:Oswald,sans-serif;font-weight:700;font-size:15px;letter-spacing:.06em;color:#101012;background:var(--volt);width:52px;height:52px;flex:0 0 52px;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.35)}
 .week[data-w="4"] .week-badge{background:var(--ink);color:#101012}
 .week-info{flex:1}
 .week-info h3{font-size:clamp(20px,4.5vw,26px)}
@@ -112,7 +133,8 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 .week-body li b{color:var(--volt);font-weight:800;letter-spacing:.06em;min-width:86px;text-transform:uppercase;font-size:13px;padding-top:2px;flex-shrink:0}
 .scored-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#101012;background:var(--volt);border-radius:4px;padding:3px 9px;margin-left:10px;vertical-align:2px}
 /* PRIZE */
-.prize{background:linear-gradient(160deg,#1d200f 0%,var(--bg2) 55%);border:1px solid rgba(212,245,66,.3);border-radius:16px;padding:clamp(30px,6vw,56px);margin-top:44px;position:relative;overflow:hidden}
+.prize{background:linear-gradient(160deg,#1d200f 0%,var(--bg2) 55%);border:1px solid rgba(212,245,66,.3);border-radius:16px;padding:clamp(30px,6vw,56px);margin-top:44px;position:relative;overflow:hidden;
+  box-shadow:0 44px 90px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(244,246,242,.12),inset 0 -5px 0 rgba(0,0,0,.4)}
 .prize::before{content:"$";position:absolute;right:-30px;top:-70px;font-family:Fraunces,serif;font-size:340px;color:rgba(212,245,66,.06);line-height:1;pointer-events:none}
 .prize h3{font-size:clamp(26px,5.5vw,40px);margin-bottom:14px;position:relative}
 .prize h3 .volt{color:var(--volt)}
@@ -120,27 +142,29 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 .pool-math{display:flex;margin:30px 0;flex-wrap:wrap;border:1px solid rgba(212,245,66,.25);border-radius:10px;overflow:hidden;position:relative}
 .pool-cell{flex:1 1 140px;padding:20px;text-align:center;background:rgba(212,245,66,.05)}
 .pool-cell+.pool-cell{border-left:1px solid rgba(212,245,66,.2)}
-.pool-cell .n{font-family:Fraunces,serif;font-size:clamp(22px,4.5vw,32px);color:var(--volt);font-variant-numeric:tabular-nums}
+.pool-cell .n{font-family:Oswald,sans-serif;font-weight:600;font-size:clamp(24px,4.5vw,34px);color:var(--volt);font-variant-numeric:tabular-nums}
 .pool-cell .l{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:6px;font-weight:800}
 /* leaderboard striped payout table */
-.payout{margin-top:8px;position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.payout{margin-top:8px;position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  box-shadow:0 26px 54px -20px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,246,242,.08)}
 .payout .row{display:flex;align-items:center;gap:14px;padding:16px 22px;background:rgba(0,0,0,.28)}
 .payout .row:nth-child(even){background:rgba(212,245,66,.07)}
-.payout .rank{font-family:Fraunces,serif;font-size:22px;color:var(--volt);width:56px;flex-shrink:0}
+.payout .rank{font-family:Oswald,sans-serif;font-weight:600;font-size:24px;color:var(--volt);width:56px;flex-shrink:0}
 .payout .t{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:800;flex:1}
-.payout .p{font-family:Fraunces,serif;font-size:30px;color:var(--ink);font-variant-numeric:tabular-nums}
+.payout .p{font-family:Oswald,sans-serif;font-weight:600;font-size:32px;color:var(--ink);font-variant-numeric:tabular-nums}
 .prize-note{margin-top:26px;font-size:14px;color:var(--dim);border-left:3px solid var(--volt);padding-left:18px;position:relative}
 .prize-note b{color:var(--ink)}
 .prize-links{margin-top:20px;display:flex;gap:18px;flex-wrap:wrap;position:relative}
 .prize-links a{color:var(--volt);font-weight:800;font-size:13px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:2px solid rgba(212,245,66,.4);padding-bottom:2px;transition:border-color .3s var(--ease)}
 .prize-links a:hover{border-color:var(--volt)}
 /* DIVISIONS striped rows */
-.divrow{border:1px solid var(--line);border-radius:12px;margin-top:14px;overflow:hidden;position:relative;background:var(--card)}
+.divrow{border:1px solid rgba(244,246,242,.14);border-radius:12px;margin-top:14px;overflow:hidden;position:relative;background:var(--card);
+  box-shadow:0 30px 60px -22px rgba(0,0,0,.75),inset 0 1px 0 rgba(244,246,242,.09),inset 0 -4px 0 rgba(0,0,0,.35)}
 .divrow:nth-child(even){background:linear-gradient(180deg,rgba(212,245,66,.05),transparent)}
 .divrow.elite{border-color:rgba(212,245,66,.5)}
 .divrow .inner{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:28px 26px;align-items:start}
 @media(min-width:760px){.divrow .inner{grid-template-columns:88px 280px 1fr}}
-.divrow .rank{font-family:Fraunces,serif;font-size:52px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(212,245,66,.65)}
+.divrow .rank{font-family:Oswald,sans-serif;font-weight:600;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(212,245,66,.65)}
 .divrow .meta h3{font-size:26px;margin:2px 0 10px}
 .divrow .meta .k{font-weight:800;font-size:11px;letter-spacing:.24em;color:var(--volt);text-transform:uppercase}
 .divrow .flag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;background:var(--volt);color:#101012;padding:5px 14px;border-radius:100px;margin-bottom:10px}
@@ -160,11 +184,13 @@ h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
 .faq-a p{padding:0 0 26px;color:var(--dim);font-size:15.5px;max-width:720px}
 .faq-a p b{color:var(--ink)}
 /* FINAL */
-.final{text-align:center;background:radial-gradient(800px 400px at 50% 100%, rgba(212,245,66,.08), transparent 65%),var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.final h2{font-size:clamp(44px,10vw,96px);line-height:.95;margin-bottom:18px}
+.final{text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;
+  box-shadow:inset 0 0 180px rgba(0,0,0,.6),inset 0 4px 0 rgba(0,0,0,.5)}
+.final h2{font-size:clamp(44px,10vw,96px);line-height:.95;margin-bottom:18px;text-shadow:0 6px 30px rgba(0,0,0,.65)}
 .final h2 .volt{color:var(--volt)}
-.final .price-line{margin:26px 0 8px;font-family:Fraunces,serif;font-size:22px;color:var(--ink);letter-spacing:.04em}
-.guarantee{display:inline-flex;align-items:center;gap:10px;margin-top:26px;font-size:13.5px;color:var(--dim);border:1px solid var(--line);border-radius:100px;padding:10px 22px}
+.final .price-line{margin:26px 0 8px;font-family:Oswald,sans-serif;font-weight:600;font-size:24px;color:var(--ink);letter-spacing:.06em}
+.final .lede{text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.guarantee{display:inline-flex;align-items:center;gap:10px;margin-top:26px;font-size:13.5px;color:var(--dim);border:1px solid var(--line);border-radius:100px;padding:10px 22px;background:rgba(10,10,11,.6)}
 .guarantee i{color:var(--volt);font-style:normal;font-size:18px}
 /* STICKY BAR */
 .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:100;background:rgba(16,16,18,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:14px;transform:translateY(110%);transition:transform .4s var(--ease)}
@@ -181,6 +207,7 @@ footer a{color:var(--volt);text-decoration:none}
   .marquee-track{animation:none}
   html{scroll-behavior:auto}
   .speedlines{display:none}
+  #chalkdust{display:none}
 }
 </style>
 </head>
@@ -193,8 +220,13 @@ footer a{color:var(--volt);text-decoration:none}
   <div class="lbar"><i id="loadfill"></i></div>
 </div>
 
+<!-- chalk dust canvas: scroll velocity kicks up dust, idle leaves faint motes -->
+<canvas id="chalkdust" aria-hidden="true"></canvas>
+
 <!-- ============ HERO ============ -->
-<header class="hero">
+<header class="hero tex-wrap">
+  <div class="tex tex-chalk" aria-hidden="true"></div>
+  <div class="tex-scrim heavy" aria-hidden="true"></div>
   <div class="wrap hero-inner">
     <span class="hero-tag rv">Cohort 01 <b>&nbsp;&middot;&nbsp;</b> 4-Week Hybrid Challenge</span>
     <h1>
@@ -224,7 +256,9 @@ footer a{color:var(--volt);text-decoration:none}
 </div>
 
 <!-- ============ HOW IT WORKS ============ -->
-<section id="how">
+<section id="how" class="tex-wrap">
+  <div class="tex tex-rubber" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <span class="secnum rv">01</span>
     <h2 class="sec-title rv">How it works</h2>
@@ -241,7 +275,9 @@ footer a{color:var(--volt);text-decoration:none}
 <div class="speedlines soft" aria-hidden="true"></div>
 
 <!-- ============ PROGRAM ============ -->
-<section id="program" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<section id="program" class="tex-wrap" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="tex tex-chalk" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <span class="secnum rv">02</span>
     <h2 class="sec-title rv">The program</h2>
@@ -294,7 +330,9 @@ footer a{color:var(--volt);text-decoration:none}
 </section>
 
 <!-- ============ PRIZE ============ -->
-<section id="prize">
+<section id="prize" class="tex-wrap">
+  <div class="tex tex-rubber" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <span class="secnum rv">03</span>
     <h2 class="sec-title rv">The prize pool</h2>
@@ -324,7 +362,9 @@ footer a{color:var(--volt);text-decoration:none}
 <div class="speedlines soft" aria-hidden="true"></div>
 
 <!-- ============ DIVISIONS ============ -->
-<section id="divisions" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<section id="divisions" class="tex-wrap" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="tex tex-chalk" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <span class="secnum rv">04</span>
     <h2 class="sec-title rv">Pick your division</h2>
@@ -373,7 +413,9 @@ footer a{color:var(--volt);text-decoration:none}
 </section>
 
 <!-- ============ FAQ ============ -->
-<section id="faq">
+<section id="faq" class="tex-wrap">
+  <div class="tex tex-rubber" aria-hidden="true"></div>
+  <div class="tex-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <span class="secnum rv">05</span>
     <h2 class="sec-title rv">Questions</h2>
@@ -407,7 +449,9 @@ footer a{color:var(--volt);text-decoration:none}
 </section>
 
 <!-- ============ FINAL CTA ============ -->
-<section class="final" id="enter">
+<section class="final tex-wrap" id="enter">
+  <div class="tex tex-chalk" aria-hidden="true"></div>
+  <div class="tex-scrim volt" aria-hidden="true"></div>
   <div class="wrap">
     <span class="eyebrow rv" style="justify-content:center">Cohort 01 &middot; Spots are open</span>
     <h2 class="rv">Stop wondering.<br><span class="volt">Start proving.</span></h2>
@@ -523,6 +567,15 @@ footer a{color:var(--volt);text-decoration:none}
       });
     });
 
+    /* texture parallax: backgrounds drift slower than content */
+    document.querySelectorAll(".tex").forEach(function(el){
+      var host = el.closest(".tex-wrap") || el.parentElement;
+      gsap.fromTo(el, { yPercent: -6 }, {
+        yPercent: 6, ease: "none",
+        scrollTrigger: { trigger: host, start: "top bottom", end: "bottom top", scrub: true }
+      });
+    });
+
     /* masked line-reveal hero */
     gsap.set(".hero h1 .line", { yPercent: 115 });
     gsap.set(".rv", { y: 36, opacity: 0 });
@@ -585,6 +638,106 @@ footer a{color:var(--volt);text-decoration:none}
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   })();
+})();
+
+/* ---- chalk dust: scroll velocity kicks up chalk, idle leaves faint motes ----
+   Dependency-free. Disabled under prefers-reduced-motion. */
+(function(){
+  "use strict";
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var cv = document.getElementById("chalkdust");
+  if(!cv || !cv.getContext) return;
+  var ctx = cv.getContext("2d");
+  var W = 0, H = 0, DPR = 1;
+  function size(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.floor(window.innerWidth * DPR);
+    H = Math.floor(window.innerHeight * DPR);
+    cv.width = W; cv.height = H;
+    cv.style.width = window.innerWidth + "px";
+    cv.style.height = window.innerHeight + "px";
+  }
+  size();
+  window.addEventListener("resize", size);
+  /* soft chalk sprite */
+  var sp = document.createElement("canvas");
+  sp.width = 64; sp.height = 64;
+  var sctx = sp.getContext("2d");
+  var g = sctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, "rgba(246,246,243,1)");
+  g.addColorStop(0.4, "rgba(246,246,243,.5)");
+  g.addColorStop(1, "rgba(246,246,243,0)");
+  sctx.fillStyle = g;
+  sctx.fillRect(0, 0, 64, 64);
+  var P = [];
+  function mote(){
+    return { kind: 0,
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.12 * DPR, vy: (-Math.random() * 0.15 - 0.02) * DPR,
+      r: (Math.random() * 2.2 + 1) * DPR, a: Math.random() * 0.16 + 0.05,
+      life: 1, decay: 0, ph: Math.random() * 6.28 };
+  }
+  for(var i = 0; i < 42; i++) P.push(mote());
+  function burst(x, y, power){
+    var n = Math.min(26, 6 + Math.floor(power * 9));
+    for(var j = 0; j < n; j++){
+      var ang = Math.random() * 6.283;
+      var spd = (Math.random() * 2.6 + 0.6) * DPR * Math.min(power, 3);
+      P.push({ kind: 1,
+        x: x + (Math.random() - 0.5) * 60 * DPR, y: y + (Math.random() - 0.5) * 40 * DPR,
+        vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd - 1.6 * DPR,
+        r: (Math.random() * 3.4 + 1.4) * DPR, a: Math.random() * 0.5 + 0.3,
+        life: 1, decay: Math.random() * 0.006 + 0.003, ph: 0 });
+    }
+    /* particle cap: retire oldest dust first */
+    if(P.length > 520){
+      var cut = P.length - 520, k = 0;
+      for(var m = P.length - 1; m >= 0 && k < cut; m--){
+        if(P[m].kind === 1){ P.splice(m, 1); k++; }
+      }
+    }
+  }
+  var lastY = window.scrollY, lastT = performance.now();
+  window.addEventListener("scroll", function(){
+    var now = performance.now(), y = window.scrollY, dt = Math.max(1, now - lastT);
+    var v = (y - lastY) / dt * 16.7; /* px per frame, signed */
+    var p = Math.min(Math.abs(v) / 60, 3);
+    if(p > 0.35){
+      var times = Math.floor(p);
+      for(var k = 0; k < times; k++){
+        burst(Math.random() * W, H * (0.35 + Math.random() * 0.5), p);
+      }
+    }
+    lastY = y; lastT = now;
+  }, { passive: true });
+  var t = 0;
+  function frame(){
+    t += 1 / 60;
+    ctx.clearRect(0, 0, W, H);
+    for(var i = P.length - 1; i >= 0; i--){
+      var p = P[i];
+      if(p.kind === 1){
+        p.vy += 0.045 * DPR; /* chalk falls: real gravity */
+        p.vx *= 0.985; p.vy *= 0.985; /* air drag */
+        p.x += p.vx; p.y += p.vy;
+        p.life -= p.decay;
+        if(p.life <= 0 || p.y > H + 40){ P.splice(i, 1); continue; }
+      } else {
+        p.x += p.vx + Math.sin(t * 0.7 + p.ph) * 0.12 * DPR;
+        p.y += p.vy;
+        if(p.y < -20){ p.y = H + 20; p.x = Math.random() * W; }
+        if(p.x < -20) p.x = W + 20;
+        if(p.x > W + 20) p.x = -20;
+      }
+      var a = p.a * (p.kind === 1 ? Math.max(p.life, 0) : (0.7 + 0.3 * Math.sin(t * 1.3 + p.ph)));
+      ctx.globalAlpha = Math.max(a, 0);
+      var s = p.r * 2 * (p.kind === 1 ? (0.6 + 0.4 * (1 - p.life)) : 1);
+      ctx.drawImage(sp, p.x - s, p.y - s, s * 2, s * 2);
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+  frame();
 })();
 </script>
 </body>
