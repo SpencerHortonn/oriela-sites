@@ -33,7 +33,7 @@ body{font-family:Archivo,system-ui,sans-serif;background:var(--blk);color:var(--
 .th-lime{--fg:#0b0b0b;--mut:rgba(11,11,11,.66);--ln:#0b0b0b;--soft:rgba(11,11,11,.16)}
 section{color:var(--fg)}
 /* photographic texture depth, restored: chalk concrete + rubber floor photo beds */
-.tex{position:absolute;inset:-12% 0;z-index:0;pointer-events:none;background-size:560px;background-repeat:repeat;opacity:.5}
+.tex{position:absolute;inset:-12% 0;z-index:0;pointer-events:none;background-size:cover;background-repeat:no-repeat;background-position:center;opacity:.5}
 .tex-chalk{background-image:url("assets/chalk-concrete.jpg")}
 .tex-rubber{background-image:url("assets/rubber-floor.jpg")}
 .tex-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(11,11,11,.82),rgba(11,11,11,.62))}
@@ -358,7 +358,7 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
   </div>
 </section>
 
-<div class="rule" data-theme="dark" aria-hidden="true"><span class="hp-div hp-d1"><svg viewBox="0 0 300 380" aria-hidden="true"><use href="#hp-b"/></svg></span></div>
+<div class="rule" data-theme="dark" aria-hidden="true"></div>
 
 <!-- ============ PROGRAM ============ -->
 <section class="block th-dark" id="program" data-theme="dark">
@@ -418,7 +418,7 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
   </div>
 </section>
 
-<div class="rule inv" data-theme="lime" aria-hidden="true"><span class="hp-div hp-d2"><svg viewBox="0 0 300 380" aria-hidden="true"><use href="#hp-a"/></svg></span></div>
+<div class="rule inv" data-theme="lime" aria-hidden="true"></div>
 
 <!-- ============ PRIZE ============ -->
 <section class="block th-lime" id="prize" data-theme="lime">
@@ -499,7 +499,7 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
   </div>
 </section>
 
-<div class="rule tri" data-theme="dark" aria-hidden="true"><span class="hp-div hp-d3"><svg viewBox="0 0 300 380" aria-hidden="true"><use href="#hp-b"/></svg></span></div>
+<div class="rule tri" data-theme="dark" aria-hidden="true"></div>
 
 <!-- ============ FAQ ============ -->
 <section class="block th-dark" id="faq" data-theme="dark">

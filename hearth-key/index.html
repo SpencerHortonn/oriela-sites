@@ -498,37 +498,10 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
     }, 6000);
   })();
 
-  /* The one cinematic beat: the key pins while its three uses swap, then
-     releases. Slides swap instantly (never crossfade, never overlap text);
-     scrub is 1:1 so the pin never fights scrolling. ScrollTrigger only.
-     Native scroll everywhere else. */
-  var beatCount = document.getElementById("beatCount");
-  if (hasST && !reduceMotion){
-    var beatSlides = [".s1", ".s2", ".s3"].map(function(sel){ return document.querySelector(sel); });
-    function showSlide(i){
-      beatSlides.forEach(function(s, j){ if (s) s.style.opacity = (j === i) ? "1" : "0"; });
-      if (beatCount) beatCount.textContent = "0" + (i + 1) + " / 03";
-    }
-    showSlide(0);
-    var beatTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".beat",
-        start: "top top",
-        end: "+=140%",
-        pin: true,
-        scrub: true,
-        anticipatePin: 1,
-        onUpdate: function(self){
-          showSlide(Math.min(2, Math.floor(self.progress * 3)));
-        }
-      }
-    });
-    /* the vignette closes in while the key is pinned, then releases */
-    beatTl.fromTo(".beat-vignette", { opacity: 0, scale: 1.14 }, { opacity: 1, scale: 1, duration: 1.0, ease: "none" }, 0)
-      .to(".beat-vignette", { opacity: 0, duration: 0.45, ease: "none" }, 1.55);
-  } else {
-    document.documentElement.classList.add("no-pin");
-  }
+  /* The token showcase flows like the rest of the page: the three uses
+     stack as cards below the token. No pinning anywhere, scrolling never
+     stops or gets trapped. */
+  document.documentElement.classList.add("no-pin");
 
   /* Dawn atmosphere: three bands cross-fade as the page scrolls, like time
      passing. Opacity only, one scrubbed timeline. Layers default to opacity 0
