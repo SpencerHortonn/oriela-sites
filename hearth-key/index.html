@@ -141,6 +141,12 @@ h1 em,h2 em{font-style:italic;color:var(--amber)}
 
 .waitlist{text-align:center}
 .waitlist p{color:var(--mut);max-width:50ch;margin:0 auto 34px;font-size:16.5px}
+/* email list form */
+.notify-form{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;max-width:560px;margin:0 auto}
+.notify-form input[type="email"]{flex:1 1 240px;min-width:0;background:rgba(43,29,15,.05);border:1px solid rgba(43,29,15,.3);border-radius:999px;padding:15px 24px;color:var(--tx);font-size:16px;font-family:var(--sans)}
+.notify-form input[type="email"]::placeholder{color:var(--dim)}
+.notify-form input[type="email"]:focus{outline:none;border-color:var(--amber)}
+.notify-done{font-size:17px;color:var(--tx);text-align:center}
 
 footer{padding:60px 24px 70px;text-align:center;font-size:14px;color:var(--dim)}
 footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:var(--ink);font-size:19px;margin-bottom:8px}
@@ -171,7 +177,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
 
 <nav>
   <a class="wordmark" href="#top">Hearth <span>Key</span></a>
-  <a class="cta-small" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
+  <a class="cta-small" href="#notify">Get notified</a>
 </nav>
 
 <main>
@@ -209,10 +215,10 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
     <h1 class="rv">One tap puts the <em>phone to bed.</em></h1>
     <p class="body-copy rv">The Hearth Key is a beautiful wooden token with an NFC chip inside. Tap it to your iPhone and your distracting apps go quiet. Tap again when you're ready to come back.</p>
     <div class="cta-row rv">
-      <a class="btn" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
+      <a class="btn" href="#notify">Get notified</a>
       <a class="btn ghost" href="#how">How it works</a>
     </div>
-    <p class="proof rv"><strong>First batch of 50.</strong> $39. Waitlist gets first dibs.</p>
+    <p class="proof rv"><strong>First batch of 50.</strong> $39. Coming 2027, the email list hears first.</p>
   </div>
 </header>
 
@@ -259,7 +265,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
       <article class="slide s3">
         <p class="n">03</p>
         <h3>The Lent kit</h3>
-        <p>Phone-fast kits for churches, arriving for Lent 2027. A whole congregation, resting together.</p>
+        <p>Phone-fast kits for churches, coming in 2027. A whole congregation, resting together.</p>
       </article>
     </div>
   </div>
@@ -278,7 +284,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
         <li>NFC chip, iPhone-ready</li>
         <li>Setup card + video</li>
       </ul>
-      <a class="btn ghost" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
+      <a class="btn ghost" href="#notify">Get notified</a>
     </div>
     <div class="tier rv">
       <h3>Three keys</h3>
@@ -290,7 +296,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
         <li>Three keys, gift-ready</li>
         <li>Save $18</li>
       </ul>
-      <a class="btn" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
+      <a class="btn" href="#notify">Get notified</a>
     </div>
   </div>
 </section>
@@ -315,17 +321,21 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
     <div class="qa rv"><h3>Does it work with Android?</h3><p>The key is an NFC tag, so Android phones can read it, but the one-tap Focus automation is an iPhone Shortcuts feature. Batch one is built for iPhone. Android support is on the roadmap.</p></div>
     <div class="qa rv"><h3>What if I lose the key?</h3><p>Your Focus mode still works manually from Control Center. The key is a shortcut, not the thing itself. And replacements will be available.</p></div>
     <div class="qa rv"><h3>Can I really not override it?</h3><p>You can, and that's the point. The key is a ritual object, not a punishment device. It works because you chose it, not because it forced you.</p></div>
-    <div class="qa rv"><h3>When do keys ship?</h3><p>Batch one ships after the prototype run wraps in November. Waitlist members get the ship date first and first dibs on all 50.</p></div>
-    <div class="qa rv"><h3>What's coming next?</h3><p>The Hearth phone bed (a little wooden bed for your phone, with a charging slot), and Lent phone-fast kits for churches in early 2027.</p></div>
+    <div class="qa rv"><h3>When do keys ship?</h3><p>Batch one ships after the prototype run wraps. The email list gets the ship date first and first dibs on all 50.</p></div>
+    <div class="qa rv"><h3>What's coming next?</h3><p>The Hearth phone bed (a little wooden bed for your phone, with a charging slot), and Lent phone-fast kits for churches in 2027.</p></div>
   </div>
 </section>
 
-<section class="band light" id="waitlist">
+<section class="band light" id="notify">
   <div class="col waitlist">
     <h2 class="rv">First batch: <em>50 keys</em></h2>
-    <p class="body-copy rv">Join the waitlist and you'll get first dibs when batch one opens, plus the setup video the moment it's ready.</p>
+    <p class="body-copy rv">Drop your email and you'll get first dibs when batch one opens, plus the setup video the moment it's ready.</p>
     <div class="cta-row rv">
-      <a class="btn" href="mailto:hello@orielaco.com?subject=Hearth%20Key%20waitlist">Join the waitlist</a>
+      <form class="notify-form" data-site="hearth">
+        <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+        <button class="btn" type="submit">Get notified</button>
+      </form>
+      <p class="notify-done" hidden>You're on the list.</p>
     </div>
   </div>
 </section>
@@ -341,6 +351,8 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
 <script>
 (function(){
   "use strict";
+  /* Email list endpoint. Placeholder worker URL, swapped for the real one later. */
+  const MAIL_ENDPOINT = "https://oriela-mail.workers.dev/api/join";
   document.documentElement.classList.add("js");
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.scrollTo(0, 0);
@@ -526,6 +538,28 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
   }
 
   window.addEventListener("load", function(){ if (hasST) ScrollTrigger.refresh(); });
+
+  /* Email list signup: validate, POST, confirm. Never breaks the page. */
+  document.querySelectorAll(".notify-form").forEach(function(form){
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var input = form.querySelector('input[type="email"]');
+      var email = (input.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.focus(); return; }
+      var btn = form.querySelector('[type="submit"]');
+      if (btn) btn.disabled = true;
+      try {
+        fetch(MAIL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ site: form.getAttribute("data-site") || "hearth", email: email })
+        }).catch(function(){});
+      } catch (e) {}
+      var done = form.parentElement.querySelector(".notify-done");
+      form.style.display = "none";
+      if (done) done.hidden = false;
+    });
+  });
 })();
 </script>
 </body>

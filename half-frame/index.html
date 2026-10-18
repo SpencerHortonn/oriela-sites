@@ -210,6 +210,14 @@ filter:drop-shadow(-5px -5px 6px rgba(0,0,0,.5))}
 #pricing .btn.ghost:hover{border-color:var(--gold-d)}
 .launch-strip{margin-top:54px;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:#6a5638}
 .launch-strip b{color:var(--gold-d);font-weight:600}
+/* email list form */
+.notify-wrap{margin-top:40px;text-align:center}
+.notify-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--gold);margin-bottom:18px}
+.notify-form{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;max-width:560px;margin:0 auto}
+.notify-form input[type="email"]{flex:1 1 240px;min-width:0;background:#0b0b0a;border:1px solid var(--edge);border-radius:4px;padding:15px 20px;color:var(--ink);font-size:15px;font-family:var(--mono)}
+.notify-form input[type="email"]::placeholder{color:var(--dim)}
+.notify-form input[type="email"]:focus{outline:none;border-color:var(--gold)}
+.notify-done{font-family:var(--mono);font-size:14px;letter-spacing:.1em;color:var(--gold)}
 
 /* footer: end of roll */
 footer{max-width:1180px;margin:0 auto;padding:64px calc(var(--rail) + 10px) 70px;text-align:center}
@@ -287,7 +295,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
       <div class="edge" aria-hidden="true">
         <span class="fnum">FRAME 01 / 36</span>
         <span class="stock-c">STOCK · HALF FRAME</span>
-        <span>FEB 2027</span>
+        <span>2027</span>
       </div>
       <div class="frame-body">
         <div class="cone" aria-hidden="true"></div>
@@ -305,7 +313,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
           <a class="btn solid shutter" href="#pricing">See pricing</a>
           <a class="btn ghost shutter" href="#looks">The looks</a>
         </div>
-        <div class="launch-note rise">LAUNCHING FEB 2027</div>
+        <div class="launch-note rise">COMING 2027</div>
         <div class="hero-annot" aria-hidden="true">36 shots. make them count.</div>
       </div>
     </div>
@@ -316,7 +324,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
       <div class="edge" aria-hidden="true">
         <span class="fnum">FRAME 02 / 36</span>
         <span class="stock-c">STOCK · HALF FRAME</span>
-        <span>FEB 2027</span>
+        <span>2027</span>
       </div>
       <div class="frame-body">
         <div class="sec-head">
@@ -342,7 +350,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
       <div class="edge" aria-hidden="true">
         <span class="fnum">FRAME 03 / 36</span>
         <span class="stock-c">STOCKS · HF / 2K / DX</span>
-        <span>FEB 2027</span>
+        <span>2027</span>
       </div>
       <div class="frame-body">
         <div class="sec-head">
@@ -357,7 +365,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
           <div class="dev-view" id="devView">
             <div class="dev-track" id="devTrack">
               <article class="dev-panel">
-                <div class="dev-shot dp-warm"><span class="big">Hf</span><span class="stamp">02·2027</span></div>
+                <div class="dev-shot dp-warm"><span class="big">Hf</span><span class="stamp">2027</span></div>
                 <div class="dev-info">
                   <div class="stock">STOCK 01</div>
                   <h3>Half Frame</h3>
@@ -366,7 +374,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
                 </div>
               </article>
               <article class="dev-panel">
-                <div class="dev-shot dp-cool"><span class="big">2k</span><span class="stamp">02·2027</span></div>
+                <div class="dev-shot dp-cool"><span class="big">2k</span><span class="stamp">2027</span></div>
                 <div class="dev-info">
                   <div class="stock">STOCK 02</div>
                   <h3>2000s</h3>
@@ -375,7 +383,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
                 </div>
               </article>
               <article class="dev-panel">
-                <div class="dev-shot dp-leak"><span class="big">Dx</span><span class="stamp">02·2027</span></div>
+                <div class="dev-shot dp-leak"><span class="big">Dx</span><span class="stamp">2027</span></div>
                 <div class="dev-info">
                   <div class="stock">STOCK 03</div>
                   <h3>Disposable</h3>
@@ -401,7 +409,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
       <div class="edge" aria-hidden="true">
         <span class="fnum">FRAME 04 / 36</span>
         <span class="stock-c">STOCK · DISPOSABLE</span>
-        <span>FEB 2027</span>
+        <span>2027</span>
       </div>
       <div class="frame-body">
         <div class="sec-head" style="text-align:center;max-width:none">
@@ -422,7 +430,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
       <div class="edge" aria-hidden="true">
         <span class="fnum">FRAME 05 / 36</span>
         <span class="stock-c">STOCK · HALF FRAME</span>
-        <span>FEB 2027</span>
+        <span>2027</span>
       </div>
       <div class="frame-body">
         <div class="sec-head" style="text-align:center;max-width:none">
@@ -443,7 +451,15 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
             <button class="btn solid shutter" type="button">Go Pro at launch</button>
           </div>
         </div>
-        <div class="launch-strip">LAUNCHING <b>FEB 2027</b>. 36 EXPOSURES. ZERO FILTERS.</div>
+        <div class="launch-strip">COMING <b>2027</b>. 36 EXPOSURES. ZERO FILTERS.</div>
+        <div class="notify-wrap">
+          <p class="notify-kicker">COMING 2027</p>
+          <form class="notify-form" data-site="half-frame">
+            <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+            <button class="btn solid shutter" type="submit">Get notified</button>
+          </form>
+          <p class="notify-done" hidden>You're on the list.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -472,6 +488,8 @@ setTimeout(function(){
 <script>
 (function(){
   "use strict";
+  /* Email list endpoint. Placeholder worker URL, swapped for the real one later. */
+  const MAIL_ENDPOINT = "https://oriela-mail.workers.dev/api/join";
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.scrollTo(0, 0);
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -679,6 +697,28 @@ setTimeout(function(){
   })();
 
   window.addEventListener("load", function(){ if (hasST) ScrollTrigger.refresh(); });
+
+  /* Email list signup: validate, POST, confirm. Never breaks the page. */
+  document.querySelectorAll(".notify-form").forEach(function(form){
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var input = form.querySelector('input[type="email"]');
+      var email = (input.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.focus(); return; }
+      var btn = form.querySelector('[type="submit"]');
+      if (btn) btn.disabled = true;
+      try {
+        fetch(MAIL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ site: form.getAttribute("data-site") || "half-frame", email: email })
+        }).catch(function(){});
+      } catch (e) {}
+      var done = form.parentElement.querySelector(".notify-done");
+      form.style.display = "none";
+      if (done) done.hidden = false;
+    });
+  });
 })();
 </script>
 </body>

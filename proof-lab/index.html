@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Proof. Lab-tested creatine.</title>
-<meta name="description" content="Proof. Lab-tested creatine from Oriela Co. One ingredient, every batch tested. Launching January 4, 2027.">
+<meta name="description" content="Proof. Lab-tested creatine from Oriela Co. One ingredient, every batch tested. Coming 2027.">
 <meta name="theme-color" content="#1f3529">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -131,12 +131,17 @@ h2{font-size:clamp(2.4rem,6vw,4.4rem)}
 .faq-item.open .faq-x::after{transform:rotate(0)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
 .faq-a p{padding:0 4px 30px;max-width:62ch;color:#2c4433;font-size:1.08rem}
-/* waitlist */
-.waitlist{background:var(--forest);text-align:center}
-.waitlist h2{margin-bottom:22px}
-.waitlist p{max-width:52ch;margin:0 auto 36px;font-size:1.12rem;opacity:.88}
-.waitlist .fine{margin-top:22px;font-size:.9rem;opacity:.7}
-.waitlist .grow-leaf{left:-80px;bottom:40px;color:var(--moss)}
+/* notify */
+.notify{background:var(--forest);text-align:center}
+.notify h2{margin-bottom:22px}
+.notify p{max-width:52ch;margin:0 auto 36px;font-size:1.12rem;opacity:.88}
+.notify .grow-leaf{left:-80px;bottom:40px;color:var(--moss)}
+/* email list form */
+.notify-form{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;max-width:560px;margin:0 auto}
+.notify-form input[type="email"]{flex:1 1 240px;min-width:0;background:rgba(244,236,220,.07);border:1px solid rgba(244,236,220,.28);border-radius:999px;padding:16px 26px;color:var(--cream);font-size:16px;font-family:Inter,system-ui,sans-serif}
+.notify-form input[type="email"]::placeholder{color:rgba(244,236,220,.42)}
+.notify-form input[type="email"]:focus{outline:none;border-color:var(--leaf)}
+.notify-done{font-size:1.15rem;color:var(--cream)}
 /* footer */
 footer{position:relative;z-index:1;background:var(--ink);padding:56px 0 44px;text-align:center}
 footer .fname{font-family:Fraunces,serif;font-size:1.5rem;font-weight:600;margin-bottom:6px}
@@ -224,7 +229,7 @@ footer .copy{font-size:.8rem;opacity:.45}
     <a href="#product">Product</a>
     <a href="#faq">FAQ</a>
   </div>
-  <a class="nav-cta" href="#waitlist">Join the waitlist</a>
+  <a class="nav-cta" href="#notify">Get notified</a>
 </nav>
 
 <main id="top">
@@ -241,8 +246,8 @@ footer .copy{font-size:.8rem;opacity:.45}
       <p class="eyebrow hero-fade">From Oriela Co</p>
       <h1 class="h1"><span class="mask"><span class="h-line">Proof<span class="dot">.</span></span></span></h1>
       <p class="hero-sub hero-fade">Lab-tested supplements, starting with creatine.</p>
-      <p class="hero-date hero-fade">Launching January 4, 2027</p>
-      <div class="hero-fade"><a class="btn" href="#waitlist">Join the waitlist</a></div>
+      <p class="hero-date hero-fade">Coming 2027</p>
+      <div class="hero-fade"><a class="btn" href="#notify">Get notified</a></div>
       <p class="scroll-cue hero-fade">Scroll<span class="stem"></span></p>
     </div>
   </section>
@@ -351,13 +356,13 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="launch atmo" id="launch" aria-label="Launch date">
+  <section class="launch atmo" id="launch" aria-label="Launch">
     <svg class="grow-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="wrap organic" data-organic>
-      <p class="eyebrow rv">Save the date</p>
-      <p class="date rv">January 4, 2027</p>
-      <p class="rv">Proof launches January 4, 2027 with creatine monohydrate. Join the waitlist and be first in line when the first batch lands.</p>
-      <div class="rv"><a class="btn" href="#waitlist">Join the waitlist</a></div>
+      <p class="eyebrow rv">Coming 2027</p>
+      <p class="date rv">2027</p>
+      <p class="rv">Proof is coming in 2027, starting with creatine monohydrate. Get notified and be first in line when the first batch lands.</p>
+      <div class="rv"><a class="btn" href="#notify">Get notified</a></div>
     </div>
   </section>
 
@@ -376,11 +381,11 @@ footer .copy{font-size:.8rem;opacity:.45}
         </div>
         <div class="faq-item rv">
           <button class="faq-q" aria-expanded="false">When will Proof ship?<span class="faq-x" aria-hidden="true"></span></button>
-          <div class="faq-a"><p>The launch date is January 4, 2027. Exact shipping dates and regions are not set yet. The waitlist hears first.</p></div>
+          <div class="faq-a"><p>There is no fixed launch date yet. Exact shipping dates and regions are not set. The email list hears first.</p></div>
         </div>
         <div class="faq-item rv">
           <button class="faq-q" aria-expanded="false">How much will it cost?<span class="faq-x" aria-hidden="true"></span></button>
-          <div class="faq-a"><p>Not decided yet. We will announce pricing before launch, and the waitlist hears it first.</p></div>
+          <div class="faq-a"><p>Not decided yet. We will announce pricing before launch, and the email list hears it first.</p></div>
         </div>
         <div class="faq-item rv">
           <button class="faq-q" aria-expanded="false">Is creatine safe?<span class="faq-x" aria-hidden="true"></span></button>
@@ -394,14 +399,19 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="waitlist atmo" id="waitlist" aria-label="Join the waitlist">
+  <section class="notify atmo" id="notify" aria-label="Get notified">
     <svg class="grow-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="wrap organic" data-organic>
-      <p class="eyebrow rv">Waitlist</p>
+      <p class="eyebrow rv">Coming 2027</p>
       <h2 class="rv">Be first in line.</h2>
-      <p class="rv">Tap the button and send us a note. The subject line is filled in for you. We will add you to the list and write back before launch.</p>
-      <div class="rv"><a class="btn" href="mailto:hello@orielaco.com?subject=Proof%20waitlist">Join the waitlist</a></div>
-      <p class="fine rv">No spam, no noise. One email when Proof is ready.</p>
+      <p class="rv">Drop your email and we will write the moment Proof is ready. No spam, no noise, one email.</p>
+      <div class="rv">
+        <form class="notify-form" data-site="proof">
+          <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+          <button class="btn" type="submit">Get notified</button>
+        </form>
+        <p class="notify-done" hidden>You're on the list.</p>
+      </div>
     </div>
   </section>
 
@@ -433,10 +443,34 @@ setTimeout(function(){
 <script>
 (function(){
   "use strict";
+  /* Email list endpoint. Placeholder worker URL, swapped for the real one later. */
+  const MAIL_ENDPOINT = "https://oriela-mail.workers.dev/api/join";
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.scrollTo(0, 0);
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var loader = document.getElementById("loader");
+
+  /* Email list signup: validate, POST, confirm. Never breaks the page. */
+  document.querySelectorAll(".notify-form").forEach(function(form){
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var input = form.querySelector('input[type="email"]');
+      var email = (input.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.focus(); return; }
+      var btn = form.querySelector('[type="submit"]');
+      if (btn) btn.disabled = true;
+      try {
+        fetch(MAIL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ site: form.getAttribute("data-site") || "proof", email: email })
+        }).catch(function(){});
+      } catch (e) {}
+      var done = form.parentElement.querySelector(".notify-done");
+      form.style.display = "none";
+      if (done) done.hidden = false;
+    });
+  });
 
   /* Falling leaves canvas. Vanilla, runs even if the CDNs fail. */
   (function leaves(){

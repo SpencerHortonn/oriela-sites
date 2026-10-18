@@ -102,6 +102,14 @@ h1,h2{font-weight:400;line-height:1.12;letter-spacing:-.01em}
 .btn:hover{background:var(--red);border-color:var(--red)}
 .btn.ghost{background:transparent;color:var(--ink)}
 .btn.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+/* email list form */
+.notify-band{margin-top:3rem;border-top:2px solid var(--line);padding-top:2rem}
+.notify-kicker{font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:1rem}
+.notify-form{display:flex;gap:.8rem;flex-wrap:wrap;align-items:stretch;max-width:560px}
+.notify-form input[type="email"]{flex:1 1 240px;min-width:0;background:var(--paper2);border:2px solid var(--ink);padding:.85rem 1.2rem;min-height:48px;color:var(--ink);font-size:1rem;font-family:var(--mono)}
+.notify-form input[type="email"]::placeholder{color:var(--ink-faint)}
+.notify-form input[type="email"]:focus{outline:none;border-color:var(--red)}
+.notify-done{font-family:var(--mono);font-size:.9rem;color:var(--ink)}
 .proof{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink-dim)}
 .proof strong{color:var(--red)}
 .filemeta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:2px solid var(--ink);margin:2.4rem 0 0}
@@ -396,6 +404,14 @@ body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;op
       <p class="cp">Send us one episode. We will send back the full pack within 5 business days. Keep it either way.</p>
       <a class="btn" href="mailto:hello@orielaco.com?subject=Free%20podcast%20episode%20repurposing">Email us the episode</a>
       <div class="email-line">Prefer to write first? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></div>
+      <div class="notify-band">
+        <p class="notify-kicker">Coming 2027</p>
+        <form class="notify-form" data-site="podcast">
+          <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+          <button class="btn" type="submit">Get notified</button>
+        </form>
+        <p class="notify-done" hidden>You're on the list.</p>
+      </div>
     </section>
   </main>
 </div>
@@ -418,6 +434,8 @@ setTimeout(function(){
 <script>
 (function(){
   "use strict";
+  /* Email list endpoint. Placeholder worker URL, swapped for the real one later. */
+  const MAIL_ENDPOINT = "https://oriela-mail.workers.dev/api/join";
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.scrollTo(0, 0);
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -539,6 +557,28 @@ setTimeout(function(){
   }
   window.addEventListener("load", function(){
     if (hasGsap && typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+  });
+
+  /* Email list signup: validate, POST, confirm. Never breaks the page. */
+  document.querySelectorAll(".notify-form").forEach(function(form){
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var input = form.querySelector('input[type="email"]');
+      var email = (input.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.focus(); return; }
+      var btn = form.querySelector('[type="submit"]');
+      if (btn) btn.disabled = true;
+      try {
+        fetch(MAIL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ site: form.getAttribute("data-site") || "podcast", email: email })
+        }).catch(function(){});
+      } catch (e) {}
+      var done = form.parentElement.querySelector(".notify-done");
+      form.style.display = "none";
+      if (done) done.hidden = false;
+    });
   });
 })();
 </script>

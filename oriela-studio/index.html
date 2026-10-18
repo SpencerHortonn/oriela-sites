@@ -52,9 +52,10 @@ body.menu-open #menu{transform:none}
 body.menu-open .mi{opacity:1;transform:none}
 body.menu-open .mi:nth-child(1){transition-delay:.18s}body.menu-open .mi:nth-child(2){transition-delay:.24s}body.menu-open .mi:nth-child(3){transition-delay:.3s}body.menu-open .mi:nth-child(4){transition-delay:.36s}body.menu-open .mi:nth-child(5){transition-delay:.42s}body.menu-open .mi:nth-child(6){transition-delay:.48s}body.menu-open .mi:nth-child(7){transition-delay:.54s}
 .mi-num{font-family:'Fraunces',serif;font-style:italic;color:var(--amber);font-size:15px;min-width:34px}
-.mi-t{position:relative;display:block;overflow:hidden;height:1.3em;flex:1}
-.mi-a,.mi-b{display:block;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,4.6vw,52px);line-height:1.3;white-space:nowrap;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.mi-t{position:relative;display:block;overflow:hidden;height:1.3em;flex:1;min-width:0;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,4.6vw,52px);line-height:1.3}
+.mi-a,.mi-b{display:block;white-space:nowrap;transition:transform .5s cubic-bezier(.22,1,.36,1)}
 .mi-b{position:absolute;top:100%;left:0;color:var(--amber);font-style:italic}
+@media (max-width:700px){.mi-thumb{display:none}}
 .mi:hover .mi-a{transform:translateY(-100%)}
 .mi:hover .mi-b{transform:translateY(-100%)}
 .mi-thumb{width:120px;height:70px;flex:none;background-size:cover;background-position:center;border:1px solid var(--line);opacity:0;transform:scale(.92);transition:opacity .4s,transform .5s cubic-bezier(.22,1,.36,1)}
@@ -170,6 +171,14 @@ body.menu-open .mi:nth-child(1){transition-delay:.18s}body.menu-open .mi:nth-chi
 .contact-sec p{color:var(--dim);max-width:48ch;margin:22px auto 36px}
 .contact-mail{display:block;margin-top:26px;font-size:15px;color:var(--faint);text-decoration:none}
 .contact-mail:hover{color:var(--amber)}
+/* email list form */
+.notify-band{margin-top:60px}
+.notify-kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:18px}
+.notify-form{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;max-width:560px;margin:0 auto}
+.notify-form input[type="email"]{flex:1 1 240px;min-width:0;background:rgba(244,236,220,.06);border:1px solid var(--line);border-radius:999px;padding:16px 26px;color:var(--cream);font-size:15px;font-family:'Inter',system-ui,sans-serif}
+.notify-form input[type="email"]::placeholder{color:var(--faint)}
+.notify-form input[type="email"]:focus{outline:none;border-color:var(--amber)}
+.notify-done{color:var(--cream);font-size:16px}
 footer{border-top:1px solid var(--line);text-align:center;padding:44px 24px 52px;font-size:14px;color:var(--faint)}
 footer a{color:var(--amber);text-decoration:none}
 @media(max-width:700px){.mi-thumb{display:none}.cap{padding:28px 24px}.scroll-cue{display:none}}
@@ -316,6 +325,14 @@ footer a{color:var(--amber);text-decoration:none}
 <p class="rv">Film, website, content handled monthly, or systems that save you hours. Reply within one business day.</p>
 <div class="rv"><a class="btn" href="mailto:hello@orielaco.com?subject=Oriela%20Studio%20project">Start a project</a></div>
 <a class="contact-mail rv" href="mailto:hello@orielaco.com">hello@orielaco.com</a>
+<div class="notify-band rv">
+  <p class="notify-kicker">Coming 2027</p>
+  <form class="notify-form" data-site="studio">
+    <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+    <button class="btn" type="submit">Get notified</button>
+  </form>
+  <p class="notify-done" hidden>You're on the list.</p>
+</div>
 </section>
 
 <footer><div>© 2026 Oriela Studio · A part of <a href="https://orielaco.com">Oriela Co</a></div></footer>
@@ -326,6 +343,8 @@ footer a{color:var(--amber);text-decoration:none}
 <script>
 (function(){
 "use strict";
+/* Email list endpoint. Placeholder worker URL, swapped for the real one later. */
+const MAIL_ENDPOINT = "https://oriela-mail.workers.dev/api/join";
 if("scrollRestoration" in history){ history.scrollRestoration="manual"; }
 window.scrollTo(0,0);
 var reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -485,6 +504,28 @@ if(!reduceMotion){
     }});
   });
 }
+
+/* Email list signup: validate, POST, confirm. Never breaks the page. */
+document.querySelectorAll(".notify-form").forEach(function(form){
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var input = form.querySelector('input[type="email"]');
+    var email = (input.value || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.focus(); return; }
+    var btn = form.querySelector('[type="submit"]');
+    if (btn) btn.disabled = true;
+    try {
+      fetch(MAIL_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ site: form.getAttribute("data-site") || "studio", email: email })
+      }).catch(function(){});
+    } catch (e) {}
+    var done = form.parentElement.querySelector(".notify-done");
+    form.style.display = "none";
+    if (done) done.hidden = false;
+  });
+});
 })();
 </script>
 </body>
