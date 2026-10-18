@@ -7,7 +7,7 @@
 <meta name="description" content="We turn every podcast episode into show notes, social posts, a newsletter draft, and quote graphics. Done for you, every week.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --espresso:#1d140d; --espresso2:#241a10; --card:#2a1e12;
@@ -140,7 +140,7 @@ h2.section-title em{font-style:italic;color:var(--amber)}
   box-shadow:0 26px 50px -18px rgba(0,0,0,.6),inset 0 1px 0 rgba(244,236,220,.12),inset 0 -1px 0 rgba(0,0,0,.55);
   transition:transform .4s var(--ease),border-color .4s var(--ease)}
 .deliver:hover{transform:translateY(-4px);border-color:rgba(232,163,61,.5)}
-.deliver .icon{font-size:2.1rem}
+.deliver .icon svg{width:2.4rem;height:2.4rem;display:block;margin:0 auto}
 .deliver h3{font-size:1.12rem;color:var(--cream);margin:.8rem 0 .5rem}
 .deliver p{font-size:.93rem;color:var(--cream-dim)}
 
@@ -184,7 +184,8 @@ h2.section-title em{font-style:italic;color:var(--amber)}
 .tier .per{font-size:.86rem;color:var(--cream-faint);margin-bottom:1.5rem}
 .tier ul{list-style:none;text-align:left;margin-bottom:1.9rem;flex-grow:1}
 .tier li{font-size:.94rem;color:var(--cream-dim);padding:.45rem 0 .45rem 1.6rem;position:relative}
-.tier li::before{content:"✓";position:absolute;left:0;color:var(--amber);font-weight:700}
+.tier li::before{content:"";position:absolute;left:0;top:.72rem;width:.82rem;height:.82rem;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.6 8.7l3.7 3.7L13.4 4.3' fill='none' stroke='%23e8a33d' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain}
 .tier .btn{width:100%}
 
 /* faq */
@@ -205,6 +206,44 @@ h2.section-title em{font-style:italic;color:var(--amber)}
 footer{text-align:center;padding:2.6rem 1.5rem;font-size:.85rem;color:var(--cream-faint)}
 footer .fmark{font-family:'Fraunces',serif;color:var(--cream);font-size:1.05rem;margin-bottom:.3rem}
 footer .fmark span{color:var(--amber);font-style:italic}
+
+/* --- hand-made craft pass --- */
+.hand-note{font-family:'Caveat',cursive;font-weight:600;font-size:1.32rem;color:#ffcf7d;line-height:1.25;display:inline-block}
+/* studio logbook: ruled engineer rows, tape-spine labels, masking-tape corners */
+.logbook{position:relative;margin-top:1rem}
+.logbook-title{display:block;margin:0 0 1.8rem .4rem;transform:rotate(-2deg);font-size:1.5rem}
+.logbook .sample{background:
+  repeating-linear-gradient(to bottom,transparent 0,transparent 2.05rem,rgba(232,163,61,.09) 2.05rem,rgba(232,163,61,.09) calc(2.05rem + 1px)),
+  linear-gradient(180deg,#2d2113,#221a0f)}
+.logbook .sample:nth-child(3){margin-left:clamp(1.2rem,4.5vw,3.2rem)}
+.logbook .sample:nth-child(4){margin-left:clamp(.6rem,2vw,1.4rem)}
+.sample-head .show{display:inline-block;position:relative;background:#e2a94e;color:#241a10;
+  font-family:ui-monospace,SFMono-Regular,Menlo,'Courier New',monospace;font-size:.8rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;padding:.55rem 1.15rem;transform:rotate(-1deg);
+  box-shadow:2px 3px 0 rgba(0,0,0,.35)}
+.sample-head .show::before,.sample-head .show::after{content:"";position:absolute;width:46px;height:17px;top:-10px;
+  background:linear-gradient(105deg,rgba(240,224,182,.55),rgba(240,224,182,.32));
+  border-left:1px dashed rgba(60,40,15,.35);border-right:1px dashed rgba(60,40,15,.35)}
+.sample-head .show::before{left:10px;transform:rotate(-40deg)}
+.sample-head .show::after{right:10px;transform:rotate(40deg)}
+.logbook .sample:nth-child(3) .show{transform:rotate(1.1deg)}
+.sample .hand-note{transform:rotate(-3deg);margin-right:.6rem}
+/* fader bank: hand-drawn 3-channel strip */
+.fader-bank{margin:0 auto 3.4rem;max-width:430px;text-align:center}
+.fader-bank svg{width:min(360px,88vw);height:auto;display:block;margin:0 auto;filter:drop-shadow(0 20px 30px rgba(0,0,0,.5))}
+.fader-bank .hand-note{margin-top:.7rem;transform:rotate(-2deg)}
+/* broken tier symmetry: staggered rows, rotated featured card, coffee ring */
+@media(min-width:940px){
+  .price-grid .tier:nth-child(1){top:16px}
+  .price-grid .tier:nth-child(2){top:-10px}
+  .price-grid .tier:nth-child(3){top:28px}
+  .price-grid{margin-bottom:1rem}
+}
+.tier.featured.reveal.in{transform:scale(1.03) rotate(.8deg)}
+.tier.featured.reveal.in:hover{transform:scale(1.03) rotate(.8deg) translateY(-4px)}
+.price-note{position:absolute;top:-74px;left:50%;transform:translateX(-50%) rotate(-4deg);white-space:nowrap;font-size:1.45rem}
+.price-note svg{display:block;margin:.15rem auto 0;width:26px;height:34px}
+.coffee-ring{position:absolute;top:-30px;right:-16px;width:118px;height:118px;transform:rotate(14deg);pointer-events:none;z-index:3}
 
 /* reveals */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -292,11 +331,61 @@ footer .fmark span{color:var(--amber);font-style:italic}
   <div class="wrap">
     <h2 class="section-title"><span class="mask"><span class="rl">What you get</span></span><span class="mask"><span class="rl"><em>per episode</em></span></span></h2>
     <p class="lede reveal">One finished pack, delivered within 5 business days of your audio landing in our inbox.</p>
+    <div class="fader-bank reveal" aria-hidden="true">
+      <svg viewBox="0 0 360 170">
+        <defs>
+          <radialGradient id="fbrass" cx="35%" cy="30%" r="85%">
+            <stop offset="0" stop-color="#e9c887"/><stop offset="60%" stop-color="#8a6428"/><stop offset="100%" stop-color="#3a2a12"/>
+          </radialGradient>
+        </defs>
+        <rect x="8" y="8" width="344" height="154" rx="14" fill="#231a0f" stroke="#e8a33d" stroke-opacity=".32" stroke-width="1.5"/>
+        <circle cx="30" cy="30" r="7" fill="url(#fbrass)"/><path d="M26.5 30h7" stroke="#241a10" stroke-width="1.8" stroke-linecap="round" transform="rotate(24 30 30)"/>
+        <circle cx="330" cy="30" r="7" fill="url(#fbrass)"/><path d="M326.5 30h7" stroke="#241a10" stroke-width="1.8" stroke-linecap="round" transform="rotate(-38 330 30)"/>
+        <circle cx="30" cy="140" r="7" fill="url(#fbrass)"/><path d="M26.5 140h7" stroke="#241a10" stroke-width="1.8" stroke-linecap="round" transform="rotate(64 30 140)"/>
+        <circle cx="330" cy="140" r="7" fill="url(#fbrass)"/><path d="M326.5 140h7" stroke="#241a10" stroke-width="1.8" stroke-linecap="round" transform="rotate(-12 330 140)"/>
+        <text x="100" y="30" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" letter-spacing="2.5" fill="#f4ecdc" opacity=".55">EP</text>
+        <text x="180" y="30" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" letter-spacing="2.5" fill="#f4ecdc" opacity=".55">SOC</text>
+        <text x="260" y="30" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" letter-spacing="2.5" fill="#f4ecdc" opacity=".55">NL</text>
+        <g stroke="#0d0803" stroke-width="7" stroke-linecap="round" fill="none">
+          <path d="M99.6 46 C100.6 72 99.2 100 100.3 130"/>
+          <path d="M180.4 46 C179.5 72 180.8 100 179.7 130"/>
+          <path d="M259.7 46 C260.7 72 259.4 100 260.2 130"/>
+        </g>
+        <g stroke="#e8a33d" stroke-width="1.4" opacity=".4" fill="none">
+          <path d="M99.6 46 C100.6 72 99.2 100 100.3 130"/>
+          <path d="M180.4 46 C179.5 72 180.8 100 179.7 130"/>
+          <path d="M259.7 46 C260.7 72 259.4 100 260.2 130"/>
+        </g>
+        <g stroke="#f4ecdc" stroke-width="1.4" opacity=".38">
+          <path d="M88 52h7.5M104.5 52h7.5M168 52h7.5M184.5 52h7.5M248 52h7.5M264.5 52h7.5"/>
+          <path d="M88.5 70h7M105 70h7M168.5 70h7M185 70h7M248.5 70h7M265 70h7"/>
+          <path d="M88 88h7.5M104.5 88h7.5M168 88h7.5M184.5 88h7.5M248 88h7.5M264.5 88h7.5"/>
+          <path d="M88.5 106h7M105 106h7M168.5 106h7M185 106h7M248.5 106h7M265 106h7"/>
+          <path d="M88 124h7.5M104.5 124h7.5M168 124h7.5M184.5 124h7.5M248 124h7.5M264.5 124h7.5"/>
+        </g>
+        <g transform="rotate(-2.5 100 92)">
+          <rect x="82" y="84" width="36" height="16" rx="3.5" fill="#f4ecdc" opacity=".94"/>
+          <line x1="82" y1="92" x2="118" y2="92" stroke="#b97a26" stroke-width="2.6"/>
+        </g>
+        <g transform="rotate(1.8 180 74)">
+          <rect x="163" y="66" width="34" height="16" rx="3.5" fill="#f4ecdc" opacity=".94"/>
+          <line x1="163" y1="74" x2="197" y2="74" stroke="#b97a26" stroke-width="2.6"/>
+        </g>
+        <g transform="rotate(-1.2 260 106)">
+          <rect x="241.5" y="98" width="37" height="16" rx="3.5" fill="#f4ecdc" opacity=".94"/>
+          <line x1="241.5" y1="106" x2="278.5" y2="106" stroke="#b97a26" stroke-width="2.6"/>
+        </g>
+        <circle cx="100" cy="144" r="2.8" fill="#e8a33d"/>
+        <circle cx="180" cy="144" r="2.8" fill="#e8a33d" opacity=".35"/>
+        <circle cx="260" cy="144" r="2.8" fill="#e8a33d" opacity=".35"/>
+      </svg>
+      <div class="hand-note">levels, roughly</div>
+    </div>
     <div class="pack-grid">
-      <div class="deliver reveal"><div class="icon">📝</div><h3>SEO show notes</h3><p>Title, summary, timestamped chapters, and 3 key takeaways, written to rank.</p></div>
-      <div class="deliver reveal"><div class="icon">📣</div><h3>8 social posts</h3><p>Hooks, quote posts, and takeaway threads, ready to paste into X, LinkedIn, and Instagram.</p></div>
-      <div class="deliver reveal"><div class="icon">✉️</div><h3>Newsletter draft</h3><p>A 200 to 300 word issue built around the episode's core idea, with subject line.</p></div>
-      <div class="deliver reveal"><div class="icon">🖼️</div><h3>Quote graphics copy</h3><p>5 headline and quote pairings, ready for your designer or Canva.</p></div>
+      <div class="deliver reveal"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-2.5 24 24)"><path d="M12.5 7.5h18.5l6.5 6.5v26.5h-25z"/><path d="M31 7.5v6.5h6.5"/><path d="M17.5 19c5-1.2 9.5 .4 14-.4"/><path d="M17.5 25c4.2-1 8.6 .4 12.4-.2"/><path d="M17.5 31c5.5-.6 8 .6 11.5-.2"/></g></svg></div><h3>SEO show notes</h3><p>Title, summary, timestamped chapters, and 3 key takeaways, written to rank.</p></div>
+      <div class="deliver reveal"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(3 24 24)"><path d="M12.5 19.5h14.5l10-6.8v21.6l-10-6.8H12.5z"/><path d="M18.5 28.5v6c0 2.2 1.6 3.6 3.8 3.6h3.2"/><path d="M40.5 15.5c2.8 2.6 2.8 13.4 0 16"/><path d="M43.5 11.5c4.4 4.6 4.4 19.4 0 24"/></g></svg></div><h3>8 social posts</h3><p>Hooks, quote posts, and takeaway threads, ready to paste into X, LinkedIn, and Instagram.</p></div>
+      <div class="deliver reveal"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(1.5 24 24)"><rect x="8" y="13.5" width="32" height="22" rx="3"/><path d="M9 16.5L23.8 27 39 16.8"/></g></svg></div><h3>Newsletter draft</h3><p>A 200 to 300 word issue built around the episode's core idea, with subject line.</p></div>
+      <div class="deliver reveal"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-2 24 24)"><rect x="8.5" y="9.5" width="31" height="29" rx="3"/><circle cx="17.5" cy="18.5" r="3.2"/><path d="M9.5 35.5L22 24l7.5 6.8 4.5-4L39.5 32"/></g></svg></div><h3>Quote graphics copy</h3><p>5 headline and quote pairings, ready for your designer or Canva.</p></div>
     </div>
   </div>
 </section>
@@ -307,6 +396,9 @@ footer .fmark span{color:var(--amber);font-style:italic}
     <h2 class="section-title"><span class="mask"><span class="rl">Sample <em>packs</em></span></span></h2>
     <p class="lede reveal">Real packs, built from real episodes. This is exactly what lands in your inbox each week.</p>
 
+    <div class="logbook">
+      <div class="hand-note logbook-title reveal">engineer's log: real packs, real episodes</div>
+
     <div class="sample reveal">
       <div class="sample-head">
         <div class="show">Creator Science</div>
@@ -315,6 +407,7 @@ footer .fmark span{color:var(--amber);font-style:italic}
       </div>
       <div class="sample-body">
         <span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span>
+        <span class="hand-note">this clip did 40k views</span>
         <a href="samples/creator-science-pat-flynn-matt-gartland.md">View the pack</a>
       </div>
     </div>
@@ -342,6 +435,7 @@ footer .fmark span{color:var(--amber);font-style:italic}
         <a href="samples/knowledge-project-matt-mullenweg-100.md">View the pack</a>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
@@ -366,6 +460,7 @@ footer .fmark span{color:var(--amber);font-style:italic}
         <a class="btn ghost" href="#contact">Start free episode</a>
       </div>
       <div class="tier featured reveal">
+        <div class="hand-note price-note" aria-hidden="true">most shows land here<svg viewBox="0 0 26 34" aria-hidden="true"><path d="M13 3 C14 12 12 20 13 27 M8.5 22.5 L13 29 L17.5 22.5" fill="none" stroke="#ffcf7d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="badge">Most popular</div>
         <h3>Growth</h3>
         <div class="price">$347</div>
@@ -380,6 +475,7 @@ footer .fmark span{color:var(--amber);font-style:italic}
         <a class="btn" href="#contact">Start free episode</a>
       </div>
       <div class="tier reveal">
+        <svg class="coffee-ring" viewBox="0 0 130 130" aria-hidden="true"><circle cx="65" cy="65" r="56" fill="none" stroke="#5b3a1e" stroke-width="6" opacity="0.14"/><circle cx="65" cy="65" r="49" fill="none" stroke="#5b3a1e" stroke-width="2.5" opacity="0.10"/><path d="M112 88 q10 6 8 16" stroke="#5b3a1e" stroke-width="5" fill="none" opacity="0.12" stroke-linecap="round"/></svg>
         <h3>Scale</h3>
         <div class="price">$447</div>
         <div class="per">per month, 12 episodes</div>
