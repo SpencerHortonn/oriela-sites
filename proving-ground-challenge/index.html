@@ -8,426 +8,351 @@
 <meta property="og:title" content="Proving Ground Challenge | 4 Weeks. $99.">
 <meta property="og:description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://fancy-tarsier-90aec5.netlify.app">
+<meta property="og:url" content="https://proving-ground-6bv.pages.dev">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Proving Ground Challenge | 4 Weeks. $99.">
-<meta name="twitter:description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:wght@600&family=Inter:wght@400;600;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#101012; --bg2:#161618; --card:#1a1a1d;
-  --ink:#f4f6f2; --dim:rgba(244,246,242,.62); --faint:rgba(244,246,242,.38);
-  --line:rgba(244,246,242,.12); --volt:#d4f542; --volt-dim:rgba(212,245,66,.12);
-  --floor:url("assets/rubber-floor.jpg"); --chalk:url("assets/chalk-concrete.jpg");
+  --blk:#0b0b0b; --crm:#efebe0; --lim:#c6ff00;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-::selection{background:var(--volt);color:#101012}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
-h1,h2,h3{font-family:Fraunces,serif;font-weight:600;letter-spacing:-.015em;line-height:1.02;text-transform:uppercase}
+body{font-family:Archivo,system-ui,sans-serif;background:var(--blk);color:var(--crm);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--lim);color:var(--blk)}
+#bg{position:fixed;inset:0;z-index:-1;background:var(--blk)}
 .num{font-variant-numeric:tabular-nums}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-section{padding:84px 0;position:relative}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--volt);margin-bottom:22px}
-.eyebrow::before{content:"";width:34px;height:2px;background:var(--volt);display:inline-block}
-.secnum{font-family:Fraunces,serif;font-size:14px;color:var(--volt);letter-spacing:.3em;margin-bottom:14px;display:block}
-h2.sec-title{font-size:clamp(36px,7vw,62px);margin-bottom:16px}
-.lede{color:var(--dim);font-size:clamp(16px,2.6vw,19px);max-width:640px}
-/* ============ GRIT: real textures, layered depth ============ */
-.tex-wrap{overflow:hidden;box-shadow:inset 0 0 160px rgba(0,0,0,.55),inset 0 3px 0 rgba(0,0,0,.55),inset 0 -3px 0 rgba(0,0,0,.55)}
-.tex-wrap>.wrap{position:relative;z-index:2}
-.tex{position:absolute;inset:-12% 0;pointer-events:none;z-index:0;background-size:520px;background-repeat:repeat;will-change:transform}
-.tex-rubber{background-image:var(--floor)}
-.tex-chalk{background-image:var(--chalk)}
-.tex-scrim{position:absolute;inset:0;pointer-events:none;z-index:1;
-  background:linear-gradient(180deg,rgba(9,9,10,.84),rgba(9,9,10,.7))}
-.tex-scrim.heavy{background:radial-gradient(ellipse 92% 72% at 50% 42%,rgba(5,5,6,.86),rgba(5,5,6,.68) 58%,rgba(5,5,6,.92) 100%)}
-.tex-scrim.volt{background:radial-gradient(800px 400px at 50% 100%,rgba(212,245,66,.1),transparent 65%),linear-gradient(180deg,rgba(8,8,9,.88),rgba(8,8,9,.78))}
-#chalkdust{position:fixed;inset:0;z-index:90;pointer-events:none}
-/* speed-line divider */
-.speedlines{height:26px;overflow:hidden;transform:skewX(-18deg);opacity:.9;
-  background:repeating-linear-gradient(-55deg,var(--volt) 0 3px,transparent 3px 16px);margin:0 -5%}
-.speedlines.soft{opacity:.28}
-/* loader */
-#loader{position:fixed;inset:0;z-index:999;background:#0b0b0c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .5s var(--ease)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+/* theme ink tokens: sections declare their own ink over the scrubbed bg */
+.th-dark{--fg:#efebe0;--mut:rgba(239,235,224,.62);--ln:#efebe0;--soft:rgba(239,235,224,.16)}
+.th-cream{--fg:#0b0b0b;--mut:rgba(11,11,11,.64);--ln:#0b0b0b;--soft:rgba(11,11,11,.14)}
+.th-lime{--fg:#0b0b0b;--mut:rgba(11,11,11,.66);--ln:#0b0b0b;--soft:rgba(11,11,11,.16)}
+section{color:var(--fg)}
+/* ============ LOADER ============ */
+#loader{position:fixed;inset:0;z-index:999;background:var(--blk);color:var(--lim);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;letter-spacing:.3em;transition:opacity .4s}
 #loader.done{opacity:0;pointer-events:none}
-#loader .lap{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--faint);font-weight:800}
-#loader .clock{font-family:Oswald,sans-serif;font-weight:600;font-size:clamp(52px,12vw,96px);letter-spacing:.02em;color:var(--volt);font-variant-numeric:tabular-nums}
-#loader .lbar{width:min(320px,70vw);height:3px;background:rgba(244,246,242,.1);overflow:hidden;border-radius:2px}
-#loader .lbar i{display:block;height:100%;width:100%;background:var(--volt);transform-origin:left;transform:scaleX(0)}
-/* hand-drawn chalk stopwatch doodle */
-.swatch{width:92px;margin:0 auto 10px;rotate:-7deg;opacity:.95;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))}
-.sw-second{transform-origin:60px 70px;animation:swspin 14s linear infinite}
-@keyframes swspin{to{transform:rotate(360deg)}}
-/* HERO */
-.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;position:relative;overflow:hidden;
-  box-shadow:inset 0 0 180px rgba(0,0,0,.6),inset 0 -4px 0 rgba(0,0,0,.55)}
-.hero::before{content:"";position:absolute;inset:0;z-index:1;background:
-  radial-gradient(900px 480px at 50% -8%, rgba(212,245,66,.10), transparent 60%),
-  radial-gradient(700px 420px at 90% 110%, rgba(212,245,66,.05), transparent 60%)}
-.hero-inner{position:relative;z-index:2;text-align:center;width:100%}
-.hero-tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);border-radius:100px;padding:9px 20px;margin-bottom:30px;background:rgba(16,16,18,.72);box-shadow:0 8px 24px rgba(0,0,0,.5)}
-.hero-tag b{color:var(--volt)}
-.hero h1{font-size:clamp(60px,15vw,150px);line-height:.94;text-shadow:0 6px 34px rgba(0,0,0,.65)}
-.hero h1 .mask{display:block;overflow:hidden}
-.hero h1 .line{display:block}
-.hero h1 .volt{color:var(--volt)}
-.hero h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--ink)}
-.hero-sub{color:var(--dim);font-size:clamp(16px,2.8vw,20px);max-width:620px;margin:26px auto 0;text-shadow:0 2px 14px rgba(0,0,0,.7)}
-.hero-sub b{color:var(--ink)}
-.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:.08em;text-transform:uppercase;padding:18px 42px;border-radius:6px;text-decoration:none;cursor:pointer;border:none;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease);min-height:60px}
-.btn-primary{background:var(--volt);color:#101012;box-shadow:0 12px 40px rgba(212,245,66,.25)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 54px rgba(212,245,66,.4)}
-.btn-ghost{background:rgba(16,16,18,.6);color:var(--ink);border:1px solid var(--line)}
-.btn-ghost:hover{border-color:var(--volt);color:var(--volt)}
-.hero-fine{margin-top:20px;font-size:13px;color:var(--faint);text-shadow:0 2px 10px rgba(0,0,0,.7)}
-.hero-fine b{color:var(--volt);font-weight:600}
-.hero-stats{display:flex;justify-content:center;margin-top:56px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(10,10,11,.55);box-shadow:0 20px 50px -20px rgba(0,0,0,.7)}
-.hstat{padding:22px 34px;text-align:center;min-width:150px}
-.hstat+.hstat{border-left:1px solid var(--line)}
-.hstat .n{font-family:Oswald,sans-serif;font-weight:600;font-size:clamp(28px,5vw,40px);color:var(--volt);font-variant-numeric:tabular-nums}
-.hstat .l{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-top:6px;font-weight:800}
-.marquee{overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);padding:16px 0;position:relative;z-index:3}
-.marquee-track{display:inline-flex;animation:mq 26s linear infinite}
-.marquee span{font-weight:800;font-size:15px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);padding:0 28px}
-.marquee span i{color:var(--volt);font-style:normal;padding-right:28px}
+#loader .cur{display:inline-block;width:.6em;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+/* ============ FIXED BRUTAL HEADER ============ */
+#bhead{position:fixed;top:0;left:0;right:0;z-index:500;mix-blend-mode:difference;color:#fff;
+  display:flex;align-items:center;gap:18px;padding:14px 20px;border-bottom:2px solid #fff}
+#bhead .logo{font-weight:900;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:#fff;white-space:nowrap}
+#bhead .logo em{font-style:normal;background:#fff;color:#000;padding:0 6px;margin-left:6px}
+#ticker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
+#ticker .cur{display:inline-block;width:.55em;animation:blink 1s steps(2) infinite}
+#bhead nav{display:flex;gap:16px;align-items:center}
+#bhead nav a{color:#fff;text-decoration:none;font-weight:800;font-size:12px;letter-spacing:.14em}
+#bhead nav a.enter{background:#fff;color:#000;padding:8px 16px}
+@media(max-width:820px){#ticker{display:none}#bhead nav a:not(.enter){display:none}}
+/* ============ HERO ============ */
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 70px;position:relative}
+.hero .kick{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--lim);margin-bottom:26px;display:block}
+.hero h1{font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.84;font-size:clamp(68px,17.5vw,208px)}
+.hero h1 .w{display:block;overflow:hidden}
+.hero h1 .w>span{display:block}
+.hero h1 .out{color:transparent;-webkit-text-stroke:2px var(--fg)}
+.hero-sub{margin-top:28px;max-width:620px;font-size:clamp(16px,2.6vw,20px);color:var(--mut)}
+.hero-sub b{color:var(--fg)}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-block;font-weight:800;font-size:16px;letter-spacing:.1em;text-transform:uppercase;
+  padding:18px 40px;text-decoration:none;border:3px solid var(--fg);transition:transform .25s var(--ease),background .25s,color .25s}
+.btn-solid{background:var(--lim);border-color:var(--lim);color:#0b0b0b}
+.btn-solid:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--fg)}
+.btn-line{background:transparent;color:var(--fg)}
+.btn-line:hover{background:var(--fg);color:var(--blk)}
+.hero-fine{margin-top:18px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--mut)}
+.hero-fine b{color:var(--lim)}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:54px;border:3px solid var(--fg)}
+.hstat{padding:20px 12px;text-align:center}
+.hstat+.hstat{border-left:3px solid var(--fg)}
+.hstat .n{font-weight:900;font-size:clamp(26px,4.6vw,44px);color:var(--lim)}
+.hstat .l{font-family:var(--mono);font-size:10px;letter-spacing:.24em;margin-top:6px;color:var(--mut)}
+@media(max-width:640px){.hstats{grid-template-columns:1fr 1fr}.hstat:nth-child(3){border-left:none}.hstat:nth-child(n+3){border-top:3px solid var(--fg)}}
+/* ============ MARQUEE (paused until visible) ============ */
+.mq{overflow:hidden;white-space:nowrap;border-top:3px solid var(--blk);border-bottom:3px solid var(--blk);background:var(--lim);color:var(--blk);padding:14px 0}
+.mq.dark{background:var(--blk);color:var(--crm);border-color:var(--crm)}
+.mq-t{display:inline-block;animation:mq 24s linear infinite;animation-play-state:paused;will-change:transform}
+.mq.on .mq-t{animation-play-state:running}
+.mq-t span{font-weight:900;font-size:20px;letter-spacing:.24em;text-transform:uppercase;padding:0 26px}
 @keyframes mq{to{transform:translateX(-50%)}}
-/* GRIDS */
-.grid2{display:grid;grid-template-columns:1fr;gap:18px;margin-top:44px}
-@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
-.card{background:var(--card);border:1px solid rgba(244,246,242,.14);border-radius:12px;padding:32px 28px;position:relative;overflow:hidden;
-  box-shadow:0 30px 60px -20px rgba(0,0,0,.75),inset 0 1px 0 rgba(244,246,242,.1),inset 0 -4px 0 rgba(0,0,0,.4);
-  transition:transform .35s var(--ease),border-color .35s var(--ease)}
-.card:hover{transform:translateY(-4px);border-color:rgba(212,245,66,.4)}
-.card::after{content:"";position:absolute;top:12px;left:14px;right:14px;height:8px;pointer-events:none;
-  background:
-    radial-gradient(circle 3.5px at 4px 4px, rgba(244,246,242,.34) 55%, rgba(0,0,0,.5) 62%, transparent 72%),
-    radial-gradient(circle 3.5px at calc(100% - 4px) 4px, rgba(244,246,242,.34) 55%, rgba(0,0,0,.5) 62%, transparent 72%);
-  background-repeat:no-repeat}
-.card .k{font-weight:800;font-size:12px;letter-spacing:.24em;color:var(--volt);text-transform:uppercase;margin-bottom:14px;display:block}
-.card h3{font-size:24px;margin-bottom:12px}
-.card p{color:var(--dim);font-size:15px}
-.card p b{color:var(--ink)}
-.card .step-n{font-family:Oswald,sans-serif;font-weight:600;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(212,245,66,.6);margin-bottom:18px;display:block}
-/* PROGRAM */
-.week{border:1px solid rgba(244,246,242,.14);border-radius:12px;margin-top:30px;position:relative;background:var(--card);
-  box-shadow:0 24px 50px -18px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,246,242,.09)}
-/* training-log wall: alternating offsets, slight hand-pinned rotations (rotate property survives GSAP inline transforms) */
-.week[data-w="1"]{rotate:-.9deg;margin-right:8%}
-.week[data-w="2"]{rotate:.7deg;margin-left:10%}
-.week[data-w="3"]{rotate:-.6deg;margin-left:3%;margin-right:10%}
-.week[data-w="4"]{rotate:1deg;margin-left:8%;margin-right:3%}
-/* masking tape corners */
-.week::before,.week::after{content:"";position:absolute;top:-14px;width:96px;height:28px;background:rgba(233,224,194,.5);box-shadow:0 3px 8px rgba(0,0,0,.4);z-index:2;pointer-events:none}
-.week::before{left:38px;rotate:-5deg}
-.week::after{right:46px;rotate:4.5deg}
-@media(max-width:759px){
-  .week[data-w="1"]{margin-right:4%}
-  .week[data-w="2"]{margin-left:5%}
-  .week[data-w="3"]{margin-left:2%;margin-right:5%}
-  .week[data-w="4"]{margin-left:5%;margin-right:2%}
-  .week::before{left:24px;width:74px}
-  .week::after{right:26px;width:74px}
-}
-.week-head{display:flex;align-items:center;gap:18px;padding:24px 26px;cursor:pointer;user-select:none;transition:background .3s var(--ease)}
-.week-head:hover{background:rgba(244,246,242,.03)}
-.week.open .week-head{background:var(--volt-dim)}
-.week-badge{background:none;border-radius:0;box-shadow:none;width:66px;height:54px;flex:0 0 66px;display:flex;align-items:center;justify-content:center}
-.week-badge .tally{width:100%;height:100%;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
-.week-head{border-radius:11px}
-.week.open .week-head{border-radius:11px 11px 0 0}
-.week-info{flex:1}
-.week-info h3{font-size:clamp(20px,4.5vw,26px)}
-.week-info p{color:var(--faint);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-top:4px;font-weight:600}
-.week-plus{font-size:28px;color:var(--volt);font-weight:300;transition:transform .3s var(--ease);line-height:1}
-.week.open .week-plus{transform:rotate(45deg)}
-.week-body{padding:0 26px;max-height:0;overflow:hidden;border-radius:0 0 11px 11px;transition:max-height .6s var(--ease),padding .4s var(--ease)}
-.week.open .week-body{padding:6px 26px 28px;max-height:1400px}
-.week-body ul{list-style:none;margin-top:6px}
-.week-body li{padding:13px 0;border-top:1px solid var(--line);font-size:15px;color:var(--dim);display:flex;gap:12px}
-.week-body li:first-child{border-top:none}
-.week-body li b{color:var(--volt);font-weight:800;letter-spacing:.06em;min-width:86px;text-transform:uppercase;font-size:13px;padding-top:2px;flex-shrink:0}
-.scored-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#101012;background:var(--volt);border-radius:4px;padding:3px 9px;margin-left:10px;vertical-align:2px}
-/* PRIZE */
-.prize{background:linear-gradient(rgba(15,15,17,.95),rgba(15,15,17,.95)),var(--chalk);background-size:auto,460px;border:1px solid rgba(212,245,66,.3);border-radius:16px;padding:clamp(30px,6vw,56px);margin-top:44px;position:relative;overflow:hidden;
-  box-shadow:0 44px 90px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(244,246,242,.12),inset 0 -5px 0 rgba(0,0,0,.4)}
-/* chalk-board marginalia */
-.chalk-note{font-family:Caveat,cursive;font-weight:500;font-size:clamp(24px,4.5vw,30px);color:#f4f6f2;opacity:.92;margin-top:22px;rotate:-2.2deg;display:inline-block;text-shadow:0 2px 8px rgba(0,0,0,.5)}
-.chalk-squiggle{display:block;width:132px;height:12px;margin:5px auto 0}
-.prize::before{content:"$";position:absolute;right:-30px;top:-70px;font-family:Fraunces,serif;font-size:340px;color:rgba(212,245,66,.06);line-height:1;pointer-events:none}
-.prize h3{font-size:clamp(26px,5.5vw,40px);margin-bottom:14px;position:relative}
-.prize h3 .volt{color:var(--volt)}
-.prize .lede{position:relative}
-.pool-math{display:flex;margin:30px 0;flex-wrap:wrap;border:1px solid rgba(212,245,66,.25);border-radius:10px;overflow:hidden;position:relative}
-.pool-cell{flex:1 1 140px;padding:20px;text-align:center;background:rgba(212,245,66,.05)}
-.pool-cell+.pool-cell{border-left:1px solid rgba(212,245,66,.2)}
-.pool-cell .n{font-family:Oswald,sans-serif;font-weight:600;font-size:clamp(24px,4.5vw,34px);color:var(--volt);font-variant-numeric:tabular-nums}
-.pool-cell .l{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:6px;font-weight:800}
-/* leaderboard striped payout table */
-.payout{margin-top:8px;position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;
-  box-shadow:0 26px 54px -20px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,246,242,.08)}
-.payout .row{display:flex;align-items:center;gap:14px;padding:16px 22px;background:rgba(0,0,0,.28)}
-.payout .row:nth-child(even){background:rgba(212,245,66,.07)}
-.payout .rank{font-family:Oswald,sans-serif;font-weight:600;font-size:24px;color:var(--volt);width:56px;flex-shrink:0}
-.payout .t{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:800;flex:1}
-.payout .p{font-family:Oswald,sans-serif;font-weight:600;font-size:32px;color:var(--ink);font-variant-numeric:tabular-nums}
-.prize-note{margin-top:26px;font-size:14px;color:var(--dim);border-left:3px solid var(--volt);padding-left:18px;position:relative}
-.prize-note b{color:var(--ink)}
-.prize-links{margin-top:20px;display:flex;gap:18px;flex-wrap:wrap;position:relative}
-.prize-links a{color:var(--volt);font-weight:800;font-size:13px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:2px solid rgba(212,245,66,.4);padding-bottom:2px;transition:border-color .3s var(--ease)}
-.prize-links a:hover{border-color:var(--volt)}
-/* DIVISIONS striped rows */
-.divrow{border:1px solid rgba(244,246,242,.14);border-radius:12px;margin-top:14px;overflow:hidden;position:relative;background:var(--card);
-  box-shadow:0 30px 60px -22px rgba(0,0,0,.75),inset 0 1px 0 rgba(244,246,242,.09),inset 0 -4px 0 rgba(0,0,0,.35)}
-.divrow:nth-child(even){background:linear-gradient(180deg,rgba(212,245,66,.05),transparent)}
-.divrow.elite{border-color:rgba(212,245,66,.5)}
-.divrow .inner{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:28px 26px;align-items:start}
-@media(min-width:760px){.divrow .inner{grid-template-columns:88px 280px 1fr}}
-.divrow .rank{font-family:Oswald,sans-serif;font-weight:600;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(212,245,66,.65)}
-.divrow .meta h3{font-size:26px;margin:2px 0 10px}
-.divrow .meta .k{font-weight:800;font-size:11px;letter-spacing:.24em;color:var(--volt);text-transform:uppercase}
-.divrow .flag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;background:var(--volt);color:#101012;padding:5px 14px;border-radius:100px;margin-bottom:10px}
-.divrow .meta p{color:var(--dim);font-size:14.5px}
-.divrow ul{list-style:none;margin-top:4px}
-.divrow li{font-size:14.5px;color:var(--dim);padding:9px 0 9px 26px;position:relative;border-top:1px solid var(--line)}
-.divrow li:first-child{border-top:none}
-.divrow li::before{content:"";position:absolute;left:8px;top:15px;width:9px;height:13px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 16'%3E%3Cpath d='M2.5,2 C4.5,5.5 6.5,9.5 10,13.5' fill='none' stroke='%23d4f542' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;background-size:contain}
-/* FAQ */
-.faq{border-top:1px solid var(--line);margin-top:40px}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-q{width:100%;background:none;border:none;color:var(--ink);text-align:left;cursor:pointer;font-family:Fraunces,serif;font-size:clamp(18px,3.6vw,22px);font-weight:600;text-transform:uppercase;letter-spacing:.01em;padding:24px 40px 24px 0;position:relative;display:block}
-.faq-q::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:300;color:var(--volt);transition:transform .3s var(--ease)}
-.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .55s var(--ease)}
-.faq-item.open .faq-a{max-height:500px}
-.faq-a p{padding:0 0 26px;color:var(--dim);font-size:15.5px;max-width:720px}
-.faq-a p b{color:var(--ink)}
-/* FINAL */
-.final{text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;
-  box-shadow:inset 0 0 180px rgba(0,0,0,.6),inset 0 4px 0 rgba(0,0,0,.5)}
-.final h2{font-size:clamp(44px,10vw,96px);line-height:.95;margin-bottom:18px;text-shadow:0 6px 30px rgba(0,0,0,.65)}
-.final h2 .volt{color:var(--volt)}
-.final .price-line{margin:26px 0 8px;font-family:Oswald,sans-serif;font-weight:600;font-size:24px;color:var(--ink);letter-spacing:.06em}
-.final .lede{text-shadow:0 2px 12px rgba(0,0,0,.7)}
-.guarantee{display:inline-flex;align-items:center;gap:10px;margin-top:26px;font-size:13.5px;color:var(--dim);border:1px solid var(--line);border-radius:100px;padding:10px 22px;background:rgba(10,10,11,.6)}
-.guarantee .gcheck{width:18px;height:18px;flex:0 0 18px}
-/* STICKY BAR */
-.stickybar{position:fixed;left:0;right:0;bottom:0;z-index:100;background:rgba(16,16,18,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:14px;transform:translateY(110%);transition:transform .4s var(--ease)}
-.stickybar.show{transform:none}
-.stickybar .t{flex:1;line-height:1.25}
-.stickybar .t b{display:block;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.06em}
-.stickybar .t span{font-size:12.5px;color:var(--faint)}
-.stickybar .btn{padding:13px 26px;min-height:48px;font-size:15px;white-space:nowrap}
-@media(min-width:760px){.stickybar{display:none}}
-footer{padding:44px 0 110px;text-align:center;color:var(--faint);font-size:13px}
-@media(min-width:760px){footer{padding-bottom:44px}}
-footer a{color:var(--volt);text-decoration:none}
+/* ============ HARD-RULE DIVIDERS ============ */
+.rule{height:16px;background:repeating-linear-gradient(-45deg,var(--blk) 0 16px,var(--lim) 16px 32px)}
+.rule.inv{background:repeating-linear-gradient(45deg,var(--crm) 0 16px,var(--blk) 16px 32px)}
+.rule.tri{height:22px;background:
+  conic-gradient(from 135deg at 50% 100%,var(--lim) 90deg,transparent 90deg) 0 0/44px 22px repeat-x,var(--blk)}
+/* ============ SECTION SCAFFOLD ============ */
+section.block{padding:88px 0}
+.sec-tag{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--fg);border:3px solid var(--fg);
+  display:inline-block;padding:8px 16px;margin-bottom:26px}
+h2.st{font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.92;font-size:clamp(40px,8vw,88px);margin-bottom:18px}
+.lede{color:var(--mut);font-size:clamp(16px,2.4vw,19px);max-width:660px}
+.lede b{color:var(--fg)}
+.rv{opacity:0}
+/* ============ HOW: numbered raw rows ============ */
+.steps{margin-top:46px;border-top:3px solid var(--fg)}
+.step{display:grid;grid-template-columns:90px 1fr;gap:20px;padding:26px 4px;border-bottom:3px solid var(--fg)}
+.step .sn{font-weight:900;font-size:44px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--fg)}
+.step h3{font-size:24px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:8px}
+.step p{color:var(--mut);max-width:640px}
+.step p b{color:var(--fg)}
+@media(min-width:760px){.step{grid-template-columns:120px 260px 1fr}.step h3{margin-bottom:0}}
+/* ============ PROGRAM: serial log ============ */
+.plog{margin-top:46px;border:3px solid var(--fg)}
+.wkrow{border-bottom:3px solid var(--fg)}
+.wkrow:last-child{border-bottom:none}
+.wkhead{width:100%;background:none;border:none;color:var(--fg);display:grid;grid-template-columns:110px 1fr auto;gap:16px;align-items:center;
+  padding:22px 18px;cursor:pointer;text-align:left;font-family:inherit}
+.wkhead .ser{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--lim);background:var(--blk);padding:6px 10px;justify-self:start}
+.th-cream .wkhead .ser,.th-lime .wkhead .ser{background:var(--blk);color:var(--lim)}
+.wkhead .wt h3{font-size:clamp(20px,4vw,30px);text-transform:uppercase;letter-spacing:.01em}
+.wkhead .wt p{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--mut);margin-top:4px;text-transform:uppercase}
+.wkhead .px{font-size:32px;font-weight:300;line-height:1;transition:transform .3s var(--ease)}
+.wkrow.open .wkhead .px{transform:rotate(45deg)}
+.wkbody{max-height:0;overflow:hidden;transition:max-height .55s var(--ease)}
+.wkrow.open .wkbody{max-height:1600px}
+table.raw{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px}
+table.raw th,table.raw td{border:2px solid var(--fg);padding:12px 14px;text-align:left;vertical-align:top}
+table.raw th{background:var(--fg);color:var(--blk);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+table.raw td.day{font-weight:700;letter-spacing:.1em;white-space:nowrap;width:70px}
+table.raw td b{color:inherit}
+.tag-scored{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.2em;background:var(--lim);color:#0b0b0b;padding:3px 10px;margin-left:10px;vertical-align:2px}
+.plog-note{margin-top:18px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--mut)}
+/* ============ PRIZE ============ */
+.ptables{display:grid;gap:26px;margin-top:44px}
+@media(min-width:820px){.ptables{grid-template-columns:1fr 1fr;align-items:start}}
+.ptab h3{font-size:20px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.ptab h3 .u{border-bottom:4px solid var(--lim)}
+.bigline{margin-top:30px;font-weight:900;text-transform:uppercase;font-size:clamp(26px,5vw,44px);line-height:1;letter-spacing:-.01em}
+.bigline .hl{background:var(--lim);color:#0b0b0b;padding:0 10px}
+.prize-note{margin-top:24px;border-left:6px solid var(--lim);padding:4px 0 4px 18px;color:var(--mut);max-width:680px}
+.prize-note b{color:var(--fg)}
+.plinks{margin-top:22px;display:flex;gap:26px;flex-wrap:wrap}
+.plinks a{font-weight:800;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg);text-decoration:none;border-bottom:3px solid var(--lim);padding-bottom:3px}
+/* ============ DIVISIONS ============ */
+.divs{margin-top:46px;border-top:3px solid var(--fg)}
+.div{border-bottom:3px solid var(--fg);padding:28px 4px;display:grid;grid-template-columns:80px 1fr;gap:20px}
+.div .rn{font-weight:900;font-size:52px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--fg)}
+.div .dk{font-family:var(--mono);font-size:11px;letter-spacing:.26em;color:var(--mut)}
+.div h3{font-size:clamp(24px,4.6vw,36px);text-transform:uppercase;margin:6px 0 10px}
+.div .flag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.22em;background:var(--lim);color:#0b0b0b;padding:5px 12px;margin-bottom:12px}
+.div p{color:var(--mut);max-width:620px}
+.div ul{list-style:none;margin-top:14px}
+.div li{font-family:var(--mono);font-size:13.5px;padding:9px 0 9px 28px;position:relative;border-top:2px solid var(--soft);color:var(--fg)}
+.div li::before{content:">";position:absolute;left:6px;color:var(--lim);font-weight:700}
+.th-cream .div li::before,.th-lime .div li::before{color:inherit}
+@media(min-width:760px){.div{grid-template-columns:110px 300px 1fr}}
+/* ============ FAQ: hard-rule rows ============ */
+.qa{margin-top:44px;border-top:3px solid var(--fg)}
+.qi{border-bottom:3px solid var(--fg)}
+.qq{width:100%;background:none;border:none;color:var(--fg);text-align:left;cursor:pointer;
+  font-family:Archivo,sans-serif;font-weight:800;font-size:clamp(17px,3.4vw,23px);text-transform:uppercase;letter-spacing:.01em;
+  padding:24px 52px 24px 4px;position:relative;display:block}
+.qq::after{content:"+";position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:34px;font-weight:300;transition:transform .3s var(--ease)}
+.qi.open .qq::after{transform:translateY(-50%) rotate(45deg)}
+.qa2{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
+.qi.open .qa2{max-height:600px}
+.qa2 p{padding:0 4px 28px;color:var(--mut);max-width:720px}
+.qa2 p b{color:var(--fg)}
+/* ============ FINAL ============ */
+.final{text-align:center;padding:110px 0}
+.final h2{font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.9;font-size:clamp(46px,11vw,120px)}
+.final h2 .ch{display:inline-block;animation:cbounce 1.6s ease-in-out infinite}
+@keyframes cbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.final .price{font-family:var(--mono);font-size:15px;letter-spacing:.3em;margin:28px 0 8px;color:var(--fg)}
+.final .cta-row{justify-content:center}
+.guar{margin-top:30px;display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--mut);border:2px solid var(--soft);padding:12px 24px}
+/* ============ FOOTER ============ */
+footer{padding:52px 0 130px;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--mut)}
+footer a{color:var(--lim);text-decoration:none}
+footer p+p{margin-top:10px}
+/* ============ STICKY BAR ============ */
+#sticky{position:fixed;left:0;right:0;bottom:0;z-index:400;background:var(--lim);color:#0b0b0b;
+  display:flex;align-items:center;gap:14px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  border-top:3px solid #0b0b0b;transform:translateY(110%);transition:transform .4s var(--ease)}
+#sticky.show{transform:none}
+#sticky .t{flex:1;font-family:var(--mono);font-size:11px;letter-spacing:.14em;line-height:1.5}
+#sticky .t b{display:block;font-family:Archivo,sans-serif;font-weight:900;font-size:15px;letter-spacing:.04em}
+#sticky a{background:#0b0b0b;color:var(--lim);font-weight:800;font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;padding:13px 26px;white-space:nowrap}
+@media(min-width:760px){#sticky{display:none}}
 @media(prefers-reduced-motion:reduce){
-  .marquee-track{animation:none}
-  .sw-second{animation:none}
-  html{scroll-behavior:auto}
-  .speedlines{display:none}
-  #chalkdust{display:none}
+  .mq-t{animation:none}
+  .final h2 .ch{animation:none}
+  #loader .cur,#ticker .cur{animation:none}
+  .rv{opacity:1}
 }
 </style>
 </head>
 <body>
+<div id="bg" aria-hidden="true"></div>
 
-<!-- race-timer preloader -->
-<div id="loader" role="status" aria-label="Loading">
-  <div class="lap">Warming up the stopwatch</div>
-  <div class="clock num" id="loadclock">00:00.00</div>
-  <div class="lbar"><i id="loadfill"></i></div>
-</div>
+<div id="loader" role="status" aria-label="Loading">PG.SYS // INITIALIZING<span class="cur">_</span></div>
 
-<!-- chalk dust canvas: scroll velocity kicks up dust, idle leaves faint motes -->
-<canvas id="chalkdust" aria-hidden="true"></canvas>
+<!-- ============ FIXED BRUTAL HEADER ============ -->
+<header id="bhead">
+  <a class="logo" href="#top">PROVING<em>GROUND</em></a>
+  <div id="ticker" aria-hidden="true"><span id="ticktxt"></span><span class="cur">_</span></div>
+  <nav>
+    <a href="#program">Program</a>
+    <a href="#prize">Prize</a>
+    <a href="#divisions">Divisions</a>
+    <a href="#faq">FAQ</a>
+    <a class="enter" href="#enter">Enter</a>
+  </nav>
+</header>
 
 <!-- ============ HERO ============ -->
-<header class="hero tex-wrap">
-  <div class="tex tex-chalk" aria-hidden="true"></div>
-  <div class="tex-scrim heavy" aria-hidden="true"></div>
-  <div class="wrap hero-inner">
-    <span class="hero-tag rv">Cohort 01 <b>&nbsp;&middot;&nbsp;</b> 4-Week Hybrid Challenge</span>
-    <div class="swatch rv" aria-hidden="true">
-      <svg viewBox="0 0 120 132" style="width:100%;height:auto;display:block" fill="none" stroke="#f2f4ef" stroke-linecap="round">
-        <path d="M52,16 C52,11 55,9 58,10 L62,10 C65,9 68,11 68,16" stroke-width="2.6" opacity=".9"/>
-        <path d="M60,16 C60,19 60,22 60,24" stroke-width="2.6" opacity=".85"/>
-        <path d="M60,27 C83,27 103,46 103,70 C103,94 83,113 59,113 C35,113 17,93 17,69 C17,45 37,26 60,27 Z" stroke-width="3" opacity=".9"/>
-        <path d="M60,30 C81,30 100,47 100,70 C100,92 81,110 60,110 C39,110 20,91 20,69 C20,48 40,29 60,30 Z" stroke-width="1.2" opacity=".3"/>
-        <g stroke-width="2.4">
-          <line x1="61.3" y1="32" x2="61.6" y2="24" opacity=".9"/>
-          <line x1="79.6" y1="37.4" x2="83.7" y2="30.6" opacity=".7"/>
-          <line x1="92.2" y1="49.9" x2="99" y2="45.6" opacity=".85"/>
-          <line x1="98" y1="72" x2="106" y2="72.4" opacity=".95"/>
-          <line x1="93.6" y1="87.8" x2="100.6" y2="91.6" opacity=".7"/>
-          <line x1="77.8" y1="103.6" x2="81.6" y2="110.6" opacity=".88"/>
-          <line x1="60.7" y1="108" x2="60.8" y2="116" opacity=".8"/>
-          <line x1="39.3" y1="101.9" x2="34.9" y2="108.6" opacity=".92"/>
-          <line x1="27.8" y1="90.1" x2="21" y2="94.4" opacity=".75"/>
-          <line x1="22" y1="68.7" x2="14" y2="68.4" opacity=".9"/>
-          <line x1="26.4" y1="52.2" x2="19.4" y2="48.4" opacity=".65"/>
-          <line x1="42.7" y1="36.1" x2="39.1" y2="29" opacity=".85"/>
-        </g>
-        <path d="M60,70 C56,64 53,59 49,54" stroke-width="3.4" opacity=".95"/>
-        <path d="M60,70 C65,61 69,51 72,41" stroke-width="2.6" opacity=".9"/>
-        <path class="sw-second" d="M60,70 C67,74 74,77 82,80" stroke-width="1.4" opacity=".8"/>
-        <circle cx="60" cy="70" r="3.4" fill="#f2f4ef" stroke="none" opacity=".95"/>
-      </svg>
-    </div>
-    <h1>
-      <span class="mask"><span class="line"><span class="stroke">4 Weeks.</span></span></span>
-      <span class="mask"><span class="line"><span class="volt">Prove It.</span></span></span>
+<section class="hero th-dark" id="top" data-theme="dark">
+  <div class="wrap">
+    <span class="kick" data-dir="t">COHORT 01 // 4-WEEK HYBRID CHALLENGE</span>
+    <h1 aria-label="Proving Ground">
+      <span class="w" data-dir="l"><span>PROVING</span></span>
+      <span class="w" data-dir="r"><span class="out">GROUND</span></span>
     </h1>
-    <p class="hero-sub rv">Lift. Run. Score. 28 days of hybrid programming built to find out what you are <b>actually</b> made of. Cash on the line. No hiding.</p>
-    <div class="cta-row rv">
-      <a class="btn btn-primary" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Enter for $99</a>
-      <a class="btn btn-ghost" href="#program">See the program</a>
+    <p class="hero-sub" data-dir="b">Lift. Run. Score. 28 days of hybrid programming built to find out what you are <b>actually</b> made of. Cash on the line. No hiding.</p>
+    <div class="cta-row" data-dir="b">
+      <a class="btn btn-solid" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Enter for $99</a>
+      <a class="btn btn-line" href="#program">See the program</a>
     </div>
-    <p class="hero-fine rv">Full refund any time before day one. <b>No questions asked.</b></p>
-    <div class="hero-stats rv">
+    <p class="hero-fine" data-dir="b">Full refund any time before day one. <b>No questions asked.</b></p>
+    <div class="hstats rv">
       <div class="hstat"><div class="n num" data-count="28">28</div><div class="l">Days</div></div>
       <div class="hstat"><div class="n num" data-count="370">370</div><div class="l">Points</div></div>
       <div class="hstat"><div class="n num" data-count="3">3</div><div class="l">Divisions</div></div>
       <div class="hstat"><div class="n num" data-count="40" data-suffix="%">40%</div><div class="l">To prize pool</div></div>
     </div>
   </div>
-</header>
+</section>
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Lift <i>&middot;</i></span><span>Run <i>&middot;</i></span><span>Score <i>&middot;</i></span><span>Repeat <i>&middot;</i></span><span>Lift <i>&middot;</i></span><span>Run <i>&middot;</i></span><span>Score <i>&middot;</i></span><span>Repeat <i>&middot;</i></span>
-    <span>Lift <i>&middot;</i></span><span>Run <i>&middot;</i></span><span>Score <i>&middot;</i></span><span>Repeat <i>&middot;</i></span><span>Lift <i>&middot;</i></span><span>Run <i>&middot;</i></span><span>Score <i>&middot;</i></span><span>Repeat <i>&middot;</i></span>
-  </div>
-</div>
+<div class="mq" data-theme="lime" aria-hidden="true"><div class="mq-t"><span>Lift</span><span>Run</span><span>Score</span><span>Repeat</span><span>Lift</span><span>Run</span><span>Score</span><span>Repeat</span><span>Lift</span><span>Run</span><span>Score</span><span>Repeat</span><span>Lift</span><span>Run</span><span>Score</span><span>Repeat</span></div></div>
 
 <!-- ============ HOW IT WORKS ============ -->
-<section id="how" class="tex-wrap">
-  <div class="tex tex-rubber" aria-hidden="true"></div>
-  <div class="tex-scrim" aria-hidden="true"></div>
+<section class="block th-cream" id="how" data-theme="cream">
   <div class="wrap">
-    <span class="secnum rv">01</span>
-    <h2 class="sec-title rv">How it works</h2>
+    <span class="sec-tag rv">FILE 01 // PROTOCOL</span>
+    <h2 class="st rv">How it works</h2>
     <p class="lede rv">Simple on purpose. You train, you log, you get scored. The leaderboard does the rest.</p>
-    <div class="grid2">
-      <div class="card rv"><span class="step-n">01</span><h3>Enter</h3><p>Pay <b>$99</b>, pick your division, join the cohort. Your entry feeds the prize pool from day one.</p></div>
-      <div class="card rv"><span class="step-n">02</span><h3>Test</h3><p>Week 1 sets your baseline: a <b>1-mile run</b>, a <b>10-minute AMRAP</b>, and a <b>3-rep max squat</b>. Do not sandbag it. Week 4 measures everything against this.</p></div>
-      <div class="card rv"><span class="step-n">03</span><h3>Train</h3><p>Five days a week. Strength plus running, programmed for you. Log every day for <b>consistency points</b>. Friday workouts are scored.</p></div>
-      <div class="card rv"><span class="step-n">04</span><h3>Prove it</h3><p>Test week. Retest every baseline, then the <b>Final Exam</b>. Winners are announced Sunday and paid within 7 days.</p></div>
+    <div class="steps">
+      <div class="step rv"><div class="sn">01</div><h3>Enter</h3><p>Pay <b>$99</b>, pick your division, join the cohort. Your entry feeds the prize pool from day one.</p></div>
+      <div class="step rv"><div class="sn">02</div><h3>Test</h3><p>Week 1 sets your baseline: a <b>1-mile run</b>, a <b>10-minute AMRAP</b>, and a <b>3-rep max squat</b>. Do not sandbag it. Week 4 measures everything against this.</p></div>
+      <div class="step rv"><div class="sn">03</div><h3>Train</h3><p>Five days a week. Strength plus running, programmed for you. Log every day for <b>consistency points</b>. Friday workouts are scored.</p></div>
+      <div class="step rv"><div class="sn">04</div><h3>Prove it</h3><p>Test week. Retest every baseline, then the <b>Final Exam</b>. Winners are announced Sunday and paid within 7 days.</p></div>
     </div>
   </div>
 </section>
 
-<div class="speedlines soft" aria-hidden="true"></div>
+<div class="rule" data-theme="dark" aria-hidden="true"></div>
 
 <!-- ============ PROGRAM ============ -->
-<section id="program" class="tex-wrap" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-  <div class="tex tex-chalk" aria-hidden="true"></div>
-  <div class="tex-scrim" aria-hidden="true"></div>
+<section class="block th-dark" id="program" data-theme="dark">
   <div class="wrap">
-    <span class="secnum rv">02</span>
-    <h2 class="sec-title rv">The program</h2>
-    <p class="lede rv">Real programming, written like a coach. Barbell first, dumbbell and minimal-equipment scaling on everything. Tap a week to see what is inside.</p>
-
-    <div class="week rv" data-w="1">
-      <div class="week-head"><div class="week-badge" aria-hidden="true"><svg class="tally" viewBox="0 0 64 52"><path d="M32,6 C33,18 30,32 32,46" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".92"/></svg></div><div class="week-info"><h3>Baseline</h3><p>Set your numbers</p></div><div class="week-plus">+</div></div>
-      <div class="week-body"><ul>
-        <li><b>Mon</b><span><b>Test day.</b> 1-mile run all out, 10-min AMRAP (5 pull-ups / 10 push-ups / 15 air squats), 3-rep max back squat.</span></li>
-        <li><b>Tue</b><span><b>Run intervals.</b> 6 x 400m at mile pace minus 10 to 15 seconds. 90s rest.</span></li>
-        <li><b>Wed</b><span><b>Upper strength.</b> Bench 4x6, weighted pull-ups 4x5, press and row superset, push-up finisher.</span></li>
-        <li><b>Thu</b><span><b>Tempo run.</b> 20 minutes comfortably hard. Speak in short sentences, not conversations.</span></li>
-        <li><b>Fri</b><span><b>Hybrid WOD.</b> "Engine Room": 4 rounds of 400m run, 15 swings, 10 burpees. 25-min cap.</span></li>
-      </ul></div>
+    <span class="sec-tag rv">FILE 02 // TRAINING LOG</span>
+    <h2 class="st rv">The program</h2>
+    <p class="lede rv">Real programming, written like a coach. Barbell first, dumbbell and minimal-equipment scaling on everything. Open a file to see what is inside.</p>
+    <div class="plog rv">
+      <div class="wkrow open">
+        <button class="wkhead"><span class="ser">#PG-001</span><span class="wt"><h3>Week 01 // Baseline</h3><p>Set your numbers</p></span><span class="px">+</span></button>
+        <div class="wkbody"><table class="raw">
+          <tr><th>Day</th><th>Session</th></tr>
+          <tr><td class="day">MON</td><td><b>Test day.</b> 1-mile run all out, 10-min AMRAP (5 pull-ups / 10 push-ups / 15 air squats), 3-rep max back squat.</td></tr>
+          <tr><td class="day">TUE</td><td><b>Run intervals.</b> 6 x 400m at mile pace minus 10 to 15 seconds. 90s rest.</td></tr>
+          <tr><td class="day">WED</td><td><b>Upper strength.</b> Bench 4x6, weighted pull-ups 4x5, press and row superset, push-up finisher.</td></tr>
+          <tr><td class="day">THU</td><td><b>Tempo run.</b> 20 minutes comfortably hard. Speak in short sentences, not conversations.</td></tr>
+          <tr><td class="day">FRI</td><td><b>Hybrid WOD.</b> "Engine Room": 4 rounds of 400m run, 15 swings, 10 burpees. 25-min cap.</td></tr>
+        </table></div>
+      </div>
+      <div class="wkrow">
+        <button class="wkhead"><span class="ser">#PG-002</span><span class="wt"><h3>Week 02 // Build</h3><p>Volume goes up</p></span><span class="px">+</span></button>
+        <div class="wkbody"><table class="raw">
+          <tr><th>Day</th><th>Session</th></tr>
+          <tr><td class="day">MON</td><td><b>Lower strength.</b> Back squat 5x5, Romanian deadlift 3x8, walking lunges, EMOM finisher.</td></tr>
+          <tr><td class="day">TUE</td><td><b>Run intervals.</b> 8 x 400m. Hold pace across all eight.</td></tr>
+          <tr><td class="day">WED</td><td><b>Upper strength.</b> Bench 5x5, pull-ups 5x5, heavier superset, 10-min AMRAP finisher.</td></tr>
+          <tr><td class="day">THU</td><td><b>Long run.</b> 40 to 50 minutes easy and conversational. Do not race it.</td></tr>
+          <tr><td class="day">FRI</td><td><b>Scored WOD.</b> "Grinder": 800-400-200m runs with deadlifts and pull-ups between. 30-min cap.<span class="tag-scored">Scored</span></td></tr>
+        </table></div>
+      </div>
+      <div class="wkrow">
+        <button class="wkhead"><span class="ser">#PG-003</span><span class="wt"><h3>Week 03 // Peak</h3><p>Heaviest week</p></span><span class="px">+</span></button>
+        <div class="wkbody"><table class="raw">
+          <tr><th>Day</th><th>Session</th></tr>
+          <tr><td class="day">MON</td><td><b>Lower strength.</b> Back squat 4x4 at 80%, front squat, Bulgarian split squats.</td></tr>
+          <tr><td class="day">TUE</td><td><b>Run intervals.</b> 5 x 800m at hard, sustainable 5K effort. 2:30 rest.</td></tr>
+          <tr><td class="day">WED</td><td><b>Upper strength.</b> Bench 4x4, weighted pull-ups, dips and chin-ups, 100 push-ups for time.</td></tr>
+          <tr><td class="day">THU</td><td><b>Tempo plus strides.</b> 25 minutes tempo, then 6 x 20-second strides.</td></tr>
+          <tr><td class="day">FRI</td><td><b>Scored WOD.</b> "Prove It": 5 rounds of 400m run, 12 dumbbell thrusters, 12 box jumps. 28-min cap.<span class="tag-scored">Scored</span></td></tr>
+        </table></div>
+      </div>
+      <div class="wkrow">
+        <button class="wkhead"><span class="ser">#PG-004</span><span class="wt"><h3>Week 04 // Test week</h3><p>Everything counts</p></span><span class="px">+</span></button>
+        <div class="wkbody"><table class="raw">
+          <tr><th>Day</th><th>Session</th></tr>
+          <tr><td class="day">MON</td><td><b>Mile retest.</b> All out, same course as week 1. Then light pump work and go home.</td></tr>
+          <tr><td class="day">TUE</td><td><b>Recovery.</b> Walk, stretch, mobility. That is the whole day.</td></tr>
+          <tr><td class="day">WED</td><td><b>AMRAP retest.</b> Same 10-minute test, same standards. Beat your baseline.</td></tr>
+          <tr><td class="day">THU</td><td><b>Shakeout.</b> 20 minutes very easy. Visualize tomorrow. Sleep 8 hours.</td></tr>
+          <tr><td class="day">FRI</td><td><b>Squat retest plus Final Exam.</b> 3RM squat, rest 15, then: 1-mile buy-in plus 3 rounds of 15 pull-ups / 20 push-ups / 25 air squats. 20-min cap.<span class="tag-scored">Scored</span></td></tr>
+        </table></div>
+      </div>
     </div>
-
-    <div class="week rv" data-w="2">
-      <div class="week-head"><div class="week-badge" aria-hidden="true"><svg class="tally" viewBox="0 0 64 52"><path d="M22,8 C23,20 20,34 22,44" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".88"/><path d="M44,6 C43,18 45,32 43,45" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".95"/></svg></div><div class="week-info"><h3>Build</h3><p>Volume goes up</p></div><div class="week-plus">+</div></div>
-      <div class="week-body"><ul>
-        <li><b>Mon</b><span><b>Lower strength.</b> Back squat 5x5, Romanian deadlift 3x8, walking lunges, EMOM finisher.</span></li>
-        <li><b>Tue</b><span><b>Run intervals.</b> 8 x 400m. Hold pace across all eight.</span></li>
-        <li><b>Wed</b><span><b>Upper strength.</b> Bench 5x5, pull-ups 5x5, heavier superset, 10-min AMRAP finisher.</span></li>
-        <li><b>Thu</b><span><b>Long run.</b> 40 to 50 minutes easy and conversational. Do not race it.</span></li>
-        <li><b>Fri</b><span><b>Scored WOD.</b> "Grinder": 800-400-200m runs with deadlifts and pull-ups between. 30-min cap.<span class="scored-tag">Scored</span></span></li>
-      </ul></div>
-    </div>
-
-    <div class="week rv" data-w="3">
-      <div class="week-head"><div class="week-badge" aria-hidden="true"><svg class="tally" viewBox="0 0 64 52"><path d="M14,8 C15,20 12,32 14,44" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".9"/><path d="M33,6 C32,18 34,32 32,45" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".85"/><path d="M52,9 C51,20 53,33 51,43" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".93"/></svg></div><div class="week-info"><h3>Peak</h3><p>Heaviest week</p></div><div class="week-plus">+</div></div>
-      <div class="week-body"><ul>
-        <li><b>Mon</b><span><b>Lower strength.</b> Back squat 4x4 at 80%, front squat, Bulgarian split squats.</span></li>
-        <li><b>Tue</b><span><b>Run intervals.</b> 5 x 800m at hard, sustainable 5K effort. 2:30 rest.</span></li>
-        <li><b>Wed</b><span><b>Upper strength.</b> Bench 4x4, weighted pull-ups, dips and chin-ups, 100 push-ups for time.</span></li>
-        <li><b>Thu</b><span><b>Tempo plus strides.</b> 25 minutes tempo, then 6 x 20-second strides.</span></li>
-        <li><b>Fri</b><span><b>Scored WOD.</b> "Prove It": 5 rounds of 400m run, 12 dumbbell thrusters, 12 box jumps. 28-min cap.<span class="scored-tag">Scored</span></span></li>
-      </ul></div>
-    </div>
-
-    <div class="week rv" data-w="4">
-      <div class="week-head"><div class="week-badge" aria-hidden="true"><svg class="tally" viewBox="0 0 64 52"><path d="M10,6 C12,18 8,30 10,44" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".9"/><path d="M26,7 C25,19 27,31 25,43" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".86"/><path d="M42,6 C44,18 40,32 42,44" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".92"/><path d="M58,8 C56,20 59,30 57,42" fill="none" stroke="#f4f6f2" stroke-width="4.5" stroke-linecap="round" opacity=".88"/><path d="M4,38 C22,30 42,20 60,10" fill="none" stroke="#f4f6f2" stroke-width="5" stroke-linecap="round" opacity=".9"/></svg></div><div class="week-info"><h3>Test week</h3><p>Everything counts</p></div><div class="week-plus">+</div></div>
-      <div class="week-body"><ul>
-        <li><b>Mon</b><span><b>Mile retest.</b> All out, same course as week 1. Then light pump work and go home.</span></li>
-        <li><b>Tue</b><span><b>Recovery.</b> Walk, stretch, mobility. That is the whole day.</span></li>
-        <li><b>Wed</b><span><b>AMRAP retest.</b> Same 10-minute test, same standards. Beat your baseline.</span></li>
-        <li><b>Thu</b><span><b>Shakeout.</b> 20 minutes very easy. Visualize tomorrow. Sleep 8 hours.</span></li>
-        <li><b>Fri</b><span><b>Squat retest plus Final Exam.</b> 3RM squat, rest 15, then: 1-mile buy-in plus 3 rounds of 15 pull-ups / 20 push-ups / 25 air squats. 20-min cap.<span class="scored-tag">Scored</span></span></li>
-      </ul></div>
-    </div>
+    <p class="plog-note rv">// LOG 004 OF 004 // ALL SESSIONS SCALE TO DUMBBELL OR MINIMAL EQUIPMENT</p>
   </div>
 </section>
+
+<div class="rule inv" data-theme="lime" aria-hidden="true"></div>
 
 <!-- ============ PRIZE ============ -->
-<section id="prize" class="tex-wrap">
-  <div class="tex tex-rubber" aria-hidden="true"></div>
-  <div class="tex-scrim" aria-hidden="true"></div>
+<section class="block th-lime" id="prize" data-theme="lime">
   <div class="wrap">
-    <span class="secnum rv">03</span>
-    <h2 class="sec-title rv">The prize pool</h2>
-    <p class="lede rv">Your entry is not a fee. It is a bet on yourself, and 40 cents of every dollar goes straight into the pool.</p>
-    <div class="prize rv">
-      <h3>40% of every entry.<br><span class="volt">100% of the pressure.</span></h3>
-      <p class="lede">The pool grows with the field. The exact number is published to every athlete before day one.</p>
-      <div class="pool-math">
-        <div class="pool-cell"><div class="n num" data-count="100">100</div><div class="l">Athletes</div></div>
-        <div class="pool-cell"><div class="n num" data-count="9900" data-prefix="$" data-comma="1">$9,900</div><div class="l">Collected</div></div>
-        <div class="pool-cell"><div class="n num" data-count="3960" data-prefix="$" data-comma="1">$3,960</div><svg class="chalk-squiggle" viewBox="0 0 140 14" aria-hidden="true"><path d="M4,9 C 26,4 46,11 68,7 C 90,3 110,10 136,6" fill="none" stroke="#f4f6f2" stroke-width="3" stroke-linecap="round" opacity=".75"/></svg><div class="l">Prize pool</div></div>
+    <span class="sec-tag rv">FILE 03 // MONEY</span>
+    <h2 class="st rv">The prize pool</h2>
+    <p class="lede rv">Your entry is not a fee. It is a bet on yourself, and <b>40 cents of every dollar</b> goes straight into the pool.</p>
+    <p class="bigline rv">40% of every entry.<br><span class="hl">100% of the pressure.</span></p>
+    <p class="lede rv" style="margin-top:18px">The pool grows with the field. The exact number is published to every athlete before day one.</p>
+    <div class="ptables">
+      <div class="ptab rv">
+        <h3><span class="u">Pool math</span> // 100 athletes</h3>
+        <table class="raw">
+          <tr><th>Field</th><th>Value</th></tr>
+          <tr><td>Athletes</td><td class="num" data-count="100">100</td></tr>
+          <tr><td>Collected</td><td class="num" data-count="9900" data-prefix="$" data-comma="1">$9,900</td></tr>
+          <tr><td>Prize pool</td><td class="num" data-count="3960" data-prefix="$" data-comma="1">$3,960</td></tr>
+        </table>
       </div>
-      <div class="payout">
-        <div class="row"><div class="rank">01</div><div class="t">1st place</div><div class="p num" data-count="50" data-suffix="%">50%</div></div>
-        <div class="row"><div class="rank">02</div><div class="t">2nd place</div><div class="p num" data-count="30" data-suffix="%">30%</div></div>
-        <div class="row"><div class="rank">03</div><div class="t">3rd place</div><div class="p num" data-count="20" data-suffix="%">20%</div></div>
+      <div class="ptab rv">
+        <h3><span class="u">Payout</span> // winner takes half</h3>
+        <table class="raw">
+          <tr><th>Rank</th><th>Place</th><th>Cut</th></tr>
+          <tr><td class="num">01</td><td>1st place</td><td class="num" data-count="50" data-suffix="%">50%</td></tr>
+          <tr><td class="num">02</td><td>2nd place</td><td class="num" data-count="30" data-suffix="%">30%</td></tr>
+          <tr><td class="num">03</td><td>3rd place</td><td class="num" data-count="20" data-suffix="%">20%</td></tr>
+        </table>
       </div>
-      <span class="chalk-note rv">winner takes half</span>
-      <p class="prize-note"><b>Kept honest by video.</b> Any score that puts you in prize position must be backed by unedited video submitted within 24 hours. No video, no prize, no exceptions. Random audits run all month.</p>
-      <div class="prize-links">
-        <a href="leaderboard.html">Live leaderboard</a>
-        <a href="rules.html">Full rules</a>
-      </div>
+    </div>
+    <p class="prize-note rv"><b>Kept honest by video.</b> Any score that puts you in prize position must be backed by unedited video submitted within 24 hours. No video, no prize, no exceptions. Random audits run all month.</p>
+    <div class="plinks rv">
+      <a href="https://proving-ground-6bv.pages.dev/leaderboard.html">Live leaderboard</a>
+      <a href="https://proving-ground-6bv.pages.dev/rules.html">Full rules</a>
     </div>
   </div>
 </section>
 
-<div class="speedlines soft" aria-hidden="true"></div>
+<div class="mq dark" data-theme="dark" aria-hidden="true"><div class="mq-t"><span>No hiding</span><span>Video or it did not happen</span><span>No hiding</span><span>Video or it did not happen</span><span>No hiding</span><span>Video or it did not happen</span><span>No hiding</span><span>Video or it did not happen</span></div></div>
 
 <!-- ============ DIVISIONS ============ -->
-<section id="divisions" class="tex-wrap" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-  <div class="tex tex-chalk" aria-hidden="true"></div>
-  <div class="tex-scrim" aria-hidden="true"></div>
+<section class="block th-cream" id="divisions" data-theme="cream">
   <div class="wrap">
-    <span class="secnum rv">04</span>
-    <h2 class="sec-title rv">Pick your division</h2>
+    <span class="sec-tag rv">FILE 04 // BRACKETS</span>
+    <h2 class="st rv">Pick your division</h2>
     <p class="lede rv">Be honest. Sandbagging a lower division is the fastest way to get booed off the leaderboard. You can move up mid-challenge. You cannot move down.</p>
-
-    <div class="divrow rv">
-      <div class="inner">
-        <div class="rank">01</div>
-        <div class="meta"><span class="k">Division 01</span><h3>Rookie</h3>
+    <div class="divs">
+      <div class="div rv">
+        <div class="rn">01</div>
+        <div><span class="dk">DIVISION 01</span><h3>Rookie</h3>
           <p>For lifters in year one. This is where most people belong, and there is no shame in it.</p></div>
         <ul>
           <li>Training less than a year</li>
@@ -435,12 +360,9 @@ footer a{color:var(--volt);text-decoration:none}
           <li>Improvement scoring favors you</li>
         </ul>
       </div>
-    </div>
-
-    <div class="divrow rv">
-      <div class="inner">
-        <div class="rank">02</div>
-        <div class="meta"><span class="k">Division 02</span><h3>Contender</h3>
+      <div class="div rv">
+        <div class="rn">02</div>
+        <div><span class="dk">DIVISION 02</span><h3>Contender</h3>
           <p>The deep end of the middle. Solid base, real numbers, still chasing the top.</p></div>
         <ul>
           <li>Training 1 to 3 years</li>
@@ -448,13 +370,9 @@ footer a{color:var(--volt);text-decoration:none}
           <li>Biggest field, tightest races</li>
         </ul>
       </div>
-    </div>
-
-    <div class="divrow elite rv">
-      <div class="inner">
-        <div class="rank">03</div>
-        <div class="meta"><span class="k">Division 03</span><h3>Elite</h3>
-          <span class="flag">Hardest field</span>
+      <div class="div rv">
+        <div class="rn">03</div>
+        <div><span class="dk">DIVISION 03</span><h3>Elite</h3><span class="flag">Hardest field</span>
           <p>You already compete at things. This is the division people watch.</p></div>
         <ul>
           <li>1.5x bodyweight squat, or</li>
@@ -466,69 +384,68 @@ footer a{color:var(--volt);text-decoration:none}
   </div>
 </section>
 
+<div class="rule tri" data-theme="dark" aria-hidden="true"></div>
+
 <!-- ============ FAQ ============ -->
-<section id="faq" class="tex-wrap">
-  <div class="tex tex-rubber" aria-hidden="true"></div>
-  <div class="tex-scrim" aria-hidden="true"></div>
+<section class="block th-dark" id="faq" data-theme="dark">
   <div class="wrap">
-    <span class="secnum rv">05</span>
-    <h2 class="sec-title rv">Questions</h2>
-    <div class="faq rv">
-      <div class="faq-item">
-        <button class="faq-q">What equipment do I need?</button>
-        <div class="faq-a"><p>A barbell setup is ideal, but <b>every session has dumbbell and minimal-equipment scaling</b> written in. If you have dumbbells, a pull-up bar, and somewhere to run, you can do the whole challenge.</p></div>
+    <span class="sec-tag rv">FILE 05 // INTEL</span>
+    <h2 class="st rv">Questions</h2>
+    <div class="qa rv">
+      <div class="qi">
+        <button class="qq">What equipment do I need?</button>
+        <div class="qa2"><p>A barbell setup is ideal, but <b>every session has dumbbell and minimal-equipment scaling</b> written in. If you have dumbbells, a pull-up bar, and somewhere to run, you can do the whole challenge.</p></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">I am a beginner. Should I do this?</button>
-        <div class="faq-a"><p>Yes. That is what the <b>Rookie division</b> is for. Half of the test-week points are for <b>improvement versus your own baseline</b>, so beginners who improve the most can outscore veterans who started fast. That is the point.</p></div>
+      <div class="qi">
+        <button class="qq">I am a beginner. Should I do this?</button>
+        <div class="qa2"><p>Yes. That is what the <b>Rookie division</b> is for. Half of the test-week points are for <b>improvement versus your own baseline</b>, so beginners who improve the most can outscore veterans who started fast. That is the point.</p></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">What if I miss a day?</button>
-        <div class="faq-a"><p>You get a <b>48-hour makeup window</b> and still log full credit. After 48 hours the consistency point is gone for good. Plan your week on Sunday night and this never happens.</p></div>
+      <div class="qi">
+        <button class="qq">What if I miss a day?</button>
+        <div class="qa2"><p>You get a <b>48-hour makeup window</b> and still log full credit. After 48 hours the consistency point is gone for good. Plan your week on Sunday night and this never happens.</p></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">How are winners decided?</button>
-        <div class="faq-a"><p><b>370 points total.</b> 20 for consistency (one per training day logged), 150 for the three scored Friday workouts, 200 for test week. Weekly WODs are scored by percentile inside your division. Top 3 overall take the prize pool 50/30/20.</p></div>
+      <div class="qi">
+        <button class="qq">How are winners decided?</button>
+        <div class="qa2"><p><b>370 points total.</b> 20 for consistency (one per training day logged), 150 for the three scored Friday workouts, 200 for test week. Weekly WODs are scored by percentile inside your division. Top 3 overall take the prize pool 50/30/20.</p></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">How do you stop cheating?</button>
-        <div class="faq-a"><p>Any score in prize position needs <b>unedited video within 24 hours</b>. No video, no prize, no exceptions. Random audits run all month: fail to produce video within 48 hours and that week's performance scores are wiped. Phone on a tripod is all it takes.</p></div>
+      <div class="qi">
+        <button class="qq">How do you stop cheating?</button>
+        <div class="qa2"><p>Any score in prize position needs <b>unedited video within 24 hours</b>. No video, no prize, no exceptions. Random audits run all month: fail to produce video within 48 hours and that week's performance scores are wiped. Phone on a tripod is all it takes.</p></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">What is the refund policy?</button>
-        <div class="faq-a"><p><b>Full refund any time before the cohort starts</b>, no questions asked. Once day one begins, entries lock because your $99 is already feeding the prize pool. Injured in week 1? We roll your entry to the next cohort once.</p></div>
+      <div class="qi">
+        <button class="qq">What is the refund policy?</button>
+        <div class="qa2"><p><b>Full refund any time before the cohort starts</b>, no questions asked. Once day one begins, entries lock because your $99 is already feeding the prize pool. Injured in week 1? We roll your entry to the next cohort once.</p></div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="rule" data-theme="lime" aria-hidden="true"></div>
 
 <!-- ============ FINAL CTA ============ -->
-<section class="final tex-wrap" id="enter">
-  <div class="tex tex-chalk" aria-hidden="true"></div>
-  <div class="tex-scrim volt" aria-hidden="true"></div>
+<section class="final th-lime" id="enter" data-theme="lime">
   <div class="wrap">
-    <span class="eyebrow rv" style="justify-content:center">Cohort 01 &middot; Spots are open</span>
-    <h2 class="rv">Stop wondering.<br><span class="volt">Start proving.</span></h2>
-    <p class="lede rv" style="margin:0 auto;text-align:center">28 days. Five sessions a week. A leaderboard, a prize pool, and a Final Exam with your name on it.</p>
-    <p class="price-line rv">$99 entry</p>
+    <span class="sec-tag rv">COHORT 01 // SPOTS OPEN</span>
+    <h2 id="finalh" class="rv">Stop wondering. Start proving.</h2>
+    <p class="lede rv" style="margin:22px auto 0;text-align:center">28 days. Five sessions a week. A leaderboard, a prize pool, and a Final Exam with your name on it.</p>
+    <p class="price rv">$99 ENTRY</p>
     <div class="cta-row rv">
-      <a class="btn btn-primary" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Claim your spot &middot; $99</a>
+      <a class="btn btn-solid" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener" style="border-color:#0b0b0b">Claim your spot: $99</a>
     </div>
-    <div class="rv"><span class="guarantee"><svg class="gcheck" viewBox="0 0 22 22" aria-hidden="true"><path d="M3.5,11.5 C6,13.5 8,15.5 9.5,18 C12.5,12 15.5,7.5 19.5,4" fill="none" stroke="#d4f542" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Full refund before day one. Paid out within 7 days of results.</span></div>
+    <div class="rv"><span class="guar">Full refund before day one. Paid out within 7 days of results.</span></div>
   </div>
 </section>
 
-<footer>
+<footer class="th-dark" data-theme="dark">
   <div class="wrap">
-    <p>Proving Ground Challenge &middot; an Oriela Co project</p>
-    <p style="margin-top:8px">Questions? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></p>
+    <p>PROVING GROUND CHALLENGE // AN ORIELA CO PROJECT</p>
+    <p>Questions? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></p>
   </div>
 </footer>
 
-<!-- sticky mobile CTA -->
-<div class="stickybar" id="stickybar">
-  <div class="t"><b>Proving Ground</b><span>$99 &middot; 4 weeks &middot; cash prizes</span></div>
-  <a class="btn btn-primary" href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Enter</a>
+<div id="sticky">
+  <div class="t"><b>PROVING GROUND</b>$99 // 4 WEEKS // CASH PRIZES</div>
+  <a href="https://buy.stripe.com/28E3cveLe4CF8CybqNeIw02" target="_blank" rel="noopener">Enter</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
@@ -536,262 +453,162 @@ footer a{color:var(--volt);text-decoration:none}
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 (function(){
-  "use strict";
-  if("scrollRestoration" in history) history.scrollRestoration = "manual";
-  window.scrollTo(0,0);
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var hasGsap = typeof gsap !== "undefined";
-  var hasST = typeof ScrollTrigger !== "undefined";
-  var animOK = hasGsap && hasST && !reduceMotion;
+"use strict";
+if("scrollRestoration" in history) history.scrollRestoration="manual";
+window.scrollTo(0,0);
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var animOK=typeof gsap!=="undefined"&&typeof ScrollTrigger!=="undefined"&&!reduce;
 
-  /* ---- loader: race-timer counting up ---- */
-  var loader = document.getElementById("loader");
-  var clockEl = document.getElementById("loadclock");
-  var fill = document.getElementById("loadfill");
-  var loaderDone = false;
-  function killLoader(){
-    if(loaderDone) return; loaderDone = true;
-    window.__pgOpened = true;
-    loader.classList.add("done");
-    setTimeout(function(){ if(loader.parentNode) loader.style.display = "none"; }, 600);
-  }
-  if(loader && clockEl){
-    var t0 = performance.now(), run = true;
-    (function tick(){
-      if(!run) return;
-      var el = (performance.now() - t0) / 1000;
-      var mm = Math.floor(el / 60), ss = Math.floor(el % 60), cc = Math.floor((el % 1) * 100);
-      clockEl.textContent = (mm < 10 ? "0" : "") + mm + ":" + (ss < 10 ? "0" : "") + ss + "." + (cc < 10 ? "0" : "") + cc;
-      if(fill) fill.style.transform = "scaleX(" + Math.min(el / 1.6, 1) + ")";
-      if(run) requestAnimationFrame(tick);
-    })();
-    window.addEventListener("load", function(){ run = false; setTimeout(killLoader, 350); });
-  }
-  /* Dependency-free kill-switch: never trap the visitor */
-  setTimeout(killLoader, 6000);
+/* ---- loader kill-switch: dependency-free, never traps ---- */
+var loader=document.getElementById("loader"),ldone=false;
+function killLoader(){if(ldone)return;ldone=true;loader.classList.add("done");setTimeout(function(){loader.style.display="none";},500);}
+window.addEventListener("load",function(){setTimeout(killLoader,300);});
+setTimeout(killLoader,3000);
 
-  /* ---- stopwatch odometer counters ---- */
-  function setStatic(){
-    document.querySelectorAll("[data-count]").forEach(function(el){
-      var v = parseFloat(el.getAttribute("data-count"));
-      var pre = el.getAttribute("data-prefix") || "";
-      var suf = el.getAttribute("data-suffix") || "";
-      var txt = el.getAttribute("data-comma") === "1" ? v.toLocaleString("en-US") : String(v);
-      el.textContent = pre + txt + suf;
-    });
-  }
-  function roll(el){
-    var target = parseFloat(el.getAttribute("data-count"));
-    var pre = el.getAttribute("data-prefix") || "";
-    var suf = el.getAttribute("data-suffix") || "";
-    var comma = el.getAttribute("data-comma") === "1";
-    var o = { v: 0 };
-    gsap.to(o, {
-      v: target, duration: 1.6, ease: "expo.out",
-      onUpdate: function(){
-        var t = comma ? Math.round(o.v).toLocaleString("en-US") : Math.round(o.v);
-        el.textContent = pre + t + suf;
-      },
-      onComplete: function(){
-        el.textContent = pre + (comma ? target.toLocaleString("en-US") : target) + suf;
-      }
-    });
-  }
-
-  if(animOK){
-    gsap.registerPlugin(ScrollTrigger);
-
-    /* Lenis smooth scroll */
-    var lenis = null;
-    if(typeof Lenis !== "undefined"){
-      lenis = new Lenis({ lerp: 0.09 });
-      lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
-      gsap.ticker.lagSmoothing(0);
-    }
-    document.querySelectorAll('a[href^="#"]').forEach(function(a){
-      a.addEventListener("click", function(e){
-        var id = a.getAttribute("href");
-        if(id.length > 1 && document.querySelector(id)){
-          e.preventDefault();
-          var el = document.querySelector(id);
-          if(lenis) lenis.scrollTo(el, { offset: -70, duration: 1.4 });
-          else el.scrollIntoView({ behavior: "smooth" });
-        }
-      });
-    });
-
-    /* texture parallax: backgrounds drift slower than content */
-    document.querySelectorAll(".tex").forEach(function(el){
-      var host = el.closest(".tex-wrap") || el.parentElement;
-      gsap.fromTo(el, { yPercent: -6 }, {
-        yPercent: 6, ease: "none",
-        scrollTrigger: { trigger: host, start: "top bottom", end: "bottom top", scrub: true }
-      });
-    });
-
-    /* masked line-reveal hero */
-    gsap.set(".hero h1 .line", { yPercent: 115 });
-    gsap.set(".rv", { y: 36, opacity: 0 });
-    function heroIn(){
-      gsap.to(".hero h1 .line", { yPercent: 0, duration: 1.1, ease: "expo.out", stagger: 0.12 });
-    }
-    window.addEventListener("load", function(){ setTimeout(heroIn, 450); });
-    setTimeout(heroIn, 2400); /* fires only if heroIn not already run */
-
-    /* scroll reveals */
-    ScrollTrigger.batch(".rv", {
-      start: "top 88%",
-      onEnter: function(batch){ gsap.to(batch, { y: 0, opacity: 1, duration: 0.9, ease: "expo.out", stagger: 0.08, overwrite: true }); }
-    });
-
-    /* odometers roll when scrolled into view */
-    document.querySelectorAll("[data-count]").forEach(function(el){
-      el.textContent = "0";
-      ScrollTrigger.create({
-        trigger: el, start: "top 92%", once: true,
-        onEnter: function(){ roll(el); }
-      });
-    });
-  } else {
-    /* static fallback: no CDN or reduced motion */
-    setStatic();
-    if(loader) killLoader();
-  }
-
-  /* program accordions */
-  document.querySelectorAll(".week-head").forEach(function(head){
-    head.addEventListener("click", function(){
-      var w = head.parentElement;
-      var wasOpen = w.classList.contains("open");
-      document.querySelectorAll(".week.open").forEach(function(o){ o.classList.remove("open"); });
-      if(!wasOpen) w.classList.add("open");
-    });
-  });
-  /* faq accordions */
-  document.querySelectorAll(".faq-q").forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var item = btn.parentElement;
-      var wasOpen = item.classList.contains("open");
-      document.querySelectorAll(".faq-item.open").forEach(function(o){ o.classList.remove("open"); });
-      if(!wasOpen) item.classList.add("open");
-    });
-  });
-  /* sticky bar */
-  (function(){
-    var bar = document.getElementById("stickybar");
-    var hero = document.querySelector(".hero");
-    var final = document.querySelector(".final");
-    function onScroll(){
-      var y = window.scrollY;
-      var showPast = y > hero.offsetHeight * 0.75;
-      var hideNear = false;
-      if(final){ var r = final.getBoundingClientRect(); hideNear = r.top < window.innerHeight * 0.6; }
-      bar.classList.toggle("show", showPast && !hideNear);
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+/* ---- header console ticker: typewriter, dependency-free ---- */
+(function(){
+  var el=document.getElementById("ticktxt");if(!el)return;
+  var msgs=["SYS.READY // COHORT 01 FORMING","40% OF EVERY $99 TO THE POOL","3 DIVISIONS // 370 POINTS // 28 DAYS","VIDEO OR IT DID NOT HAPPEN"];
+  var mi=0,ci=0,del=false;
+  (function step(){
+    var m=msgs[mi];
+    el.textContent=m.slice(0,ci);
+    var wait=del?28:55;
+    if(!del&&ci>=m.length){wait=1700;del=true;}
+    else if(del&&ci<=0){del=false;mi=(mi+1)%msgs.length;}
+    ci+=del?-1:1;
+    setTimeout(step,wait);
   })();
 })();
 
-/* ---- chalk dust: scroll velocity kicks up chalk, idle leaves faint motes ----
-   Dependency-free. Disabled under prefers-reduced-motion. */
+/* ---- counters ---- */
+function setStatic(){
+  document.querySelectorAll("[data-count]").forEach(function(el){
+    var v=parseFloat(el.getAttribute("data-count"));
+    var pre=el.getAttribute("data-prefix")||"",suf=el.getAttribute("data-suffix")||"";
+    el.textContent=pre+(el.getAttribute("data-comma")==="1"?v.toLocaleString("en-US"):v)+suf;
+  });
+}
+function roll(el){
+  var target=parseFloat(el.getAttribute("data-count"));
+  var pre=el.getAttribute("data-prefix")||"",suf=el.getAttribute("data-suffix")||"";
+  var comma=el.getAttribute("data-comma")==="1",o={v:0};
+  gsap.to(o,{v:target,duration:1.4,ease:"expo.out",
+    onUpdate:function(){el.textContent=pre+(comma?Math.round(o.v).toLocaleString("en-US"):Math.round(o.v))+suf;},
+    onComplete:function(){el.textContent=pre+(comma?target.toLocaleString("en-US"):target)+suf;}});
+}
+
+/* ---- section-declared background scrub ---- */
+function hx(c){return[parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)];}
+function mixc(a,b,t){var A=hx(a),B=hx(b);
+  return "rgb("+Math.round(A[0]+(B[0]-A[0])*t)+","+Math.round(A[1]+(B[1]-A[1])*t)+","+Math.round(A[2]+(B[2]-A[2])*t)+")";}
+var THEMES={dark:"#0b0b0b",cream:"#efebe0",lime:"#c6ff00"};
+var bg=document.getElementById("bg");
+function scrubBG(){
+  var seq=Array.prototype.slice.call(document.querySelectorAll("[data-theme]"));
+  seq.forEach(function(s,i){
+    var from=i===0?THEMES[s.getAttribute("data-theme")]:THEMES[seq[i-1].getAttribute("data-theme")];
+    var to=THEMES[s.getAttribute("data-theme")];
+    var o={p:i===0?1:0};
+    gsap.to(o,{p:1,ease:"none",
+      scrollTrigger:{trigger:s,start:i===0?"top top":"top 85%",end:"top 25%",scrub:true},
+      onUpdate:function(){bg.style.background=mixc(from,to,o.p);}});
+  });
+}
+
+/* ---- hero 4-direction slam ---- */
+function slam(){
+  var map={l:{x:"-110%",y:"0%"},r:{x:"110%",y:"0%"},t:{x:"0%",y:"-110%"},b:{x:"0%",y:"110%"}};
+  document.querySelectorAll("[data-dir]").forEach(function(el,i){
+    var d=map[el.getAttribute("data-dir")]||map.b;
+    gsap.fromTo(el,{xPercent:parseFloat(d.x),yPercent:parseFloat(d.y)},{xPercent:0,yPercent:0,duration:1.1,ease:"expo.out",delay:0.15+i*0.09});
+  });
+}
+
+if(animOK){
+  gsap.registerPlugin(ScrollTrigger);
+  var lenis=null;
+  if(typeof Lenis!=="undefined"){
+    lenis=new Lenis({lerp:0.09});
+    lenis.on("scroll",ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000);});
+    gsap.ticker.lagSmoothing(0);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click",function(e){
+      var id=a.getAttribute("href");
+      if(id.length>1&&document.querySelector(id)){
+        e.preventDefault();
+        var el=document.querySelector(id);
+        if(lenis)lenis.scrollTo(el,{offset:-60,duration:1.4});
+        else el.scrollIntoView({behavior:"smooth"});
+      }
+    });
+  });
+  scrubBG();
+  window.addEventListener("load",function(){setTimeout(slam,350);});
+  setTimeout(slam,2600);
+  gsap.set(".rv",{y:34,opacity:0});
+  ScrollTrigger.batch(".rv",{start:"top 90%",
+    onEnter:function(b){gsap.to(b,{y:0,opacity:1,duration:0.85,ease:"expo.out",stagger:0.07,overwrite:true});}});
+  document.querySelectorAll("[data-count]").forEach(function(el){
+    el.textContent="0";
+    ScrollTrigger.create({trigger:el,start:"top 94%",once:true,onEnter:function(){roll(el);}});
+  });
+}else{
+  setStatic();
+  document.querySelectorAll(".rv").forEach(function(el){el.style.opacity=1;});
+  killLoader();
+}
+
+/* ---- marquees: paused until visible ---- */
+if("IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){e.target.classList.toggle("on",e.isIntersecting);});
+  },{threshold:0});
+  document.querySelectorAll(".mq").forEach(function(m){io.observe(m);});
+}
+
+/* ---- final headline: bouncing characters ---- */
 (function(){
-  "use strict";
-  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var cv = document.getElementById("chalkdust");
-  if(!cv || !cv.getContext) return;
-  var ctx = cv.getContext("2d");
-  var W = 0, H = 0, DPR = 1;
-  function size(){
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = Math.floor(window.innerWidth * DPR);
-    H = Math.floor(window.innerHeight * DPR);
-    cv.width = W; cv.height = H;
-    cv.style.width = window.innerWidth + "px";
-    cv.style.height = window.innerHeight + "px";
+  var h=document.getElementById("finalh");if(!h||reduce)return;
+  var txt=h.textContent;h.textContent="";h.setAttribute("aria-label",txt);
+  var i=0;
+  txt.split("").forEach(function(c){
+    var s=document.createElement("span");
+    s.className="ch";s.textContent=c;s.setAttribute("aria-hidden","true");
+    if(c===" ")s.style.width=".35em";
+    s.style.animationDelay=(i*0.06)+"s";i++;
+    h.appendChild(s);
+  });
+})();
+
+/* ---- accordions: program log + faq ---- */
+document.querySelectorAll(".wkhead").forEach(function(b){
+  b.addEventListener("click",function(){
+    var r=b.parentElement,was=r.classList.contains("open");
+    document.querySelectorAll(".wkrow.open").forEach(function(o){o.classList.remove("open");});
+    if(!was)r.classList.add("open");
+  });
+});
+document.querySelectorAll(".qq").forEach(function(b){
+  b.addEventListener("click",function(){
+    var r=b.parentElement,was=r.classList.contains("open");
+    document.querySelectorAll(".qi.open").forEach(function(o){o.classList.remove("open");});
+    if(!was)r.classList.add("open");
+  });
+});
+
+/* ---- sticky bar ---- */
+(function(){
+  var bar=document.getElementById("sticky"),hero=document.querySelector(".hero"),fin=document.getElementById("enter");
+  function onS(){
+    var y=window.scrollY,show=y>hero.offsetHeight*0.7,hide=false;
+    if(fin){var r=fin.getBoundingClientRect();hide=r.top<window.innerHeight*0.55;}
+    bar.classList.toggle("show",show&&!hide);
   }
-  size();
-  window.addEventListener("resize", size);
-  /* soft chalk sprite */
-  var sp = document.createElement("canvas");
-  sp.width = 64; sp.height = 64;
-  var sctx = sp.getContext("2d");
-  var g = sctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-  g.addColorStop(0, "rgba(246,246,243,1)");
-  g.addColorStop(0.4, "rgba(246,246,243,.5)");
-  g.addColorStop(1, "rgba(246,246,243,0)");
-  sctx.fillStyle = g;
-  sctx.fillRect(0, 0, 64, 64);
-  var P = [];
-  function mote(){
-    return { kind: 0,
-      x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.12 * DPR, vy: (-Math.random() * 0.15 - 0.02) * DPR,
-      r: (Math.random() * 2.2 + 1) * DPR, a: Math.random() * 0.16 + 0.05,
-      life: 1, decay: 0, ph: Math.random() * 6.28 };
-  }
-  for(var i = 0; i < 42; i++) P.push(mote());
-  function burst(x, y, power){
-    var n = Math.min(26, 6 + Math.floor(power * 9));
-    for(var j = 0; j < n; j++){
-      var ang = Math.random() * 6.283;
-      var spd = (Math.random() * 2.6 + 0.6) * DPR * Math.min(power, 3);
-      P.push({ kind: 1,
-        x: x + (Math.random() - 0.5) * 60 * DPR, y: y + (Math.random() - 0.5) * 40 * DPR,
-        vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd - 1.6 * DPR,
-        r: (Math.random() * 3.4 + 1.4) * DPR, a: Math.random() * 0.5 + 0.3,
-        life: 1, decay: Math.random() * 0.006 + 0.003, ph: 0 });
-    }
-    /* particle cap: retire oldest dust first */
-    if(P.length > 520){
-      var cut = P.length - 520, k = 0;
-      for(var m = P.length - 1; m >= 0 && k < cut; m--){
-        if(P[m].kind === 1){ P.splice(m, 1); k++; }
-      }
-    }
-  }
-  var lastY = window.scrollY, lastT = performance.now();
-  window.addEventListener("scroll", function(){
-    var now = performance.now(), y = window.scrollY, dt = Math.max(1, now - lastT);
-    var v = (y - lastY) / dt * 16.7; /* px per frame, signed */
-    var p = Math.min(Math.abs(v) / 60, 3);
-    if(p > 0.35){
-      var times = Math.floor(p);
-      for(var k = 0; k < times; k++){
-        burst(Math.random() * W, H * (0.35 + Math.random() * 0.5), p);
-      }
-    }
-    lastY = y; lastT = now;
-  }, { passive: true });
-  var t = 0;
-  function frame(){
-    t += 1 / 60;
-    ctx.clearRect(0, 0, W, H);
-    for(var i = P.length - 1; i >= 0; i--){
-      var p = P[i];
-      if(p.kind === 1){
-        p.vy += 0.045 * DPR; /* chalk falls: real gravity */
-        p.vx *= 0.985; p.vy *= 0.985; /* air drag */
-        p.x += p.vx; p.y += p.vy;
-        p.life -= p.decay;
-        if(p.life <= 0 || p.y > H + 40){ P.splice(i, 1); continue; }
-      } else {
-        p.x += p.vx + Math.sin(t * 0.7 + p.ph) * 0.12 * DPR;
-        p.y += p.vy;
-        if(p.y < -20){ p.y = H + 20; p.x = Math.random() * W; }
-        if(p.x < -20) p.x = W + 20;
-        if(p.x > W + 20) p.x = -20;
-      }
-      var a = p.a * (p.kind === 1 ? Math.max(p.life, 0) : (0.7 + 0.3 * Math.sin(t * 1.3 + p.ph)));
-      ctx.globalAlpha = Math.max(a, 0);
-      var s = p.r * 2 * (p.kind === 1 ? (0.6 + 0.4 * (1 - p.life)) : 1);
-      ctx.drawImage(sp, p.x - s, p.y - s, s * 2, s * 2);
-    }
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(frame);
-  }
-  frame();
+  window.addEventListener("scroll",onS,{passive:true});onS();
+})();
 })();
 </script>
 </body>
