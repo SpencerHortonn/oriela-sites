@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof. Lab-tested creatine.</title>
+<meta name="description" content="Proof. Lab-tested creatine from Oriela Co. Launching January 4, 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1f3529; --moss:#3d5a3a; --cream:#f4ecdc; --bark:#4a3525; --leaf:#7fb069;
+  --ink:#152a1e; --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--forest);color:var(--cream);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--leaf);color:var(--ink)}
+#leaves{position:fixed;inset:0;z-index:0;pointer-events:none}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.09;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+main{position:relative;z-index:1}
+/* loader: a single leaf grows, then the page wipes in */
+#loader{position:fixed;inset:0;z-index:100;background:var(--forest);display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:center;clip-path:inset(0 0 0 0)}
+#loader .loader-leaf{width:92px;color:var(--leaf);animation:leafgrow 1.5s var(--ease) both;transform-origin:50% 90%}
+@keyframes leafgrow{from{transform:scale(0) rotate(-28deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+#loader p{font-family:Fraunces,serif;font-size:1.6rem;letter-spacing:.02em;color:var(--cream)}
+/* nav */
+#nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;background:rgba(21,42,30,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+#nav .wordmark{font-family:Fraunces,serif;font-weight:600;font-size:1.35rem;color:var(--cream);text-decoration:none}
+#nav .wordmark .dot{color:var(--leaf)}
+#nav .nav-cta{font-size:.85rem;font-weight:600;color:var(--ink);background:var(--leaf);text-decoration:none;padding:10px 20px;border-radius:999px;transition:transform .35s var(--ease)}
+#nav .nav-cta:hover{transform:translateY(-2px)}
+/* shared */
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+section{position:relative;padding:20vh 0;overflow:hidden}
+.eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:.78rem;font-weight:600;color:var(--leaf);margin-bottom:22px}
+h1,h2{font-family:Fraunces,serif;font-weight:560;line-height:1.02;letter-spacing:-.01em}
+.rv{will-change:transform,opacity}
+.clip-reveal{will-change:clip-path}
+.grow-leaf{position:absolute;width:330px;color:var(--leaf);opacity:.14;pointer-events:none;z-index:0}
+.btn{display:inline-block;background:var(--leaf);color:var(--ink);font-weight:600;font-size:1.02rem;text-decoration:none;padding:17px 38px;border-radius:999px;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.28)}
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:16vh 0 12vh}
+.hero-leaf{position:absolute;width:min(78vmin,560px);right:-8vmin;top:6vh;color:var(--leaf);opacity:.13;pointer-events:none;z-index:0}
+.hero .wrap{position:relative;z-index:1}
+.hero .eyebrow{color:var(--cream);opacity:.75}
+.h1{font-size:clamp(4.6rem,15vw,11.5rem);font-weight:600}
+.h1 .mask{display:block;overflow:hidden}
+.h1 .h-line{display:block;will-change:transform}
+.h1 .dot{color:var(--leaf)}
+.hero-sub{font-family:Fraunces,serif;font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:400;margin-top:14px;color:var(--cream)}
+.hero-date{margin-top:26px;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf);font-weight:600}
+.hero .btn{margin-top:38px}
+.scroll-cue{margin-top:9vh;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;opacity:.55}
+.scroll-cue .stem{display:block;width:1px;height:44px;background:var(--cream);opacity:.5;margin:12px auto 0;animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+/* what */
+.what{background:var(--cream);color:var(--forest)}
+.what .eyebrow{color:var(--moss)}
+.what h2{font-size:clamp(2.4rem,6vw,4.4rem);max-width:16ch;margin-bottom:30px}
+.what p.lede{font-size:clamp(1.15rem,2.4vw,1.45rem);max-width:60ch;color:#2c4433}
+.what .grow-leaf{right:-70px;top:60px;color:var(--moss)}
+/* why */
+.why{background:var(--moss)}
+.why h2{font-size:clamp(2.4rem,6vw,4.4rem);margin-bottom:8px}
+.why .lede{opacity:.85;max-width:52ch;margin-bottom:64px}
+.why-grid{display:grid;grid-template-columns:130px 1fr;gap:44px;align-items:start;margin-top:56px}
+.vine-col{position:sticky;top:14vh;height:72vh}
+.vine{width:130px;height:100%;overflow:visible}
+.vine-leaf{color:var(--leaf)}
+.points{list-style:none}
+.point{display:flex;gap:22px;align-items:baseline;padding:30px 0;border-top:1px solid rgba(244,236,220,.22)}
+.point:last-child{border-bottom:1px solid rgba(244,236,220,.22)}
+.point .num{font-family:Fraunces,serif;font-style:italic;font-size:1.15rem;color:var(--leaf);min-width:44px}
+.point p{font-family:Fraunces,serif;font-weight:500;font-size:clamp(1.35rem,3vw,2rem);line-height:1.25}
+/* launch */
+.launch{background:var(--bark);text-align:center}
+.launch .eyebrow{color:var(--leaf)}
+.launch .date{font-family:Fraunces,serif;font-weight:560;font-size:clamp(3rem,10vw,7.5rem);line-height:1;margin:10px 0 26px}
+.launch p{max-width:48ch;margin:0 auto;opacity:.9;font-size:1.12rem}
+.launch .grow-leaf{left:50%;top:50%;width:min(70vmin,520px);transform:translate(-50%,-50%);color:var(--leaf);opacity:.1}
+/* waitlist */
+.waitlist{background:var(--cream);color:var(--forest);text-align:center}
+.waitlist .eyebrow{color:var(--moss)}
+.waitlist h2{font-size:clamp(2.4rem,6vw,4.4rem);margin-bottom:22px}
+.waitlist p{max-width:52ch;margin:0 auto 36px;font-size:1.12rem;color:#2c4433}
+.waitlist .fine{margin-top:22px;font-size:.9rem;opacity:.7}
+.waitlist .grow-leaf{left:-80px;bottom:40px;color:var(--moss)}
+/* footer */
+footer{position:relative;z-index:1;background:var(--ink);padding:56px 0 44px;text-align:center}
+footer .fname{font-family:Fraunces,serif;font-size:1.5rem;font-weight:600;margin-bottom:6px}
+footer .fsub{opacity:.7;font-size:.95rem;margin-bottom:22px}
+footer .flinks{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+footer a{color:var(--leaf);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+footer .copy{font-size:.8rem;opacity:.45}
+@media (max-width:760px){
+  .why-grid{grid-template-columns:1fr}
+  .vine-col{display:none}
+  .grow-leaf{width:220px}
+  section{padding:15vh 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .scroll-cue .stem,#loader .loader-leaf{animation:none}
+}
+</style>
+<noscript><style>#loader{display:none}</style></noscript>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="leafSym" viewBox="0 0 100 120">
+    <path d="M50,5 C80,25 85,60 50,95 C15,60 20,25 50,5 Z" fill="currentColor"/>
+    <path d="M50,14 L50,86" stroke="rgba(21,42,30,.5)" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M50,95 L50,110" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+  </symbol>
+</svg>
+
+<canvas id="leaves" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<div id="loader" role="status" aria-label="Loading">
+  <svg class="loader-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
+  <p>Proof</p>
+</div>
+
+<nav id="nav">
+  <a class="wordmark" href="#top">Proof<span class="dot">.</span></a>
+  <a class="nav-cta" href="#waitlist">Join the waitlist</a>
+</nav>
+
+<main id="top">
+
+  <section class="hero" aria-label="Proof hero">
+    <svg class="hero-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
+    <div class="wrap">
+      <p class="eyebrow hero-fade">From Oriela Co</p>
+      <h1 class="h1"><span class="mask"><span class="h-line">Proof<span class="dot">.</span></span></span></h1>
+      <p class="hero-sub hero-fade">Lab-tested creatine.</p>
+      <p class="hero-date hero-fade">Launching January 4, 2027</p>
+      <div class="hero-fade"><a class="btn" href="#waitlist">Join the waitlist</a></div>
+      <p class="scroll-cue hero-fade">Scroll<span class="stem"></span></p>
+    </div>
+  </section>
+
+  <section class="what" id="what" aria-label="What Proof is">
+    <svg class="grow-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
+    <div class="wrap clip-reveal">
+      <p class="eyebrow rv">What it is</p>
+      <h2 class="rv">Creatine without the mystery.</h2>
+      <p class="lede rv">Proof is creatine, plain and simple. One ingredient, nothing hidden, and every batch lab-tested before it leaves for your shelf. No proprietary blends. No label games. Just what it says on the tub.</p>
+    </div>
+  </section>
+
+  <section class="why" id="why" aria-label="Why lab-tested matters">
+    <div class="wrap">
+      <p class="eyebrow rv">Why lab-tested matters</p>
+      <h2 class="rv">Tested. Every batch.</h2>
+      <p class="lede rv">Most labels ask for your trust. Proof brings receipts, one tested batch at a time.</p>
+      <div class="why-grid">
+        <div class="vine-col" aria-hidden="true">
+          <svg class="vine" viewBox="0 0 130 920">
+            <path id="vinePath" d="M65,8 C110,150 20,270 65,400 C110,530 20,650 65,790 C80,855 70,890 65,914" fill="none" stroke="#7fb069" stroke-width="5" stroke-linecap="round" pathLength="1"/>
+            <g class="vine-leaf" transform="translate(102,178) rotate(32)"><use href="#leafSym" x="-35" y="-80" width="70" height="84"/></g>
+            <g class="vine-leaf" transform="translate(28,400) rotate(-32)"><use href="#leafSym" x="-35" y="-80" width="70" height="84"/></g>
+            <g class="vine-leaf" transform="translate(100,648) rotate(32)"><use href="#leafSym" x="-35" y="-80" width="70" height="84"/></g>
+          </svg>
+        </div>
+        <ol class="points">
+          <li class="point rv"><span class="num">01</span><p>You know exactly what is in the tub</p></li>
+          <li class="point rv"><span class="num">02</span><p>No fillers hiding on the label</p></li>
+          <li class="point rv"><span class="num">03</span><p>Tested before it ships</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="launch" id="launch" aria-label="Launch date">
+    <svg class="grow-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
+    <div class="wrap clip-reveal">
+      <p class="eyebrow rv">Save the date</p>
+      <p class="date rv">January 4, 2027</p>
+      <p class="rv">Proof launches January 4, 2027. Join the waitlist and be first in line when the first batch lands.</p>
+    </div>
+  </section>
+
+  <section class="waitlist" id="waitlist" aria-label="Join the waitlist">
+    <svg class="grow-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
+    <div class="wrap clip-reveal">
+      <p class="eyebrow rv">Waitlist</p>
+      <h2 class="rv">Be first in line.</h2>
+      <p class="rv">Tap the button and send us a note. The subject line is filled in for you. We will add you to the list and write back before launch.</p>
+      <div class="rv"><a class="btn" href="mailto:hello@orielaco.com?subject=Proof%20waitlist">Join the waitlist</a></div>
+      <p class="fine rv">No spam, no noise. One email when Proof is ready.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p class="fname">Proof<span style="color:var(--leaf)">.</span></p>
+  <p class="fsub">A part of Oriela Co</p>
+  <div class="flinks">
+    <a href="https://orielaco.com">orielaco.com</a>
+    <a href="mailto:hello@orielaco.com">hello@orielaco.com</a>
+  </div>
+  <p class="copy">2026 Oriela Co. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+/* Kill-switch: never trap the visitor on the loader. Runs with zero dependencies. */
+setTimeout(function(){
+  var l = document.getElementById("loader");
+  if (l && !window.__proofOpened && l.style.display !== "none") {
+    l.style.transition = "opacity .5s ease"; l.style.opacity = "0";
+    setTimeout(function(){ l.style.display = "none"; }, 550);
+  }
+}, 6000);
+</script>
+<script>
+(function(){
+  "use strict";
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var loader = document.getElementById("loader");
+
+  /* T1: falling leaves canvas. Vanilla, runs even if the CDNs fail. */
+  (function leaves(){
+    if (reduceMotion) return;
+    var cv = document.getElementById("leaves");
+    if (!cv || !cv.getContext) return;
+    var ctx = cv.getContext("2d"), W = 0, H = 0, running = true, raf = 0, t = 0, last = performance.now();
+    function size(){
+      var d = Math.min(window.devicePixelRatio || 1, 1.5);
+      W = window.innerWidth; H = window.innerHeight;
+      cv.width = W * d; cv.height = H * d;
+      cv.style.width = W + "px"; cv.style.height = H + "px";
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    size();
+    window.addEventListener("resize", size);
+    var cols = ["#7fb069", "#5c8a4d", "#a8b86b", "#c9a86a", "#6fa05c"];
+    function mk(top){
+      var d = Math.random();
+      return { x: Math.random() * W, y: top ? -30 - Math.random() * 60 : Math.random() * H,
+        s: 6 + Math.random() * 12, d: d, rot: Math.random() * 6.283,
+        vr: (Math.random() - 0.5) * 0.03, ph: Math.random() * 6.283,
+        fr: 0.5 + Math.random() * 1.2, amp: 0.4 + Math.random() * 1.1,
+        vy: (0.3 + Math.random() * 0.6) * (0.5 + d * 0.7),
+        col: cols[(Math.random() * cols.length) | 0], a: 0.3 + d * 0.5 };
+    }
+    var N = W < 640 ? 32 : 50, parts = [], i;
+    for (i = 0; i < N; i++) parts.push(mk(false));
+    var wind = 0, windT = 0, push = 0, gust = 0;
+    /* T4: scroll velocity blows the leaves sideways */
+    var lastY = window.scrollY, lastT = performance.now();
+    window.addEventListener("scroll", function(){
+      var now = performance.now(), y = window.scrollY, dt = Math.max(1, now - lastT);
+      push += ((y - lastY) / dt * 16) * 0.015;
+      if (push > 9) push = 9; if (push < -9) push = -9;
+      lastY = y; lastT = now;
+    }, { passive: true });
+    document.addEventListener("visibilitychange", function(){
+      if (document.hidden) { running = false; if (raf) cancelAnimationFrame(raf); }
+      else if (!running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
+    });
+    function draw(p){
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      var s = p.s, h = s / 2;
+      ctx.globalAlpha = p.a; ctx.fillStyle = p.col;
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      ctx.bezierCurveTo(s * 0.42, h * 0.4, s * 0.42, -h * 0.4, 0, -h);
+      ctx.bezierCurveTo(-s * 0.42, -h * 0.4, -s * 0.42, h * 0.4, 0, h);
+      ctx.fill();
+      ctx.globalAlpha = p.a * 0.65; ctx.strokeStyle = "rgba(21,42,30,.6)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, h * 0.8); ctx.lineTo(0, -h * 0.8); ctx.stroke();
+      ctx.restore();
+    }
+    function frame(now){
+      if (!running) return;
+      var dt = Math.min(50, now - last) / 16.667; last = now; t += dt * 0.016;
+      gust += dt;
+      if (gust > 180) { gust = 0; windT = (Math.random() - 0.5) * 1.4; }
+      wind += (windT - wind) * 0.02 * dt;
+      push *= 0.94;
+      ctx.clearRect(0, 0, W, H);
+      for (i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        p.x += (Math.sin(t * p.fr * 3 + p.ph) * p.amp + (wind + push) * (0.7 + p.d)) * dt;
+        p.y += p.vy * dt;
+        p.rot += p.vr * dt;
+        if (p.y > H + 30) { parts[i] = mk(true); continue; }
+        if (p.x < -40) p.x = W + 30; if (p.x > W + 40) p.x = -30;
+        draw(p);
+      }
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  })();
+
+  /* Without GSAP the page is fully readable: hide the loader and stop. */
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+    window.__proofOpened = true;
+    if (loader) loader.style.display = "none";
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({ ease: "expo.out", duration: 1 });
+
+  var lenis = null;
+  if (typeof Lenis !== "undefined" && !reduceMotion) {
+    lenis = new Lenis({ lerp: 0.09 });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click", function(e){
+      var id = a.getAttribute("href");
+      if (id.length > 1 && document.querySelector(id)) {
+        e.preventDefault();
+        var el = document.querySelector(id);
+        if (lenis) lenis.scrollTo(el, { offset: -64, duration: 1.4 });
+        else el.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+
+  if (!reduceMotion) {
+    gsap.set(".h-line", { yPercent: 115 });
+    gsap.set(".hero-fade", { y: 28, opacity: 0 });
+    gsap.set("#nav", { opacity: 0, y: -14 });
+  }
+
+  /* T4 preloader: a single leaf grows, then the loader wipes away */
+  window.__proofOpened = false;
+  function heroIntro(){
+    var tl = gsap.timeline();
+    tl.to(".h-line", { yPercent: 0, duration: 1.3, stagger: 0.1 }, 0)
+      .to(".hero-fade", { y: 0, opacity: 1, duration: 1, stagger: 0.09 }, 0.35)
+      .to("#nav", { opacity: 1, y: 0, duration: 0.9 }, 0.5);
+  }
+  function openSite(){
+    window.__proofOpened = true;
+    if (reduceMotion) {
+      loader.style.display = "none"; heroIntro(); return;
+    }
+    gsap.timeline()
+      .to(loader, { clipPath: "inset(0 0 100% 0)", duration: 1.4, ease: "expo.inOut",
+        onComplete: function(){ loader.style.display = "none"; } })
+      .add(heroIntro(), "-=0.85");
+  }
+  var seen = null; try { seen = sessionStorage.getItem("proof-seen"); } catch(e){}
+  if (seen) {
+    gsap.to(loader, { opacity: 0, duration: 0.5, onComplete: function(){
+      loader.style.display = "none"; heroIntro();
+    }});
+  } else {
+    if (lenis) lenis.stop();
+    var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var minTime = new Promise(function(r){ setTimeout(r, 1500); });
+    Promise.race([
+      Promise.all([fontsReady, minTime]),
+      new Promise(function(r){ setTimeout(r, 4000); })
+    ]).then(function(){
+      try { sessionStorage.setItem("proof-seen", "1"); } catch(e){}
+      if (lenis) lenis.start();
+      openSite();
+    });
+  }
+
+  /* T2: content reveals + decorative growing leaves */
+  if (!reduceMotion) {
+    gsap.utils.toArray(".rv").forEach(function(el){
+      gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1,
+        scrollTrigger: { trigger: el, start: "top 87%" } });
+    });
+    gsap.utils.toArray(".clip-reveal").forEach(function(el){
+      gsap.fromTo(el, { clipPath: "inset(12% 7% 12% 7%)" }, { clipPath: "inset(0% 0% 0% 0%)",
+        duration: 1.3, scrollTrigger: { trigger: el, start: "top 82%" } });
+    });
+    gsap.utils.toArray(".grow-leaf").forEach(function(el){
+      gsap.fromTo(el, { scale: 0.55, rotation: -10, opacity: 0.1 },
+        { scale: 1.35, rotation: 10, opacity: 0.22, ease: "none",
+          scrollTrigger: { trigger: el.parentNode, start: "top bottom", end: "bottom top", scrub: 0.8 } });
+    });
+    gsap.to(".hero-leaf", { rotation: 24, y: 60, ease: "none",
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 } });
+  }
+
+  /* T3: the vine draws itself beside the three points, leaves pop in */
+  (function vine(){
+    if (reduceMotion) return;
+    var path = document.getElementById("vinePath");
+    var vLeaves = gsap.utils.toArray(".vine-leaf");
+    var points = gsap.utils.toArray(".point");
+    if (!path || !vLeaves.length) return;
+    gsap.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: "none",
+      scrollTrigger: { trigger: ".why-grid", start: "top 72%", end: "bottom 60%", scrub: 0.6 } });
+    vLeaves.forEach(function(g, i){
+      var trig = points[i] || g;
+      gsap.fromTo(g, { scale: 0, transformOrigin: "50% 92%" },
+        { scale: 1, duration: 0.9, ease: "back.out(1.8)",
+          scrollTrigger: { trigger: trig, start: "top 74%", toggleActions: "play none none reverse" } });
+    });
+  })();
+})();
+</script>
+</body>
+</html>
