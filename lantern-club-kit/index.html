@@ -3,115 +3,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unplugged by Lantern Club. Put the phones away. Get the night back.</title>
-<meta name="description" content="Unplugged is a phone-free night in a box. $35, free shipping, 30-day guarantee.">
-<meta property="og:title" content="Unplugged by Lantern Club. Put the phones away.">
+<title>Lantern Club. Phone-free nights with real people.</title>
+<meta name="description" content="Lantern Club is phone-free get-togethers where you make things with your hands and talk to real humans. Night One: Clay Night, Nov 5 in Tyler, TX.">
+<meta property="og:title" content="Lantern Club. Phone-free nights with real people.">
+<meta property="og:description" content="Leave your phone at the door. Make something with your hands. Talk to real humans. Night One: Clay Night, Nov 5, Tyler TX.">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
+<meta property="og:url" content="https://unplugged-kit.pages.dev">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lantern Club. Phone-free nights with real people.">
+<meta name="twitter:description" content="Leave your phone at the door. Make something with your hands. Talk to real humans.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#f4ecdc;--paper:#faf6ec;--forest:#1f3529;--rust:#b0532b;--gold:#c9a24b;--ink:#2a2620;--soft:#5c554a;--line:rgba(31,53,41,.14)}
+:root{--cream:#f4ecdc;--cream-deep:#ece1c9;--paper:#faf6ec;--forest:#1f3529;--forest-deep:#152419;--rust:#b0532b;--rust-deep:#8f421f;--gold:#c9a24b;--gold-soft:#e5cf9a;--ink:#2a2620;--ink-soft:#5c554a;--line:rgba(31,53,41,.14);--serif:'Fraunces',Georgia,serif;--sans:'Inter',-apple-system,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.08}
-.hero{padding:70px 0 90px;text-align:center}
-.hero h1{font-size:clamp(46px,9vw,104px);color:var(--forest);max-width:12ch;margin:0 auto 26px}
-.hero h1 em{font-style:italic;color:var(--rust)}
-.hero .lede{font-size:clamp(17px,2.4vw,21px);color:var(--soft);max-width:560px;margin:0 auto 38px}
-.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-block;font-weight:600;font-size:16px;padding:17px 42px;border-radius:999px;text-decoration:none;border:none;cursor:pointer}
-.btn-primary{background:var(--rust);color:#fff}
-.hero-note{margin-top:20px;font-size:13.5px;color:var(--soft)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);margin-bottom:20px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.6,.2,1),transform .9s cubic-bezier(.2,.6,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+.announce{background:var(--forest);color:var(--cream);text-align:center;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:11px 16px}
+.announce b{color:var(--gold-soft);font-weight:600}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.brand{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--forest);text-decoration:none}
+.brand em{font-style:italic;color:var(--rust)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a.nl{font-size:14.5px;font-weight:500;color:var(--ink-soft);text-decoration:none}
+.nav-links a.nl:hover{color:var(--forest)}
+.nav .ticket-pill{font-size:14px;font-weight:600;color:var(--forest);border:1.5px solid var(--forest);border-radius:999px;padding:8px 18px;text-decoration:none;transition:all .25s}
+.nav .ticket-pill:hover{background:var(--forest);color:var(--cream)}
+@media(max-width:640px){.nav-links a.nl{display:none}}
+.hero{padding:70px 0 90px;text-align:center;position:relative}
+.hero .candle-glow{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:520px;height:520px;max-width:120vw;pointer-events:none;opacity:.5;background:radial-gradient(circle,rgba(201,162,75,.28) 0%,rgba(201,162,75,0) 62%)}
+.hero h1{font-size:clamp(46px,9vw,104px);color:var(--forest);max-width:12ch;margin:0 auto 26px;font-weight:480}
+.hero h1 em{font-style:italic;color:var(--rust);font-weight:400}
+.hero .lede{font-size:clamp(17px,2.4vw,21px);color:var(--ink-soft);max-width:560px;margin:0 auto 38px;line-height:1.65}
+.cta-row{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
+.btn{display:inline-block;font-family:var(--sans);font-weight:600;font-size:16px;padding:17px 42px;border-radius:999px;text-decoration:none;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-primary{background:var(--rust);color:#fff;box-shadow:0 12px 32px rgba(176,83,43,.32)}
+.btn-primary:hover{background:var(--rust-deep);transform:translateY(-2px);box-shadow:0 16px 38px rgba(176,83,43,.4)}
+.btn-ghost{background:transparent;color:var(--forest);border:1.5px solid var(--line);padding:15px 36px}
+.btn-ghost:hover{border-color:var(--forest)}
+.hero-note{margin-top:20px;font-size:13.5px;color:var(--ink-soft);letter-spacing:.02em}
 .hero-note b{color:var(--forest)}
-.contents{padding:40px 0 90px}
-.contents h2{text-align:center;font-size:clamp(34px,5vw,54px);color:var(--forest);margin-bottom:56px}
-.box-grid{display:grid;grid-template-columns:1fr;gap:18px}
-@media(min-width:720px){.box-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1020px){.box-grid{grid-template-columns:repeat(4,1fr)}}
-.box-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:38px 28px}
-.box-card h3{font-size:23px;color:var(--forest);margin-bottom:10px}
-.box-card p{font-size:15px;color:var(--soft)}
-.pricing{padding:30px 0 90px}
-.price-card{background:#152419;color:var(--cream);border-radius:30px;padding:64px 34px;text-align:center;max-width:640px;margin:0 auto}
-.price-card h2{font-size:clamp(30px,4.5vw,44px);margin-bottom:8px}
-.price-card h2 em{font-style:italic;color:var(--gold)}
-.price{font-family:'Fraunces',serif;font-size:84px;color:#fff;margin:18px 0 4px}
-.ship{color:var(--gold);font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:30px}
-.includes{list-style:none;text-align:left;max-width:380px;margin:0 auto 36px}
-.includes li{padding:11px 0;border-bottom:1px solid rgba(244,236,220,.14);font-size:15.5px;color:rgba(244,236,220,.88)}
-.includes li::before{content:"✓ ";color:var(--gold);font-weight:700}
-.guarantee{margin-top:26px;font-size:13.5px;color:rgba(244,236,220,.6)}
-.faq{padding:0 0 90px;max-width:760px;margin:0 auto}
+.ticker{background:var(--rust);color:var(--cream);overflow:hidden;white-space:nowrap;padding:14px 0;transform:rotate(-1deg) scale(1.02);margin:10px 0 0}
+.ticker span{font-family:var(--serif);font-style:italic;font-size:19px;padding:0 26px;letter-spacing:.04em}
+.ticker .dot{color:var(--gold-soft);font-style:normal}
+.story{padding:110px 0 90px}
+.story-grid{display:grid;grid-template-columns:1fr;gap:44px}
+@media(min-width:860px){.story-grid{grid-template-columns:1.1fr .9fr;gap:80px;align-items:start}}
+.story h2{font-size:clamp(34px,5vw,54px);color:var(--forest);margin-bottom:26px}
+.story h2 em{font-style:italic;color:var(--rust)}
+.story p{font-size:17.5px;color:var(--ink-soft);margin-bottom:20px;line-height:1.75}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px 12px;text-align:center}
+.stat .num{font-family:var(--serif);font-size:34px;color:var(--forest);font-weight:600}
+.stat .lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.night{background:var(--forest);color:var(--cream);padding:110px 0;border-radius:34px;margin:0 12px;position:relative;overflow:hidden}
+@media(min-width:720px){.night{margin:0 28px;border-radius:44px}}
+.night .eyebrow{color:var(--gold-soft)}
+.night h2{font-size:clamp(34px,5vw,54px);margin-bottom:60px;max-width:14ch}
+.night h2 em{font-style:italic;color:var(--gold-soft)}
+.steps{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:860px){.steps{grid-template-columns:repeat(4,1fr);gap:28px}}
+.step{padding:30px 0;border-top:1px solid rgba(244,236,220,.16);position:relative}
+@media(min-width:860px){.step{padding:6px 0 0}}
+.step .n{font-family:var(--serif);font-style:italic;font-size:52px;color:var(--gold);opacity:.85;margin-bottom:14px;display:block}
+.step h3{font-size:21px;margin-bottom:10px;color:var(--cream)}
+.step p{font-size:15px;color:rgba(244,236,220,.72);line-height:1.65}
+.step .time{display:inline-block;margin-top:14px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);border:1px solid rgba(201,162,75,.4);border-radius:999px;padding:5px 14px}
+.event{padding:110px 0 90px}
+.event-card{background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:56px 40px;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr;gap:36px;box-shadow:0 24px 60px rgba(31,53,41,.1)}
+@media(min-width:860px){.event-card{grid-template-columns:1.2fr .8fr;gap:56px;padding:64px 56px;align-items:center}}
+.event-card .date-badge{display:inline-block;background:var(--forest);color:var(--cream);font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:10px 22px;border-radius:999px;margin-bottom:24px}
+.event-card h2{font-size:clamp(36px,5vw,56px);color:var(--forest);margin-bottom:18px}
+.event-card h2 em{font-style:italic;color:var(--rust)}
+.event-card p{font-size:17px;color:var(--ink-soft);line-height:1.7;margin-bottom:16px}
+.event-details{list-style:none;margin:28px 0}
+.event-details li{padding:10px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink-soft);display:flex;gap:12px}
+.event-details li:last-child{border-bottom:none}
+.event-details li b{color:var(--forest);min-width:90px;font-weight:600}
+.event-side{background:var(--forest-deep);border-radius:22px;padding:44px 36px;text-align:center;color:var(--cream)}
+.event-side .ticket-price{font-family:var(--serif);font-size:64px;font-weight:600;color:#fff;line-height:1}
+.event-side .ticket-lbl{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);margin:10px 0 24px;font-weight:600}
+.event-side p{font-size:14.5px;color:rgba(244,236,220,.7);margin-bottom:26px;line-height:1.65}
+.event-side .spots{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--gold-soft);margin-bottom:26px}
+.product{padding:40px 0 110px}
+.product-inner{background:var(--cream-deep);border-radius:34px;padding:80px 40px;display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
+@media(min-width:900px){.product-inner{grid-template-columns:1fr 1fr;gap:64px;padding:90px 70px}}
+.product-inner h2{font-size:clamp(34px,5vw,52px);color:var(--forest);margin-bottom:20px}
+.product-inner h2 em{font-style:italic;color:var(--rust)}
+.product-inner p{font-size:17px;color:var(--ink-soft);line-height:1.7;margin-bottom:18px}
+.product-list{list-style:none;margin:26px 0}
+.product-list li{padding:11px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink-soft);display:flex;gap:12px;align-items:baseline}
+.product-list li::before{content:"✓";color:var(--rust);font-weight:700}
+.product-list li:last-child{border-bottom:none}
+.product-price{display:flex;align-items:baseline;gap:12px;margin:28px 0 8px}
+.product-price .amt{font-family:var(--serif);font-size:56px;font-weight:600;color:var(--forest)}
+.product-price .note{font-size:14px;color:var(--ink-soft)}
+.product-visual{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:48px 36px;text-align:center}
+.product-visual .pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:8px}
+.pv-item{background:var(--cream);border-radius:16px;padding:26px 16px}
+.pv-item .pv-icon{font-size:34px;margin-bottom:10px}
+.pv-item h4{font-family:var(--serif);font-size:17px;color:var(--forest);margin-bottom:6px}
+.pv-item p{font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0}
+.deck{padding:110px 0 90px}
+.deck h2{text-align:center;font-size:clamp(34px,5vw,54px);color:var(--forest);margin-bottom:14px}
+.deck h2 em{font-style:italic;color:var(--rust)}
+.deck .sub{text-align:center;color:var(--ink-soft);font-size:17px;margin-bottom:60px}
+.card-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.card-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.card-grid{grid-template-columns:repeat(3,1fr)}}
+.qcard{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:30px 26px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 6px 18px rgba(31,53,41,.06);transition:transform .3s,box-shadow .3s;position:relative}
+.qcard:nth-child(odd){transform:rotate(-.7deg)}
+.qcard:nth-child(even){transform:rotate(.7deg)}
+.qcard:hover{transform:rotate(0) translateY(-5px);box-shadow:0 18px 40px rgba(31,53,41,.14)}
+.qcard p{font-family:var(--serif);font-size:20px;color:var(--forest);line-height:1.4}
+.qtag{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;padding:5px 13px;margin-bottom:18px}
+.qtag.deep{background:rgba(31,53,41,.1);color:var(--forest)}
+.qtag.fun{background:rgba(201,162,75,.22);color:#8a6a1f}
+.qtag.hot{background:rgba(176,83,43,.14);color:var(--rust-deep)}
+.qtag.story{background:rgba(31,53,41,.07);color:var(--ink-soft);border:1px solid var(--line)}
+.qtag.reflect{background:rgba(176,83,43,.08);color:var(--rust)}
+.deck-note{text-align:center;margin-top:44px;color:var(--ink-soft);font-size:15.5px}
+.deck-note b{color:var(--forest)}
+.faq{padding:0 0 110px;max-width:760px;margin:0 auto}
 .faq h2{text-align:center;font-size:clamp(32px,4.5vw,48px);color:var(--forest);margin-bottom:48px}
-.faq-item{border-bottom:1px solid var(--line);padding:24px 0}
-.faq-item h3{font-size:20px;color:var(--forest);margin-bottom:8px}
-.faq-item p{font-size:16px;color:var(--soft)}
-.final{background:var(--rust);border-radius:34px;margin:0 12px 90px;padding:90px 30px;text-align:center;color:#fff}
-.final h2{font-size:clamp(34px,6vw,60px);margin-bottom:36px}
-.final .btn-primary{background:#fff;color:var(--rust)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item:first-of-type{border-top:1px solid var(--line)}
+.faq-q{width:100%;background:none;border:none;cursor:pointer;text-align:left;font-family:var(--serif);font-size:20px;color:var(--forest);font-weight:500;padding:24px 40px 24px 0;position:relative}
+.faq-q::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:30px;color:var(--rust);font-weight:300;transition:transform .3s}
+.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.6,.2,1)}
+.faq-a p{padding:0 0 26px;font-size:16px;color:var(--ink-soft);line-height:1.7}
+.final{background:var(--rust);border-radius:34px;margin:0 12px 110px;padding:90px 30px;text-align:center;color:#fff;position:relative;overflow:hidden}
+@media(min-width:720px){.final{margin:0 28px 110px;border-radius:44px}}
+.final h2{font-size:clamp(34px,6vw,60px);margin-bottom:16px;position:relative}
+.final h2 em{font-style:italic}
+.final p{font-size:17px;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto 36px;position:relative}
+.final .btn-primary{background:#fff;color:var(--rust-deep);box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.final .btn-primary:hover{background:var(--cream)}
+.mailto{display:inline-block;margin-top:22px;color:#fff;font-size:15px;position:relative}
+.mailto:hover{color:var(--gold-soft)}
 footer{padding:0 0 60px;text-align:center}
-footer p{font-size:13px;color:var(--soft);margin-top:10px}
+footer .brand{font-size:20px}
+footer p{font-size:13px;color:var(--ink-soft);margin-top:10px}
+footer .flinks{margin-top:18px}
+footer .flinks a{font-size:13.5px;color:var(--ink-soft);text-decoration:none;margin:0 12px}
+footer .flinks a:hover{color:var(--forest)}
 </style>
 </head>
 <body>
+<div class="announce">Night One: <b>Clay Night · Nov 5 · Tyler, TX</b> &nbsp;·&nbsp; 20 spots</div>
 <div class="wrap">
+<nav class="nav">
+<a class="brand" href="#">Lantern Club</a>
+<div class="nav-links">
+<a class="nl" href="#night">The nights</a>
+<a class="nl" href="#unplugged">Unplugged kit</a>
+<a class="nl" href="#faq">FAQ</a>
+<a class="ticket-pill" href="#night-one">Get tickets</a>
+</div></nav>
 <header class="hero">
-<p style="font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);margin-bottom:20px">A Lantern Club product</p>
-<h1>Put the phones away. <em>Get the night back.</em></h1>
-<p class="lede">Unplugged is a phone-free night in a box. Everything you need to host an evening where nobody touches their phone and everybody actually talks.</p>
-<div class="cta-row">
-<a class="btn btn-primary" href="https://buy.stripe.com/aFa00j8mQ6KNcSO2UheIw01" target="_blank" rel="noopener">Preorder now · $35</a>
+<p class="eyebrow reveal">Phone-free get-togethers</p>
+<h1 class="reveal d1">Real nights. <em>No phones.</em></h1>
+<p class="lede reveal d2">Lantern Club is phone-free nights where you make things with your hands and talk to real humans. Leave your phone at the door. Leave knowing people.</p>
+<div class="cta-row reveal d3">
+<a class="btn btn-primary" href="#night-one">Night One · Nov 5</a>
+<a class="btn btn-ghost" href="#unplugged">Host your own night</a>
 </div>
-<p class="hero-note"><b>$35</b> · free shipping · ships in 4 to 6 weeks</p>
-</header>
+<p class="hero-note reveal d3"><b>Tyler, Texas</b> · first night November 5th · 20 spots</p>
+</header></div>
+<div class="ticker" aria-hidden="true">
+<span>No phones <span class="dot">·</span></span><span>Real talk <span class="dot">·</span></span><span>Make things <span class="dot">·</span></span><span>Know people <span class="dot">·</span></span><span>No phones <span class="dot">·</span></span><span>Real talk <span class="dot">·</span></span><span>Make things <span class="dot">·</span></span><span>Know people <span class="dot">·</span></span>
 </div>
-<section class="contents">
-<div class="wrap">
-<h2>Four things. Nothing you don’t need.</h2>
-<div class="box-grid">
-<div class="box-card"><h3>The Pouch</h3><p>Heavy canvas, holds 4 to 6 phones. Sits by the front door.</p></div>
-<div class="box-card"><h3>The Deck</h3><p>Fifty conversation cards. Deep ones, funny ones, story starters.</p></div>
-<div class="box-card"><h3>The Candle</h3><p>One small candle for the table. Light it when the phones go away.</p></div>
-<div class="box-card"><h3>The Host Guide</h3><p>A single card that tells you exactly how to run the night.</p></div>
+<section class="story" id="story"><div class="wrap story-grid">
+<div class="reveal">
+<p class="eyebrow">Why this exists</p>
+<h2>Lonely in a room <em>full of people.</em></h2>
+<p>I was at dinner with people I love and realized nobody was actually there. Everyone was on their phone. Including me. We were together and completely alone at the same time.</p>
+<p>That's not a willpower problem. It's a design problem. The phone is engineered to win every contest for your attention, and it does, every time. So we stopped asking people to resist it and started taking it out of the room.</p>
+<p>Lantern Club is my answer. One night a month, phones go in the pouch at the door, and for two hours you're just a person again. Making things. Talking. The way it used to feel before every room had a screen in it.</p>
+<p>I'm Spencer. I'm 18. I started this because I was tired of feeling lonely in rooms full of people, and I figured I wasn't the only one.</p>
 </div>
+<div class="reveal d1">
+<div class="stat-row" style="margin-top:0">
+<div class="stat"><div class="num">0</div><div class="lbl">Phones</div></div>
+<div class="stat"><div class="num">2</div><div class="lbl">Hours</div></div>
+<div class="stat"><div class="num">20</div><div class="lbl">People</div></div>
 </div>
-</section>
-<section class="pricing">
-<div class="wrap">
-<div class="price-card">
-<h2>Get the night <em>in a box.</em></h2>
-<div class="price">$35</div>
-<p class="ship">Free shipping · Ships in 4 to 6 weeks</p>
-<ul class="includes">
+<p style="margin-top:26px;font-size:15.5px">Every night has one rule: the phone stays in the pouch. Everything else is clay, conversation, music, and people who showed up to actually be there.</p>
+</div></div></section>
+<section class="night" id="night"><div class="wrap">
+<p class="eyebrow reveal">How a night works</p>
+<h2 class="reveal d1">Four steps. <em>Then just talk.</em></h2>
+<div class="steps">
+<div class="step reveal"><span class="n">1</span><h3>Phones in the pouch</h3><p>You walk in, your phone goes in the canvas pouch at the door. It stays there all night. That's the whole rule.</p><span class="time">Doors 6:30</span></div>
+<div class="step reveal d1"><span class="n">2</span><h3>Make something</h3><p>Every night has a hands-on activity. Clay, painting, building, cooking. Zero experience needed. Bad art encouraged.</p><span class="time">7:00</span></div>
+<div class="step reveal d2"><span class="n">3</span><h3>Draw a card</h3><p>Between rounds we pull conversation cards. Deep ones, funny ones, ones that start real stories. Everyone answers.</p><span class="time">7:45</span></div>
+<div class="step reveal d3"><span class="n">4</span><h3>Talk until you're done</h3><p>No agenda after that. Most people stay the full two hours and don't want to leave. Phones back at the door on your way out.</p><span class="time">9:00</span></div>
+</div></div></section>
+<section class="event" id="night-one"><div class="wrap">
+<div class="event-card reveal">
+<div>
+<span class="date-badge">Night One · November 5, 2026</span>
+<h2>Clay Night. <em>The first one.</em></h2>
+<p>Air-dry clay, good music, and a table full of strangers who won't be strangers by 9 PM. No experience needed. If you can make a pinch pot, you're overqualified.</p>
+<ul class="event-details">
+<li><b>When</b> Thursday, Nov 5 · doors 6:30 PM, program 7 to 9 PM</li>
+<li><b>Where</b> Tyler, Texas (venue announced soon)</li>
+<li><b>What</b> Clay, tools, conversation cards, snacks, music</li>
+<li><b>Bring</b> Just yourself. Wear something clay-safe.</li>
+</ul></div>
+<div class="event-side">
+<div class="ticket-price">$10</div>
+<div class="ticket-lbl">Per ticket</div>
+<p>Covers clay, tools, and snacks. Non-refundable, but you can transfer yours to a friend.</p>
+<div class="spots">20 spots. When they're gone, they're gone.</div>
+<a class="btn btn-primary" href="mailto:hello@orielaco.com?subject=Lantern%20Club%20Night%20One%20ticket" style="background:#fff;color:var(--rust-deep)">Reserve my spot</a>
+<p style="margin-top:18px;font-size:13px">Tickets open soon. Email us and you're first in line.</p>
+</div></div></div></section>
+<section class="product" id="unplugged"><div class="wrap">
+<div class="product-inner">
+<div class="reveal">
+<p class="eyebrow">A Lantern Club product</p>
+<h2>Can't make it to a night? <em>Bring one home.</em></h2>
+<p>Unplugged is the night in a box. The same pouch, the same conversation cards, the same candle we use at our nights, shipped to your door. Host your own phone-free evening wherever you are.</p>
+<ul class="product-list">
 <li>Canvas phone pouch (holds 4 to 6 phones)</li>
 <li>50-card conversation deck</li>
 <li>Table candle</li>
-<li>Host guide card</li>
-</ul>
+<li>Host guide card</li></ul>
+<div class="product-price"><span class="amt">$35</span><span class="note">Free US shipping · Ships in 4 to 6 weeks · 30-day guarantee</span></div>
+<div class="cta-row" style="justify-content:flex-start;margin-top:20px">
 <a class="btn btn-primary" href="https://buy.stripe.com/aFa00j8mQ6KNcSO2UheIw01" target="_blank" rel="noopener">Preorder now · $35</a>
-<p class="guarantee">30-day guarantee. Full refund within 30 days of delivery, no questions asked.</p>
+</div></div>
+<div class="product-visual reveal d1">
+<div class="pv-grid">
+<div class="pv-item"><div class="pv-icon">👜</div><h4>The Pouch</h4><p>Heavy canvas. Phones go in at the door.</p></div>
+<div class="pv-item"><div class="pv-icon">🂡</div><h4>The Deck</h4><p>50 cards. Zero small talk.</p></div>
+<div class="pv-item"><div class="pv-icon">🕯️</div><h4>The Candle</h4><p>Light it. The night has started.</p></div>
+<div class="pv-item"><div class="pv-icon">📋</div><h4>The Guide</h4><p>Run the night. Read it once.</p></div>
+</div></div>
+</div></div></section>
+<section class="deck"><div class="wrap">
+<p class="eyebrow reveal" style="text-align:center">From the deck</p>
+<h2 class="reveal d1">Fifty cards. <em>Zero small talk.</em></h2>
+<p class="sub reveal d2">A few from the actual deck, the same one we use at every night.</p>
+<div class="card-grid">
+<div class="qcard reveal"><div><span class="qtag deep">Deep</span><p>What do you want to be remembered for?</p></div></div>
+<div class="qcard reveal d1"><div><span class="qtag hot">Hot Take</span><p>What's something everyone likes that you secretly think is overrated?</p></div></div>
+<div class="qcard reveal d2"><div><span class="qtag story">Story</span><p>Tell us about a time you got completely lost.</p></div></div>
+<div class="qcard reveal"><div><span class="qtag reflect">Reflective</span><p>What are you grateful for that you rarely say out loud?</p></div></div>
+<div class="qcard reveal d1"><div><span class="qtag fun">Fun</span><p>What's your most irrational fear?</p></div></div>
+<div class="qcard reveal d2"><div><span class="qtag deep">Deep</span><p>What's something you've never told anyone in this room?</p></div></div>
 </div>
-</div>
+<p class="deck-note reveal">Plus <b>44 more</b>, across Deep, Fun, Hot Takes, Stories, and Reflective. No cheesy icebreakers, we checked twice.</p>
+</div></section>
+<section class="faq" id="faq"><div class="wrap">
+<h2 class="reveal">Questions, answered.</h2>
+<div class="faq-item reveal"><button class="faq-q">Do I really have to give up my phone?</button><div class="faq-a"><p>Yes. That's the event. It's two hours. You'll survive, and you'll probably love it.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">What if someone needs to reach me?</button><div class="faq-a"><p>Give them the host's number before the night. Real emergencies get through.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">Can I come alone?</button><div class="faq-a"><p>Please do. Most people will. You'll leave knowing people.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">Is this a Christian thing?</button><div class="faq-a"><p>No. All are welcome. The only doctrine is put the phone away.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">When do tickets go on sale?</button><div class="faq-a"><p>Soon. Email hello@orielaco.com with the subject "Night One ticket" and you're first in line when they drop. 20 spots, $10 each.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">What's the Unplugged kit?</button><div class="faq-a"><p>It's the at-home version of a Lantern Club night. The pouch, the 50-card deck, a candle, and a host guide, shipped to you for $35. Run your own phone-free night wherever you are.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">When will my kit ship?</button><div class="faq-a"><p>First run ships 4 to 6 weeks after the preorder closes. You'll get tracking the day yours leaves. 30-day guarantee, full refund, keep the deck.</p></div></div>
+</div></section>
+<section class="final">
+<h2 class="reveal">Your best nights had <em>no screens.</em></h2>
+<p class="reveal d1">You already know the feeling. Lantern Club just makes it happen on purpose.</p>
+<div class="reveal d2"><a class="btn btn-primary" href="#night-one">Night One · Nov 5</a></div>
+<br><a class="mailto reveal d2" href="mailto:hello@orielaco.com">Questions? hello@orielaco.com</a>
 </section>
-<section class="faq">
-<div class="wrap">
-<h2>Questions, answered.</h2>
-<div class="faq-item"><h3>When will my kit ship?</h3><p>First run ships 4 to 6 weeks after the preorder closes.</p></div>
-<div class="faq-item"><h3>What if I don’t like it?</h3><p>Full refund within 30 days of delivery, no questions.</p></div>
-<div class="faq-item"><h3>How many people is one kit for?</h3><p>The pouch holds 4 to 6 phones, the sweet spot for a real conversation.</p></div>
-</div>
-</section>
-<div class="final">
-<h2>Your best nights had no screens.</h2>
-<a class="btn btn-primary" href="https://buy.stripe.com/aFa00j8mQ6KNcSO2UheIw01" target="_blank" rel="noopener">Preorder now · $35</a>
-</div>
-<footer>
-<div class="wrap">
-<p>Lantern Club · Unplugged · A Lantern Club product</p>
-<p>Questions? hello@orielaco.com</p>
-</div>
-</footer>
-</body>
-</html>
+<footer><div class="wrap">
+<a class="brand" href="#">Lantern Club</a>
+<p>Part of Oriela Co · Tyler, Texas</p>
+<div class="flinks"><a href="#night">The nights</a><a href="#unplugged">Unplugged kit</a><a href="#faq">FAQ</a><a href="https://orielaco.com">Oriela Co</a></div>
+</div></footer>
+<script>
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+document.querySelectorAll('.faq-item').forEach(function(item){
+var q=item.querySelector('.faq-q'),a=item.querySelector('.faq-a');
+q.addEventListener('click',function(){
+var open=item.classList.contains('open');
+document.querySelectorAll('.faq-item.open').forEach(function(o){o.classList.remove('open');o.querySelector('.faq-a').style.maxHeight=null});
+if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}
+})});
+</script>
+</body></html>
