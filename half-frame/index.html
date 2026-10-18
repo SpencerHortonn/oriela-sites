@@ -8,9 +8,9 @@
 <meta name="description" content="Half Frame: a film-look camera. 36 shots, grain, halation, date stamps. Prototype.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0a;--ink:#f4ecdc;--gold:#e8a33d;--gold-d:#a86f14;--red:#c0392b;--dim:rgba(244,236,220,.62);--faint:rgba(244,236,220,.14);--ink-dark:#241a10;--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;--leather:url("assets/leatherette.jpg");--paper:url("assets/photopaper.jpg");--expo:cubic-bezier(0.16,1,0.3,1)}
+:root{--bg:#0a0a0a;--ink:#f4ecdc;--gold:#e8a33d;--gold-d:#a86f14;--red:#c0392b;--dim:rgba(244,236,220,.62);--faint:rgba(244,236,220,.14);--ink-dark:#241a10;--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;--caveat:"Caveat",cursive;--leather:url("assets/leatherette.jpg");--paper:url("assets/photopaper.jpg");--expo:cubic-bezier(0.16,1,0.3,1)}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:auto}
 html.lenis,html.lenis body{height:auto}
@@ -88,6 +88,65 @@ h1 em{font-style:italic;color:var(--gold);font-weight:300}
 .btn.ghost{background:transparent;color:var(--ink);border-color:var(--faint)}
 .btn.ghost:hover{border-color:var(--gold);transform:translateY(-3px)}
 .launch-note{margin-top:34px;font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--dim)}
+/* hand-made craft pass: contact-sheet scattering, tape, hand notes */
+/* torn print edge on the photo-paper pricing section */
+#pricing{clip-path:polygon(0 14px,4% 6px,9% 13px,14% 5px,19% 12px,24% 7px,29% 14px,34% 6px,39% 12px,44% 5px,49% 13px,54% 6px,59% 12px,64% 7px,69% 14px,74% 5px,79% 12px,84% 6px,89% 13px,94% 7px,100% 12px,100% 100%,0 100%)}
+/* hero hand annotation */
+.hero-annot{position:absolute;right:clamp(18px,5vw,58px);bottom:-36px;z-index:2;pointer-events:none;font-family:var(--caveat);font-weight:500;font-size:clamp(21px,3vw,30px);color:#f0d9a8;transform:rotate(-6deg);text-shadow:0 2px 12px rgba(0,0,0,.75);opacity:0;animation:annotIn 1.2s ease 2.8s forwards}
+@keyframes annotIn{to{opacity:1}}
+@media (max-width:640px){.hero-annot{bottom:-28px;font-size:20px}}
+/* features scattered like a contact sheet */
+.feat{--r:0deg;transform:rotate(var(--r));position:relative}
+.feat:nth-child(1){--r:-1.6deg}
+.feat:nth-child(2){--r:1.1deg;margin-top:16px}
+.feat:nth-child(3){--r:-.7deg;margin-top:-4px}
+.feat:nth-child(4){--r:1.8deg;margin-top:10px}
+.feat:nth-child(5){--r:-1.2deg;margin-top:-6px}
+.feat:nth-child(6){--r:.9deg;margin-top:14px}
+.feat:nth-child(7){--r:-1.9deg;margin-top:-2px}
+.feat:nth-child(8){--r:1.3deg;margin-top:-8px}
+.feat::before{content:"";position:absolute;top:-11px;left:26px;width:86px;height:24px;background:linear-gradient(rgba(233,214,168,.82),rgba(220,198,148,.82));box-shadow:0 2px 6px rgba(0,0,0,.35);opacity:.85;transform:rotate(-4deg)}
+.feat:nth-child(even)::before{transform:rotate(3deg)}
+.feat:nth-child(3n)::before{left:auto;right:24px;transform:rotate(6deg)}
+.feat:nth-child(4n)::before{left:38%;transform:rotate(-7deg)}
+.feat:hover{transform:translateY(-6px) rotate(var(--r))}
+/* looks scattered, slight overlap like prints on a table */
+.look-card{--r:0deg;transform:rotate(var(--r))}
+.look-card:nth-child(1){--r:-1.4deg}
+.look-card:nth-child(2){--r:1.6deg;margin-top:18px}
+.look-card:nth-child(3){--r:-.8deg;margin-top:-6px}
+.look-card:hover{transform:translateY(-8px) rotate(var(--r))}
+/* pricing prints: more varied tape, one print rotated harder */
+.price-card{--r:0deg;transform:rotate(var(--r))}
+.price-card:nth-child(1){--r:-1.2deg}
+.price-card:nth-child(2){--r:2.4deg}
+.price-card:hover{transform:translateY(-6px) rotate(var(--r))}
+.price-card:nth-child(1)::before{transform:translateX(-50%) rotate(-7deg)}
+.price-card:nth-child(2)::before{transform:translateX(-38%) rotate(4deg);top:-12px}
+.price-card:nth-child(2)::after{content:"";position:absolute;bottom:-12px;right:16%;width:92px;height:24px;background:linear-gradient(rgba(233,214,168,.82),rgba(220,198,148,.82));transform:rotate(-5deg);box-shadow:0 2px 6px rgba(60,40,10,.25);opacity:.85}
+/* hand-drawn focus brackets framing the looks headline */
+.focus-sec{position:relative;padding:38px 20px 10px}
+.focus-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.aperture-doodle{position:absolute;top:0;right:1%;width:74px;height:74px;transform:rotate(14deg);pointer-events:none}
+/* contact strip: a film strip with hand-written frame notes */
+.cstrip{padding:clamp(56px,7vw,100px) 0;overflow:hidden}
+.cstrip .eyebrow-line{text-align:center;margin-bottom:36px}
+.cfilm{background:#111;background-image:radial-gradient(circle at 20px 15px,#050505 6.5px,transparent 7px),radial-gradient(circle at 20px calc(100% - 15px),#050505 6.5px,transparent 7px);background-size:40px 100%,40px 100%;border-top:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;padding:40px 34px;transform:rotate(-1.2deg);box-shadow:inset 0 10px 26px rgba(0,0,0,.6),inset 0 -10px 26px rgba(0,0,0,.6),0 40px 80px -30px rgba(0,0,0,.9)}
+.cfilm-inner{display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
+.cframe{width:200px;background:#0c0c0c;border:2px solid #262626;padding:10px 10px 38px;position:relative;box-shadow:0 24px 50px -18px rgba(0,0,0,.9)}
+.cframe:nth-child(1){transform:rotate(1.4deg)}
+.cframe:nth-child(2){transform:rotate(-1.8deg);margin-top:12px}
+.cframe:nth-child(3){transform:rotate(1deg);margin-top:-6px}
+.cframe:nth-child(4){transform:rotate(-1.2deg);margin-top:8px}
+.cframe .shot{height:110px;position:relative;overflow:hidden;box-shadow:inset 0 0 24px rgba(0,0,0,.5)}
+.s-warm{background:radial-gradient(circle at 72% 30%,rgba(232,163,61,.55),transparent 62%),linear-gradient(155deg,#2c1f0e,#0d0a05)}
+.s-leak{background:radial-gradient(circle at 85% 15%,rgba(255,120,40,.6),transparent 55%),linear-gradient(150deg,#221507,#0b0805)}
+.s-cool{background:radial-gradient(circle at 30% 70%,rgba(120,170,220,.4),transparent 60%),linear-gradient(200deg,#141d28,#08090c)}
+.s-grain{background:radial-gradient(circle at 50% 55%,rgba(232,163,61,.25),transparent 60%),linear-gradient(140deg,#1a1512,#0a0908)}
+.cframe .note{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:var(--caveat);font-weight:500;font-size:20px;line-height:1.1;color:#e9d6a4;transform:rotate(-1deg);padding:0 8px}
+.cframe:nth-child(2) .note{transform:rotate(1.5deg)}
+.cframe:nth-child(3) .note{transform:rotate(-2deg)}
+.cframe:nth-child(4) .note{transform:rotate(1deg)}
 /* sprocket-hole film strip dividers */
 .sprockets{height:46px;background:#151515;border-top:1px solid #2b2b2b;border-bottom:1px solid #2b2b2b;box-shadow:inset 0 8px 18px rgba(0,0,0,.5),inset 0 -8px 18px rgba(0,0,0,.5);
 background-image:radial-gradient(circle at 22px 23px,#0a0a0a 7px,rgba(0,0,0,0) 7.5px);background-size:46px 46px}
@@ -141,7 +200,7 @@ footer .brand{font-size:26px}
 footer p{margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.26em;color:var(--dim)}
 .rv{will-change:transform,opacity}
 @media (max-width:640px){.nav-links a{display:none}.vf-top{left:18px;right:18px}}
-@media (prefers-reduced-motion:reduce){.grain,.corner,.rec i{animation:none}.leaks,#iris{display:none}}
+@media (prefers-reduced-motion:reduce){.grain,.corner,.rec i{animation:none}.leaks,#iris{display:none}.hero-annot{animation:none;opacity:1}}
 </style>
 </head>
 <body>
@@ -204,6 +263,7 @@ footer p{margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.
       <a class="btn ghost shutter" href="#looks">The looks</a>
     </div>
     <div class="launch-note rv">LAUNCHING FEB 2027</div>
+    <div class="hero-annot" aria-hidden="true">36 shots. make them count.</div>
   </div>
 </header>
 
@@ -232,7 +292,28 @@ footer p{margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.
 
 <section id="looks" class="leather">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head focus-sec">
+      <svg class="focus-svg" viewBox="0 0 620 200" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="none" stroke="#e8a33d" stroke-width="3" stroke-linecap="round" opacity="0.7">
+          <path d="M10 46 C11 32 16 22 28 20 L72 18"/>
+          <path d="M610 40 C609 28 604 20 592 19 L548 21"/>
+          <path d="M12 158 C13 172 19 181 32 182 L74 184"/>
+          <path d="M608 160 C607 174 601 181 588 182 L544 181"/>
+        </g>
+      </svg>
+      <svg class="aperture-doodle" viewBox="0 0 120 120" aria-hidden="true">
+        <g fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" opacity="0.75">
+          <path d="M60 12 C72 13 80 18 86 26 L104 48"/>
+          <path d="M104 48 C110 58 108 70 102 79 L90 100"/>
+          <path d="M90 100 C84 108 72 112 62 110 L38 106"/>
+          <path d="M38 106 C27 104 19 96 17 86 L13 62"/>
+          <path d="M13 62 C11 51 16 41 24 35 L40 22"/>
+          <path d="M40 22 C46 16 53 13 60 12"/>
+          <path d="M60 42 L60 78" opacity="0.45"/>
+          <path d="M43 51 L77 69" opacity="0.45"/>
+          <path d="M77 51 L43 69" opacity="0.45"/>
+        </g>
+      </svg>
       <div class="eyebrow rv">Film stocks</div>
       <h2><span class="line"><span class="line-in">Three looks. <em>One roll.</em></span></span></h2>
     </div>
@@ -248,6 +329,20 @@ footer p{margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.
       <div class="look-card rv">
         <div class="look-frame lf-leak"><span class="big">Dx</span></div>
         <div class="body"><div class="stock">STOCK 03</div><h3>Disposable</h3><p>Heavy grain, deep fade, light leaks on the edges.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cstrip leather">
+  <div class="wrap">
+    <div class="eyebrow-line rv"><span class="eyebrow">From the darkroom</span></div>
+    <div class="cfilm rv">
+      <div class="cfilm-inner">
+        <div class="cframe"><div class="shot s-warm"></div><div class="note">golden hour, f/2</div></div>
+        <div class="cframe"><div class="shot s-leak"></div><div class="note">overexposed, kept it anyway</div></div>
+        <div class="cframe"><div class="shot s-cool"></div><div class="note">mom's kitchen</div></div>
+        <div class="cframe"><div class="shot s-grain"></div><div class="note">do not cut here</div></div>
       </div>
     </div>
   </div>
