@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proving Ground Challenge | Leaderboard</title>
+<meta name="description" content="Live standings for the Proving Ground 4-week hybrid fitness challenge.">
+<style>
+:root{--bg:#0e0f0c;--card:#171813;--cream:#f4ecdc;--gold:#c9a24b;--rust:#b0532b;--muted:#8a8578}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--cream);line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:24px}
+header{text-align:center;padding:48px 0 32px}
+header .k{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700}
+header h1{font-size:clamp(32px,6vw,52px);margin:10px 0}
+header p{color:var(--muted);font-size:15px}
+.tabs{display:flex;gap:8px;justify-content:center;margin:24px 0 32px;flex-wrap:wrap}
+.tabs button{background:var(--card);color:var(--cream);border:1px solid #2a2b24;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer}
+.tabs button.active{background:var(--gold);color:#141310;border-color:var(--gold)}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);padding:12px 16px;border-bottom:1px solid #2a2b24}
+tbody td{padding:14px 16px;border-bottom:1px solid #1e1f1a;font-size:15px}
+tbody tr:first-child td{color:var(--gold);font-weight:700}
+tbody tr:nth-child(2) td{color:#d8d2c4;font-weight:600}
+tbody tr:nth-child(3) td{color:#c9a98a;font-weight:600}
+.rank{font-weight:700;width:60px}
+.pts{text-align:right;font-variant-numeric:tabular-nums}
+.note{text-align:center;color:var(--muted);font-size:13px;margin-top:32px;padding:0 16px}
+footer{text-align:center;padding:40px 0;color:var(--muted);font-size:13px}
+footer a{color:var(--gold)}
+@media(max-width:600px){thead th:nth-child(4),tbody td:nth-child(4){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="k">Proving Ground Challenge</div>
+<h1>Leaderboard</h1>
+<p>4 weeks. 370 points. Updated every Monday.</p>
+</header>
+<div class="tabs">
+<button class="active" onclick="show('elite')">Elite</button>
+<button onclick="show('contender')">Contender</button>
+<button onclick="show('rookie')">Rookie</button>
+</div>
+<table id="board">
+<thead><tr><th>Rank</th><th>Athlete</th><th>Division</th><th>Week</th><th style="text-align:right">Points</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+<p class="note">Scores are self-reported and verified by video for prize positions.<br>Think there's an error? Email hello@orielaco.com.</p>
+<footer><a href="https://fancy-tarsier-90aec5.netlify.app">Back to the challenge</a> · © 2026 Proving Ground</footer>
+</div>
+<script>
+// EDIT ME: paste standings here each Monday. One row per athlete.
+const STANDINGS = {
+  elite: [
+    // {name:"Alex R.", week:2, points:148},
+  ],
+  contender: [
+    // {name:"Jordan M.", week:2, points:132},
+  ],
+  rookie: [
+    // {name:"Sam T.", week:2, points:121},
+  ]
+};
+function show(div){
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  const rows = STANDINGS[div].map((a,i)=>
+    `<tr><td class="rank">${i+1}</td><td>${a.name}</td><td style="text-transform:capitalize">${div}</td><td>W${a.week}</td><td class="pts">${a.points}</td></tr>`
+  ).join('');
+  document.getElementById('rows').innerHTML = rows ||
+    `<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:40px">Standings post after Week 1 scores are in.</td></tr>`;
+}
+show('elite');
+</script>
+</body>
+</html>
