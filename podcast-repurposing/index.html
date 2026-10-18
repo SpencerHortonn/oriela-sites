@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oriela Studio: Podcast Repurposing</title>
+<meta name="description" content="We turn every podcast episode into show notes, social posts, a newsletter draft, and quote graphics. Done for you, every week.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4ecdc;
+    --paper:#fbf7ec;
+    --forest:#1f3529;
+    --rust:#b0532b;
+    --gold:#c9a24b;
+    --ink:#2b2620;
+    --muted:#6f6353;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;overflow-x:hidden}
+  ::selection{background:var(--rust);color:var(--cream)}
+  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.2}
+  .wrap{max-width:960px;margin:0 auto;padding:0 1.5rem}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;
+    padding:1rem 2rem;min-height:64px;background:rgba(244,236,220,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(31,53,41,.12)}
+  nav .wordmark{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--forest);text-decoration:none}
+  nav .wordmark span{color:var(--rust)}
+  nav .links{display:flex;gap:1.4rem}
+  nav .links a{color:var(--forest);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+  nav .links a:hover{opacity:1}
+  @media(max-width:720px){nav .links{display:none}}
+
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+    padding:7rem 1.5rem 4rem;
+    background:radial-gradient(1200px 600px at 50% -10%, rgba(201,162,75,.20), transparent 60%),
+      radial-gradient(900px 500px at 50% 110%, rgba(176,83,43,.12), transparent 60%), var(--cream)}
+  .kicker{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:1.2rem}
+  .hero h1{font-size:clamp(2.4rem,8vw,4.5rem);color:var(--forest);max-width:20ch}
+  .hero h1 em{font-style:italic;color:var(--rust)}
+  .hero .sub{margin-top:1.2rem;font-size:1.15rem;color:var(--muted);max-width:56ch}
+  .cta-row{margin-top:2.2rem;display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-block;cursor:pointer;border:none;border-radius:999px;padding:.9rem 2rem;min-height:48px;
+    background:var(--forest);color:var(--cream);font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    text-decoration:none;transition:background .25s, transform .25s}
+  .btn:hover{background:var(--rust);transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--forest);border:2px solid rgba(31,53,41,.3)}
+  .btn.ghost:hover{border-color:var(--rust);color:var(--rust);background:transparent}
+  .proof{margin-top:2.5rem;font-size:.9rem;color:var(--muted)}
+  .proof strong{color:var(--forest)}
+
+  section{padding:5.5rem 0}
+  section.alt{background:var(--paper);border-top:1px solid rgba(31,53,41,.1);border-bottom:1px solid rgba(31,53,41,.1)}
+  h2.section-title{font-size:clamp(1.9rem,4.5vw,2.8rem);color:var(--forest);margin-bottom:1rem;text-align:center}
+  .lede{text-align:center;color:var(--muted);max-width:60ch;margin:0 auto 3rem;font-size:1.08rem}
+
+  .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;margin-top:1rem}
+  .p-card{background:var(--paper);border:1px solid rgba(31,53,41,.12);border-radius:14px;padding:1.8rem}
+  .p-card .num{font-family:'Fraunces',serif;font-size:2rem;color:var(--rust)}
+  .p-card h3{font-size:1.15rem;color:var(--forest);margin:.6rem 0 .4rem}
+  .p-card p{font-size:.95rem;color:var(--muted)}
+
+  .pack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem}
+  .deliver{background:var(--cream);border:1px solid rgba(31,53,41,.12);border-radius:14px;padding:1.8rem;text-align:center}
+  .deliver .icon{font-size:2rem}
+  .deliver h3{font-size:1.1rem;color:var(--forest);margin:.7rem 0 .4rem}
+  .deliver p{font-size:.93rem;color:var(--muted)}
+
+  .sample{border:1px solid rgba(31,53,41,.14);border-radius:16px;overflow:hidden;margin-bottom:1.6rem;background:var(--paper)}
+  .sample-head{padding:1.6rem 1.8rem;border-bottom:1px solid rgba(31,53,41,.1)}
+  .sample-head .show{font-size:.75rem;letter-spacing:.24em;text-transform:uppercase;color:var(--rust);font-weight:600}
+  .sample-head h3{font-size:1.5rem;color:var(--forest);margin:.4rem 0}
+  .sample-head p{font-size:.95rem;color:var(--muted)}
+  .sample-body{padding:1.4rem 1.8rem;display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+  .tag{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--forest);
+    background:rgba(201,162,75,.18);border:1px solid rgba(201,162,75,.5);padding:.35rem .8rem;border-radius:999px}
+  .sample-body a{margin-left:auto;font-size:.85rem;font-weight:600;color:var(--rust);text-decoration:none;border-bottom:2px solid rgba(176,83,43,.35)}
+  .sample-body a:hover{border-color:var(--rust)}
+
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem;align-items:stretch}
+  .tier{background:var(--paper);border:1px solid rgba(31,53,41,.14);border-radius:16px;padding:2.2rem 1.8rem;text-align:center;display:flex;flex-direction:column}
+  .tier.featured{border:2px solid var(--rust);position:relative;transform:scale(1.03)}
+  .tier .badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--rust);color:var(--cream);
+    font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;white-space:nowrap}
+  .tier h3{font-size:1.4rem;color:var(--forest)}
+  .tier .price{font-family:'Fraunces',serif;font-size:2.6rem;color:var(--forest);margin:.8rem 0 .2rem}
+  .tier .per{font-size:.85rem;color:var(--muted);margin-bottom:1.4rem}
+  .tier ul{list-style:none;text-align:left;margin-bottom:1.8rem;flex-grow:1}
+  .tier li{font-size:.94rem;color:var(--muted);padding:.45rem 0 .45rem 1.6rem;position:relative}
+  .tier li::before{content:"✓";position:absolute;left:0;color:var(--rust);font-weight:700}
+  .tier .btn{width:100%}
+
+  .faq{max-width:720px;margin:0 auto}
+  .qa{border-bottom:1px solid rgba(31,53,41,.14);padding:1.3rem 0}
+  .qa h3{font-size:1.12rem;color:var(--forest);margin-bottom:.4rem}
+  .qa p{font-size:.96rem;color:var(--muted)}
+
+  .contact-block{background:var(--forest);color:var(--cream);text-align:center;border-radius:20px;padding:4rem 2rem;margin:0 1.5rem}
+  .contact-block h2{color:var(--cream);font-size:clamp(1.8rem,4.5vw,2.6rem);margin-bottom:.8rem}
+  .contact-block p{color:rgba(244,236,220,.75);max-width:52ch;margin:0 auto 2rem}
+  .contact-block .btn{background:var(--rust)}
+  .contact-block .btn:hover{background:var(--gold)}
+  .email-line{margin-top:1.4rem;font-size:.95rem;color:rgba(244,236,220,.7)}
+  .email-line a{color:var(--gold);text-decoration:none;font-weight:600}
+
+  footer{text-align:center;padding:2.5rem 1.5rem;font-size:.85rem;color:var(--muted)}
+  footer .fmark{font-family:'Fraunces',serif;color:var(--forest);font-size:1.05rem;margin-bottom:.3rem}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="wordmark" href="#top">Oriela <span>Studio</span></a>
+  <div class="links">
+    <a href="#includes">Includes</a>
+    <a href="#samples">Samples</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="kicker">Oriela Studio: Podcast Repurposing</div>
+  <h1>One episode in. <em>A week of content</em> out.</h1>
+  <p class="sub">You record the episode. We turn it into SEO show notes, social posts, a newsletter draft, and quote graphics. Every episode, every week, done for you.</p>
+  <div class="cta-row">
+    <a class="btn" href="#contact">Get a free episode</a>
+    <a class="btn ghost" href="#samples">See sample packs</a>
+  </div>
+  <p class="proof"><strong>First episode free.</strong> Keep the full pack either way. No risk, no pitch deck, just the work.</p>
+</header>
+
+<section id="problem">
+  <div class="wrap">
+    <h2 class="section-title reveal">The episode is 10% of the work</h2>
+    <p class="lede reveal">Recording is the fun part. Everything after is the grind that never gets done.</p>
+    <div class="problem-grid">
+      <div class="p-card reveal"><div class="num">01</div><h3>Show notes never ship</h3><p>Your episode goes live with two sentences of description. Google never finds it. New listeners never discover it.</p></div>
+      <div class="p-card reveal"><div class="num">02</div><h3>Social goes quiet</h3><p>You post the link once, maybe a quote. The episode's best moments never become posts, clips, or threads.</p></div>
+      <div class="p-card reveal"><div class="num">03</div><h3>The newsletter starves</h3><p>Your list is your most valuable channel and it gets nothing, because turning an hour of audio into an issue takes half a day.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="includes">
+  <div class="wrap">
+    <h2 class="section-title reveal">What you get per episode</h2>
+    <p class="lede reveal">One finished pack, delivered within 5 business days of your audio landing in our inbox.</p>
+    <div class="pack-grid">
+      <div class="deliver reveal"><div class="icon">📝</div><h3>SEO show notes</h3><p>Title, summary, timestamped chapters, and 3 key takeaways, written to rank.</p></div>
+      <div class="deliver reveal"><div class="icon">📣</div><h3>8 social posts</h3><p>Hooks, quote posts, and takeaway threads, ready to paste into X, LinkedIn, and Instagram.</p></div>
+      <div class="deliver reveal"><div class="icon">✉️</div><h3>Newsletter draft</h3><p>A 200 to 300 word issue built around the episode's core idea, with subject line.</p></div>
+      <div class="deliver reveal"><div class="icon">🖼️</div><h3>Quote graphics copy</h3><p>5 headline and quote pairings, ready for your designer or Canva.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="samples">
+  <div class="wrap">
+    <h2 class="section-title reveal">Sample packs</h2>
+    <p class="lede reveal">Real packs, built from real episodes. This is exactly what lands in your inbox each week.</p>
+
+    <div class="sample reveal">
+      <div class="sample-head">
+        <div class="show">Creator Science</div>
+        <h3>Why Pat Flynn Acquired His Agency</h3>
+        <p>Pat Flynn and Matt Gartland on the scrappy years, the two ladders, and the visionary plus integrator dynamic.</p>
+      </div>
+      <div class="sample-body">
+        <span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span>
+        <a href="samples/creator-science-pat-flynn-matt-gartland.md">View the pack</a>
+      </div>
+    </div>
+
+    <div class="sample reveal">
+      <div class="sample-head">
+        <div class="show">Lenny's Podcast</div>
+        <h3>Marc Benioff on the Beginner's Mindset</h3>
+        <p>The Salesforce CEO on Steve Jobs, AI agents, and leading with curiosity.</p>
+      </div>
+      <div class="sample-body">
+        <span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span>
+        <a href="samples/lennys-podcast-marc-benioff.md">View the pack</a>
+      </div>
+    </div>
+
+    <div class="sample reveal">
+      <div class="sample-head">
+        <div class="show">The Knowledge Project</div>
+        <h3>Matt Mullenweg: Collaboration Is Key</h3>
+        <p>The WordPress founder on open source, distributed work, and decision-making.</p>
+      </div>
+      <div class="sample-body">
+        <span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span>
+        <a href="samples/knowledge-project-matt-mullenweg-100.md">View the pack</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="pricing">
+  <div class="wrap">
+    <h2 class="section-title reveal">Pricing</h2>
+    <p class="lede reveal">Monthly retainers, cancel anytime. Every plan starts with one free episode.</p>
+    <div class="price-grid">
+      <div class="tier reveal">
+        <h3>Starter</h3>
+        <div class="price">$297</div>
+        <div class="per">per month, 4 episodes</div>
+        <ul>
+          <li>4 full repurposing packs per month</li>
+          <li>SEO show notes with chapters</li>
+          <li>8 social posts per episode</li>
+          <li>Newsletter draft per episode</li>
+          <li>5 quote graphics copy per episode</li>
+          <li>5 business day turnaround</li>
+        </ul>
+        <a class="btn ghost" href="#contact">Start free episode</a>
+      </div>
+      <div class="tier featured reveal">
+        <div class="badge">Most popular</div>
+        <h3>Growth</h3>
+        <div class="price">$347</div>
+        <div class="per">per month, 8 episodes</div>
+        <ul>
+          <li>8 full repurposing packs per month</li>
+          <li>Everything in Starter</li>
+          <li>3 business day turnaround</li>
+          <li>Voice and tone matched to your show</li>
+          <li>Monthly content performance notes</li>
+        </ul>
+        <a class="btn" href="#contact">Start free episode</a>
+      </div>
+      <div class="tier reveal">
+        <h3>Scale</h3>
+        <div class="price">$447</div>
+        <div class="per">per month, 12 episodes</div>
+        <ul>
+          <li>12 full repurposing packs per month</li>
+          <li>Everything in Growth</li>
+          <li>48 hour priority turnaround</li>
+          <li>Quarterly content strategy call</li>
+          <li>Repurposing of guest appearances too</li>
+        </ul>
+        <a class="btn ghost" href="#contact">Start free episode</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2 class="section-title reveal">Questions</h2>
+    <div class="faq">
+      <div class="qa reveal"><h3>How does the free episode work?</h3><p>Send any episode. We build the full pack: show notes, 8 social posts, newsletter draft, quote graphics. You keep it all, whether or not you sign up. One free episode per show.</p></div>
+      <div class="qa reveal"><h3>Do I need to change how I record?</h3><p>No. Send the same audio file you already publish. MP3, WAV, or a link to the live episode all work.</p></div>
+      <div class="qa reveal"><h3>Will it sound like me?</h3><p>Yes. We study your back catalog and match your voice, your vocabulary, and your positions. Growth and Scale plans include a dedicated voice profile for your show.</p></div>
+      <div class="qa reveal"><h3>Who owns the content?</h3><p>You do, completely. Every word we produce is yours to publish, edit, or ignore.</p></div>
+      <div class="qa reveal"><h3>What if I publish less than my plan covers?</h3><p>Unused episodes roll over for one month. If you take a season break, pause the plan and pick it back up when you return.</p></div>
+      <div class="qa reveal"><h3>Can I cancel anytime?</h3><p>Yes. Monthly billing, no contracts, no cancellation calls. Quarterly plans exist for shows that want a lower rate, just ask.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-block reveal">
+    <h2>Get your free episode</h2>
+    <p>Send us one episode. We will send back the full pack within 5 business days. Keep it either way.</p>
+    <a class="btn" href="mailto:hello@orielaco.com?subject=Free%20podcast%20episode%20repurposing">Email us the episode</a>
+    <div class="email-line">Prefer to write first? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fmark">Oriela Studio</div>
+  <div>© 2026 Oriela · A part of Oriela Co</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
