@@ -3,522 +3,380 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oriela Studio: Podcast Repurposing</title>
+<title>Podcast Repurposing, Case File 027: Oriela Studio</title>
 <meta name="description" content="We turn every podcast episode into show notes, social posts, a newsletter draft, and quote graphics. Done for you, every week.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --espresso:#1d140d; --espresso2:#241a10; --card:#2a1e12;
-  --amber:#e8a33d; --amber-deep:#b97a26; --cream:#f4ecdc;
-  --cream-dim:rgba(244,236,220,.68); --cream-faint:rgba(244,236,220,.42);
-  --line:rgba(232,163,61,.20); --ease:cubic-bezier(.16,1,.3,1);
-  --slats:url("assets/walnut-slat-wall.jpg"); --foam:url("assets/acoustic-foam.jpg");
+  --paper:#ece1c8; --paper2:#e3d4b4; --ink:#211a0c; --ink-dim:rgba(33,26,12,.66);
+  --ink-faint:rgba(33,26,12,.42); --line:rgba(33,26,12,.24); --rule:rgba(96,124,168,.30);
+  --red:#9c3a24; --red-dim:rgba(156,58,36,.14); --ease:cubic-bezier(.16,1,.3,1);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --serif:Georgia,"Times New Roman",serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--espresso);color:var(--cream);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::selection{background:var(--amber);color:var(--espresso)}
+body{font-family:var(--serif);background:var(--paper);color:var(--ink);line-height:1.65;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 2.19rem,var(--rule) 2.19rem,calc(2.19rem + 1px))}
+::selection{background:var(--red);color:var(--paper)}
 a{color:inherit}
-h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.15}
-.wrap{max-width:1020px;margin:0 auto;padding:0 1.5rem}
-
-/* grain */
-.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:200;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 8s steps(10) infinite}
-@keyframes grain{0%,100%{transform:translate(0,0)}25%{transform:translate(-2%,2%)}50%{transform:translate(2%,-1%)}75%{transform:translate(-1%,-2%)}}
-
-/* real studio textures */
-.tex-walnut{background:linear-gradient(rgba(26,16,9,.80),rgba(26,16,9,.87)),var(--slats);background-size:cover;background-position:center}
-.tex-foam{background:linear-gradient(rgba(22,14,9,.84),rgba(22,14,9,.90)),var(--foam);background-size:cover;background-position:center}
-section.tex-walnut,section.tex-foam{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  box-shadow:inset 0 0 170px rgba(0,0,0,.55)}
-section .wrap,.contact-block{position:relative;z-index:1}
-
-/* tube-amp glow scrim behind headlines */
-.amp-glow{position:absolute;width:min(620px,86vw);height:300px;left:50%;top:4px;transform:translateX(-50%);
-  pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse at center,rgba(255,170,70,.17),rgba(255,170,70,0) 65%);
-  animation:ampFlick 5.5s ease-in-out infinite}
-@keyframes ampFlick{0%,100%{opacity:.82}30%{opacity:1}55%{opacity:.74}80%{opacity:.94}}
-
-/* preloader: tape threading */
-#loader{position:fixed;inset:0;z-index:1000;
-  background:linear-gradient(rgba(29,20,13,.94),rgba(29,20,13,.97)),var(--slats);background-size:cover;background-position:center;
-  display:flex;align-items:center;justify-content:center;
-  clip-path:inset(0 0 0 0);transition:clip-path 1s var(--ease)}
+/* ---- loader: dependency-free, kill-switch in separate script ---- */
+#loader{position:fixed;inset:0;z-index:1000;background:var(--paper);display:flex;align-items:center;justify-content:center;
+  clip-path:inset(0 0 0 0);transition:clip-path .9s var(--ease)}
 #loader.done{clip-path:inset(0 0 100% 0)}
 #loader.hide{display:none}
-.thread{display:flex;flex-direction:column;align-items:center;gap:1.4rem}
-.thread .reels{display:flex;align-items:center;gap:1.2rem}
-.thread .tape{width:180px;height:2px;background:var(--amber);position:relative;overflow:hidden;border-radius:2px}
-.thread .tape::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--espresso) 40%,var(--espresso) 60%,transparent);animation:thread 1.4s linear infinite}
-@keyframes thread{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-.thread .t-word{font-family:'Fraunces',serif;font-size:1.1rem;letter-spacing:.34em;text-transform:uppercase;color:var(--cream)}
-.thread .t-pct{font-family:'Fraunces',serif;font-size:.95rem;color:var(--amber);font-variant-numeric:tabular-nums}
-
-/* reels */
-.reel{width:74px;height:74px;animation:spin 9s linear infinite;flex:none}
-.deck .reel{width:96px;height:96px}
-@keyframes spin{to{transform:rotate(360deg)}}
-body.hot .reel{animation-duration:2.4s}
-
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:800;background:rgba(29,20,13,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav-in{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:1rem 2rem;min-height:64px}
-.wordmark{font-family:'Fraunces',serif;font-size:1.3rem;text-decoration:none;color:var(--cream)}
-.wordmark span{color:var(--amber);font-style:italic}
-.nav-links{display:flex;gap:1.4rem}
-.nav-links a{color:var(--cream);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:.65;transition:opacity .25s var(--ease),color .25s var(--ease)}
-.nav-links a:hover{opacity:1;color:var(--amber)}
-@media(max-width:720px){.nav-links{display:none}}
-
-/* hero */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;padding:14vh 1.5rem 4rem;position:relative;
-  background:radial-gradient(1100px 560px at 50% -8%, rgba(232,163,61,.20), transparent 60%),
-    linear-gradient(rgba(26,16,9,.78),rgba(26,16,9,.86)),var(--slats);
-  background-size:auto,cover,cover;background-position:center;
-  box-shadow:inset 0 0 190px rgba(0,0,0,.6)}
-.hero>*{position:relative;z-index:1}
-.hero>.amp-glow{z-index:0}
-.kicker{font-size:.76rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:1.4rem}
-.hero h1{font-size:clamp(2.6rem,8.5vw,4.8rem);color:var(--cream);max-width:22ch;font-weight:500;text-shadow:0 4px 34px rgba(0,0,0,.55)}
-.hero h1 em{font-style:italic;color:var(--amber)}
-.mask{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-.rl{display:block;will-change:transform}
-.hero .sub{margin-top:1.4rem;font-size:1.15rem;color:var(--cream-dim);max-width:58ch}
-.cta-row{margin-top:2.4rem;display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
-.btn{display:inline-block;cursor:pointer;border:none;border-radius:999px;padding:.95rem 2.1rem;min-height:48px;
-  background:var(--amber);color:var(--espresso);font-size:.84rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  text-decoration:none;transition:background .3s var(--ease),transform .3s var(--ease),color .3s var(--ease)}
-.btn:hover{background:var(--cream);transform:translateY(-2px)}
-.btn.ghost{background:transparent;color:var(--cream);border:2px solid rgba(232,163,61,.4)}
-.btn.ghost:hover{border-color:var(--amber);color:var(--amber);background:transparent}
-.proof{margin-top:2.4rem;font-size:.92rem;color:var(--cream-faint)}
-.proof strong{color:var(--amber)}
-
-/* tape deck: rack gear faceplate */
-.deck{margin-top:3.2rem;width:min(680px,100%);border:1px solid var(--line);border-radius:18px;
-  padding:1.6rem 1.8rem;display:flex;align-items:center;gap:1.6rem;
-  background:linear-gradient(180deg,#2b1f12,#1f150b);
-  box-shadow:0 34px 70px -20px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,236,220,.14),inset 0 0 60px rgba(0,0,0,.35)}
-.deck-mid{flex:1;min-width:0;text-align:left}
-.deck-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
-.deck-label .t{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cream-faint);font-weight:600}
-.deck-label .live{font-size:.7rem;letter-spacing:.2em;color:var(--amber);font-weight:600}
-.deck-label .live::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff5d3a;margin-right:.5rem;animation:blink 1.6s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.wave{display:flex;align-items:flex-end;gap:5px;height:64px}
-.wave span{flex:1;background:linear-gradient(to top,var(--amber-deep),var(--amber));border-radius:2px;transform-origin:bottom;animation:wave 1.6s ease-in-out infinite;min-width:4px}
-@keyframes wave{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
-.vubox{margin-top:1.1rem}
-#vumeters{width:100%;height:auto;display:block}
-@media(max-width:560px){.deck .reel{width:64px;height:64px}.deck{gap:1rem;padding:1.2rem}}
-
-/* sections */
-section{padding:5.5rem 0;position:relative}
-h2.section-title{font-size:clamp(2rem,4.8vw,2.9rem);color:var(--cream);margin-bottom:1rem;text-align:center;text-shadow:0 3px 26px rgba(0,0,0,.5)}
-h2.section-title em{font-style:italic;color:var(--amber)}
-.lede{text-align:center;color:var(--cream-dim);max-width:60ch;margin:0 auto 3rem;font-size:1.06rem}
-
-/* rack-gear cards: raised faceplates, deep shadows, top highlight */
-.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem;margin-top:1rem}
-.p-card{background:linear-gradient(180deg,#2e2114,#241a0e);border:1px solid var(--line);border-radius:16px;padding:2rem;
-  box-shadow:0 26px 50px -18px rgba(0,0,0,.6),inset 0 1px 0 rgba(244,236,220,.12),inset 0 -1px 0 rgba(0,0,0,.55);
-  transition:transform .4s var(--ease),border-color .4s var(--ease)}
-.p-card:hover{transform:translateY(-4px);border-color:rgba(232,163,61,.5)}
-.p-card .num{font-family:'Fraunces',serif;font-size:2.1rem;color:var(--amber);font-style:italic}
-.p-card h3{font-size:1.18rem;color:var(--cream);margin:.7rem 0 .5rem}
-.p-card p{font-size:.95rem;color:var(--cream-dim)}
-
-.pack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem}
-.deliver{background:linear-gradient(180deg,#2e2114,#241a0e);border:1px solid var(--line);border-radius:16px;padding:2rem 1.6rem;text-align:center;
-  box-shadow:0 26px 50px -18px rgba(0,0,0,.6),inset 0 1px 0 rgba(244,236,220,.12),inset 0 -1px 0 rgba(0,0,0,.55);
-  transition:transform .4s var(--ease),border-color .4s var(--ease)}
-.deliver:hover{transform:translateY(-4px);border-color:rgba(232,163,61,.5)}
-.deliver .icon svg{width:2.4rem;height:2.4rem;display:block;margin:0 auto}
-.deliver h3{font-size:1.12rem;color:var(--cream);margin:.8rem 0 .5rem}
-.deliver p{font-size:.93rem;color:var(--cream-dim)}
-
-/* samples */
-.sample{border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:1.6rem;position:relative;
-  background:linear-gradient(180deg,#2c2013,#221a0f);
-  box-shadow:0 26px 50px -18px rgba(0,0,0,.6),inset 0 1px 0 rgba(244,236,220,.12);
-  transition:border-color .4s var(--ease),transform .4s var(--ease)}
-.sample:hover{border-color:rgba(232,163,61,.55);transform:translateY(-3px)}
-.sample::before,.sample::after{content:"";position:absolute;top:14px;width:10px;height:10px;border-radius:50%;z-index:2;
-  background:radial-gradient(circle at 35% 30%,#d8b06a,#6b5326 60%,#2a1f10);
-  box-shadow:inset 0 1px 2px rgba(0,0,0,.8)}
-.sample::before{left:14px}.sample::after{right:14px}
-.sample-head{padding:1.7rem 1.9rem;border-bottom:1px solid var(--line)}
-.sample-head .show{font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:600}
-.sample-head h3{font-size:1.55rem;color:var(--cream);margin:.5rem 0}
-.sample-head p{font-size:.96rem;color:var(--cream-dim)}
-.sample-body{padding:1.4rem 1.9rem;display:flex;gap:.7rem;flex-wrap:wrap;align-items:center}
-.tag{font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);
-  background:rgba(232,163,61,.12);border:1px solid rgba(232,163,61,.4);padding:.38rem .85rem;border-radius:999px}
-.sample-body a{margin-left:auto;font-size:.86rem;font-weight:600;color:var(--amber);text-decoration:none;border-bottom:2px solid rgba(232,163,61,.35);transition:border-color .25s var(--ease)}
-.sample-body a:hover{border-color:var(--amber)}
-
-/* pricing */
-.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem;align-items:stretch}
-.tier{background:linear-gradient(180deg,#312314,#241a0e);border:1px solid var(--line);border-radius:18px;padding:2.4rem 1.9rem;text-align:center;
-  display:flex;flex-direction:column;position:relative;
-  box-shadow:0 30px 60px -18px rgba(0,0,0,.65),inset 0 1px 0 rgba(244,236,220,.14),inset 0 -1px 0 rgba(0,0,0,.55);
-  transition:transform .4s var(--ease),border-color .4s var(--ease)}
-.tier:hover{transform:translateY(-4px)}
-.tier::before,.tier::after{content:"";position:absolute;top:14px;width:11px;height:11px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#d8b06a,#6b5326 60%,#2a1f10);
-  box-shadow:inset 0 1px 2px rgba(0,0,0,.8),0 1px 0 rgba(244,236,220,.08)}
-.tier::before{left:16px}.tier::after{right:16px}
-.tier.featured{border:2px solid var(--amber);transform:scale(1.03);box-shadow:0 24px 60px rgba(232,163,61,.12),0 30px 60px -18px rgba(0,0,0,.65),inset 0 1px 0 rgba(244,236,220,.14)}
-.tier.featured:hover{transform:scale(1.03) translateY(-4px)}
-.tier .badge{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--amber);color:var(--espresso);
-  font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 1.1rem;border-radius:999px;white-space:nowrap}
-.tier h3{font-size:1.45rem;color:var(--cream)}
-.tier .price{font-family:'Fraunces',serif;font-size:2.7rem;color:var(--amber);margin:.9rem 0 .2rem;font-variant-numeric:tabular-nums}
-.tier .per{font-size:.86rem;color:var(--cream-faint);margin-bottom:1.5rem}
-.tier ul{list-style:none;text-align:left;margin-bottom:1.9rem;flex-grow:1}
-.tier li{font-size:.94rem;color:var(--cream-dim);padding:.45rem 0 .45rem 1.6rem;position:relative}
-.tier li::before{content:"";position:absolute;left:0;top:.72rem;width:.82rem;height:.82rem;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.6 8.7l3.7 3.7L13.4 4.3' fill='none' stroke='%23e8a33d' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain}
-.tier .btn{width:100%}
-
-/* faq */
-.faq{max-width:740px;margin:0 auto}
-.qa{border-bottom:1px solid var(--line);padding:1.4rem 0}
-.qa h3{font-size:1.14rem;color:var(--cream);margin-bottom:.45rem}
-.qa p{font-size:.96rem;color:var(--cream-dim)}
-
-/* contact */
-.contact-block{background:linear-gradient(135deg,#33220f,#241a10);border:1px solid rgba(232,163,61,.35);color:var(--cream);text-align:center;border-radius:22px;padding:4.2rem 2rem;margin:0 1.5rem;
-  box-shadow:0 30px 80px rgba(0,0,0,.4),inset 0 1px 0 rgba(244,236,220,.12)}
-.contact-block h2{font-size:clamp(1.9rem,4.6vw,2.7rem);margin-bottom:.9rem}
-.contact-block h2 em{font-style:italic;color:var(--amber)}
-.contact-block p{color:var(--cream-dim);max-width:52ch;margin:0 auto 2.2rem}
-.email-line{margin-top:1.5rem;font-size:.95rem;color:var(--cream-faint)}
-.email-line a{color:var(--amber);text-decoration:none;font-weight:600}
-
-footer{text-align:center;padding:2.6rem 1.5rem;font-size:.85rem;color:var(--cream-faint)}
-footer .fmark{font-family:'Fraunces',serif;color:var(--cream);font-size:1.05rem;margin-bottom:.3rem}
-footer .fmark span{color:var(--amber);font-style:italic}
-
-/* --- hand-made craft pass --- */
-.hand-note{font-family:'Caveat',cursive;font-weight:600;font-size:1.32rem;color:#ffcf7d;line-height:1.25;display:inline-block}
-/* studio logbook: ruled engineer rows, tape-spine labels, masking-tape corners */
-.logbook{position:relative;margin-top:1rem}
-.logbook-title{display:block;margin:0 0 1.8rem .4rem;transform:rotate(-2deg);font-size:1.5rem}
-.logbook .sample{background:
-  repeating-linear-gradient(to bottom,transparent 0,transparent 2.05rem,rgba(232,163,61,.09) 2.05rem,rgba(232,163,61,.09) calc(2.05rem + 1px)),
-  linear-gradient(180deg,#2d2113,#221a0f)}
-.logbook .sample:nth-child(3){margin-left:clamp(1.2rem,4.5vw,3.2rem)}
-.logbook .sample:nth-child(4){margin-left:clamp(.6rem,2vw,1.4rem)}
-.sample-head .show{display:inline-block;position:relative;background:#e2a94e;color:#241a10;
-  font-family:ui-monospace,SFMono-Regular,Menlo,'Courier New',monospace;font-size:.8rem;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;padding:.55rem 1.15rem;transform:rotate(-1deg);
-  box-shadow:2px 3px 0 rgba(0,0,0,.35)}
-.sample-head .show::before,.sample-head .show::after{content:"";position:absolute;width:46px;height:17px;top:-10px;
-  background:linear-gradient(105deg,rgba(240,224,182,.55),rgba(240,224,182,.32));
-  border-left:1px dashed rgba(60,40,15,.35);border-right:1px dashed rgba(60,40,15,.35)}
-.sample-head .show::before{left:10px;transform:rotate(-40deg)}
-.sample-head .show::after{right:10px;transform:rotate(40deg)}
-.logbook .sample:nth-child(3) .show{transform:rotate(1.1deg)}
-.sample .hand-note{transform:rotate(-3deg);margin-right:.6rem}
-/* fader bank: hand-drawn 3-channel strip */
-.fader-bank{margin:0 auto 3.4rem;max-width:430px;text-align:center}
-.fader-bank svg{width:min(360px,88vw);height:auto;display:block;margin:0 auto;filter:drop-shadow(0 20px 30px rgba(0,0,0,.5))}
-.fader-bank .hand-note{margin-top:.7rem;transform:rotate(-2deg)}
-/* broken tier symmetry: staggered rows, rotated featured card, coffee ring */
-@media(min-width:940px){
-  .price-grid .tier:nth-child(1){top:16px}
-  .price-grid .tier:nth-child(2){top:-10px}
-  .price-grid .tier:nth-child(3){top:28px}
-  .price-grid{margin-bottom:1rem}
+#loader .stamp{border:4px solid var(--red);color:var(--red);padding:1rem 2rem;transform:rotate(-4deg);
+  font-family:var(--mono);font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:1rem;text-align:center}
+#loader .lpct{font-family:var(--mono);font-size:.8rem;letter-spacing:.3em;color:var(--ink-faint);margin-top:1rem;text-align:center}
+/* ---- header: brief, sits high ---- */
+header.site{position:sticky;top:0;z-index:700;background:rgba(236,225,200,.94);backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);border-bottom:2px solid var(--ink)}
+.site-in{display:flex;justify-content:space-between;align-items:center;gap:1rem;max-width:1240px;margin:0 auto;
+  padding:.7rem 1.5rem;font-family:var(--mono)}
+.wordmark{font-weight:700;letter-spacing:.14em;text-decoration:none;font-size:.9rem;text-transform:uppercase}
+.wordmark b{color:var(--red)}
+.fileno{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim)}
+.site-nav{display:flex;gap:1.1rem}
+.site-nav a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--ink-dim)}
+.site-nav a:hover{color:var(--red)}
+@media(max-width:760px){.site-nav{display:none}}
+/* ---- ticker: rAF marquee, honest metrics ---- */
+.ticker{border-bottom:1px solid var(--line);overflow:hidden;background:var(--paper2)}
+.ticker-track{display:flex;gap:0;width:max-content;white-space:nowrap;padding:.55rem 0;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim)}
+.ticker-track span{padding:0 1.6rem;position:relative}
+.ticker-track span::after{content:"●";position:absolute;right:-.3rem;color:var(--red);font-size:.55rem;top:.28em}
+/* ---- dossier grid ---- */
+.dossier{display:grid;grid-template-columns:236px 1fr;max-width:1240px;margin:0 auto;align-items:start}
+/* spine nav */
+.spine{position:sticky;top:64px;padding:2.4rem 1.5rem 2.4rem 1.5rem;border-right:1px solid var(--line);min-height:calc(100vh - 64px)}
+.spine .idx{font-family:var(--mono);font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:1.2rem}
+.spine ol{list-style:none}
+.spine li{margin-bottom:.15rem}
+.spine a{display:flex;gap:.7rem;align-items:baseline;text-decoration:none;font-family:var(--mono);font-size:.74rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);padding:.5rem .4rem;border-left:2px solid transparent}
+.spine a .n{color:var(--ink-faint);font-size:.68rem}
+.spine a:hover{color:var(--red)}
+.spine a.active{color:var(--red);border-left-color:var(--red);background:var(--red-dim)}
+.spine a.active .n{color:var(--red)}
+.spine .status{margin-top:2rem;border:2px solid var(--red);color:var(--red);transform:rotate(-3deg);
+  font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  padding:.7rem .9rem;text-align:center;line-height:1.8}
+.spine .s-mail{margin-top:1.4rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--ink-dim);word-break:break-all}
+@media(max-width:900px){
+  .dossier{grid-template-columns:1fr}
+  .spine{top:56px;min-height:0;border-right:none;border-bottom:1px solid var(--line);padding:.6rem 1rem;
+    display:flex;align-items:center;gap:1rem;overflow-x:auto;background:rgba(236,225,200,.96);z-index:600}
+  .spine .idx,.spine .status,.spine .s-mail{display:none}
+  .spine ol{display:flex;gap:.4rem}
+  .spine a{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;padding:.45rem .3rem}
+  .spine a.active{border-bottom-color:var(--red);background:none}
 }
-.tier.featured.reveal.in{transform:scale(1.03) rotate(.8deg)}
-.tier.featured.reveal.in:hover{transform:scale(1.03) rotate(.8deg) translateY(-4px)}
-.price-note{position:absolute;top:-74px;left:50%;transform:translateX(-50%) rotate(-4deg);white-space:nowrap;font-size:1.45rem}
-.price-note svg{display:block;margin:.15rem auto 0;width:26px;height:34px}
-.coffee-ring{position:absolute;top:-30px;right:-16px;width:118px;height:118px;transform:rotate(14deg);pointer-events:none;z-index:3}
-
-/* reveals */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.reveal.in{opacity:1;transform:none}
-
+/* case file column */
+.casefile{padding:0 0 2rem;position:relative}
+.casefile::before{content:"";position:absolute;top:0;bottom:0;left:0;width:1px;background:var(--red);opacity:.5}
+.entry{padding:3.4rem 2rem 3.4rem 2.6rem;border-bottom:1px solid var(--line);max-width:920px}
+@media(max-width:600px){.entry{padding:2.6rem 1.2rem 2.6rem 1.4rem}}
+.meta{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:.6rem 0;margin-bottom:1.8rem;
+  display:flex;flex-wrap:wrap;gap:.4rem 1.4rem}
+.meta b{color:var(--red);font-weight:700}
+h1,h2{font-weight:400;line-height:1.12;letter-spacing:-.01em}
+.mask{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.rl{display:block;will-change:transform}
+.stamp-tag{display:inline-block;border:2px solid var(--red);color:var(--red);transform:rotate(-2deg);
+  font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;
+  padding:.5rem 1rem;margin-bottom:1.4rem}
+/* brief (hero), compact and high */
+#brief{padding-top:6vh;min-height:0}
+#brief .kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:1.4rem;font-weight:700}
+#brief h1{font-size:clamp(2.4rem,6.4vw,4.2rem);max-width:18ch;margin-bottom:1.4rem}
+#brief h1 em{font-style:italic;color:var(--red)}
+#brief .sub{font-size:1.12rem;color:var(--ink-dim);max-width:56ch;margin-bottom:2.2rem;font-style:italic}
+.cta-row{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:2rem}
+.btn{display:inline-block;cursor:pointer;border:2px solid var(--ink);padding:.85rem 1.9rem;min-height:48px;
+  background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.76rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:background .3s var(--ease),color .3s var(--ease)}
+.btn:hover{background:var(--red);border-color:var(--red)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.proof{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink-dim)}
+.proof strong{color:var(--red)}
+.filemeta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:2px solid var(--ink);margin:2.4rem 0 0}
+.filemeta div{padding:.9rem 1.1rem;border-right:1px solid var(--line)}
+.filemeta div:last-child{border-right:none}
+.filemeta .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.3rem}
+.filemeta .v{font-family:var(--mono);font-size:.84rem;font-weight:700;letter-spacing:.04em}
+/* entry titles */
+.entry h2{font-size:clamp(1.9rem,4.2vw,2.7rem);margin-bottom:1rem}
+.entry h2 em{font-style:italic;color:var(--red)}
+.lede{color:var(--ink-dim);font-style:italic;font-size:1.08rem;max-width:58ch;margin-bottom:2.4rem}
+/* numbered sub-entries */
+.subentry{display:grid;grid-template-columns:64px 1fr;gap:1.2rem;padding:1.6rem 0;border-top:1px solid var(--line)}
+.subentry .n{font-family:var(--mono);font-weight:700;color:var(--red);font-size:1rem;letter-spacing:.08em}
+.subentry h3{font-size:1.25rem;margin-bottom:.4rem}
+.subentry p{color:var(--ink-dim);font-size:.98rem}
+/* evidence: sticky stacking cards */
+.evidence-stack{position:relative}
+.exhibit{position:sticky;top:calc(150px + var(--i) * 22px);background:var(--paper);
+  border:2px solid var(--ink);margin-bottom:2.2rem;box-shadow:8px 8px 0 rgba(33,26,12,.18)}
+.exhibit .tape{height:26px;background:repeating-linear-gradient(45deg,rgba(156,58,36,.22) 0 12px,rgba(156,58,36,.10) 12px 24px);border-bottom:2px solid var(--ink)}
+.exhibit-in{padding:1.8rem 2rem 2rem}
+.exhibit .exno{font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:.6rem}
+.exhibit .show{font-family:var(--mono);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);font-weight:700}
+.exhibit h3{font-size:1.6rem;margin:.5rem 0 .6rem}
+.exhibit p{color:var(--ink-dim);font-size:.98rem;max-width:56ch}
+.exhibit .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.exhibit .tag{font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--ink);padding:.35rem .8rem;background:var(--paper2)}
+.exhibit .enote{font-family:var(--mono);font-size:.72rem;color:var(--red);letter-spacing:.06em;margin-top:1rem}
+.exhibit .view{display:inline-block;margin-top:1.1rem;font-family:var(--mono);font-size:.76rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--red);text-decoration:none;border-bottom:2px solid var(--red)}
+.exhibit .view:hover{color:var(--ink);border-color:var(--ink)}
+/* pricing: raw comparison table */
+.table-scroll{overflow-x:auto;border:2px solid var(--ink)}
+table.rates{width:100%;border-collapse:collapse;min-width:640px;background:var(--paper)}
+table.rates th,table.rates td{border:1px solid var(--line);padding:.9rem 1rem;text-align:left;font-size:.92rem;vertical-align:top}
+table.rates thead th{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.74rem;
+  letter-spacing:.14em;text-transform:uppercase;border-color:var(--ink)}
+table.rates thead th .p{display:block;font-size:1.35rem;margin-top:.35rem;letter-spacing:.02em;color:#f0d9a8}
+table.rates tbody th{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:700;background:var(--paper2)}
+table.rates td{text-align:center;font-family:var(--mono);font-size:.86rem}
+table.rates td.yes{color:var(--red);font-weight:700;font-size:1rem}
+table.rates td.no{color:var(--ink-faint)}
+table.rates tr.hl td,table.rates tr.hl th{background:var(--red-dim)}
+th.col-hot{position:relative}
+.hotflag{display:inline-block;background:var(--red);color:var(--paper);font-size:.6rem;letter-spacing:.18em;
+  padding:.25rem .7rem;margin-top:.4rem;transform:rotate(-2deg)}
+.rate-ctas{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:1.4rem}
+.rate-ctas a{text-align:center}
+@media(max-width:640px){.rate-ctas{grid-template-columns:1fr}}
+/* faq logbook rows */
+.qa{border-top:1px solid var(--line);padding:1.4rem 0;display:grid;grid-template-columns:56px 1fr;gap:1.1rem}
+.qa:last-child{border-bottom:1px solid var(--line)}
+.qa .qn{font-family:var(--mono);font-weight:700;color:var(--red);font-size:.95rem}
+.qa h3{font-size:1.14rem;margin-bottom:.35rem}
+.qa p{font-size:.96rem;color:var(--ink-dim)}
+/* contact entry */
+#contact .big{font-size:clamp(2rem,4.6vw,3rem);margin-bottom:1rem}
+#contact .big em{font-style:italic;color:var(--red)}
+#contact p.cp{color:var(--ink-dim);max-width:52ch;margin-bottom:2rem;font-style:italic}
+.email-line{margin-top:1.4rem;font-family:var(--mono);font-size:.82rem;color:var(--ink-dim)}
+.email-line a{color:var(--red);font-weight:700;text-decoration:none}
+footer.site{border-top:2px solid var(--ink);padding:2.2rem 1.5rem;text-align:center;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
+footer.site .fmark{font-family:var(--serif);font-size:1.15rem;letter-spacing:0;text-transform:none;color:var(--ink);margin-bottom:.5rem}
+footer.site .fmark b{color:var(--red);font-style:italic}
+/* declarative animation registry states */
+[data-anim="wipe"]{clip-path:inset(0 0 100% 0);transition:clip-path 1s var(--ease)}
+[data-anim="wipe"].on{clip-path:inset(0 0 -5% 0)}
+[data-anim="rise"]{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+[data-anim="rise"].on{opacity:1;transform:none}
+[data-anim="stamp"]{opacity:0;transform:scale(1.6) rotate(-10deg);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+[data-anim="stamp"].on{opacity:1;transform:scale(1) rotate(-2deg)}
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
-  html{scroll-behavior:auto}
-  .reveal{opacity:1;transform:none;transition:none}
-  .reel,.wave span,.grain,.thread .tape::after,.deck-label .live::before,.amp-glow{animation:none}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  [data-anim]{opacity:1!important;transform:none!important;clip-path:none!important}
   #loader{transition:none}
 }
 </style>
-<noscript><style>#loader{display:none}.reveal{opacity:1;transform:none}</style></noscript>
+<noscript><style>#loader{display:none}[data-anim]{opacity:1;transform:none;clip-path:none}.rl{transform:none}</style></noscript>
 </head>
 <body>
 
-<div class="grain" aria-hidden="true"></div>
-
 <div id="loader" role="status" aria-label="Loading">
-  <div class="thread">
-    <div class="reels">
-      <svg class="reel" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#e8a33d" stroke-width="4"/><circle cx="60" cy="60" r="40" fill="none" stroke="rgba(232,163,61,.35)" stroke-width="2"/><g stroke="#e8a33d" stroke-width="10" stroke-linecap="round"><line x1="60" y1="60" x2="60" y2="24"/><line x1="60" y1="60" x2="91" y2="78"/><line x1="60" y1="60" x2="29" y2="78"/></g><circle cx="60" cy="60" r="10" fill="#e8a33d"/></svg>
-      <div class="tape" aria-hidden="true"></div>
-      <svg class="reel" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#e8a33d" stroke-width="4"/><circle cx="60" cy="60" r="40" fill="none" stroke="rgba(232,163,61,.35)" stroke-width="2"/><g stroke="#e8a33d" stroke-width="10" stroke-linecap="round"><line x1="60" y1="60" x2="60" y2="24"/><line x1="60" y1="60" x2="91" y2="78"/><line x1="60" y1="60" x2="29" y2="78"/></g><circle cx="60" cy="60" r="10" fill="#e8a33d"/></svg>
-    </div>
-    <div class="t-word">Threading tape</div>
-    <div class="t-pct" id="loadPct">0%</div>
+  <div>
+    <div class="stamp">Case file 027</div>
+    <div class="lpct" id="loadPct">FILING 0%</div>
   </div>
 </div>
 
-<nav>
-  <div class="nav-in">
-    <a class="wordmark" href="#top">Oriela <span>Studio</span></a>
-    <div class="nav-links">
-      <a href="#includes">Includes</a>
-      <a href="#samples">Samples</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero" id="top">
-  <div class="amp-glow" aria-hidden="true"></div>
-  <div class="kicker">Oriela Studio: Podcast Repurposing</div>
-  <h1>
-    <span class="mask"><span class="rl">One episode in.</span></span>
-    <span class="mask"><span class="rl"><em>A week of content</em> out.</span></span>
-  </h1>
-  <p class="sub">You record the episode. We turn it into SEO show notes, social posts, a newsletter draft, and quote graphics. Every episode, every week, done for you.</p>
-  <div class="cta-row">
-    <a class="btn" href="#contact">Get a free episode</a>
-    <a class="btn ghost" href="#samples">See sample packs</a>
-  </div>
-  <p class="proof"><strong>First episode free.</strong> Keep the full pack either way. No risk, no pitch deck, just the work.</p>
-
-  <div class="deck reveal">
-    <svg class="reel" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#e8a33d" stroke-width="4"/><circle cx="60" cy="60" r="40" fill="none" stroke="rgba(232,163,61,.35)" stroke-width="2"/><g stroke="#e8a33d" stroke-width="10" stroke-linecap="round"><line x1="60" y1="60" x2="60" y2="24"/><line x1="60" y1="60" x2="91" y2="78"/><line x1="60" y1="60" x2="29" y2="78"/></g><circle cx="60" cy="60" r="10" fill="#e8a33d"/></svg>
-    <div class="deck-mid">
-      <div class="deck-label"><span class="t">Studio B: Repurposing</span><span class="live">REC</span></div>
-      <div class="wave" id="wave" aria-hidden="true"></div>
-      <div class="vubox" aria-hidden="true"><canvas id="vumeters" width="640" height="240"></canvas></div>
-    </div>
-    <svg class="reel" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#e8a33d" stroke-width="4"/><circle cx="60" cy="60" r="40" fill="none" stroke="rgba(232,163,61,.35)" stroke-width="2"/><g stroke="#e8a33d" stroke-width="10" stroke-linecap="round"><line x1="60" y1="60" x2="60" y2="24"/><line x1="60" y1="60" x2="91" y2="78"/><line x1="60" y1="60" x2="29" y2="78"/></g><circle cx="60" cy="60" r="10" fill="#e8a33d"/></svg>
+<header class="site">
+  <div class="site-in">
+    <a class="wordmark" href="#brief">Oriela <b>Studio</b></a>
+    <div class="fileno">Case file 027 / Podcast repurposing</div>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="#problem">Problem</a><a href="#system">System</a><a href="#evidence">Evidence</a>
+      <a href="#rates">Rates</a><a href="#notes">Notes</a><a href="#contact">Contact</a>
+    </nav>
   </div>
 </header>
 
-<section id="problem" class="tex-foam">
-  <div class="amp-glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <h2 class="section-title"><span class="mask"><span class="rl">The episode is <em>10%</em></span></span><span class="mask"><span class="rl">of the work</span></span></h2>
-    <p class="lede reveal">Recording is the fun part. Everything after is the grind that never gets done.</p>
-    <div class="problem-grid">
-      <div class="p-card reveal"><div class="num">01</div><h3>Show notes never ship</h3><p>Your episode goes live with two sentences of description. Google never finds it. New listeners never discover it.</p></div>
-      <div class="p-card reveal"><div class="num">02</div><h3>Social goes quiet</h3><p>You post the link once, maybe a quote. The episode's best moments never become posts, clips, or threads.</p></div>
-      <div class="p-card reveal"><div class="num">03</div><h3>The newsletter starves</h3><p>Your list is your most valuable channel and it gets nothing, because turning an hour of audio into an issue takes half a day.</p></div>
-    </div>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span>8 social posts per episode</span><span>5 business day turnaround</span>
+    <span>SEO show notes with chapters</span><span>Newsletter draft per episode</span>
+    <span>5 quote graphics per episode</span><span>4, 8, or 12 episodes per month</span>
+    <span>48 hour priority on Scale</span><span>First episode free</span>
+    <span>Cancel anytime</span><span>3 sample packs on file</span>
   </div>
-</section>
+</div>
 
-<section class="tex-walnut" id="includes">
-  <div class="amp-glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <h2 class="section-title"><span class="mask"><span class="rl">What you get</span></span><span class="mask"><span class="rl"><em>per episode</em></span></span></h2>
-    <p class="lede reveal">One finished pack, delivered within 5 business days of your audio landing in our inbox.</p>
-    <div class="fader-bank reveal" aria-hidden="true">
-      <svg viewBox="0 0 360 170">
-        <defs>
-          <radialGradient id="fbrass" cx="35%" cy="30%" r="85%">
-            <stop offset="0" stop-color="#e9c887"/><stop offset="60%" stop-color="#8a6428"/><stop offset="100%" stop-color="#3a2a12"/>
-          </radialGradient>
-        </defs>
-        <rect x="8" y="8" width="344" height="154" rx="14" fill="#231a0f" stroke="#e8a33d" stroke-opacity=".32" stroke-width="1.5"/>
-        <circle cx="30" cy="30" r="7" fill="url(#fbrass)"/><path d="M26.5 30h7" stroke="#241a10" stroke-width="1.8" stroke-linecap="round" transform="rotate(24 30 30)"/>
-        <circle cx="330" cy="30" r="7" fill="url(#fbrass)"/><path d="M326.5 30h7" stroke="#241a10" stroke-width="1.8" stroke-linecap="round" transform="rotate(-38 330 30)"/>
-        <circle cx="30" cy="140" r="7" fill="url(#fbrass)"/><path d="M26.5 140h7" stroke="#241a10" stroke-width="1.8" stroke-linecap="round" transform="rotate(64 30 140)"/>
-        <circle cx="330" cy="140" r="7" fill="url(#fbrass)"/><path d="M326.5 140h7" stroke="#241a10" stroke-width="1.8" stroke-linecap="round" transform="rotate(-12 330 140)"/>
-        <text x="100" y="30" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" letter-spacing="2.5" fill="#f4ecdc" opacity=".55">EP</text>
-        <text x="180" y="30" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" letter-spacing="2.5" fill="#f4ecdc" opacity=".55">SOC</text>
-        <text x="260" y="30" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" letter-spacing="2.5" fill="#f4ecdc" opacity=".55">NL</text>
-        <g stroke="#0d0803" stroke-width="7" stroke-linecap="round" fill="none">
-          <path d="M99.6 46 C100.6 72 99.2 100 100.3 130"/>
-          <path d="M180.4 46 C179.5 72 180.8 100 179.7 130"/>
-          <path d="M259.7 46 C260.7 72 259.4 100 260.2 130"/>
-        </g>
-        <g stroke="#e8a33d" stroke-width="1.4" opacity=".4" fill="none">
-          <path d="M99.6 46 C100.6 72 99.2 100 100.3 130"/>
-          <path d="M180.4 46 C179.5 72 180.8 100 179.7 130"/>
-          <path d="M259.7 46 C260.7 72 259.4 100 260.2 130"/>
-        </g>
-        <g stroke="#f4ecdc" stroke-width="1.4" opacity=".38">
-          <path d="M88 52h7.5M104.5 52h7.5M168 52h7.5M184.5 52h7.5M248 52h7.5M264.5 52h7.5"/>
-          <path d="M88.5 70h7M105 70h7M168.5 70h7M185 70h7M248.5 70h7M265 70h7"/>
-          <path d="M88 88h7.5M104.5 88h7.5M168 88h7.5M184.5 88h7.5M248 88h7.5M264.5 88h7.5"/>
-          <path d="M88.5 106h7M105 106h7M168.5 106h7M185 106h7M248.5 106h7M265 106h7"/>
-          <path d="M88 124h7.5M104.5 124h7.5M168 124h7.5M184.5 124h7.5M248 124h7.5M264.5 124h7.5"/>
-        </g>
-        <g transform="rotate(-2.5 100 92)">
-          <rect x="82" y="84" width="36" height="16" rx="3.5" fill="#f4ecdc" opacity=".94"/>
-          <line x1="82" y1="92" x2="118" y2="92" stroke="#b97a26" stroke-width="2.6"/>
-        </g>
-        <g transform="rotate(1.8 180 74)">
-          <rect x="163" y="66" width="34" height="16" rx="3.5" fill="#f4ecdc" opacity=".94"/>
-          <line x1="163" y1="74" x2="197" y2="74" stroke="#b97a26" stroke-width="2.6"/>
-        </g>
-        <g transform="rotate(-1.2 260 106)">
-          <rect x="241.5" y="98" width="37" height="16" rx="3.5" fill="#f4ecdc" opacity=".94"/>
-          <line x1="241.5" y1="106" x2="278.5" y2="106" stroke="#b97a26" stroke-width="2.6"/>
-        </g>
-        <circle cx="100" cy="144" r="2.8" fill="#e8a33d"/>
-        <circle cx="180" cy="144" r="2.8" fill="#e8a33d" opacity=".35"/>
-        <circle cx="260" cy="144" r="2.8" fill="#e8a33d" opacity=".35"/>
-      </svg>
-      <div class="hand-note">levels, roughly</div>
-    </div>
-    <div class="pack-grid">
-      <div class="deliver reveal"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-2.5 24 24)"><path d="M12.5 7.5h18.5l6.5 6.5v26.5h-25z"/><path d="M31 7.5v6.5h6.5"/><path d="M17.5 19c5-1.2 9.5 .4 14-.4"/><path d="M17.5 25c4.2-1 8.6 .4 12.4-.2"/><path d="M17.5 31c5.5-.6 8 .6 11.5-.2"/></g></svg></div><h3>SEO show notes</h3><p>Title, summary, timestamped chapters, and 3 key takeaways, written to rank.</p></div>
-      <div class="deliver reveal"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(3 24 24)"><path d="M12.5 19.5h14.5l10-6.8v21.6l-10-6.8H12.5z"/><path d="M18.5 28.5v6c0 2.2 1.6 3.6 3.8 3.6h3.2"/><path d="M40.5 15.5c2.8 2.6 2.8 13.4 0 16"/><path d="M43.5 11.5c4.4 4.6 4.4 19.4 0 24"/></g></svg></div><h3>8 social posts</h3><p>Hooks, quote posts, and takeaway threads, ready to paste into X, LinkedIn, and Instagram.</p></div>
-      <div class="deliver reveal"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(1.5 24 24)"><rect x="8" y="13.5" width="32" height="22" rx="3"/><path d="M9 16.5L23.8 27 39 16.8"/></g></svg></div><h3>Newsletter draft</h3><p>A 200 to 300 word issue built around the episode's core idea, with subject line.</p></div>
-      <div class="deliver reveal"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="#e8a33d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-2 24 24)"><rect x="8.5" y="9.5" width="31" height="29" rx="3"/><circle cx="17.5" cy="18.5" r="3.2"/><path d="M9.5 35.5L22 24l7.5 6.8 4.5-4L39.5 32"/></g></svg></div><h3>Quote graphics copy</h3><p>5 headline and quote pairings, ready for your designer or Canva.</p></div>
-    </div>
-  </div>
-</section>
+<div class="dossier">
+  <aside class="spine" aria-label="Case file index">
+    <div class="idx">Index</div>
+    <ol>
+      <li><a href="#brief" data-spy="brief"><span class="n">00</span> Brief</a></li>
+      <li><a href="#problem" data-spy="problem"><span class="n">01</span> The problem</a></li>
+      <li><a href="#system" data-spy="system"><span class="n">02</span> The system</a></li>
+      <li><a href="#evidence" data-spy="evidence"><span class="n">03</span> Evidence</a></li>
+      <li><a href="#rates" data-spy="rates"><span class="n">04</span> Rates</a></li>
+      <li><a href="#notes" data-spy="notes"><span class="n">05</span> Notes</a></li>
+      <li><a href="#contact" data-spy="contact"><span class="n">06</span> Contact</a></li>
+    </ol>
+    <div class="status" data-anim="stamp">Status: accepting new shows</div>
+    <div class="s-mail">hello@orielaco.com</div>
+  </aside>
 
-<section id="samples" class="tex-foam">
-  <div class="amp-glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <h2 class="section-title"><span class="mask"><span class="rl">Sample <em>packs</em></span></span></h2>
-    <p class="lede reveal">Real packs, built from real episodes. This is exactly what lands in your inbox each week.</p>
-
-    <div class="logbook">
-      <div class="hand-note logbook-title reveal">engineer's log: real packs, real episodes</div>
-
-    <div class="sample reveal">
-      <div class="sample-head">
-        <div class="show">Creator Science</div>
-        <h3>Why Pat Flynn Acquired His Agency</h3>
-        <p>Pat Flynn and Matt Gartland on the scrappy years, the two ladders, and the visionary plus integrator dynamic.</p>
+  <main class="casefile">
+    <section class="entry" id="brief">
+      <div class="meta"><span><b>Entry 00</b></span><span>Subject: The brief</span><span>Filed: Oriela Studio</span></div>
+      <div class="kicker">Oriela Studio: Podcast Repurposing</div>
+      <h1>
+        <span class="mask"><span class="rl">One episode in.</span></span>
+        <span class="mask"><span class="rl"><em>A week of content</em> out.</span></span>
+      </h1>
+      <p class="sub">You record the episode. We turn it into SEO show notes, social posts, a newsletter draft, and quote graphics. Every episode, every week, done for you.</p>
+      <div class="cta-row">
+        <a class="btn" href="#contact">Get a free episode</a>
+        <a class="btn ghost" href="#evidence">See the evidence</a>
       </div>
-      <div class="sample-body">
-        <span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span>
-        <span class="hand-note">this clip did 40k views</span>
-        <a href="samples/creator-science-pat-flynn-matt-gartland.md">View the pack</a>
+      <p class="proof"><strong>First episode free.</strong> Keep the full pack either way. No risk, no pitch deck, just the work.</p>
+      <div class="filemeta" data-anim="rise">
+        <div><div class="k">Input</div><div class="v">One episode</div></div>
+        <div><div class="k">Output</div><div class="v">4 deliverables</div></div>
+        <div><div class="k">Turnaround</div><div class="v">5 business days</div></div>
+        <div><div class="k">Cost to try</div><div class="v">$0, first pack</div></div>
       </div>
-    </div>
+    </section>
 
-    <div class="sample reveal">
-      <div class="sample-head">
-        <div class="show">Lenny's Podcast</div>
-        <h3>Marc Benioff on the Beginner's Mindset</h3>
-        <p>The Salesforce CEO on Steve Jobs, AI agents, and leading with curiosity.</p>
-      </div>
-      <div class="sample-body">
-        <span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span>
-        <a href="samples/lennys-podcast-marc-benioff.md">View the pack</a>
-      </div>
-    </div>
+    <section class="entry" id="problem">
+      <div class="meta"><span><b>Entry 01</b></span><span>Subject: The problem</span><span>Pages: 3</span></div>
+      <div class="stamp-tag" data-anim="stamp">Finding 01</div>
+      <h2 data-anim="wipe"><span class="mask"><span class="rl">The episode is <em>10%</em></span></span><span class="mask"><span class="rl">of the work</span></span></h2>
+      <p class="lede">Recording is the fun part. Everything after is the grind that never gets done.</p>
+      <div class="subentry" data-anim="rise"><div class="n">01.1</div><div><h3>Show notes never ship</h3><p>Your episode goes live with two sentences of description. Google never finds it. New listeners never discover it.</p></div></div>
+      <div class="subentry" data-anim="rise"><div class="n">01.2</div><div><h3>Social goes quiet</h3><p>You post the link once, maybe a quote. The episode's best moments never become posts, clips, or threads.</p></div></div>
+      <div class="subentry" data-anim="rise"><div class="n">01.3</div><div><h3>The newsletter starves</h3><p>Your list is your most valuable channel and it gets nothing, because turning an hour of audio into an issue takes half a day.</p></div></div>
+    </section>
 
-    <div class="sample reveal">
-      <div class="sample-head">
-        <div class="show">The Knowledge Project</div>
-        <h3>Matt Mullenweg: Collaboration Is Key</h3>
-        <p>The WordPress founder on open source, distributed work, and decision-making.</p>
-      </div>
-      <div class="sample-body">
-        <span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span>
-        <a href="samples/knowledge-project-matt-mullenweg-100.md">View the pack</a>
-      </div>
-    </div>
-    </div>
-  </div>
-</section>
+    <section class="entry" id="system">
+      <div class="meta"><span><b>Entry 02</b></span><span>Subject: The system</span><span>Deliverables per pack: 4</span></div>
+      <div class="stamp-tag" data-anim="stamp">Procedure 02</div>
+      <h2 data-anim="wipe"><span class="mask"><span class="rl">What you get</span></span><span class="mask"><span class="rl"><em>per episode</em></span></span></h2>
+      <p class="lede">One finished pack, delivered within 5 business days of your audio landing in our inbox.</p>
+      <div class="subentry" data-anim="rise"><div class="n">02.1</div><div><h3>SEO show notes</h3><p>Title, summary, timestamped chapters, and 3 key takeaways, written to rank.</p></div></div>
+      <div class="subentry" data-anim="rise"><div class="n">02.2</div><div><h3>8 social posts</h3><p>Hooks, quote posts, and takeaway threads, ready to paste into X, LinkedIn, and Instagram.</p></div></div>
+      <div class="subentry" data-anim="rise"><div class="n">02.3</div><div><h3>Newsletter draft</h3><p>A 200 to 300 word issue built around the episode's core idea, with subject line.</p></div></div>
+      <div class="subentry" data-anim="rise"><div class="n">02.4</div><div><h3>Quote graphics copy</h3><p>5 headline and quote pairings, ready for your designer or Canva.</p></div></div>
+    </section>
 
-<section class="tex-walnut" id="pricing">
-  <div class="amp-glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <h2 class="section-title"><span class="mask"><span class="rl">Pricing</span></span></h2>
-    <p class="lede reveal">Monthly retainers, cancel anytime. Every plan starts with one free episode.</p>
-    <div class="price-grid">
-      <div class="tier reveal">
-        <h3>Starter</h3>
-        <div class="price">$297</div>
-        <div class="per">per month, 4 episodes</div>
-        <ul>
-          <li>4 full repurposing packs per month</li>
-          <li>SEO show notes with chapters</li>
-          <li>8 social posts per episode</li>
-          <li>Newsletter draft per episode</li>
-          <li>5 quote graphics copy per episode</li>
-          <li>5 business day turnaround</li>
-        </ul>
+    <section class="entry" id="evidence">
+      <div class="meta"><span><b>Entry 03</b></span><span>Subject: Sample packs</span><span>Exhibits: 3</span></div>
+      <div class="stamp-tag" data-anim="stamp">Evidence 03</div>
+      <h2 data-anim="wipe"><span class="mask"><span class="rl">Sample <em>packs</em></span></span></h2>
+      <p class="lede">Real packs, built from real episodes. This is exactly what lands in your inbox each week.</p>
+      <div class="evidence-stack">
+        <article class="exhibit" style="--i:0">
+          <div class="tape"></div>
+          <div class="exhibit-in">
+            <div class="exno">Exhibit A</div>
+            <div class="show">Creator Science</div>
+            <h3>Why Pat Flynn Acquired His Agency</h3>
+            <p>Pat Flynn and Matt Gartland on the scrappy years, the two ladders, and the visionary plus integrator dynamic.</p>
+            <div class="tags"><span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span></div>
+            <div class="enote">Filed note: this clip did 40k views</div>
+            <a class="view" href="samples/creator-science-pat-flynn-matt-gartland.md">View the pack →</a>
+          </div>
+        </article>
+        <article class="exhibit" style="--i:1">
+          <div class="tape"></div>
+          <div class="exhibit-in">
+            <div class="exno">Exhibit B</div>
+            <div class="show">Lenny's Podcast</div>
+            <h3>Marc Benioff on the Beginner's Mindset</h3>
+            <p>The Salesforce CEO on Steve Jobs, AI agents, and leading with curiosity.</p>
+            <div class="tags"><span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span></div>
+            <a class="view" href="samples/lennys-podcast-marc-benioff.md">View the pack →</a>
+          </div>
+        </article>
+        <article class="exhibit" style="--i:2">
+          <div class="tape"></div>
+          <div class="exhibit-in">
+            <div class="exno">Exhibit C</div>
+            <div class="show">The Knowledge Project</div>
+            <h3>Matt Mullenweg: Collaboration Is Key</h3>
+            <p>The WordPress founder on open source, distributed work, and decision-making.</p>
+            <div class="tags"><span class="tag">Show notes</span><span class="tag">8 social posts</span><span class="tag">Newsletter</span><span class="tag">5 quote graphics</span></div>
+            <a class="view" href="samples/knowledge-project-matt-mullenweg-100.md">View the pack →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="entry" id="rates">
+      <div class="meta"><span><b>Entry 04</b></span><span>Subject: Rates</span><span>Terms: monthly, cancel anytime</span></div>
+      <div class="stamp-tag" data-anim="stamp">Schedule 04</div>
+      <h2 data-anim="wipe"><span class="mask"><span class="rl">Pricing</span></span></h2>
+      <p class="lede">Monthly retainers, cancel anytime. Every plan starts with one free episode.</p>
+      <div class="table-scroll" data-anim="rise">
+        <table class="rates">
+          <thead>
+            <tr>
+              <th scope="col">Metric</th>
+              <th scope="col">Starter<span class="p">$297/mo</span></th>
+              <th scope="col" class="col-hot">Growth<span class="p">$347/mo</span><br><span class="hotflag">Most shows land here</span></th>
+              <th scope="col">Scale<span class="p">$447/mo</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Full packs per month</th><td>4</td><td>8</td><td>12</td></tr>
+            <tr><th scope="row">SEO show notes with chapters</th><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td></tr>
+            <tr><th scope="row">8 social posts per episode</th><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td></tr>
+            <tr><th scope="row">Newsletter draft per episode</th><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td></tr>
+            <tr><th scope="row">5 quote graphics copy per episode</th><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td></tr>
+            <tr><th scope="row">Turnaround</th><td>5 business days</td><td>3 business days</td><td>48 hours, priority</td></tr>
+            <tr><th scope="row">Voice and tone matched to your show</th><td class="no">·</td><td class="yes">●</td><td class="yes">●</td></tr>
+            <tr><th scope="row">Monthly content performance notes</th><td class="no">·</td><td class="yes">●</td><td class="yes">●</td></tr>
+            <tr><th scope="row">Quarterly content strategy call</th><td class="no">·</td><td class="no">·</td><td class="yes">●</td></tr>
+            <tr class="hl"><th scope="row">Guest appearance repurposing</th><td class="no">·</td><td class="no">·</td><td class="yes">●</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rate-ctas">
         <a class="btn ghost" href="#contact">Start free episode</a>
-      </div>
-      <div class="tier featured reveal">
-        <div class="hand-note price-note" aria-hidden="true">most shows land here<svg viewBox="0 0 26 34" aria-hidden="true"><path d="M13 3 C14 12 12 20 13 27 M8.5 22.5 L13 29 L17.5 22.5" fill="none" stroke="#ffcf7d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="badge">Most popular</div>
-        <h3>Growth</h3>
-        <div class="price">$347</div>
-        <div class="per">per month, 8 episodes</div>
-        <ul>
-          <li>8 full repurposing packs per month</li>
-          <li>Everything in Starter</li>
-          <li>3 business day turnaround</li>
-          <li>Voice and tone matched to your show</li>
-          <li>Monthly content performance notes</li>
-        </ul>
         <a class="btn" href="#contact">Start free episode</a>
-      </div>
-      <div class="tier reveal">
-        <svg class="coffee-ring" viewBox="0 0 130 130" aria-hidden="true"><circle cx="65" cy="65" r="56" fill="none" stroke="#5b3a1e" stroke-width="6" opacity="0.14"/><circle cx="65" cy="65" r="49" fill="none" stroke="#5b3a1e" stroke-width="2.5" opacity="0.10"/><path d="M112 88 q10 6 8 16" stroke="#5b3a1e" stroke-width="5" fill="none" opacity="0.12" stroke-linecap="round"/></svg>
-        <h3>Scale</h3>
-        <div class="price">$447</div>
-        <div class="per">per month, 12 episodes</div>
-        <ul>
-          <li>12 full repurposing packs per month</li>
-          <li>Everything in Growth</li>
-          <li>48 hour priority turnaround</li>
-          <li>Quarterly content strategy call</li>
-          <li>Repurposing of guest appearances too</li>
-        </ul>
         <a class="btn ghost" href="#contact">Start free episode</a>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="faq">
-  <div class="amp-glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <h2 class="section-title"><span class="mask"><span class="rl">Questions</span></span></h2>
-    <div class="faq">
-      <div class="qa reveal"><h3>How does the free episode work?</h3><p>Send any episode. We build the full pack: show notes, 8 social posts, newsletter draft, quote graphics. You keep it all, whether or not you sign up. One free episode per show.</p></div>
-      <div class="qa reveal"><h3>Do I need to change how I record?</h3><p>No. Send the same audio file you already publish. MP3, WAV, or a link to the live episode all work.</p></div>
-      <div class="qa reveal"><h3>Will it sound like me?</h3><p>Yes. We study your back catalog and match your voice, your vocabulary, and your positions. Growth and Scale plans include a dedicated voice profile for your show.</p></div>
-      <div class="qa reveal"><h3>Who owns the content?</h3><p>You do, completely. Every word we produce is yours to publish, edit, or ignore.</p></div>
-      <div class="qa reveal"><h3>What if I publish less than my plan covers?</h3><p>Unused episodes roll over for one month. If you take a season break, pause the plan and pick it back up when you return.</p></div>
-      <div class="qa reveal"><h3>Can I cancel anytime?</h3><p>Yes. Monthly billing, no contracts, no cancellation calls. Quarterly plans exist for shows that want a lower rate, just ask.</p></div>
-    </div>
-  </div>
-</section>
+    <section class="entry" id="notes">
+      <div class="meta"><span><b>Entry 05</b></span><span>Subject: Notes and questions</span><span>Entries: 6</span></div>
+      <div class="stamp-tag" data-anim="stamp">Appendix 05</div>
+      <h2 data-anim="wipe"><span class="mask"><span class="rl">Questions</span></span></h2>
+      <div class="qa" data-anim="rise"><div class="qn">05.1</div><div><h3>How does the free episode work?</h3><p>Send any episode. We build the full pack: show notes, 8 social posts, newsletter draft, quote graphics. You keep it all, whether or not you sign up. One free episode per show.</p></div></div>
+      <div class="qa" data-anim="rise"><div class="qn">05.2</div><div><h3>Do I need to change how I record?</h3><p>No. Send the same audio file you already publish. MP3, WAV, or a link to the live episode all work.</p></div></div>
+      <div class="qa" data-anim="rise"><div class="qn">05.3</div><div><h3>Will it sound like me?</h3><p>Yes. We study your back catalog and match your voice, your vocabulary, and your positions. Growth and Scale plans include a dedicated voice profile for your show.</p></div></div>
+      <div class="qa" data-anim="rise"><div class="qn">05.4</div><div><h3>Who owns the content?</h3><p>You do, completely. Every word we produce is yours to publish, edit, or ignore.</p></div></div>
+      <div class="qa" data-anim="rise"><div class="qn">05.5</div><div><h3>What if I publish less than my plan covers?</h3><p>Unused episodes roll over for one month. If you take a season break, pause the plan and pick it back up when you return.</p></div></div>
+      <div class="qa" data-anim="rise"><div class="qn">05.6</div><div><h3>Can I cancel anytime?</h3><p>Yes. Monthly billing, no contracts, no cancellation calls. Quarterly plans exist for shows that want a lower rate, just ask.</p></div></div>
+    </section>
 
-<section id="contact" class="tex-walnut">
-  <div class="amp-glow" aria-hidden="true"></div>
-  <div class="contact-block reveal">
-    <h2>Get your <em>free episode</em></h2>
-    <p>Send us one episode. We will send back the full pack within 5 business days. Keep it either way.</p>
-    <a class="btn" href="mailto:hello@orielaco.com?subject=Free%20podcast%20episode%20repurposing">Email us the episode</a>
-    <div class="email-line">Prefer to write first? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></div>
-  </div>
-</section>
+    <section class="entry" id="contact">
+      <div class="meta"><span><b>Entry 06</b></span><span>Subject: Contact</span><span>Action required</span></div>
+      <div class="stamp-tag" data-anim="stamp">Filed 06</div>
+      <h2 class="big" data-anim="wipe"><span class="mask"><span class="rl">Get your <em>free episode</em></span></span></h2>
+      <p class="cp">Send us one episode. We will send back the full pack within 5 business days. Keep it either way.</p>
+      <a class="btn" href="mailto:hello@orielaco.com?subject=Free%20podcast%20episode%20repurposing">Email us the episode</a>
+      <div class="email-line">Prefer to write first? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></div>
+    </section>
+  </main>
+</div>
 
-<footer>
-  <div class="fmark">Oriela <span>Studio</span></div>
+<footer class="site">
+  <div class="fmark">Oriela <b>Studio</b></div>
   <div>© 2026 Oriela · A part of Oriela Co</div>
 </footer>
 
@@ -526,10 +384,10 @@ footer .fmark span{color:var(--amber);font-style:italic}
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
-/* Kill-switch: never trap the visitor on the loader */
+/* Kill-switch: never trap the visitor on the loader. No dependencies. */
 setTimeout(function(){
   var l = document.getElementById("loader");
-  if (l && !window.__prOpened) { l.classList.add("done"); setTimeout(function(){ l.classList.add("hide"); }, 1050); }
+  if (l && !window.__prOpened) { l.classList.add("done"); setTimeout(function(){ l.classList.add("hide"); }, 950); }
 }, 6000);
 </script>
 <script>
@@ -539,33 +397,7 @@ setTimeout(function(){
   window.scrollTo(0, 0);
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Waveform bars: pure CSS keyframes, staggered delays */
-  var wave = document.getElementById("wave");
-  if (wave && !reduceMotion) {
-    for (var i = 0; i < 24; i++) {
-      var bar = document.createElement("span");
-      bar.style.height = Math.round(22 + 62 * Math.abs(Math.sin(i * 1.7))) + "%";
-      bar.style.animationDelay = (i * 0.09).toFixed(2) + "s";
-      wave.appendChild(bar);
-    }
-  } else if (wave) {
-    for (var j = 0; j < 24; j++) {
-      var b2 = document.createElement("span");
-      b2.style.height = Math.round(22 + 62 * Math.abs(Math.sin(j * 1.7))) + "%";
-      b2.style.animation = "none";
-      b2.style.transform = "scaleY(1)";
-      wave.appendChild(b2);
-    }
-  }
-
-  /* Reels spin faster while hovering sample cards */
-  var samples = document.querySelectorAll(".sample");
-  for (var s = 0; s < samples.length; s++) {
-    samples[s].addEventListener("mouseenter", function(){ document.body.classList.add("hot"); });
-    samples[s].addEventListener("mouseleave", function(){ document.body.classList.remove("hot"); });
-  }
-
-  /* Loader: tape-threading counter, then wipe */
+  /* Loader: filing counter, then wipe. Dependency-free. */
   var opened = false, pct = 0;
   var pctEl = document.getElementById("loadPct");
   function open(){
@@ -573,38 +405,63 @@ setTimeout(function(){
     opened = true;
     window.__prOpened = true;
     var l = document.getElementById("loader");
-    if (l) {
-      l.classList.add("done");
-      setTimeout(function(){ l.classList.add("hide"); }, 1050);
-    }
+    if (l) { l.classList.add("done"); setTimeout(function(){ l.classList.add("hide"); }, 950); }
     heroIntro();
   }
   var tick = setInterval(function(){
-    pct = Math.min(100, pct + Math.ceil(Math.random() * 22));
-    if (pctEl) pctEl.textContent = pct + "%";
-    if (pct >= 100) { clearInterval(tick); setTimeout(open, 250); }
-  }, 140);
-  window.addEventListener("load", function(){ setTimeout(open, 1400); });
-  setTimeout(open, 2600);
+    pct = Math.min(100, pct + Math.ceil(Math.random() * 26));
+    if (pctEl) pctEl.textContent = "FILING " + pct + "%";
+    if (pct >= 100) { clearInterval(tick); setTimeout(open, 200); }
+  }, 120);
+  window.addEventListener("load", function(){ setTimeout(open, 1200); });
+  setTimeout(open, 2400);
 
-  /* Reveals: IntersectionObserver, expo.out curve in CSS */
+  /* Declarative animation registry: markup declares intent, this map choreographs. */
+  var registry = {
+    rise: function(el){ el.classList.add("on"); },
+    wipe: function(el){ el.classList.add("on"); },
+    stamp: function(el){ el.classList.add("on"); }
+  };
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        if (e.isIntersecting) {
+          var fn = registry[e.target.getAttribute("data-anim")];
+          if (fn) fn(e.target);
+          io.unobserve(e.target);
+        }
       });
-    }, { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    document.querySelectorAll("[data-anim]").forEach(function(el){ io.observe(el); });
   } else {
-    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+    document.querySelectorAll("[data-anim]").forEach(function(el){ el.classList.add("on"); });
   }
 
-  /* Smooth anchors (Lenis when available) */
+  /* Spine: scroll-driven active states via IntersectionObserver. */
+  var spineLinks = {};
+  document.querySelectorAll(".spine a[data-spy]").forEach(function(a){
+    spineLinks[a.getAttribute("data-spy")] = a;
+  });
+  function setActive(id){
+    Object.keys(spineLinks).forEach(function(k){
+      spineLinks[k].classList.toggle("active", k === id);
+    });
+  }
+  if ("IntersectionObserver" in window) {
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) setActive(e.target.id);
+      });
+    }, { rootMargin: "-38% 0px -55% 0px" });
+    document.querySelectorAll(".casefile .entry").forEach(function(s){ spy.observe(s); });
+  }
+
+  /* Smooth scroll: Lenis when present, anchors offset for the sticky header. */
   var lenis = null;
   var hasGsap = typeof gsap !== "undefined";
   if (hasGsap && typeof ScrollTrigger !== "undefined") gsap.registerPlugin(ScrollTrigger);
   if (typeof Lenis !== "undefined" && !reduceMotion) {
-    lenis = new Lenis({ lerp: 0.09 });
+    lenis = new Lenis({ lerp: 0.1 });
     if (hasGsap && typeof ScrollTrigger !== "undefined") {
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
@@ -619,164 +476,45 @@ setTimeout(function(){
       if (id.length > 1 && document.querySelector(id)) {
         e.preventDefault();
         var el = document.querySelector(id);
-        if (lenis) lenis.scrollTo(el, { offset: -70, duration: 1.4 });
+        if (lenis) lenis.scrollTo(el, { offset: -70, duration: 1.3 });
         else el.scrollIntoView({ behavior: "smooth" });
       }
     });
   });
 
-  /* VU METERS: stereo pair on canvas. Needles run real spring-damper physics,
-     driven by scroll velocity plus an idle wander so they feel alive.
-     Warm backlit glow under each face pulses with the level. */
+  /* Results ticker: rAF marquee, duplicates itself for a seamless loop. */
   (function(){
-    var cv = document.getElementById("vumeters");
-    if (!cv || !cv.getContext) return;
-    var vw = 640, vh = 240;
-    var dpr = Math.min(2, window.devicePixelRatio || 1);
-    cv.width = vw * dpr; cv.height = vh * dpr;
-    var c = cv.getContext("2d");
-    c.scale(dpr, dpr);
-    var meters = [
-      { x: 16, w: (vw - 48) / 2, label: "L", a: -0.7, v: 0, level: 0.2, ph: 0 },
-      { x: 32 + (vw - 48) / 2, w: (vw - 48) / 2, label: "R", a: -0.7, v: 0, level: 0.2, ph: 2.4 }
-    ];
-    var my = 14, mh = vh - 28;
-    var vuHot = 0, vuVisible = true, vuLast = performance.now();
-
-    if (lenis) { lenis.on("scroll", function(e){ vuHot = Math.min(1, Math.abs(e.velocity || 0) / 2600); }); }
-    else {
-      var ly = window.scrollY, lt = performance.now();
-      window.addEventListener("scroll", function(){
-        var n = performance.now(), y = window.scrollY, dt = Math.max(1, n - lt);
-        vuHot = Math.min(1, Math.abs((y - ly) / dt * 16) / 2600);
-        ly = y; lt = n;
-      }, { passive: true });
-    }
+    var track = document.getElementById("tickerTrack");
+    if (!track || reduceMotion) return;
+    track.innerHTML += track.innerHTML;
+    var x = 0, last = performance.now(), visible = true;
     if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function(es){ vuVisible = es[0].isIntersecting; }).observe(cv);
+      new IntersectionObserver(function(es){ visible = es[0].isIntersecting; }).observe(track);
     }
-
-    function rr(x, y, w, h, r){
-      c.beginPath();
-      c.moveTo(x + r, y);
-      c.arcTo(x + w, y, x + w, y + h, r);
-      c.arcTo(x + w, y + h, x, y + h, r);
-      c.arcTo(x, y + h, x, y, r);
-      c.arcTo(x, y, x + w, y, r);
-      c.closePath();
+    function half(){ return track.scrollWidth / 2; }
+    function step(now){
+      requestAnimationFrame(step);
+      if (!visible) { last = now; return; }
+      var dt = Math.min(0.1, (now - last) / 1000);
+      last = now;
+      x -= 42 * dt;
+      if (-x >= half()) x += half();
+      track.style.transform = "translate3d(" + x + "px,0,0)";
     }
-    function ang(f){ return -0.7 + 1.4 * f; }
-
-    function drawMeter(m){
-      var x = m.x, w = m.w;
-      var glow = c.createRadialGradient(x + w / 2, my + mh / 2, 8, x + w / 2, my + mh / 2, w * 0.72);
-      glow.addColorStop(0, "rgba(255,178,80," + (0.10 + 0.42 * m.level).toFixed(3) + ")");
-      glow.addColorStop(1, "rgba(255,178,80,0)");
-      c.fillStyle = glow;
-      c.fillRect(x - w * 0.2, my - mh * 0.15, w * 1.4, mh * 1.3);
-      var fg = c.createLinearGradient(0, my, 0, my + mh);
-      fg.addColorStop(0, "#33240f"); fg.addColorStop(1, "#191007");
-      rr(x, my, w, mh, 14); c.fillStyle = fg; c.fill();
-      c.fillStyle = "rgba(232,163,61," + (0.05 + 0.20 * m.level).toFixed(3) + ")";
-      rr(x, my, w, mh, 14); c.fill();
-      c.strokeStyle = "rgba(232,163,61,.35)"; c.lineWidth = 1;
-      rr(x, my, w, mh, 14); c.stroke();
-
-      var px = x + w / 2, py = my + mh - 30, R = w * 0.40;
-      c.beginPath();
-      c.arc(px, py, R + 10, -Math.PI / 2 + ang(0.74), -Math.PI / 2 + ang(1));
-      c.strokeStyle = "#ff5d3a"; c.lineWidth = 4; c.stroke();
-
-      var ticks = [[0, "-20"], [0.28, "-10"], [0.5, "-5"], [0.62, "-3"], [0.74, "0"], [1, "+3"]];
-      c.textAlign = "center"; c.font = "600 10px Inter, sans-serif";
-      for (var i = 0; i < ticks.length; i++) {
-        var f = ticks[i][0], a = ang(f), sn = Math.sin(a), cs = Math.cos(a);
-        var hot2 = f >= 0.74;
-        c.strokeStyle = hot2 ? "#ff8a6a" : "rgba(244,236,220,.8)";
-        c.lineWidth = hot2 ? 2.5 : 1.5;
-        c.beginPath();
-        c.moveTo(px + sn * (R - 2), py - cs * (R - 2));
-        c.lineTo(px + sn * (R + 8), py - cs * (R + 8));
-        c.stroke();
-        c.fillStyle = hot2 ? "#ff8a6a" : "rgba(244,236,220,.65)";
-        c.fillText(ticks[i][1], px + sn * (R + 20), py - cs * (R + 20) + 3);
-      }
-      c.strokeStyle = "rgba(244,236,220,.35)"; c.lineWidth = 1;
-      for (var k = 0; k <= 20; k++) {
-        var f2 = k / 20, a2 = ang(f2), s2 = Math.sin(a2), c2 = Math.cos(a2);
-        c.beginPath();
-        c.moveTo(px + s2 * (R + 3), py - c2 * (R + 3));
-        c.lineTo(px + s2 * (R + 8), py - c2 * (R + 8));
-        c.stroke();
-      }
-
-      var na = m.a, nsa = Math.sin(na), nca = Math.cos(na);
-      c.lineCap = "round";
-      c.strokeStyle = "#0e0903"; c.lineWidth = 5;
-      c.beginPath(); c.moveTo(px - nsa * 14, py + nca * 14); c.lineTo(px + nsa * (R + 4), py - nca * (R + 4)); c.stroke();
-      c.strokeStyle = "#f4ecdc"; c.lineWidth = 2.5;
-      c.beginPath(); c.moveTo(px - nsa * 14, py + nca * 14); c.lineTo(px + nsa * (R + 4), py - nca * (R + 4)); c.stroke();
-      var pg = c.createRadialGradient(px - 3, py - 3, 1, px, py, 11);
-      pg.addColorStop(0, "#e8c37a"); pg.addColorStop(1, "#7a5a22");
-      c.fillStyle = pg; c.beginPath(); c.arc(px, py, 10, 0, 6.2832); c.fill();
-      c.strokeStyle = "rgba(0,0,0,.6)"; c.lineWidth = 1.5; c.stroke();
-
-      c.fillStyle = "rgba(244,236,220,.75)"; c.font = "700 11px Inter, sans-serif";
-      c.textAlign = "left"; c.fillText(m.label, x + 12, my + 20);
-      c.textAlign = "right"; c.fillText("VU", x + w - 12, my + 20);
-    }
-
-    if (reduceMotion) {
-      for (var q = 0; q < 2; q++) { meters[q].a = -0.45; meters[q].level = 0.12; drawMeter(meters[q]); }
-      return;
-    }
-    (function vuTick(now){
-      requestAnimationFrame(vuTick);
-      if (!vuVisible) { vuLast = now; return; }
-      var dt = Math.min(0.05, Math.max(0.001, (now - vuLast) / 1000));
-      vuLast = now;
-      vuHot *= Math.exp(-2.6 * dt);
-      var t = now / 1000;
-      c.clearRect(0, 0, vw, vh);
-      for (var i = 0; i < 2; i++) {
-        var m = meters[i];
-        var wander = 0.52 + 0.26 * Math.sin(t * 1.9 + m.ph) + 0.14 * Math.sin(t * 4.7 + m.ph * 1.6);
-        var target = Math.min(1, Math.max(0.05, wander * 0.62 + vuHot * 0.62));
-        var aT = -0.7 + target * 1.4;
-        var acc = -110 * (m.a - aT) - 9 * m.v;
-        m.v += acc * dt; m.a += m.v * dt;
-        if (m.a > 0.75) { m.a = 0.75; m.v = 0; }
-        if (m.a < -0.75) { m.a = -0.75; m.v = 0; }
-        m.level += (target - m.level) * Math.min(1, dt * 6);
-        drawMeter(m);
-      }
-    })(vuLast);
+    requestAnimationFrame(step);
   })();
 
-  /* Hero masked line reveals, expo.out house ease */
+  /* Hero masked line reveals. */
   function heroIntro(){
     if (!hasGsap || reduceMotion) return;
-    gsap.set(".hero .rl", { yPercent: 112 });
-    var tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-    tl.fromTo(".hero .kicker", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9 }, 0.1)
-      .to(".hero .rl", { yPercent: 0, duration: 1.3, stagger: 0.12 }, 0.2)
-      .fromTo(".hero .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, 0.6)
-      .fromTo(".hero .cta-row", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, 0.75)
-      .fromTo(".hero .proof", { opacity: 0 }, { opacity: 1, duration: 1 }, 0.9);
+    gsap.set("#brief .rl", { yPercent: 112 });
+    gsap.timeline({ defaults: { ease: "expo.out" } })
+      .to("#brief .rl", { yPercent: 0, duration: 1.3, stagger: 0.12, delay: 0.15 })
+      .fromTo("#brief .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, "-=0.9");
   }
-
-  /* Section headline line reveals on scroll (GSAP-guarded) */
-  if (hasGsap && typeof ScrollTrigger !== "undefined" && !reduceMotion) {
-    document.querySelectorAll("section .rl").forEach(function(el){
-      gsap.set(el, { yPercent: 112 });
-      ScrollTrigger.create({
-        trigger: el, start: "top 85%", once: true,
-        onEnter: function(){ gsap.to(el, { yPercent: 0, duration: 1.3, ease: "expo.out" }); }
-      });
-    });
-  }
-
-  window.addEventListener("load", function(){ if (hasGsap && typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh(); });
+  window.addEventListener("load", function(){
+    if (hasGsap && typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+  });
 })();
 </script>
 </body>
