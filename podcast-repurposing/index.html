@@ -502,16 +502,11 @@ setTimeout(function(){
   /* Smooth scroll: Lenis when present, anchors offset for the sticky header. */
   var lenis = null;
   var hasGsap = typeof gsap !== "undefined";
-  if (hasGsap && typeof ScrollTrigger !== "undefined") gsap.registerPlugin(ScrollTrigger);
+  /* Lenis drives smooth scroll on its own rAF loop. ScrollTrigger is not used
+     on this page, so no per-scroll update wiring: keeps scrolling light. */
   if (typeof Lenis !== "undefined" && !reduceMotion) {
     lenis = new Lenis({ lerp: 0.1 });
-    if (hasGsap && typeof ScrollTrigger !== "undefined") {
-      lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
-      gsap.ticker.lagSmoothing(0);
-    } else {
-      (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
-    }
+    (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
   }
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener("click", function(e){
@@ -547,18 +542,20 @@ setTimeout(function(){
     requestAnimationFrame(step);
   })();
 
-  /* Hero masked line reveals. */
+  /* Hero masked line reveals. Backstop guarantees the final state even if
+     the timeline stalls: the headline can never sit sliced mid-reveal. */
   function heroIntro(){
     if (!hasGsap || reduceMotion) return;
     gsap.set("#brief .rl", { yPercent: 112 });
-    gsap.timeline({ defaults: { ease: "expo.out" } })
+    var tl = gsap.timeline({ defaults: { ease: "expo.out" } })
       .to("#brief .rl", { yPercent: 0, duration: 1.3, stagger: 0.12, delay: 0.15 })
       .fromTo("#brief .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, "-=0.9");
+    setTimeout(function(){
+      tl.kill();
+      gsap.set("#brief .rl", { yPercent: 0 });
+      gsap.set("#brief .sub", { opacity: 1, y: 0 });
+    }, 4000);
   }
-  window.addEventListener("load", function(){
-    if (hasGsap && typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
-  });
-
   /* Email list signup: validate, POST, confirm. Never breaks the page. */
   document.querySelectorAll(".notify-form").forEach(function(form){
     form.addEventListener("submit", function(ev){

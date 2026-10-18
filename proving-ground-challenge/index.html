@@ -38,8 +38,9 @@ section{color:var(--fg)}
 #loader .cur{display:inline-block;width:.6em;animation:blink 1s steps(2) infinite}
 @keyframes blink{50%{opacity:0}}
 /* ============ FIXED BRUTAL HEADER ============ */
-#bhead{position:fixed;top:0;left:0;right:0;z-index:500;mix-blend-mode:difference;color:#fff;
+#bhead{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(11,11,11,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;
   display:flex;align-items:center;gap:18px;padding:14px 20px;border-bottom:2px solid #fff}
+section[id]{scroll-margin-top:76px}
 #bhead .logo{font-weight:900;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:#fff;white-space:nowrap}
 #bhead .logo em{font-style:normal;background:#fff;color:#000;padding:0 6px;margin-left:6px}
 #ticker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
@@ -629,13 +630,21 @@ var THEMES={dark:"#0b0b0b",cream:"#efebe0",lime:"#c6ff00"};
 var bg=document.getElementById("bg");
 function scrubBG(){
   var seq=Array.prototype.slice.call(document.querySelectorAll("[data-theme]"));
+  var queued=false,latest=null;
+  function apply(){
+    queued=false;
+    if(latest)bg.style.background=mixc(latest.from,latest.to,latest.p);
+  }
   seq.forEach(function(s,i){
     var from=i===0?THEMES[s.getAttribute("data-theme")]:THEMES[seq[i-1].getAttribute("data-theme")];
     var to=THEMES[s.getAttribute("data-theme")];
     var o={p:i===0?1:0};
     gsap.to(o,{p:1,ease:"none",
       scrollTrigger:{trigger:s,start:i===0?"top top":"top 85%",end:"top 25%",scrub:true},
-      onUpdate:function(){bg.style.background=mixc(from,to,o.p);}});
+      onUpdate:function(){
+        latest={from:from,to:to,p:o.p};
+        if(!queued){queued=true;requestAnimationFrame(apply);}
+      }});
   });
 }
 
@@ -648,26 +657,32 @@ function slam(){
   });
 }
 
+/* ---- anchor smooth-scroll: unconditional, works with or without Lenis/GSAP ---- */
+(function(){
+  function go(id){
+    var el=id.length>1&&document.querySelector(id);
+    if(!el)return;
+    if(window.__lenis){window.__lenis.scrollTo(el,{offset:-70,duration:1.4});}
+    else{el.scrollIntoView({behavior:"smooth"});}
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click",function(e){
+      var id=a.getAttribute("href");
+      if(id.length>1&&document.querySelector(id)){e.preventDefault();go(id);}
+    });
+  });
+})();
+
 if(animOK){
   gsap.registerPlugin(ScrollTrigger);
   var lenis=null;
   if(typeof Lenis!=="undefined"){
     lenis=new Lenis({lerp:0.09});
+    window.__lenis=lenis;
     lenis.on("scroll",ScrollTrigger.update);
     gsap.ticker.add(function(t){lenis.raf(t*1000);});
     gsap.ticker.lagSmoothing(0);
   }
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener("click",function(e){
-      var id=a.getAttribute("href");
-      if(id.length>1&&document.querySelector(id)){
-        e.preventDefault();
-        var el=document.querySelector(id);
-        if(lenis)lenis.scrollTo(el,{offset:-60,duration:1.4});
-        else el.scrollIntoView({behavior:"smooth"});
-      }
-    });
-  });
   scrubBG();
   /* ---- hero chalk handprints: layered parallax, each its own rate ---- */
   document.querySelectorAll(".hp-par").forEach(function(el){

@@ -89,7 +89,7 @@ h2{font-size:clamp(2.4rem,6vw,4.4rem)}
 .vine-col{position:sticky;top:14vh;height:64vh}
 .vine{width:130px;height:100%;overflow:visible}
 .vine-leaf{color:var(--leaf)}
-.lab-steps{list-style:none;position:relative}
+.lab-steps{position:relative}
 .lab-step{padding:34px 0;border-top:1px solid rgba(244,236,220,.22)}
 .lab-step:last-child{border-bottom:1px solid rgba(244,236,220,.22)}
 .lab-step .num{font-family:Fraunces,serif;font-style:italic;font-size:1.15rem;color:var(--leaf)}
@@ -98,7 +98,7 @@ h2{font-size:clamp(2.4rem,6vw,4.4rem)}
 .is-pinned .lab-pin{min-height:100svh;display:flex;align-items:center}
 .is-pinned .lab-pin>.wrap{width:100%}
 .is-pinned .lab-steps{min-height:420px}
-.is-pinned .lab-step{position:absolute;inset:0 auto auto 0;width:100%;border-top:0;padding-top:0}
+.is-pinned .lab-step{position:relative;border-top:0;padding-top:0;min-height:340px}
 .lab-dots{display:none;gap:10px;margin-top:30px}
 .is-pinned .lab-dots{display:flex}
 .lab-dots span{width:36px;height:3px;border-radius:2px;background:rgba(244,236,220,.25);transition:background .3s}
@@ -287,23 +287,23 @@ footer .copy{font-size:.8rem;opacity:.45}
                 <g class="vine-leaf" transform="translate(100,648) rotate(32)"><use href="#leafSym" x="-35" y="-80" width="70" height="84"/></g>
               </svg>
             </div>
-            <ol class="lab-steps">
-              <li class="lab-step">
+            <div class="lab-steps">
+              <div class="lab-step">
                 <span class="num">01</span>
                 <h3>Test</h3>
                 <p>Every batch of every Proof product is sent to an independent lab before it ships. No batch skips the line.</p>
-              </li>
-              <li class="lab-step">
+              </div>
+              <div class="lab-step">
                 <span class="num">02</span>
                 <h3>Result</h3>
                 <p>The lab checks that what is inside matches the label. If a batch fails, it never ships. Simple as that.</p>
-              </li>
-              <li class="lab-step">
+              </div>
+              <div class="lab-step">
                 <span class="num">03</span>
                 <h3>Batch</h3>
                 <p>Each tub traces back to its batch test, so you can see the proof yourself instead of taking our word for it.</p>
-              </li>
-            </ol>
+              </div>
+            </div>
           </div>
           <div class="lab-dots" aria-hidden="true"><span></span><span></span><span></span></div>
         </div>
@@ -687,48 +687,63 @@ setTimeout(function(){
     });
   }
 
-  /* Pinned lab-process chapter: scroll steps through test, result, batch. */
+  /* Pinned lab-process chapter: one panel, content swaps on scroll.
+     Single source of truth (the three steps in the HTML), text always fully
+     visible, scrub is 1:1 so scrolling never feels trapped. */
   (function labPin(){
     if (reduceMotion) return;
-    if (window.innerWidth < 760) return;
     var wrap = document.querySelector(".lab-wrap");
     var steps = gsap.utils.toArray(".lab-step");
     var dots = gsap.utils.toArray(".lab-dots span");
     var path = document.getElementById("vinePath");
     var vLeaves = gsap.utils.toArray(".vine-leaf");
     if (!wrap || steps.length < 2) return;
+    var DATA = steps.map(function(s){
+      return {
+        num: s.querySelector(".num").textContent,
+        title: s.querySelector("h3").textContent,
+        body: s.querySelector("p").textContent
+      };
+    });
+    var panel = steps[0];
+    var pNum = panel.querySelector(".num"),
+        pTitle = panel.querySelector("h3"),
+        pBody = panel.querySelector("p");
+    var cur = -1;
+    function show(i){
+      if (i === cur) return;
+      cur = i;
+      pNum.textContent = DATA[i].num;
+      pTitle.textContent = DATA[i].title;
+      pBody.textContent = DATA[i].body;
+      dots.forEach(function(d, j){ d.classList.toggle("on", j === i); });
+    }
     if (window.innerWidth < 760) {
       steps.forEach(function(s){
         gsap.fromTo(s, { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 1,
           scrollTrigger: { trigger: s, start: "top 88%" } });
       });
+      if (dots.length) dots[0].classList.add("on");
       return;
     }
     wrap.classList.add("is-pinned");
+    steps.slice(1).forEach(function(s){ s.style.display = "none"; });
+    panel.setAttribute("aria-live", "polite");
     gsap.set(path, { strokeDasharray: 1, strokeDashoffset: 1 });
+    show(0);
     var tl = gsap.timeline({
-      scrollTrigger: { trigger: wrap, start: "top top", end: "+=200%", scrub: 0.8,
-        pin: true, anticipatePin: 1,
+      scrollTrigger: {
+        trigger: wrap, start: "top top", end: "+=120%",
+        pin: true, anticipatePin: 1, scrub: true,
         onUpdate: function(self){
-          var n = steps.length;
-          var idx = Math.min(n - 1, Math.floor(self.progress * n));
-          dots.forEach(function(d, i){ d.classList.toggle("on", i === idx); });
-        } }
+          show(Math.min(DATA.length - 1, Math.floor(self.progress * DATA.length)));
+        }
+      }
     });
-    tl.fromTo(steps[0], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, 0)
-      .to(steps[0], { opacity: 0, y: -30, duration: 1 }, 1.4)
-      .fromTo(steps[1], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, 1.6)
-      .to(steps[1], { opacity: 0, y: -30, duration: 1 }, 3)
-      .fromTo(steps[2], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, 3.2);
-    tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 4.4, ease: "none" }, 0);
-    /* Stage light swells as the chapter progresses through the steps */
-    var stage = document.querySelector(".stage-light");
-    if (stage) tl.fromTo(stage, { opacity: 0.45 }, { opacity: 1, duration: 4.4, ease: "none" }, 0);
+    tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 3, ease: "none" }, 0);
     vLeaves.forEach(function(g, i){
-      tl.fromTo(g, { scale: 0, transformOrigin: "50% 92%" },
-        { scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 0.5 + i * 1.55);
+      tl.fromTo(g, { scale: 0, transformOrigin: "50% 92%" }, { scale: 1, duration: 0.3, ease: "none" }, 0.4 + i * 0.9);
     });
-    if (dots.length) dots[0].classList.add("on");
   })();
 })();
 </script>
