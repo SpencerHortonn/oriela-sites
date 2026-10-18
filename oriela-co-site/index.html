@@ -349,15 +349,23 @@ setTimeout(function(){
   var prog = document.getElementById("progress");
   ScrollTrigger.create({ start: 0, end: "max", onUpdate: function(s){ prog.style.transform = "scaleX(" + s.progress + ")"; } });
 
-  /* ---------- Theme switching (chapters) ---------- */
+  /* ---------- Theme switching (deterministic: forest unless a section owns the viewport) ---------- */
   var body = document.body, cur = "forest";
   function setTheme(t){ if (t !== cur) { cur = t; body.setAttribute("data-theme", t); } }
-  document.querySelectorAll("[data-theme]").forEach(function(el){
-    ScrollTrigger.create({
-      trigger: el, start: "top 55%", end: "bottom 45%",
-      onToggle: function(s){ if (s.isActive) setTheme(el.getAttribute("data-theme")); }
-    });
-  });
+  var themeSecs = Array.prototype.slice.call(document.querySelectorAll("main [data-theme], section[data-theme]"));
+  var themeTick = false;
+  function updateTheme(){
+    themeTick = false;
+    var t = "forest", line = window.innerHeight * 0.55;
+    for (var i = 0; i < themeSecs.length; i++) {
+      if (themeSecs[i].getBoundingClientRect().top < line) t = themeSecs[i].getAttribute("data-theme");
+    }
+    setTheme(t);
+  }
+  function requestTheme(){ if (!themeTick) { themeTick = true; requestAnimationFrame(updateTheme); } }
+  window.addEventListener("scroll", requestTheme, { passive: true });
+  if (lenis) lenis.on("scroll", requestTheme);
+  updateTheme();
 
   /* ---------- Initial hidden states (JS-only, so no-JS still reads) ---------- */
   if (!reduceMotion) {
