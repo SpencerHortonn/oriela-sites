@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lantern Club. Phone-free nights with real people.</title>
-<meta name="description" content="Lantern Club: one night a month, phones go in the pouch at the door. Clay Night, Nov 5, Tyler TX. Plus Unplugged, the night in a box.">
+<meta name="description" content="Lantern Club: one night a month, phones go in the pouch at the door. Clay Night, Tyler TX, date TBA. Plus Unplugged, the night in a box.">
 <meta property="og:title" content="Lantern Club. Phone-free nights with real people.">
 <meta property="og:description" content="One night a month. Phones in the pouch. Two hours of real people.">
 <meta property="og:type" content="website">
@@ -74,6 +74,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800}
   background:var(--amber);color:#241708;transition:transform .4s var(--ease-pop),box-shadow .4s}
 .btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px -12px rgba(224,168,62,.55)}
 .btn.ghost{background:transparent;color:var(--cream);border:1px solid rgba(244,236,220,.35)}
+.notify-form{display:flex;gap:12px;align-items:center;flex-wrap:wrap;max-width:520px}
+.notify-form input[type="email"]{flex:1 1 240px;min-width:0;background:rgba(244,236,220,.07);border:1px solid rgba(244,236,220,.3);border-radius:100px;padding:15px 24px;color:var(--cream);font-size:15px;font-family:inherit}
+.notify-form input[type="email"]::placeholder{color:rgba(244,236,220,.45)}
+.notify-form input[type="email"]:focus{outline:none;border-color:var(--amber)}
+.notify-form .btn{border:none;cursor:pointer;font-family:inherit}
+.notify-done{color:var(--amber);font-weight:600;font-size:16px}
 .btn.ghost:hover{box-shadow:none;border-color:var(--amber)}
 .hero-stats{display:flex;gap:44px;margin-top:64px;flex-wrap:wrap}
 .stat b{display:block;font-family:Fraunces,serif;font-size:clamp(30px,4vw,46px);color:var(--cream)}
@@ -313,7 +319,7 @@ footer a:hover{color:var(--amber)}
     </div>
   </div>
   <div class="wrap" style="position:relative;z-index:2">
-    <p class="announce rv">Night One: <b>Clay Night</b> &middot; Nov 5 &middot; Tyler, TX &middot; <b>20 spots</b></p>
+    <p class="announce rv">Night One: <b>Clay Night</b> &middot; Tyler, TX &middot; <b>Date TBA</b></p>
     <p class="hero-eyebrow rv" style="margin-top:34px">Why this exists</p>
     <h1 class="h1" aria-label="Real nights. No phones.">
       <span class="mask"><span class="line">Real nights.</span></span>
@@ -370,25 +376,24 @@ footer a:hover{color:var(--amber)}
 <section class="block wood-warm" id="event">
   <div class="wrap">
     <div class="sec-head">
-      <p class="kicker">Night One &middot; November 5, 2026</p>
+      <p class="kicker">Night One &middot; Date to be announced</p>
       <h2 class="st"><span class="wipe"><span>Clay Night.</span></span> <span class="wipe"><span><em>The first one.</em></span></span></h2>
     </div>
     <div class="event rv">
       <div class="glow" aria-hidden="true"></div>
-      <p class="kicker" style="color:var(--gold)">Thursday, Nov 5 &middot; Tyler, Texas</p>
+      <p class="kicker" style="color:var(--gold)">Tyler, Texas &middot; Date announced soon</p>
       <h3>Air-dry clay, good music, <em>and strangers who won't be strangers by 9 PM.</em></h3>
       <ul>
-        <li><b>When</b> Doors 6:30 PM, program 7 to 9 PM</li>
         <li><b>Where</b> Tyler, Texas (venue announced soon)</li>
         <li><b>What</b> Clay, tools, conversation cards, snacks, music</li>
         <li><b>Bring</b> Just yourself. Wear something clay-safe.</li>
       </ul>
-      <div class="price-row">
-        <div class="price">$10<small>per ticket</small></div>
-        <div class="spots">20 spots</div>
-      </div>
-      <p style="color:rgba(244,236,220,.65);font-size:15px;margin-bottom:28px;max-width:520px">Covers clay, tools, and snacks. Non-refundable, but you can transfer yours to a friend. When they're gone, they're gone.</p>
-      <a class="btn" href="mailto:hello@orielaco.com?subject=Night%20One%20ticket">Reserve my spot</a>
+      <p style="color:rgba(244,236,220,.65);font-size:15px;margin-bottom:28px;max-width:520px">The date isn't set yet. Join the list and you'll hear the moment tickets open.</p>
+      <form class="notify-form" data-site="lantern">
+        <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+        <button class="btn" type="submit">Notify me</button>
+      </form>
+      <p class="notify-done" hidden>You're on the list. We'll write when the date drops.</p>
     </div>
   </div>
 </section>
@@ -399,7 +404,7 @@ footer a:hover{color:var(--amber)}
     <div class="sec-head">
       <p class="kicker">A Lantern Club product</p>
       <h2 class="st"><span class="wipe"><span>Can't make it to a night?</span></span><span class="wipe"><span><em>Bring one home.</em></span></span></h2>
-      <p class="lede">Unplugged is the night in a box. The same pouch, the same conversation cards, the same candle we use at our nights, shipped to your door. Host your own phone-free evening wherever you are.</p>
+      <p class="lede">Unplugged is the night in a box. The same pouch, the same conversation cards, the same candle from our nights, shipped to your door. Run your own phone-free evening at your own table. Official Lantern Club nights are hosted by trained Lantern hosts, and hosting means something: it is earned, not claimed.</p>
     </div>
     <div class="prod-grid">
       <div class="kit rv">
@@ -718,6 +723,29 @@ setTimeout(function(){
   });
 
   window.addEventListener("load", function(){ ScrollTrigger.refresh(); });
+
+  /* Email list signup: validate, POST, confirm. Never breaks the page. */
+  var MAIL_ENDPOINT = "https://oriela-mail.spencerhorton28.workers.dev/api/join";
+  document.querySelectorAll(".notify-form").forEach(function(form){
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var input = form.querySelector('input[type="email"]');
+      var email = (input.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.focus(); return; }
+      var btn = form.querySelector('[type="submit"]');
+      if (btn) btn.disabled = true;
+      try {
+        fetch(MAIL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ site: form.getAttribute("data-site") || "lantern", email: email })
+        }).catch(function(){});
+      } catch (e) {}
+      var done = form.parentElement.querySelector(".notify-done");
+      form.style.display = "none";
+      if (done) done.hidden = false;
+    });
+  });
 })();
 </script>
 </body>
