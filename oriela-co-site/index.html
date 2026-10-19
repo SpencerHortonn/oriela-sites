@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oriela Co. We build what matters.</title>
-<meta name="description" content="Oriela Co is a holding company for ventures with craft and grit: Lantern Club, Proving Ground, Oriela Studio, Hearth, Half Frame.">
+<meta name="description" content="Oriela Co is a holding company for ventures with craft and grit: Lantern Club, Proving Ground, Oriela Studio, Hearth, Half Frame, Proof.">
 <meta property="og:title" content="Oriela Co. We build what matters.">
 <meta property="og:description" content="A holding company for ventures with craft and grit.">
 <meta property="og:type" content="website">
@@ -180,7 +180,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
       <span class="mask"><span class="line">We build</span></span>
       <span class="cycle-wrap"><span id="cycler">companies.</span></span>
     </h1>
-    <p class="hero-sub rv">I'm Spencer. I'm 18. No funding, no office, no car. Five live businesses, all built by hand in Texas. This is the holding company.</p>
+    <p class="hero-sub rv">I'm Spencer. I'm 18. No funding, no office, no car. Six live businesses, all built by hand in Texas. This is the holding company.</p>
     <div class="hero-cta rv">
       <a class="btn" href="#businesses">See the businesses</a>
       <a class="btn ghost" href="mailto:hello@orielaco.com">Say hello</a>
@@ -207,9 +207,6 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
       <div class="sec-head">
         <p class="kicker">The portfolio</p>
         <h2 class="st"><span class="hl"></span>Six chapters, one journey.</h2>
-      </div>
-
-      <article class="chapter rv" data-theme="cream" data-url="https://unplugged-kit.pages.dev">
         <div class="ch-num">01</div>
         <div class="ch-body">
           <p class="ch-kicker">Phone-free nights</p>
@@ -269,6 +266,31 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
         <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
       </article>
 
+      <article class="chapter rv" data-theme="cream" data-url="https://proof-lab.pages.dev">
+        <div class="ch-num">06</div>
+        <div class="ch-body">
+          <p class="ch-kicker">Supplements</p>
+          <h3 class="ch-name"><a href="https://proof-lab.pages.dev" target="_blank" rel="noopener">Proof</a></h3>
+          <p class="ch-why">Most supplements are marketing with a label. Ours is a lab report.</p>
+          <p class="ch-desc">Lab-tested creatine, starting unflavored and uncompromising. No proprietary blends, no fillers. Proud sponsor of the <a href="https://proving-ground-6bv.pages.dev" target="_blank" rel="noopener">Proving Ground</a> challenge.</p>
+          <div class="ch-meta"><span class="ch-price">Coming 2027</span><a class="ch-link" href="https://proof-lab.pages.dev" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
+        </div>
+        <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- RIGHT NOW -->
+  <section class="block" data-theme="forest" style="padding:90px 0">
+    <div class="wrap">
+      <p class="kicker">Right now</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:36px;margin-top:28px">
+        <div class="rv"><div style="font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1">6</div><div style="color:var(--muted);font-size:14px;margin-top:8px">businesses under one roof</div></div>
+        <div class="rv"><div style="font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1">8</div><div style="color:var(--muted);font-size:14px;margin-top:8px">live sites, all hand-built</div></div>
+        <div class="rv"><div style="font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1">7</div><div style="color:var(--muted);font-size:14px;margin-top:8px">AI agents on the crew</div></div>
+        <div class="rv"><div style="font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1">1</div><div style="color:var(--muted);font-size:14px;margin-top:8px">human. That is me.</div></div>
+      </div>
     </div>
   </section>
 
@@ -442,7 +464,8 @@ setTimeout(function(){
   var ventures = [
     { w: "nights.", s: "600 normal" }, { w: "races.", s: "400 italic" },
     { w: "films.", s: "300 normal" },
-    { w: "keys.", s: "500 normal" }, { w: "apps.", s: "400 italic" }
+    { w: "keys.", s: "500 normal" }, { w: "apps.", s: "400 italic" },
+    { w: "supplements.", s: "500 italic" }
   ];
   var cycler = document.getElementById("cycler"), vi = 0, cycling = true;
   function styleCycler(v){
