@@ -185,6 +185,27 @@ footer a{color:rgba(244,236,220,.75);text-decoration:none}
 footer a:hover{color:var(--amber)}
 .rv{will-change:transform}
 
+/* ============ MOBILE ============ */
+@supports (overflow-x:clip){html,body{overflow-x:clip}}
+@media(max-width:720px){
+  .nav-in{padding:14px 0}
+  .brand{display:inline-flex;align-items:center;min-height:44px}
+  .nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+}
+@media(max-width:640px){
+  section.block{padding:76px 0}
+  .final{padding:96px 0}
+  .sec-head{margin-bottom:44px}
+  .announce{padding-top:96px}
+  .notify-form input[type="email"]{font-size:16px}
+  .event{padding:36px 22px}
+  .event li b{min-width:62px}
+  .faq-q{padding:10px 0}
+  .fcopy{padding:12px 20px 0}
+  footer a{display:inline-block;padding:8px 2px}
+  #loader .l-sub{font-size:12px;letter-spacing:.18em}
+}
+
 /* swinging lanterns: fixed to the viewport, always hanging around */
 .lanterns{position:fixed;top:0;left:0;right:0;height:100vh;pointer-events:none;z-index:700;overflow:hidden}
 .lantern{position:absolute;top:-8px;transform-origin:top center;will-change:transform}

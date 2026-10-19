@@ -208,6 +208,13 @@ footer .copy{font-size:.8rem;opacity:.45}
   .grow-leaf{width:220px}
   section{padding:15vh 0}
 }
+@supports (overflow-x:clip){html,body{overflow-x:clip}}
+@media (max-width:760px){
+  #nav .wordmark{display:inline-flex;align-items:center;min-height:44px}
+  #nav .nav-cta{padding-top:12px;padding-bottom:12px}
+  .switch-btn{padding-top:14px;padding-bottom:14px}
+  footer a{display:inline-block;padding:10px 6px}
+}
 @media (prefers-reduced-motion:reduce){
   .scroll-cue .stem,#loader .loader-leaf{animation:none}
 }

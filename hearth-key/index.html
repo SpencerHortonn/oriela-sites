@@ -166,6 +166,13 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
   nav{padding:13px 18px}
   .beat-inner{gap:40px}
 }
+@supports (overflow-x:clip){html,body{overflow-x:clip}}
+@media (max-width:640px){
+  .hero{min-height:100svh}
+  nav .wordmark{display:inline-flex;align-items:center;min-height:44px}
+  nav a.cta-small{padding-top:12px;padding-bottom:12px}
+  footer a{display:inline-block;padding:10px 6px}
+}
 @media (prefers-reduced-motion:reduce){
   #loader{display:none}
   .rv.in{transition:none}

@@ -204,6 +204,18 @@ footer{border-top:1px solid var(--line);text-align:center;padding:44px 24px 52px
 footer a{color:var(--amber);text-decoration:none}
 @media(max-width:700px){.mi-thumb{display:none}.cap{padding:28px 24px}.scroll-cue{display:none}}
 @media(prefers-reduced-motion:reduce){.reel-track{animation:none}#loader .l-bar i{animation:none}.frame,.frame-bg,.cap{transition:none}.grain{animation:none}.frames{box-shadow:none}.spot{display:none}}
+@supports (overflow-x:clip){html,body{overflow-x:clip}}
+@media(max-width:760px){
+  .wordmark{display:inline-flex;align-items:center;min-height:44px}
+}
+@media(max-width:700px){
+  .notify-form input[type="email"]{font-size:16px}
+}
+@media(max-width:480px){
+  .car-ui{gap:12px}
+  .car-hint{display:none}
+  .mi-t{font-size:clamp(24px,4.6vw,52px)}
+}
 </style>
 </head>
 <body>

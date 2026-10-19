@@ -33,6 +33,7 @@ body{
   transition:background-color .7s var(--ease), color .7s var(--ease);
   overflow-x:hidden; -webkit-font-smoothing:antialiased;
 }
+@supports (overflow-x:clip){html,body{overflow-x:clip}}
 ::selection{background:var(--accent);color:var(--bg)}
 a{color:inherit}
 .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
@@ -144,6 +145,33 @@ section.block{padding:120px 0;position:relative}
 .socials a{color:var(--muted);text-decoration:none;font-size:15px;font-weight:500;transition:color .3s var(--ease)}
 .socials a:hover{color:var(--accent)}
 footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px;transition:border-color .7s var(--ease)}
+
+/* ============ RIGHT NOW BAND ============ */
+section.block.now-band{padding:90px 0}
+.now-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:36px;margin-top:28px}
+.now-num{font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1}
+.now-label{color:var(--muted);font-size:14px;margin-top:8px}
+
+/* ============ MOBILE ============ */
+@media(max-width:768px){
+  .nav-in{padding:14px 0}
+  .brand{display:inline-flex;align-items:center;min-height:44px}
+  .nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+}
+@media(max-width:640px){
+  section.block{padding:76px 0}
+  section.block.now-band{padding:64px 0}
+  .now-grid{grid-template-columns:repeat(2,1fr);gap:30px 20px}
+  .chapter{padding:52px 0}
+  .contact{padding:88px 0 48px}
+  .sec-head{margin-bottom:44px}
+  .hero{padding:112px 0 64px}
+}
+@media(max-width:480px){
+  .h1{font-size:clamp(42px,12.6vw,52px)}
+  .ch-name{font-size:32px}
+  .hero-cta .btn{flex:1 1 auto;justify-content:center}
+}
 
 /* reveal defaults (JS enhances) */
 .rv{will-change:transform}
@@ -291,14 +319,14 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
   </section>
 
   <!-- RIGHT NOW -->
-  <section class="block" data-theme="forest" style="padding:90px 0">
+  <section class="block now-band" data-theme="forest">
     <div class="wrap">
       <p class="kicker">Right now</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:36px;margin-top:28px">
-        <div class="rv"><div style="font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1">6</div><div style="color:var(--muted);font-size:14px;margin-top:8px">businesses under one roof</div></div>
-        <div class="rv"><div style="font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1">8</div><div style="color:var(--muted);font-size:14px;margin-top:8px">live sites, all hand-built</div></div>
-        <div class="rv"><div style="font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1">7</div><div style="color:var(--muted);font-size:14px;margin-top:8px">AI agents on the crew</div></div>
-        <div class="rv"><div style="font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,5vw,68px);color:var(--accent);line-height:1">1</div><div style="color:var(--muted);font-size:14px;margin-top:8px">human. That is me.</div></div>
+      <div class="now-grid">
+        <div class="rv"><div class="now-num">6</div><div class="now-label">businesses under one roof</div></div>
+        <div class="rv"><div class="now-num">8</div><div class="now-label">live sites, all hand-built</div></div>
+        <div class="rv"><div class="now-num">7</div><div class="now-label">AI agents on the crew</div></div>
+        <div class="rv"><div class="now-num">1</div><div class="now-label">human. That is me.</div></div>
       </div>
     </div>
   </section>
