@@ -4,14 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oriela Studio | Video, Websites, Content, Automations</title>
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.png">
 <meta name="description" content="Oriela Studio is a full-service media company. Brand films, short-form video, websites that book customers, content retainers, and business automations.">
 <meta property="og:title" content="Oriela Studio | We build the media your business runs on">
 <meta property="og:type" content="website">
+<meta property="og:description" content="Video production, websites, content retainers, automations, and AI agents for small businesses.">
+<meta property="og:image" content="https://studio.orielaco.com/assets/concrete.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0d0c;--bg2:#0f1211;--cream:#f4ecdc;--dim:rgba(244,236,220,.66);--faint:rgba(244,236,220,.38);--amber:#e8a33d;--line:rgba(232,163,61,.18)}
+:root{--bg:#0b0d0c;--bg2:#0f1211;--cream:#f4ecdc;--dim:rgba(244,236,220,.66);--faint:rgba(244,236,220,.58);--amber:#e8a33d;--line:rgba(232,163,61,.18);--mut:rgba(244,236,220,.6)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{background:var(--bg)}
 html.lenis,html.lenis body{height:auto}
@@ -63,8 +68,8 @@ body.menu-open .mi:nth-child(1){transition-delay:.18s}body.menu-open .mi:nth-chi
 .menu-foot{max-width:1000px;margin:44px auto 0;font-size:14px;color:var(--faint)}
 .menu-foot a{color:var(--amber);text-decoration:none}
 /* hero: sticky pin, converging two-word headline, sticky showreel strip */
-.hero{position:relative;height:178vh}
-.hero-pin{position:sticky;top:0;height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:90px 24px 0;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#141715 0%,var(--bg) 62%)}
+.hero{position:relative}
+.hero-pin{position:relative;height:auto;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:90px 24px 0;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#141715 0%,var(--bg) 62%)}
 .hero-pin::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(115% 85% at 50% 10%,transparent 52%,rgba(0,0,0,.68) 100%)}
 /* layered volumetric spotlight: 3 stacked beams + floor pool */
 .spot{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen}
@@ -218,7 +223,7 @@ footer a{color:var(--amber);text-decoration:none}
 <a class="mi" href="#content-retainers"><span class="mi-num">04</span><span class="mi-t"><span class="mi-a">Content Retainers</span><span class="mi-b" aria-hidden="true">Content Retainers</span></span><span class="mi-thumb" style="background-image:url('assets/concrete.jpg')"></span></a>
 <a class="mi" href="#business-automations"><span class="mi-num">05</span><span class="mi-t"><span class="mi-a">Business Automations</span><span class="mi-b" aria-hidden="true">Business Automations</span></span></a>
 <a class="mi" href="#ai-agents"><span class="mi-num">06</span><span class="mi-t"><span class="mi-a">AI Agent Building</span><span class="mi-b" aria-hidden="true">AI Agent Building</span></span></a>
-<a class="mi" href="https://podcast-repurposing.pages.dev" target="_blank" rel="noopener"><span class="mi-num">07</span><span class="mi-t"><span class="mi-a">Podcast Repurposing</span><span class="mi-b" aria-hidden="true">Podcast Repurposing</span></span></a>
+<a class="mi" href="https://podcast.orielaco.com" target="_blank" rel="noopener"><span class="mi-num">07</span><span class="mi-t"><span class="mi-a">Podcast Repurposing</span><span class="mi-b" aria-hidden="true">Podcast Repurposing</span></span></a>
 <a class="mi" href="#contact"><span class="mi-num">08</span><span class="mi-t"><span class="mi-a">Contact</span><span class="mi-b" aria-hidden="true">Contact</span></span></a>
 </nav>
 <div class="menu-foot"><a href="mailto:hello@orielaco.com">hello@orielaco.com</a> · Oriela Studio, a part of Oriela Co</div>
@@ -231,7 +236,7 @@ footer a{color:var(--amber);text-decoration:none}
 <h1 class="h1"><span class="hw hw1">ORIELA</span><span class="hw hw2">STUDIO</span></h1>
 <p class="sub hero-fade">Brand films. Short-form video. Websites that book customers. Content retainers. Business automations. One studio, everything you need to be seen, trusted, and chosen.</p>
 <div class="hero-btn hero-fade"><a class="btn" href="#contact">Start a project</a></div>
-<p class="start-wrap hero-fade"><a class="start-link" href="https://podcast-repurposing.pages.dev" target="_blank" rel="noopener" title="Podcast repurposing">start here <span class="arr" aria-hidden="true">→</span></a></p>
+<p class="start-wrap hero-fade"><a class="start-link" href="https://podcast.orielaco.com" target="_blank" rel="noopener" title="Podcast repurposing">start here <span class="arr" aria-hidden="true">→</span></a></p>
 <div class="scroll-cue hero-fade">scroll</div>
 <div class="reel" aria-hidden="true">
 <div class="reel-edge"></div>
@@ -303,22 +308,22 @@ footer a{color:var(--amber);text-decoration:none}
 
 <article class="spread rv" id="video-production">
 <div class="spread-num">01</div>
-<div class="spread-body"><h3>Video Production</h3><p class="plead">Brand films, commercials, event coverage, and short-form video that actually gets watched.</p><ul><li>Brand films and company stories</li><li>Short-form: reels, TikToks, shorts</li><li>Event and conference coverage</li><li>Product and commercial spots</li></ul><div class="from">From <span>$497</span> per project</div></div>
+<div class="spread-body"><h3>Video Production</h3><p class="plead">Brand films, commercials, event coverage, and short-form video that actually gets watched.</p><ul><li>Brand films and company stories</li><li>Short-form: reels, TikToks, shorts</li><li>Event and conference coverage</li><li>Product and commercial spots</li></ul></div>
 </article>
 <div class="rule"></div>
 <article class="spread flip rv" id="websites-that-book">
 <div class="spread-num">02</div>
-<div class="spread-body"><h3>Websites That Book</h3><p class="plead">Fast, clean websites designed to turn visitors into customers. Booking and follow-up built in.</p><ul><li>Custom design, mobile-first</li><li>Online booking and scheduling</li><li>Contact forms that convert</li><li>Launch in weeks, not months</li></ul><div class="from">From <span>$1,500</span> per site</div></div>
+<div class="spread-body"><h3>Websites That Book</h3><p class="plead">Fast, clean websites designed to turn visitors into customers. Booking and follow-up built in.</p><ul><li>Custom design, mobile-first</li><li>Online booking and scheduling</li><li>Contact forms that convert</li><li>Launch in weeks, not months</li></ul></div>
 </article>
 <div class="rule"></div>
 <article class="spread rv" id="content-retainers">
 <div class="spread-num">03</div>
-<div class="spread-body"><h3>Content Retainers</h3><p class="plead">Your content, handled. Monthly short-form video, podcast repurposing, or both.</p><ul><li>Short-form video monthly</li><li><a href="#podcast">Podcast repurposing packs</a></li><li>Done for you, simple monthly plan</li><li>No long contracts</li></ul><div class="from">From <span>$297</span>/mo</div></div>
+<div class="spread-body"><h3>Content Retainers</h3><p class="plead">Your content, handled. Monthly short-form video, podcast repurposing, or both.</p><ul><li>Short-form video monthly</li><li><a href="#podcast">Podcast repurposing packs</a></li><li>Done for you, simple monthly plan</li><li>No long contracts</li></ul></div>
 </article>
 <div class="rule"></div>
 <article class="spread flip rv" id="business-automations">
 <div class="spread-num">04</div>
-<div class="spread-body"><h3>Business Automations</h3><p class="plead">Systems that save you hours every week. Running while you sleep.</p><ul><li>Missed-call text back</li><li>Booking confirmations</li><li>Review and referral automations</li><li>Lead follow-up sequences</li></ul><div class="from">From <span>$497</span> setup</div></div>
+<div class="spread-body"><h3>Business Automations</h3><p class="plead">Systems that save you hours every week. Running while you sleep.</p><ul><li>Missed-call text back</li><li>Booking confirmations</li><li>Review and referral automations</li><li>Lead follow-up sequences</li></ul></div>
 </article>
 <div class="rule"></div>
 <article class="spread rv" id="ai-agents">
@@ -330,11 +335,11 @@ footer a{color:var(--amber);text-decoration:none}
 <section class="pod-sec" id="podcast">
 <div class="sec-head"><div class="kicker">Podcast service</div><h2 class="h2 rv">Your podcast,<br><em>everywhere.</em></h2><p class="lede rv">You record the episode. Within 48 hours you get SEO show notes with chapters, 8 ready-to-post social posts, a newsletter draft, and quote graphics. First episode free. Keep the pack either way.</p></div>
 <div class="tiers">
-<div class="tier rv"><div class="tier-head"><span class="tier-num">01</span><h3>Starter</h3><div class="from">From <span>$297</span>/mo</div></div><p class="tier-sub">For shows finding their rhythm.</p><ul class="tier-list"><li>4 episodes per month</li><li>Show notes with chapters</li><li>8 social posts per episode</li><li>Newsletter draft</li></ul></div>
-<div class="tier rv"><div class="tier-head"><span class="tier-num">02</span><h3>Growth</h3><div class="from">From <span>$347</span>/mo</div></div><p class="tier-sub">For shows posting every week.</p><ul class="tier-list"><li>8 episodes per month</li><li>Everything in Starter</li><li>Quote graphics copy</li><li>Priority turnaround</li></ul></div>
-<div class="tier rv"><div class="tier-head"><span class="tier-num">03</span><h3>Scale</h3><div class="from">From <span>$447</span>/mo</div></div><p class="tier-sub">For networks and daily shows.</p><ul class="tier-list"><li>12 episodes per month</li><li>Everything in Growth</li><li>Quarterly strategy call</li><li>Dedicated turnaround slot</li></ul></div>
+<div class="tier rv"><div class="tier-head"><span class="tier-num">01</span><h3>Starter</h3></div><p class="tier-sub">For shows finding their rhythm.</p><ul class="tier-list"><li>4 episodes per month</li><li>Show notes with chapters</li><li>8 social posts per episode</li><li>Newsletter draft</li></ul></div>
+<div class="tier rv"><div class="tier-head"><span class="tier-num">02</span><h3>Growth</h3></div><p class="tier-sub">For shows posting every week.</p><ul class="tier-list"><li>8 episodes per month</li><li>Everything in Starter</li><li>Quote graphics</li><li>Priority turnaround</li></ul></div>
+<div class="tier rv"><div class="tier-head"><span class="tier-num">03</span><h3>Scale</h3></div><p class="tier-sub">For networks and daily shows.</p><ul class="tier-list"><li>12 episodes per month</li><li>Everything in Growth</li><li>Quarterly strategy call</li><li>Dedicated turnaround slot</li></ul></div>
 </div>
-<p class="center rv"><a class="btn" href="https://podcast-repurposing.pages.dev" target="_blank" rel="noopener">See samples and details</a></p>
+<p class="center rv"><a class="btn" href="https://podcast.orielaco.com" target="_blank" rel="noopener">See samples and details</a></p>
 </section>
 
 <section class="about-sec" id="about">
@@ -378,7 +383,7 @@ footer a{color:var(--amber);text-decoration:none}
 </div>
 </section>
 
-<footer><div>© 2026 Oriela Studio · A part of <a href="https://orielaco.com">Oriela Co</a></div></footer>
+<footer><div>© 2026 Oriela Studio · A part of <a href="https://orielaco.com">Oriela Co</a> · <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
@@ -386,7 +391,7 @@ footer a{color:var(--amber);text-decoration:none}
 <script>
 (function(){
 "use strict";
-/* Email list endpoint. Placeholder worker URL, swapped for the real one later. */
+/* Email list endpoint: Cloudflare Worker mailing list. */
 const MAIL_ENDPOINT = "https://oriela-mail.spencerhorton28.workers.dev/api/join";
   /* Turnstile bot protection. Inert until TURNSTILE_SITE_KEY is replaced with a real key. */
   var TURNSTILE_SITE_KEY = "__TURNSTILE_SITE_KEY__";

@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b0b0a">
-<title>Half Frame</title>
+<title>Half Frame: a film-look camera</title>
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="Half Frame: a film-look camera">
+<meta property="og:description" content="Your phone, shooting like film. 36 shots, three looks, developed overnight. Coming 2027.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://halfframe.orielaco.com/og-image.png">
 <meta name="description" content="Half Frame: a film-look camera. 36 shots, grain, halation, date stamps. Prototype.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -341,7 +347,7 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
           <div class="cell"><div class="shot s5"></div><div class="n">05</div><h3>Date stamps</h3><p>The amber date stamp, bottom right, on every single shot.</p></div>
           <div class="cell"><div class="shot s6"></div><div class="n">06</div><h3>Develop overnight</h3><p>Flip it on and your shots appear the next day. Delayed gratification.</p></div>
           <div class="cell"><div class="shot s7"></div><div class="n">07</div><h3>Light leaks</h3><p>The Disposable look burns the edges like a cracked plastic body.</p></div>
-          <div class="cell"><div class="shot s8"></div><div class="n">08</div><h3>Live viewfinder</h3><p>Shoot through the live camera, framed and graded in real time.</p></div>
+          <div class="cell"><div class="shot s8"></div><div class="n">08</div><h3>Live viewfinder</h3><p>Frame and grade through the live camera in real time. Full app.</p></div>
         </div>
       </div>
     </div>
@@ -473,6 +479,8 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
   <div class="leader-mark">END OF ROLL</div>
   <div><a class="brand" href="#camera">Half <em>Frame</em></a></div>
   <p>PROTOTYPE BUILD 0.1</p>
+  <p><a href="https://orielaco.com">orielaco.com</a> · <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></p>
+  <p class="fcopy">© 2026 Half Frame · A part of Oriela Co</p>
   <a class="rewind" href="#camera">↑ REWIND TO TOP</a>
 </footer>
 
@@ -760,23 +768,30 @@ setTimeout(function(){
 
   /* Email list signup: validate, POST, confirm. Never breaks the page. */
   document.querySelectorAll(".notify-form").forEach(function(form){
-    form.addEventListener("submit", function(ev){
+    form.addEventListener("submit", async function(ev){
       ev.preventDefault();
       var input = form.querySelector('input[type="email"]');
       var email = (input.value || "").trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.focus(); return; }
       var btn = form.querySelector('[type="submit"]');
       if (btn) btn.disabled = true;
+      var ok = false;
       try {
-        fetch(MAIL_ENDPOINT, {
+        var res = await fetch(MAIL_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ site: form.getAttribute("data-site") || "half-frame", email: email, cf_token: turnstileToken() })
-        }).catch(function(){});
-      } catch (e) {}
+        });
+        ok = !!(res && res.ok);
+      } catch (e) { ok = false; }
       var done = form.parentElement.querySelector(".notify-done");
-      form.style.display = "none";
-      if (done) done.hidden = false;
+      if (ok) {
+        form.style.display = "none";
+        if (done) done.hidden = false;
+      } else if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Try again";
+      }
     });
   });
 })();

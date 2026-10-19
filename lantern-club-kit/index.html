@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lantern Club. Phone-free nights with real people.</title>
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="Lantern Club: one night a month, phones go in the pouch at the door. Clay Night, Tyler TX, date TBA. Plus Unplugged, the night in a box.">
 <meta property="og:title" content="Lantern Club. Phone-free nights with real people.">
 <meta property="og:description" content="One night a month. Phones in the pouch. Two hours of real people.">
@@ -90,8 +93,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800}
 /* sections */
 section.block{padding:120px 0;position:relative}
 .sec-head{margin-bottom:60px}
-.h1,.st,.brand,.step h3,.event h3,.kit h3,.dcard p,.final h2,.pull,#loader .l-word,.price,.stat b{font-variation-settings:"opsz" 144,"SOFT" 55,"WONK" 1}
-.kicker{font-family:Caveat,cursive;font-size:27px;font-weight:600;letter-spacing:.02em;color:var(--rust);margin-bottom:14px}
+.h1,.st,.brand,.step h3,.event h3,.kit h3,.dcard p,.final h2,.pull,#loader .l-word,.kicker{font-family:Caveat,cursive;font-size:27px;font-weight:600;letter-spacing:.02em;color:var(--rust);margin-bottom:14px}
 .wood-dark .kicker{color:var(--gold)}
 .st{font-family:Fraunces,serif;font-weight:500;font-size:clamp(36px,5.2vw,66px);line-height:1.08;letter-spacing:-.02em}
 .st em{font-style:italic;color:var(--rust)}
@@ -133,11 +135,6 @@ section.block{padding:120px 0;position:relative}
 .event ul{list-style:none;margin:26px 0 34px;display:grid;gap:14px}
 .event li{display:flex;gap:14px;align-items:baseline;font-size:16px;color:rgba(244,236,220,.85)}
 .event li b{color:var(--gold);font-weight:600;min-width:74px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
-.price-row{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-bottom:34px}
-.price{font-family:Fraunces,serif;font-size:52px;color:var(--cream)}
-.price small{font-family:Inter;font-size:14px;color:rgba(244,236,220,.6);display:block;letter-spacing:.06em}
-.spots{font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(224,168,62,.5);padding:10px 18px;border-radius:100px}
-
 /* product */
 .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 @media(max-width:900px){.prod-grid{grid-template-columns:1fr}}
@@ -207,6 +204,7 @@ footer a:hover{color:var(--amber)}
   #loader{display:none}
 }
 </style>
+<meta property="og:image" content="https://lantern.orielaco.com/assets/linen.jpg">
 </head>
 <body>
 
@@ -405,7 +403,7 @@ footer a:hover{color:var(--amber)}
     <div class="sec-head">
       <p class="kicker">A Lantern Club product</p>
       <h2 class="st"><span class="wipe"><span>Can't make it to a night?</span></span><span class="wipe"><span><em>Bring one home.</em></span></span></h2>
-      <p class="lede">Unplugged is the night in a box. The same pouch, the same conversation cards, the same candle from our nights, shipped to your door. Run your own phone-free evening at your own table. Official Lantern Club nights are hosted by trained Lantern hosts, and hosting means something: it is earned, not claimed.</p>
+      <p class="lede">Unplugged is the night in a box. The same pouch, the same conversation cards, the same candle we will light at every night, shipped to your door. Run your own phone-free evening at your own table. Official Lantern Club nights are hosted by trained Lantern hosts, and hosting means something: it is earned, not claimed.</p>
     </div>
     <div class="prod-grid">
       <div class="kit rv">
@@ -435,7 +433,7 @@ footer a:hover{color:var(--amber)}
     <div class="sec-head">
       <p class="kicker">From the deck</p>
       <h2 class="st"><span class="wipe"><span>Fifty cards.</span></span> <span class="wipe"><span><em>Zero small talk.</em></span></span></h2>
-      <p class="lede">A few from the actual deck, the same one we use at every night. Plus 44 more. No cheesy icebreakers, we checked twice.</p>
+      <p class="lede">A few from the actual deck, the same one we will use at every night. Plus 44 more. No cheesy icebreakers, we checked twice.</p>
     </div>
     <div class="deck">
       <div class="dcard rv"><div><div class="cat">Deep</div><p>What do you want to be remembered for?</p></div><div class="num">Card 07 / 50</div></div>
@@ -480,6 +478,7 @@ footer a:hover{color:var(--amber)}
     <span>Lantern Club &middot; A part of <a href="https://orielaco.com">Oriela Co</a></span>
     <span>Questions? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></span>
   </div>
+<div class="fcopy">© 2026 Lantern Club · A part of Oriela Co</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
@@ -727,6 +726,21 @@ setTimeout(function(){
 
   /* Email list signup: validate, POST, confirm. Never breaks the page. */
   var MAIL_ENDPOINT = "https://oriela-mail.spencerhorton28.workers.dev/api/join";
+  /* Turnstile bot protection. Inert until TURNSTILE_SITE_KEY is replaced with a real key. */
+  var TURNSTILE_SITE_KEY = "__TURNSTILE_SITE_KEY__";
+  function initTurnstile(){
+    if (!TURNSTILE_SITE_KEY || TURNSTILE_SITE_KEY.indexOf("__") === 0) return;
+    if (!window.turnstile) { setTimeout(initTurnstile, 400); return; }
+    document.querySelectorAll(".cf-turnstile").forEach(function(div){
+      if (div.getAttribute("data-rendered")) return;
+      try { turnstile.render(div, { sitekey: TURNSTILE_SITE_KEY }); div.setAttribute("data-rendered","1"); } catch(e){}
+    });
+  }
+  function turnstileToken(){
+    try { if (window.turnstile && TURNSTILE_SITE_KEY.indexOf("__") !== 0) return turnstile.getResponse() || ""; } catch(e){}
+    return "";
+  }
+  initTurnstile();
   document.querySelectorAll(".notify-form").forEach(function(form){
     form.addEventListener("submit", function(ev){
       ev.preventDefault();
