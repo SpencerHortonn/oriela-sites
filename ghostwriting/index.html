@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founder Ghostwriting | Oriela Studio</title>
+<meta name="description" content="12 posts a month for X and LinkedIn, written in your voice. You send a 5-minute voice note. We do the rest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f4ecdc; --cream2:#efe3cb; --forest:#1f3529; --forest2:#16261d;
+  --rust:#b0532b; --gold:#c9a24b; --ink:#2b2620; --muted:#6b6154;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;color:var(--forest);line-height:1.15}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px}
+section{padding:64px 0}
+.eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);margin-bottom:14px}
+/* hero */
+.hero{background:var(--forest);color:var(--cream);padding:84px 0 72px;position:relative;overflow:hidden}
+.hero h1{color:var(--cream);font-size:clamp(2.1rem,6vw,3.4rem);font-weight:600;max-width:640px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p.sub{color:#d8cdb4;font-size:1.12rem;max-width:560px;margin:20px 0 30px}
+.hero .sun{position:absolute;right:-70px;top:-70px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--gold) 0%,rgba(201,162,75,0) 68%);opacity:.5;pointer-events:none}
+.btn{display:inline-block;background:var(--rust);color:#fff;font-weight:700;font-size:1rem;padding:15px 34px;border-radius:999px;text-decoration:none;transition:transform .15s ease, background .15s ease}
+.btn:hover{background:#933f1f;transform:translateY(-2px)}
+.btn.ghost{background:transparent;border:2px solid var(--gold);color:var(--gold);margin-left:12px}
+.hero .fine{margin-top:18px;font-size:.9rem;color:#b7ab8f}
+/* offer */
+.offer-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:28px}
+@media(min-width:700px){.offer-grid{grid-template-columns:repeat(2,1fr)}}
+.card{background:#fffdf6;border:1px solid #e4d6b8;border-radius:18px;padding:26px}
+.card h3{font-size:1.25rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.98rem}
+.card .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--forest);color:var(--gold);font-family:'Fraunces',serif;font-weight:700;margin-bottom:12px}
+/* samples */
+.samples{background:var(--forest2);color:var(--cream)}
+.samples h2{color:var(--cream)}
+.samples .eyebrow{color:var(--gold)}
+.founder{margin-top:36px;background:#fffdf6;border-radius:20px;padding:30px;color:var(--ink)}
+.founder-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.founder-head h3{font-size:1.5rem}
+.founder-head .handle{font-size:.9rem;color:var(--muted);font-weight:600}
+.voice{font-size:.95rem;color:var(--muted);border-left:3px solid var(--gold);padding-left:14px;margin:14px 0 20px;font-style:italic}
+.post{background:var(--cream);border:1px solid #e4d6b8;border-radius:14px;padding:18px 20px;margin-bottom:14px;white-space:pre-line;font-size:.97rem;line-height:1.65}
+.post:last-child{margin-bottom:0}
+.note{margin-top:26px;font-size:.9rem;color:#b7ab8f}
+/* pricing */
+.pricing-card{background:var(--forest);color:var(--cream);border-radius:22px;padding:40px 34px;text-align:center;max-width:560px;margin:30px auto 0}
+.pricing-card h3{color:var(--cream);font-size:1.6rem}
+.price{font-family:'Fraunces',serif;font-size:3.2rem;font-weight:700;color:var(--gold);margin:10px 0 4px}
+.price span{font-size:1.1rem;color:#d8cdb4;font-family:'Inter',sans-serif;font-weight:500}
+.pricing-card ul{list-style:none;text-align:left;max-width:380px;margin:22px auto}
+.pricing-card li{padding:8px 0;border-bottom:1px solid rgba(216,205,180,.18);font-size:.98rem}
+.pricing-card li:last-child{border:none}
+.pricing-card li::before{content:"✓ ";color:var(--gold);font-weight:700}
+/* faq */
+.faq-item{background:#fffdf6;border:1px solid #e4d6b8;border-radius:14px;margin-bottom:12px;overflow:hidden}
+.faq-item summary{cursor:pointer;padding:18px 22px;font-weight:600;color:var(--forest);list-style:none;font-size:1.02rem}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";float:right;color:var(--rust);font-weight:700}
+.faq-item[open] summary::after{content:"–"}
+.faq-item .a{padding:0 22px 20px;color:var(--muted);font-size:.97rem}
+/* cta */
+.cta{background:var(--rust);color:#fff;text-align:center;padding:72px 0}
+.cta h2{color:#fff;font-size:clamp(1.7rem,5vw,2.6rem);margin-bottom:14px}
+.cta p{color:#f3ddc8;max-width:520px;margin:0 auto 28px;font-size:1.05rem}
+.btn.light{background:#fff;color:var(--rust)}
+.btn.light:hover{background:var(--cream)}
+footer{background:var(--forest2);color:#8f846e;text-align:center;padding:28px 0;font-size:.85rem}
+footer a{color:var(--gold);text-decoration:none}
+h2.sec{font-size:clamp(1.6rem,4.5vw,2.3rem);margin-bottom:10px}
+p.lead{color:var(--muted);font-size:1.05rem;max-width:620px}
+.samples p.lead{color:#b7ab8f}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sun"></div>
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--gold)">Oriela Studio</span>
+    <h1>Your voice. Every week. <em>Without you writing a word.</em></h1>
+    <p class="sub">12 posts a month for X and LinkedIn, ghostwritten in your voice. You send one 5-minute voice note a week. We do everything else.</p>
+    <a class="btn" href="mailto:hello@orielaco.com?subject=Ghostwriting: 3 free posts">Get 3 free posts</a>
+    <a class="btn ghost" href="#samples">See the samples</a>
+    <p class="fine">Keep them either way. No call required to start.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">The offer</span>
+    <h2 class="sec">A content engine that sounds like you on your best day.</h2>
+    <p class="lead">Most founders go quiet because writing takes hours they do not have. We remove the writing entirely and keep the voice.</p>
+    <div class="offer-grid">
+      <div class="card"><div class="num">1</div><h3>You talk, 5 minutes</h3><p>One short voice note a week. Wins, lessons, opinions, whatever is on your mind. Raw is perfect.</p></div>
+      <div class="card"><div class="num">2</div><h3>We write, 12 posts</h3><p>Three posts a week for X and LinkedIn, drafted in your voice within 48 hours. Hooks, threads, and takes.</p></div>
+      <div class="card"><div class="num">3</div><h3>You approve, one reply</h3><p>Skim the drafts, reply "ship it" or mark what to change. One revision round per post, always.</p></div>
+      <div class="card"><div class="num">4</div><h3>It compounds</h3><p>Every month your voice profile gets sharper. The posts get closer to you, not more generic.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="samples" id="samples">
+  <div class="wrap">
+    <span class="eyebrow">Proof, not promises</span>
+    <h2 class="sec">Sample packs, written for real founders.</h2>
+    <p class="lead">We studied each founder's actual posts, then wrote new ones in their voice. This is what the service delivers.</p>
+
+    <div class="founder">
+      <div class="founder-head"><h3>Andrew Zacker</h3><span class="handle">@andrewzacker on X · developer turned founder</span></div>
+      <p class="voice">Hype-man energy: CAPS-lock emphasis, emoji, and exclamation marks. Tactical listicles for developers that always end in an action tip. Second-person certainty, zero hedging.</p>
+      <div class="post">Your 9-5 is not the enemy.
+
+It is the funding.
+
+I built my business on nights and weekends for 2 years. Then I quit when the revenue said I could.
+
+Do not romanticize the leap. Respect the runway.</div>
+      <div class="post">Developers overthink productivity.
+
+You do not need 15 apps. You need:
+
+• 1 place for tasks
+• 1 place for notes
+• 1 focus ritual
+
+Everything else is procrastination with a subscription.</div>
+      <div class="post">Stop learning frameworks.
+
+Pick ONE. Finish it.
+
+I see developers switching stacks every 3 months and wondering why nobody hires them.
+
+DEPTH beats BREADTH. Every single time.
+
+Action tip: close the tutorial tab and BUILD something today.</div>
+    </div>
+
+    <div class="founder">
+      <div class="founder-head"><h3>Ben Buaron</h3><span class="handle">@maubaron on X · founder, Windmill Growth</span></div>
+      <p class="voice">Lowercase confessional, like a late-night voice note. Failures first, lessons second. Anti-guru storytelling where the last line is always the one that stings.</p>
+      <div class="post">i spent 3 years building before i learned to sell
+
+in that time i made $0
+
+then i spent 3 months selling before building
+
+and made my first $10k
+
+the order matters more than the effort</div>
+      <div class="post">unpopular opinion:
+
+your product does not have a marketing problem
+
+it has a "nobody knows it exists" problem
+
+those are different problems
+
+one needs features. the other needs you to post every day.</div>
+      <div class="post">the best growth hack i ever found:
+
+reply to everyone
+
+every comment, every dm, every reply
+
+for 6 months straight
+
+it is boring, it is slow, and it works better than any funnel</div>
+    </div>
+
+    <p class="note">Full packs (5 posts each, plus voice breakdowns) are shared on the intro call. Yours would be built the same way: from your posts, your voice notes, your stories.</p>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2 class="sec" style="text-align:center">One plan. Everything included.</h2>
+    <div class="pricing-card">
+      <h3>Founder Ghostwriting</h3>
+      <div class="price">$997<span>/month</span></div>
+      <ul>
+        <li>12 posts per month for X and LinkedIn</li>
+        <li>Written in your voice, from your voice notes</li>
+        <li>48-hour draft turnaround</li>
+        <li>One revision round per post</li>
+        <li>Monthly voice report: what landed, what to double down on</li>
+        <li>Pause or cancel anytime</li>
+      </ul>
+      <br>
+      <a class="btn light" href="mailto:hello@orielaco.com?subject=Ghostwriting: 3 free posts">Start with 3 free posts</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="sec">Questions founders ask.</h2>
+    <div style="margin-top:26px">
+      <details class="faq-item"><summary>How do you match my voice?</summary><div class="a">We study your existing posts, then build a voice profile from them: your rhythms, your phrases, your opinions. Your weekly voice note keeps it current. The first 3 free posts are the calibration round, and they get sharper every week after.</div></details>
+      <details class="faq-item"><summary>What do you need from me each week?</summary><div class="a">One 5-minute voice note and one reply to approve drafts. That is the entire job. If you skip a week, we draft from your backlog of stories and past posts.</div></details>
+      <details class="faq-item"><summary>What if I do not like a post?</summary><div class="a">You get one revision round per post, and anything you reject gets rewritten or dropped, no questions. If the voice is consistently off after week two, we refund that month.</div></details>
+      <details class="faq-item"><summary>X and LinkedIn, or just one?</summary><div class="a">Both. LinkedIn gets the longer, story-driven version. X gets the punchy version. Same idea, native to each feed.</div></details>
+      <details class="faq-item"><summary>Who owns the content?</summary><div class="a">You do, forever, including the 3 free trial posts. If you cancel, everything we wrote stays yours.</div></details>
+      <details class="faq-item"><summary>How fast can we start?</summary><div class="a">Send your first voice note today and your first drafts land within 48 hours. The 3 free posts come before you pay anything.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Stop going quiet.</h2>
+    <p>Three posts in your voice, free, in 48 hours. Keep them either way. If they sound like you, we keep going.</p>
+    <a class="btn light" href="mailto:hello@orielaco.com?subject=Ghostwriting: 3 free posts">Get my 3 free posts</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Oriela Studio · <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></div>
+</footer>
+
+</body>
+</html>
