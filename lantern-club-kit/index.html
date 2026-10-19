@@ -742,23 +742,30 @@ setTimeout(function(){
   }
   initTurnstile();
   document.querySelectorAll(".notify-form").forEach(function(form){
-    form.addEventListener("submit", function(ev){
+    form.addEventListener("submit", async function(ev){
       ev.preventDefault();
       var input = form.querySelector('input[type="email"]');
       var email = (input.value || "").trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.focus(); return; }
       var btn = form.querySelector('[type="submit"]');
       if (btn) btn.disabled = true;
+      var ok = false;
       try {
-        fetch(MAIL_ENDPOINT, {
+        var res = await fetch(MAIL_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ site: form.getAttribute("data-site") || "lantern", email: email, cf_token: turnstileToken() })
-        }).catch(function(){});
-      } catch (e) {}
+        });
+        ok = !!(res && res.ok);
+      } catch (e) { ok = false; }
       var done = form.parentElement.querySelector(".notify-done");
-      form.style.display = "none";
-      if (done) done.hidden = false;
+      if (ok) {
+        form.style.display = "none";
+        if (done) done.hidden = false;
+      } else if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Try again";
+      }
     });
   });
 })();
