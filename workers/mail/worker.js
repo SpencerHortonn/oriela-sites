@@ -8,9 +8,11 @@
  * Endpoints:
  *   POST /api/join         {site, email} -> validate, store, {ok:true}        (CORS: *)
  *   POST /api/view         {site} -> bump view counters, {ok:true}            (CORS: *)
+ *   POST /api/scores       {name, division, week, score, video} -> store, {ok:true} (CORS: *)
  *   GET  /api/admin/signups?password=PW -> {site: [{email, at}]}              (CORS: admin origin only)
  *   GET  /api/admin/stats?password=PW   -> {views, viewsToday}               (CORS: admin origin only)
  *   GET  /api/admin/status?password=PW  -> [{url, ok, ms}]                   (CORS: admin origin only)
+ *   POST /api/admin/delete?password=PW {site, email} -> {ok:true}          (CORS: admin origin only)
  */
 
 var STATUS_URLS = [
@@ -82,6 +84,36 @@ async function handleJoin(request, env) {
   return json({ ok: true }, 200, "*");
 }
 
+async function handleScore(request, env) {
+  var ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  if (rateLimited(ip, 10, 60000)) {
+    return json({ ok: false, error: "slow down" }, 429, "*");
+  }
+  var body;
+  try { body = await request.json(); }
+  catch (e) { return json({ ok: false, error: "bad json" }, 400, "*"); }
+  var name = String(body.name || "").trim().slice(0, 60);
+  var division = String(body.division || "").toLowerCase().trim();
+  var week = String(body.week || "").toLowerCase().trim();
+  var score = String(body.score || "").trim().slice(0, 120);
+  var video = String(body.video || "").trim().slice(0, 300);
+  if (!name) return json({ ok: false, error: "bad name" }, 400, "*");
+  if (["rookie", "contender", "elite"].indexOf(division) < 0) {
+    return json({ ok: false, error: "bad division" }, 400, "*");
+  }
+  if (!/^week-[1-4]$/.test(week)) return json({ ok: false, error: "bad week" }, 400, "*");
+  if (!score) return json({ ok: false, error: "bad score" }, 400, "*");
+  if (video && !/^https?:\/\//i.test(video)) {
+    return json({ ok: false, error: "bad video" }, 400, "*");
+  }
+  var slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "athlete";
+  var key = "score:" + week + ":" + division + ":" + Date.now() + ":" + slug;
+  await env.MAIL_KV.put(key, JSON.stringify({
+    name: name, division: division, week: week, score: score, video: video, at: Date.now(),
+  }));
+  return json({ ok: true }, 200, "*");
+}
+
 async function handleView(request, env) {
   // Never fail the page: any KV error is swallowed.
   try {
@@ -125,6 +157,28 @@ async function handleSignups(url, env) {
     grouped[s].sort(function (a, b) { return b.at - a.at; });
   });
   return json(grouped);
+}
+
+async function handleDeleteSignup(request, url, env) {
+  if (!authed(url, env)) return json({ ok: false }, 403);
+  var body = {};
+  try { body = await request.json(); } catch (e) { return json({ ok: false, error: "bad body" }, 400); }
+  var site = String(body.site || "").trim();
+  var email = String(body.email || "").trim().toLowerCase();
+  if (!site || !email) return json({ ok: false, error: "site and email required" }, 400);
+  var cursor = undefined, deleted = 0;
+  do {
+    var page = await env.MAIL_KV.list({ prefix: "signup:" + site + ":", cursor: cursor });
+    for (var i = 0; i < page.keys.length; i++) {
+      var p = parseSignupKey(page.keys[i].name);
+      if (p && p.email.toLowerCase() === email) {
+        await env.MAIL_KV.delete(page.keys[i].name);
+        deleted++;
+      }
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return json({ ok: true, deleted: deleted });
 }
 
 async function handleStats(url, env) {
@@ -172,7 +226,7 @@ export default {
     var path = url.pathname;
 
     // CORS preflight for the public endpoints.
-    if (request.method === "OPTIONS" && (path === "/api/join" || path === "/api/view")) {
+    if (request.method === "OPTIONS" && (path === "/api/join" || path === "/api/view" || path === "/api/scores")) {
       return new Response(null, {
         status: 204,
         headers: {
@@ -186,6 +240,7 @@ export default {
 
     if (path === "/api/join" && request.method === "POST") return handleJoin(request, env);
     if (path === "/api/view" && request.method === "POST") return handleView(request, env);
+    if (path === "/api/scores" && request.method === "POST") return handleScore(request, env);
 
     if (path === "/api/admin/signups" && request.method === "GET") {
       var r1 = await handleSignups(url, env);
@@ -204,6 +259,12 @@ export default {
       var o3 = adminCors(request);
       if (o3) r3.headers.set("Access-Control-Allow-Origin", o3);
       return r3;
+    }
+    if (path === "/api/admin/delete" && request.method === "POST") {
+      var r4 = await handleDeleteSignup(request, url, env);
+      var o4 = adminCors(request);
+      if (o4) r4.headers.set("Access-Control-Allow-Origin", o4);
+      return r4;
     }
 
     return json({ ok: false, error: "not found" }, 404);

@@ -1,0 +1,12 @@
+# wrangler.toml for the oriela-mail worker.
+# Deploy with: wrangler deploy (needs the Cloudflare API token from Spencer)
+# The ADMIN_PASSWORD secret is set via: wrangler secret put ADMIN_PASSWORD
+
+name = "oriela-mail"
+main = "worker.js"
+compatibility_date = "2026-10-18"
+
+[[kv_namespaces]]
+binding = "MAIL_KV"
+# KV namespace "oriela-mail" id:
+id = "95970d1e88d24d82b416fd42299612cc"

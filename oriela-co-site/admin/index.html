@@ -234,6 +234,17 @@
     return res.json();
   }
 
+  async function apiPost(path, body){
+    var res = await fetch(WORKER + path + qp(), {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(body)
+    });
+    if (res.status === 403) throw new Error("wrong password");
+    if (!res.ok) throw new Error("request failed");
+    return res.json();
+  }
+
   /* Grants pipeline: updated by Muse as drafts get written and applications go out. */
   var GRANTS = [
     { n: "Verizon Digital Ready", amt: "$10,000", due: "Rolling thru Dec 2026", st: "drafting", sLabel: "Drafting" },
@@ -307,10 +318,11 @@
           + '<span class="views">' + v + ' views total, ' + vt + ' today</span>'
           + '<button class="btn gold small csv-btn" data-site="' + s.slug + '">Export CSV</button>'
           + '<span class="chev">▾</span></div>'
-          + '<div class="site-table hidden"><table><thead><tr><th>Email</th><th>Signed up</th></tr></thead><tbody>'
+          + '<div class="site-table hidden"><table><thead><tr><th>Email</th><th>Signed up</th><th></th></tr></thead><tbody>'
           + (rows.length ? rows.map(function(r){
-              return "<tr><td>" + esc(r.email) + "</td><td>" + esc(fmtDate(r.at)) + "</td></tr>";
-            }).join("") : '<tr><td colspan="2" class="empty">No signups yet.</td></tr>')
+              return "<tr><td>" + esc(r.email) + "</td><td>" + esc(fmtDate(r.at)) + "</td>" +
+                '<td><button class="btn ghost small del-btn" data-site="' + s.slug + '" data-email="' + esc(r.email) + '" title="Delete">×</button></td></tr>';
+            }).join("") : '<tr><td colspan="3" class="empty">No signups yet.</td></tr>')
           + "</tbody></table></div></div>";
       });
       box.innerHTML = html;
@@ -326,6 +338,21 @@
           e.stopPropagation();
           var site = btn.getAttribute("data-site");
           downloadCSV(site, box._data[site] || []);
+        });
+      });
+      box.querySelectorAll(".del-btn").forEach(function(btn){
+        btn.addEventListener("click", function(e){
+          e.stopPropagation();
+          var site = btn.getAttribute("data-site");
+          var email = btn.getAttribute("data-email");
+          if (!confirm("Delete " + email + " from the " + site + " list?")) return;
+          btn.disabled = true;
+          apiPost("/api/admin/delete", { site: site, email: email }).then(function(){
+            loadLists();
+          }).catch(function(err){
+            btn.disabled = false;
+            alert("Delete failed: " + err.message);
+          });
         });
       });
     } catch(e){
