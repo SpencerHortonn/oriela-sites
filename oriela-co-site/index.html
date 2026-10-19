@@ -118,14 +118,19 @@ section.block{padding:120px 0;position:relative}
 .ch-link{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:var(--accent);text-decoration:none}
 .ch-link .arr{display:inline-block;transition:transform .35s var(--ease-pop)}
 .ch-link:hover .arr{transform:translateX(6px)}
-.chapter{cursor:pointer}
 .ch-visual{position:absolute;right:0;top:50%;width:min(300px,28vw);aspect-ratio:4/3;border-radius:14px;overflow:hidden;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));opacity:.16;transform:translateY(-50%);pointer-events:none;
-  transition:opacity .5s var(--ease)}
-.chapter:hover .ch-visual{opacity:.3}
-.ch-visual .zoom{width:100%;height:100%;background:
-  radial-gradient(circle at 30% 20%,rgba(255,255,255,.5),transparent 55%),
-  linear-gradient(135deg,var(--accent2),var(--accent));will-change:transform}
+  transform:translateY(-50%);pointer-events:none;display:flex;align-items:center;justify-content:center;
+  background:var(--card);border:1px solid var(--line);transition:border-color .5s var(--ease),transform .5s var(--ease),box-shadow .5s var(--ease)}
+.soon-card{display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px;text-align:center}
+.soon-kicker{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.soon-date{font-family:Fraunces,serif;font-weight:500;font-size:clamp(30px,3.2vw,44px);color:var(--ink);line-height:1}
+.soon-visit{font-weight:600;font-size:14px;color:var(--accent);opacity:0;transform:translateY(6px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.soon-visit .arr{display:inline-block;transition:transform .35s var(--ease-pop)}
+.chapter{cursor:pointer}
+.chapter:hover{border-color:var(--accent)}
+.chapter:hover .ch-visual{border-color:var(--accent);transform:translateY(-50%) translateY(-4px);box-shadow:0 18px 44px -18px var(--hl)}
+.chapter:hover .soon-visit{opacity:1;transform:none}
+.chapter:hover .soon-visit .arr{transform:translateX(6px)}
 @media(max-width:900px){.ch-visual{display:none}}
 
 /* ============ CONTACT ============ */
@@ -210,6 +215,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
       <div class="sec-head">
         <p class="kicker">The portfolio</p>
         <h2 class="st"><span class="hl"></span>Six chapters, one journey.</h2>
+      <article class="chapter rv" data-theme="cream" data-url="https://lantern.orielaco.com">
         <div class="ch-num">01</div>
         <div class="ch-body">
           <p class="ch-kicker">Phone-free nights</p>
@@ -218,7 +224,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
           <p class="ch-desc">A phone-free night in a box. Canvas pouch, 50 conversation cards, a candle, and a host guide. Put the phones away. Get the night back.</p>
           <div class="ch-meta"><span class="ch-price">$35 preorder</span><a class="ch-link" href="https://lantern.orielaco.com" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
-        <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
+        <div class="ch-visual" aria-hidden="true"><div class="soon-card"><span class="soon-kicker">Coming soon</span><span class="soon-date">2026-2027</span><span class="soon-visit">Visit site <span class="arr">&rarr;</span></span></div></div>
       </article>
 
       <article class="chapter rv" data-theme="cream" data-url="https://provingground.orielaco.com">
@@ -230,7 +236,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
           <p class="ch-desc">A 4-week hybrid fitness challenge. Real programming, divisions for every level, video-verified leaderboard, and a prize pool.</p>
           <div class="ch-meta"><span class="ch-price">$99 entry</span><a class="ch-link" href="https://provingground.orielaco.com" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
-        <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
+        <div class="ch-visual" aria-hidden="true"><div class="soon-card"><span class="soon-kicker">Coming soon</span><span class="soon-date">2026-2027</span><span class="soon-visit">Visit site <span class="arr">&rarr;</span></span></div></div>
       </article>
 
       <article class="chapter rv" data-theme="cream" data-url="https://studio.orielaco.com">
@@ -242,7 +248,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
           <p class="ch-desc">Full-service media: brand films, short-form video, websites that book, content retainers, and business automations. Including <a href="https://podcast.orielaco.com" target="_blank" rel="noopener">podcast repurposing</a>: one episode in, a week of content out.</p>
           <div class="ch-meta"><span class="ch-price">Project pricing</span><span class="ch-links"><a class="ch-link" href="https://studio.orielaco.com" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a><a class="ch-link" href="https://podcast.orielaco.com" target="_blank" rel="noopener">Podcast repurposing <span class="arr">&rarr;</span></a></span></div>
         </div>
-        <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
+        <div class="ch-visual" aria-hidden="true"><div class="soon-card"><span class="soon-kicker">Coming soon</span><span class="soon-date">2026-2027</span><span class="soon-visit">Visit site <span class="arr">&rarr;</span></span></div></div>
       </article>
 
       <article class="chapter rv" data-theme="cream" data-url="https://hearth.orielaco.com">
@@ -254,7 +260,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
           <p class="ch-desc">A beautiful wooden token with an NFC chip inside. One tap puts your phone to bed.</p>
           <div class="ch-meta"><span class="ch-price">$39 waitlist</span><a class="ch-link" href="https://hearth.orielaco.com" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
-        <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
+        <div class="ch-visual" aria-hidden="true"><div class="soon-card"><span class="soon-kicker">Coming soon</span><span class="soon-date">2026-2027</span><span class="soon-visit">Visit site <span class="arr">&rarr;</span></span></div></div>
       </article>
 
       <article class="chapter rv" data-theme="cream" data-url="https://halfframe.orielaco.com">
@@ -266,7 +272,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
           <p class="ch-desc">A film-look camera for your phone. 36 shots per roll, grain, halation, date stamps. One app at a time, shipped.</p>
           <div class="ch-meta"><span class="ch-price">Free prototype</span><a class="ch-link" href="https://halfframe.orielaco.com" target="_blank" rel="noopener">Try it <span class="arr">&rarr;</span></a></div>
         </div>
-        <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
+        <div class="ch-visual" aria-hidden="true"><div class="soon-card"><span class="soon-kicker">Coming soon</span><span class="soon-date">2026-2027</span><span class="soon-visit">Visit site <span class="arr">&rarr;</span></span></div></div>
       </article>
 
       <article class="chapter rv" data-theme="cream" data-url="https://proof.orielaco.com">
@@ -278,7 +284,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-cont
           <p class="ch-desc">Lab-tested creatine, starting unflavored and uncompromising. No proprietary blends, no fillers. Proud sponsor of the <a href="https://provingground.orielaco.com" target="_blank" rel="noopener">Proving Ground</a> challenge.</p>
           <div class="ch-meta"><span class="ch-price">Coming 2027</span><a class="ch-link" href="https://proof.orielaco.com" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
-        <div class="ch-visual" aria-hidden="true"><div class="zoom"></div></div>
+        <div class="ch-visual" aria-hidden="true"><div class="soon-card"><span class="soon-kicker">Coming soon</span><span class="soon-date">2026-2027</span><span class="soon-visit">Visit site <span class="arr">&rarr;</span></span></div></div>
       </article>
 
     </div>
@@ -517,7 +523,7 @@ setTimeout(function(){
 
   /* ---------- Card hover aliveness: scramble titles + zoom settle ---------- */
   document.querySelectorAll(".chapter").forEach(function(ch){
-    var name = ch.querySelector(".ch-name a"), zoom = ch.querySelector(".zoom"), url = ch.getAttribute("data-url");
+    var name = ch.querySelector(".ch-name a"), zoom = ch.querySelector(".ch-visual"), url = ch.getAttribute("data-url");
     if (name) name.setAttribute("data-orig", name.textContent);
     ch.addEventListener("click", function(e){
       if (e.target.closest("a")) return;
