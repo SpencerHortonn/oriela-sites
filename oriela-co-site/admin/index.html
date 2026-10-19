@@ -30,8 +30,28 @@
   .btn.gold{background:var(--gold);color:var(--forest-deep)}
   .btn.ghost{background:transparent;color:var(--forest);border:1.5px solid var(--forest)}
   .btn.small{padding:6px 12px;font-size:12px}
+  /* decisions queue */
+  .dec{border:1px solid #e3d9bf;border-radius:10px;padding:14px 16px;margin-bottom:10px;background:#fbf7ec}
+  .dec .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .dec .t{font-weight:700;font-size:14px;color:var(--forest)}
+  .dec .tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:20px;padding:2px 10px}
+  .tag.money{background:#f3e2c7;color:#8a5a17}
+  .tag.build{background:#dce8d8;color:#2c5a2c}
+  .tag.content{background:#e3ddf3;color:#4a3d8a}
+  .tag.ops{background:#e8e8e8;color:#555}
+  .dec .d{font-size:13px;opacity:.75;margin-top:6px;line-height:1.55}
+  .dec .d b{color:var(--ink)}
+  /* agents */
+  .agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+  .agent{background:#fbf7ec;border:1px solid #e3d9bf;border-radius:10px;padding:16px}
+  .agent .an{font-weight:700;font-size:15px;color:var(--forest);display:flex;align-items:center;gap:8px}
+  .agent .an .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 6px rgba(62,142,79,.7)}
+  .agent .ar{font-size:12px;font-style:italic;opacity:.6;margin:2px 0 8px}
+  .agent .ad{font-size:13px;line-height:1.55;opacity:.8}
+  .agent .as{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-top:10px}
+  /* email lists (existing) */
   .site-block{border:1px solid #e3d9bf;border-radius:10px;margin-bottom:14px;overflow:hidden}
-  .site-bar{display:flex;align-items:center;gap:12px;background:var(--forest);color:var(--cream);padding:10px 16px;cursor:pointer;user-select:none}
+  .site-bar{display:flex;align-items:center;gap:12px;background:var(--forest);color:var(--cream);padding:10px 16px;cursor:pointer;user-select:none;flex-wrap:wrap}
   .site-bar .name{font-weight:700;font-size:14px;text-transform:capitalize}
   .site-bar .count{background:var(--gold);color:var(--forest-deep);font-size:12px;font-weight:700;border-radius:20px;padding:2px 10px}
   .site-bar .views{font-size:12px;opacity:.75;margin-left:auto}
@@ -80,12 +100,24 @@
 <header>
   <div>
     <h1>Oriela <span>Command</span></h1>
-    <div class="sub">email lists, site status, quick links</div>
+    <div class="sub">decisions, agents, email lists, site status</div>
   </div>
   <button class="btn ghost" id="lock" style="border-color:var(--cream);color:var(--cream)">Lock</button>
 </header>
 
 <main>
+  <section class="card" id="sec-decisions">
+    <div class="sec-head"><h2>Needs your call</h2></div>
+    <div class="desc">Nothing here moves without your yes or no. Newest first.</div>
+    <div id="decisions"></div>
+  </section>
+
+  <section class="card" id="sec-agents">
+    <div class="sec-head"><h2>AI agents</h2></div>
+    <div class="desc">The crew running the operational load. Schedules are live; ask Muse for any agent's latest run.</div>
+    <div class="agent-grid" id="agents"></div>
+  </section>
+
   <section class="card" id="sec-lists">
     <div class="sec-head">
       <h2>Email lists</h2>
@@ -102,6 +134,12 @@
     </div>
     <div class="desc">Live check of every Oriela property, measured from the worker.</div>
     <div class="status-grid" id="status"><div class="loading">Unlock to load.</div></div>
+  </section>
+
+  <section class="card" id="sec-team">
+    <h2>Team</h2>
+    <div class="desc">People, eventually.</div>
+    <div class="empty">No team yet. When you hire, this is where roles, access, and pay live. The AI crew above holds the fort until then.</div>
   </section>
 
   <section class="card" id="sec-links">
@@ -131,6 +169,47 @@
     { slug: "lantern",        label: "Lantern Club",       url: "https://unplugged-kit.pages.dev" }
   ];
 
+  /* Decisions queue: updated by Muse as calls get made. Newest first. */
+  var DECISIONS = [
+    { t: "Proof flavors", tag: "build", tagLabel: "Product",
+      d: "Launch unflavored only (1 SKU, cleaner purity story), flavors as product 2/3? <b>Recommendation: yes, unflavored at launch.</b>" },
+    { t: "Marketplace offers", tag: "money", tagLabel: "Money",
+      d: "5 offers drafted: Minolta pair <b>$60</b>, Olympus IS-20 <b>$30</b>, Freedom Tele <b>$25</b>, guitar combo <b>$55</b>, Synsonics <b>$15</b>. Cash, pickup today. Say the word and they go out." },
+    { t: "Maxtrac proposal", tag: "build", tagLabel: "Partnership",
+      d: "Draft ready to <b>sales@maxtracsuspension.com</b> for the van build series. Assumes you want a lift kit. Needs your review before sending." },
+    { t: "Podcast outreach", tag: "build", tagLabel: "Sales",
+      d: "4 personalized Tier A drafts ready (Tropical MBA, Niche Pursuits, Creator Science, Copywriter Club). <b>OK to send?</b>" },
+    { t: "Ghostwriting service", tag: "build", tagLabel: "Strategy",
+      d: "Founder ghostwriting at $997/mo scored 8/10. <b>Keep or kill?</b>" },
+    { t: "Lantern venue + ticket", tag: "ops", tagLabel: "Event",
+      d: "Nov 5 clay night: pick <b>Foundry vs Likewise vs Moon Hollow</b>. Ticket <b>$10 vs $15</b> discrepancy still open before Luma publishes." },
+    { t: "Fulfillment approval", tag: "ops", tagLabel: "Ops",
+      d: "Stripe fulfillment email templates are drafted. Approve them and the APPROVED gate goes live; until then, drafts only, nothing sends." },
+    { t: "@orielaco bio", tag: "content", tagLabel: "Content",
+      d: "Bio draft is written and waiting in the noon checklist. Paste it into the Instagram profile." },
+    { t: "SPF record", tag: "ops", tagLabel: "Ops",
+      d: "hello@orielaco.com deliverability: add the Zoho SPF TXT record in GoDaddy DNS (checklist has the exact value)." },
+    { t: "Chromebook flip", tag: "money", tagLabel: "Money",
+      d: "Acer Chromebook 315 at $70, 4 mi. Margin $10-30, does not clear the 2x rule. <b>Recommendation: pass.</b>" }
+  ];
+
+  var AGENTS = [
+    { n: "Emilia", r: "Inbox manager", s: "Daily brief 8 AM · scan every 30 min",
+      d: "Watches Gmail so you spend less time in email. Drafts replies in your voice, never sends without approval." },
+    { n: "Herald", r: "Outreach runner", s: "Weekdays 9:49 AM",
+      d: "Runs Tyler IG DMs (7/day) and van-brand emails (10/day). Never replies to responses; surfaces them to you the same hour." },
+    { n: "Vault", r: "Payment watcher", s: "Hourly",
+      d: "Watches both Stripe checkouts. Drafts fulfillment emails on every sale; nothing sends until you approve the templates." },
+    { n: "Press", r: "Podcast fulfiller", s: "Daily 7:49 AM",
+      d: "Turns podcast episodes into repurposing packs. Verbatim quotes only, every pack needs your QA before delivery." },
+    { n: "Bloodhound", r: "Marketplace gear hunt", s: "Every 4 hours",
+      d: "Sweeps Tyler Marketplace for instruments, cameras, and gear under $100. Never messages sellers." },
+    { n: "Magnifier", r: "Flip scout", s: "Every 12 hours",
+      d: "Hunts online listings nationwide for Second Shutter flips. 2x all-in rule is law; never messages sellers." },
+    { n: "Radar", r: "Trend scout", s: "Weekly, Mon 8 AM",
+      d: "Finds TikTok Shop product trends in the outdoor + compact fitness niche. Demo-first picks, never posts or requests samples." }
+  ];
+
   var PW = null; // memory only, never localStorage
 
   function esc(s){
@@ -149,6 +228,23 @@
     if (res.status === 403) throw new Error("wrong password");
     if (!res.ok) throw new Error("request failed");
     return res.json();
+  }
+
+  function renderDecisions(){
+    document.getElementById("decisions").innerHTML = DECISIONS.map(function(x){
+      return '<div class="dec"><div class="top"><span class="t">' + esc(x.t) + '</span>'
+        + '<span class="tag ' + x.tag + '">' + esc(x.tagLabel) + "</span></div>"
+        + '<div class="d">' + x.d + "</div></div>";
+    }).join("");
+  }
+
+  function renderAgents(){
+    document.getElementById("agents").innerHTML = AGENTS.map(function(a){
+      return '<div class="agent"><div class="an"><span class="dot"></span>' + esc(a.n) + "</div>"
+        + '<div class="ar">' + esc(a.r) + "</div>"
+        + '<div class="ad">' + esc(a.d) + "</div>"
+        + '<div class="as">' + esc(a.s) + "</div></div>";
+    }).join("");
   }
 
   function downloadCSV(site, rows){
@@ -241,6 +337,8 @@
     });
   }
 
+  renderDecisions();
+  renderAgents();
   document.getElementById("unlock").addEventListener("click", function(){
     unlock(document.getElementById("pw").value);
   });
