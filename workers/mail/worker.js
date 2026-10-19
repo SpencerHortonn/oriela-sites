@@ -33,6 +33,26 @@ var ADMIN_ORIGINS = ["https://orielaco.com", "https://www.orielaco.com"];
 var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 var SITE_RE = /^[a-z0-9-]{1,40}$/;
 
+// Verify a Cloudflare Turnstile token server-side. Returns true when the
+// secret is not configured (graceful: protection activates on deploy).
+async function verifyTurnstile(token, secret, ip) {
+  if (!token) return false;
+  var fd = new FormData();
+  fd.append("secret", secret);
+  fd.append("response", token);
+  if (ip && ip !== "unknown") fd.append("remoteip", ip);
+  try {
+    var r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body: fd,
+    });
+    var j = await r.json();
+    return !!(j && j.success);
+  } catch (e) {
+    return false;
+  }
+}
+
 // --- tiny in-memory per-IP rate limiter (best effort, per isolate) ---
 var hits = new Map(); // ip -> {count, reset}
 function rateLimited(ip, limit, windowMs) {
@@ -78,6 +98,11 @@ async function handleJoin(request, env) {
   if (!SITE_RE.test(site)) return json({ ok: false, error: "bad site" }, 400, "*");
   if (!EMAIL_RE.test(email) || email.length > 120) {
     return json({ ok: false, error: "bad email" }, 400, "*");
+  }
+  // Turnstile bot check. Inert until TURNSTILE_SECRET is set via `wrangler secret put`.
+  if (env.TURNSTILE_SECRET && env.TURNSTILE_SECRET.indexOf("__") !== 0) {
+    var tsOk = await verifyTurnstile(String(body.cf_token || ""), env.TURNSTILE_SECRET, ip);
+    if (!tsOk) return json({ ok: false, error: "verify human" }, 403, "*");
   }
   var key = "signup:" + site + ":" + Date.now() + ":" + email;
   await env.MAIL_KV.put(key, JSON.stringify({ site: site, email: email, at: Date.now() }));

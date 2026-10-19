@@ -391,7 +391,8 @@ footer a:hover{color:var(--amber)}
       <p style="color:rgba(244,236,220,.65);font-size:15px;margin-bottom:28px;max-width:520px">The date isn't set yet. Join the list and you'll hear the moment tickets open.</p>
       <form class="notify-form" data-site="lantern">
         <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
-        <button class="btn" type="submit">Notify me</button>
+        <div class="cf-turnstile" style="margin:10px 0"></div>
+          <button class="btn" type="submit">Notify me</button>
       </form>
       <p class="notify-done" hidden>You're on the list. We'll write when the date drops.</p>
     </div>
@@ -738,7 +739,7 @@ setTimeout(function(){
         fetch(MAIL_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ site: form.getAttribute("data-site") || "lantern", email: email })
+          body: JSON.stringify({ site: form.getAttribute("data-site") || "lantern", email: email, cf_token: turnstileToken() })
         }).catch(function(){});
       } catch (e) {}
       var done = form.parentElement.querySelector(".notify-done");
@@ -748,5 +749,6 @@ setTimeout(function(){
   });
 })();
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </body>
 </html>

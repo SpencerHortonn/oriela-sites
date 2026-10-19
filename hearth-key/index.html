@@ -346,7 +346,8 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
     <div class="cta-row rv">
       <form class="notify-form" data-site="hearth">
         <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
-        <button class="btn" type="submit">Get notified</button>
+        <div class="cf-turnstile" style="margin:10px 0"></div>
+          <button class="btn" type="submit">Get notified</button>
       </form>
       <p class="notify-done" hidden>You're on the list.</p>
     </div>
@@ -366,6 +367,21 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
   "use strict";
   /* Email list endpoint. Placeholder worker URL, swapped for the real one later. */
   const MAIL_ENDPOINT = "https://oriela-mail.spencerhorton28.workers.dev/api/join";
+  /* Turnstile bot protection. Inert until TURNSTILE_SITE_KEY is replaced with a real key. */
+  var TURNSTILE_SITE_KEY = "__TURNSTILE_SITE_KEY__";
+  function initTurnstile(){
+    if (!TURNSTILE_SITE_KEY || TURNSTILE_SITE_KEY.indexOf("__") === 0) return;
+    if (!window.turnstile) { setTimeout(initTurnstile, 400); return; }
+    document.querySelectorAll(".cf-turnstile").forEach(function(div){
+      if (div.getAttribute("data-rendered")) return;
+      try { turnstile.render(div, { sitekey: TURNSTILE_SITE_KEY }); div.setAttribute("data-rendered","1"); } catch(e){}
+    });
+  }
+  function turnstileToken(){
+    try { if (window.turnstile && TURNSTILE_SITE_KEY.indexOf("__") !== 0) return turnstile.getResponse() || ""; } catch(e){}
+    return "";
+  }
+  initTurnstile();
   document.documentElement.classList.add("js");
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.scrollTo(0, 0);
@@ -546,7 +562,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
         fetch(MAIL_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ site: form.getAttribute("data-site") || "hearth", email: email })
+          body: JSON.stringify({ site: form.getAttribute("data-site") || "hearth", email: email, cf_token: turnstileToken() })
         }).catch(function(){});
       } catch (e) {}
       var done = form.parentElement.querySelector(".notify-done");
@@ -556,5 +572,6 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
   });
 })();
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </body>
 </html>
