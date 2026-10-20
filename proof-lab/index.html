@@ -199,6 +199,21 @@ footer .copy{font-size:.8rem;opacity:.45}
   background:radial-gradient(58% 46% at 50% 30%,rgba(255,248,226,.15),rgba(255,248,226,.05) 45%,transparent 72%)}
 .is-pinned .stage-light{inset:-8% 0}
 .is-pinned .lab-step h3{text-shadow:0 0 42px rgba(255,246,220,.3),0 2px 18px rgba(0,0,0,.35)}
+/* ---- depth pass round 2: background wash for the flat solid-color sections ---- */
+.depth-wash::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none}
+.cream.depth-wash::before{
+  background:
+    radial-gradient(70% 55% at 22% 8%,rgba(255,252,240,.6),transparent 62%),
+    radial-gradient(60% 60% at 88% 98%,rgba(21,42,30,.08),transparent 60%),
+    linear-gradient(180deg,rgba(21,42,30,.05) 0%,transparent 16%,transparent 84%,rgba(21,42,30,.1) 100%)}
+.standard.depth-wash::before,.foryou.depth-wash::before,.launch.depth-wash::before,.notify.depth-wash::before{
+  background:
+    radial-gradient(65% 50% at 50% 6%,rgba(255,248,226,.1),transparent 65%),
+    radial-gradient(70% 60% at 85% 102%,rgba(8,16,11,.5),transparent 62%),
+    linear-gradient(180deg,rgba(8,16,11,.32) 0%,transparent 18%,transparent 82%,rgba(8,16,11,.42) 100%)}
+.bg-leaf{position:absolute;pointer-events:none;z-index:0}
+.cream .bg-leaf{color:var(--moss);opacity:.065;filter:blur(1.5px)}
+.standard .bg-leaf,.foryou .bg-leaf{color:var(--leaf);opacity:.08;filter:blur(2px)}
 @media (prefers-reduced-motion:reduce){.hero-dapple{animation:none}}
 @media (max-width:900px){.aud-points{grid-template-columns:1fr}.band{grid-template-columns:1fr}.band .band-img{aspect-ratio:16/10;max-width:560px}.band.flip .band-img{order:0}}
 @media (max-width:760px){
@@ -278,7 +293,8 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="cream atmo" id="problem" aria-label="The problem with supplements">
+  <section class="cream atmo depth-wash" id="problem" aria-label="The problem with supplements">
+    <svg class="bg-leaf" style="width:260px;left:-60px;top:8%;transform:rotate(-16deg)" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="wrap">
       <p class="eyebrow rv">The problem</p>
       <div class="band">
@@ -296,7 +312,8 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="standard atmo" id="standard" aria-label="The Proof standard">
+  <section class="standard atmo depth-wash" id="standard" aria-label="The Proof standard">
+    <svg class="bg-leaf" style="width:300px;right:-70px;bottom:6%;transform:rotate(22deg)" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="lab-wrap">
       <div class="lab-pin">
         <div class="stage-light" aria-hidden="true"></div>
@@ -337,7 +354,8 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="cream atmo" id="product" aria-label="Product one: creatine">
+  <section class="cream atmo depth-wash" id="product" aria-label="Product one: creatine">
+    <svg class="bg-leaf" style="width:240px;right:-50px;top:10%;transform:rotate(14deg)" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="wrap">
       <p class="eyebrow rv">Product one</p>
       <div class="band flip">
@@ -375,7 +393,8 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="foryou atmo" id="foryou" data-active="athletes" aria-label="Who Proof is for">
+  <section class="foryou atmo depth-wash" id="foryou" data-active="athletes" aria-label="Who Proof is for">
+    <svg class="bg-leaf" style="width:280px;left:-65px;bottom:8%;transform:rotate(-20deg)" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="wrap">
       <p class="eyebrow rv">Who it is for</p>
       <h2 class="rv">Built for training. Clean for everyone.</h2>
@@ -396,7 +415,7 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="launch atmo" id="launch" aria-label="Launch">
+  <section class="launch atmo depth-wash" id="launch" aria-label="Launch">
     <svg class="grow-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="wrap organic" data-organic>
       <p class="eyebrow rv">Coming 2027</p>
@@ -406,7 +425,8 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="cream atmo" id="faq" aria-label="Frequently asked questions">
+  <section class="cream atmo depth-wash" id="faq" aria-label="Frequently asked questions">
+    <svg class="bg-leaf" style="width:250px;left:-55px;bottom:10%;transform:rotate(18deg)" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="wrap">
       <p class="eyebrow rv">Questions</p>
       <h2 class="rv" style="margin-bottom:54px">Honest answers.</h2>
@@ -439,7 +459,7 @@ footer .copy{font-size:.8rem;opacity:.45}
     </div>
   </section>
 
-  <section class="notify atmo" id="notify" aria-label="Get notified">
+  <section class="notify atmo depth-wash" id="notify" aria-label="Get notified">
     <svg class="grow-leaf" viewBox="0 0 100 120" aria-hidden="true"><use href="#leafSym"/></svg>
     <div class="wrap organic" data-organic>
       <p class="eyebrow rv">Coming 2027</p>
