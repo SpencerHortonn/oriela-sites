@@ -206,6 +206,12 @@ The only standing flag is the giant "2027" on Proof. Its invisible text box is t
 
 All eight verified live at 22:15 (HTTP 200, view beacon present, new-build marker present). **Guard** passed on every site: forms, `turnstileToken()`, the beacon and the rope physics are byte-identical, with no em-dashes and no pinning.
 
+**Follow-up (Oct 21):** Spencer found that the sideways tracks only ever showed their last card. Both were replaced with grids that show every card at once. Each card rises in and is fully settled by mid-screen.
+- Proof's three steps: commit `d9faea9`. Four cards across on desktop, two on tablet, stacked on phones.
+- Studio's past work: commit `906a9eb`. Six frames, three across on desktop. Each frame "develops" in from a cropped, zoomed state.
+- The copy that told people to scroll the track sideways was removed.
+- Both sites were verified live.
+
 ## Deploy queue note
 
 Every push rebuilds all eight Cloudflare Pages projects, one at a time, so each deploy waited behind the others. A proof-lab build looked hung for about 15 minutes, then the queue cleared on its own. All eight sites were verified live by 20:19.
