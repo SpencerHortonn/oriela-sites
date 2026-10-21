@@ -63,10 +63,10 @@ These come from the six reference sites studied in this job (Awwwards Sites of t
 | Oriela Studio | `6c0e893` | https://studio.orielaco.com | verified 19:55 |
 | Lantern Club | `277e9c5` | https://lantern.orielaco.com | verified 19:58 |
 | Proving Ground | `67649c5` | https://provingground.orielaco.com | verified 20:03 |
-| Podcast | `51e549b` | https://podcast.orielaco.com | pushed, deploy queued |
-| Hearth Key | `af00689` | https://hearth.orielaco.com | pushed, deploy queued |
-| Half Frame | `4c189e8` | https://halfframe.orielaco.com | pushed, deploy queued |
-| Oriela Co (polish) | `291a7ae` | https://orielaco.com | pushed, deploy queued |
+| Podcast | `51e549b` | https://podcast.orielaco.com | verified 20:19 |
+| Hearth Key | `af00689` | https://hearth.orielaco.com | verified 20:19 |
+| Half Frame | `4c189e8` | https://halfframe.orielaco.com | verified 20:19 |
+| Oriela Co (polish) | `291a7ae` | https://orielaco.com | verified 20:19 |
 
 ### Proof: depth first
 
@@ -158,10 +158,7 @@ Structure and copy unchanged.
 
 ## Deploy queue note
 
-Every push rebuilds all eight Cloudflare Pages projects, and they build one at a time. The proof-lab build for commit `67649c5` started at 01:00:56 UTC and hung. Everything behind it is waiting, so the last four sites were still serving their previous version when this was written.
-
-- All eight sites were checked at that time: HTTP 200, beacon present.
-- To clear it: in Cloudflare Pages, open **proof-lab** > Deployments and cancel the stuck deployment. The queued builds then run on their own.
+Every push rebuilds all eight Cloudflare Pages projects, one at a time, so each deploy waited behind the others. A proof-lab build looked hung for about 15 minutes, then the queue cleared on its own. All eight sites were verified live by 20:19.
 
 ## Flagged, not changed
 
