@@ -156,6 +156,28 @@ Structure and copy unchanged.
 - **Right now:** the counts tick up.
 - **Fix:** below-the-fold content used to fade in all at once during the intro; it now reveals on scroll.
 
+## Round 2: full rebuilds (after Spencer's feedback), all verified live 21:01
+
+Round 1 layered effects onto the existing layouts. Spencer wanted real revamps with the brand vibes kept:
+- **Lantern:** cozy cottage.
+- **Proof:** nature and cinematic, the best site of the set.
+- **Studio:** keeps its vibe.
+- **Proving Ground:** better scrolling only.
+- **Podcast, Hearth, Half Frame:** stay as they are.
+
+Each rebuilt page is a new template. A build script injects the protected code byte-for-byte from `pre-revamp-oct20`: form markup, form JS, `turnstileToken()`, the beacon, and for Lantern the rope physics and lantern markup. The guard verifies all of it before every commit.
+
+| Site | Commit | What it is now |
+|---|---|---|
+| Proof | `1f01c30`, then `23ed4d0` | **A film in chapters, with subtitle-style chapter captions.** Dawn-in-the-canopy hero (Ken Burns push, moving god rays, drifting mist, sunlit pollen motes that glow in the beams, blurred foreground leaves, letterbox bars, title resolving from blur). Then: the dew-leaf macro racking into focus behind the manifesto, a canopy card opening to full bleed, a sideways-sliding glass track of Test / Result / Batch over the blurred canopy, an outlined 1 flooding green with the facts orbiting it, a printing receipt, expanding Athletes/Everyone lanes, 2027 with a sunrise, dappled leaf shadows on the paper sections, and cursor torchlight in the dark scenes. |
+| Oriela Studio | `c918639` | **Premiere.** A letterboxed 2.39:1 projection-screen hero with dust in the beam, a Now Showing marquee, Starring credits, big counters, and the six projects as film frames on a sideways reel. The seven services are rolling-credit rows (all Custom quote) with a cursor preview card. Podcast tiers are ticket stubs, process has a playhead timeline, and contact ends under a cursor spotlight. |
+| Lantern Club | `bc42e73` | **The cottage.** A dusk cottage with glowing windows, smoke, fireflies and stars under the lanterns. Scrolling walks you to the door until its light fills the screen. Inside: a taped linen letter and framed quote, recipe cards on a wooden mantel with a burning wick, a chalkboard holding the Night One form, an unboxing where the lid opens and the four items rise out, the deck dealt on a checkered tablecloth, FAQ as taped notes, and a hearth with embers. |
+| Proving Ground | `748f70b` | **Scroll feel only.** A longer Lenis glide, the hero words part as you leave, headlines drift sideways, and rows slide in with momentum. |
+
+**Kept from round 1:** Podcast `51e549b`, Hearth `af00689`, Half Frame `4c189e8` and Oriela Co `291a7ae` stay as they were.
+
+**Rollback** works the same way. `pre-revamp-oct20` is the original state, and each commit above can be reverted on its own.
+
 ## Deploy queue note
 
 Every push rebuilds all eight Cloudflare Pages projects, one at a time, so each deploy waited behind the others. A proof-lab build looked hung for about 15 minutes, then the queue cleared on its own. All eight sites were verified live by 20:19.
