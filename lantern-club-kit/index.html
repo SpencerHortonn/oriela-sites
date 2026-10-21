@@ -232,6 +232,72 @@ footer a:hover{color:var(--amber)}
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
   #loader{display:none}
 }
+/* ===== Oct 20 revamp: the night unfolds ===== */
+/* nightfall: the room edges darken as the evening goes on */
+.nightfall{position:fixed;inset:0;z-index:150;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse 75% 70% at 50% 50%,transparent 45%,rgba(8,4,1,.85) 100%)}
+/* evening clock */
+.eve-clock{position:fixed;left:24px;bottom:22px;z-index:820;display:flex;align-items:center;gap:12px;padding:10px 16px 10px 12px;border-radius:999px;
+  background:rgba(28,19,12,.62);border:1px solid rgba(201,162,75,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 18px 40px -18px rgba(0,0,0,.8);color:var(--cream);font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:0;transform:translateY(12px);transition:opacity .6s,transform .6s var(--ease)}
+.eve-clock.on{opacity:1;transform:none}
+.eve-clock .dial{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(201,162,75,.6);position:relative}
+.eve-clock .dial i{position:absolute;left:50%;bottom:50%;width:1.5px;height:10px;background:var(--amber);transform-origin:50% 100%;margin-left:-.75px;border-radius:2px}
+.eve-clock .dial b{position:absolute;left:50%;bottom:50%;width:1.5px;height:7px;background:var(--cream);transform-origin:50% 100%;margin-left:-.75px;border-radius:2px}
+.eve-clock .time{font-family:Fraunces,serif;font-size:17px;letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums}
+.eve-clock .lbl{color:var(--gold);font-size:10px}
+@media(max-width:640px){.eve-clock{left:12px;bottom:12px;padding:8px 12px 8px 10px}.eve-clock .lbl{display:none}}
+/* hero: drifting embers at three depths and a warmer haze */
+.embers{position:absolute;inset:0;pointer-events:none;z-index:1}
+.embers i{position:absolute;inset:-20% 0;background-repeat:repeat;will-change:transform}
+.embers .e1{background-image:radial-gradient(2px 2px at 12% 30%,rgba(255,200,110,.9),transparent),radial-gradient(1.5px 1.5px at 58% 64%,rgba(255,190,100,.8),transparent),radial-gradient(2px 2px at 84% 18%,rgba(255,210,130,.85),transparent),radial-gradient(1.5px 1.5px at 36% 82%,rgba(255,180,90,.8),transparent);background-size:340px 340px;opacity:.7;animation:rise 26s linear infinite}
+.embers .e2{background-image:radial-gradient(3px 3px at 22% 50%,rgba(255,190,100,.7),transparent),radial-gradient(2.5px 2.5px at 70% 20%,rgba(255,200,120,.6),transparent),radial-gradient(3px 3px at 46% 88%,rgba(255,170,80,.6),transparent);background-size:520px 520px;filter:blur(1px);opacity:.55;animation:rise 38s linear infinite}
+.embers .e3{background-image:radial-gradient(8px 8px at 30% 40%,rgba(255,190,100,.35),transparent),radial-gradient(10px 10px at 76% 70%,rgba(255,170,80,.3),transparent);background-size:760px 760px;filter:blur(4px);opacity:.6;animation:rise 60s linear infinite}
+@keyframes rise{to{background-position:40px -760px}}
+.hero .h1{text-shadow:0 4px 30px rgba(0,0,0,.45),0 0 80px rgba(224,168,62,.18)}
+.hero-stats .stat b{text-shadow:0 0 30px rgba(224,168,62,.35)}
+/* story: the pull quote is a handwritten note taped to the wall */
+.pull{border-left:0;padding:34px 34px 30px;background:#fbf4e4;border-radius:4px;transform:rotate(2deg);position:relative;
+  box-shadow:0 40px 70px -30px rgba(42,29,18,.55),0 2px 6px rgba(42,29,18,.12)}
+.pull::before{content:"";position:absolute;top:-14px;left:50%;width:110px;height:30px;transform:translateX(-50%) rotate(-3deg);
+  background:rgba(201,162,75,.45);box-shadow:0 2px 4px rgba(0,0,0,.08)}
+/* how a night works: a timeline with a burning wick */
+.timeline{position:relative;padding-top:36px}
+.tl-track{position:absolute;left:0;right:0;top:16px;height:2px;background:rgba(244,236,220,.14);border-radius:2px}
+.tl-fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--gold),var(--amber));transform-origin:left;transform:scaleX(0);border-radius:2px;box-shadow:0 0 18px rgba(224,168,62,.6)}
+.tl-fill::after{content:"";position:absolute;right:-6px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#fff3cf;box-shadow:0 0 14px 6px rgba(255,190,100,.65)}
+.steps .step{display:flex;flex-direction:column;position:relative}
+.steps .step::before{content:"";position:absolute;top:-26px;left:28px;width:10px;height:10px;border-radius:50%;background:#1c130c;border:2px solid var(--gold)}
+.steps .step .t{order:-1;margin:0 0 14px;font-family:Fraunces,serif;font-size:34px;letter-spacing:-.01em;text-transform:none;font-weight:500;color:var(--amber);text-shadow:0 0 24px rgba(224,168,62,.35)}
+@media(max-width:900px){.tl-track{display:none}.steps .step::before{display:none}}
+/* night one: a ticket */
+.event{border-radius:24px 24px 24px 24px;-webkit-mask:radial-gradient(circle 18px at 0 50%,transparent 17px,#000 18px) left/51% 100% no-repeat,radial-gradient(circle 18px at 100% 50%,transparent 17px,#000 18px) right/51% 100% no-repeat;
+  mask:radial-gradient(circle 18px at 0 50%,transparent 17px,#000 18px) left/51% 100% no-repeat,radial-gradient(circle 18px at 100% 50%,transparent 17px,#000 18px) right/51% 100% no-repeat}
+.event::after{content:"Night One";position:absolute;right:clamp(20px,4vw,48px);top:clamp(20px,3vw,40px);font-family:Caveat,cursive;font-size:30px;color:var(--gold);transform:rotate(8deg);
+  border:2px solid rgba(201,162,75,.6);border-radius:10px;padding:2px 14px;opacity:.85}
+.ticket-wrap{filter:drop-shadow(0 50px 50px rgba(0,0,0,.45))}
+@media(max-width:640px){.event::after{display:none}}
+/* unplugged: the kit sits in a box with a lid shadow and tilts toward you */
+.prod-grid{perspective:1400px}
+.kit{position:relative;transform-style:preserve-3d;will-change:transform}
+.kit::after{content:"";position:absolute;left:6%;right:6%;bottom:-26px;height:40px;border-radius:50%;background:rgba(10,5,2,.55);filter:blur(22px);z-index:-1}
+.kit li{transition:transform .4s var(--ease-pop)}
+.kit li:hover{transform:translateX(6px)}
+/* deck: cards get dealt onto the table */
+.deck{perspective:1600px}
+.dcard{will-change:transform}
+.dcard:hover{transform:translateY(-10px) rotate(-1.2deg)!important;box-shadow:0 44px 70px -24px rgba(20,10,2,.6),inset 0 1px 0 rgba(255,255,255,.45)}
+/* final: a candle */
+.candle{width:46px;margin:0 auto 34px;position:relative;height:130px}
+.candle .wax{position:absolute;bottom:0;left:0;right:0;height:84px;border-radius:8px 8px 6px 6px;background:linear-gradient(90deg,#d9c9a8,#f4ecdc 45%,#c9b48c);box-shadow:inset 0 6px 8px rgba(255,255,255,.4),0 30px 40px -20px rgba(0,0,0,.6)}
+.candle .wick{position:absolute;left:50%;bottom:84px;width:2px;height:10px;margin-left:-1px;background:#2a1d12}
+.candle .fl{position:absolute;left:50%;bottom:90px;width:18px;height:34px;margin-left:-9px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  background:radial-gradient(ellipse at 50% 70%,#fffdf0 0%,#ffd76e 40%,rgba(255,159,31,.0) 75%);transform-origin:50% 90%;animation:flameFlick 1.7s ease-in-out infinite}
+.candle .bloom{position:absolute;left:50%;bottom:60px;width:520px;height:520px;margin-left:-260px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,196,100,.35),rgba(255,170,70,.08) 40%,transparent 68%);transform-origin:50% 80%}
+.final{overflow:hidden;position:relative}
+.final .wrap{position:relative}
+@media(prefers-reduced-motion:reduce){.embers i{animation:none}}
 </style>
 <meta property="og:image" content="https://lantern.orielaco.com/assets/linen.jpg">
 </head>
@@ -239,6 +305,8 @@ footer a:hover{color:var(--amber)}
 
 <div class="grain" aria-hidden="true"></div>
 <div id="progress" aria-hidden="true"></div>
+<div class="nightfall" aria-hidden="true"></div>
+<div class="eve-clock" aria-hidden="true"><span class="dial"><b></b><i></i></span><span class="time">6:30</span><span class="lbl">pm &middot; the night</span></div>
 
 <div id="loader" aria-hidden="true">
   <div class="glow"></div>
@@ -262,6 +330,7 @@ footer a:hover{color:var(--amber)}
 <header class="hero wood-dark" id="top">
   <div class="lantern-glow" aria-hidden="true"></div>
   <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="embers" aria-hidden="true"><i class="e3"></i><i class="e2"></i><i class="e1"></i></div>
   <div class="lanterns" aria-hidden="true">
     <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
       <radialGradient id="lgGlass" cx="50%" cy="42%" r="65%">
@@ -390,11 +459,13 @@ footer a:hover{color:var(--amber)}
       <p class="kicker">How a night works</p>
       <h2 class="st"><span class="wipe"><span>Four steps.</span></span> <span class="wipe"><span><em>Then just talk.</em></span></span></h2>
     </div>
+    <div class="timeline"><div class="tl-track" aria-hidden="true"><div class="tl-fill"></div></div>
     <div class="steps">
       <div class="step rv"><div class="n">Step 01</div><h3>Phones in the pouch</h3><p>You walk in, your phone goes in the canvas pouch at the door. It stays there all night. That's the whole rule.</p><span class="t">Doors 6:30</span></div>
       <div class="step rv"><div class="n">Step 02</div><h3>Make something</h3><p>Every night has a hands-on activity. Clay, painting, building, cooking. Zero experience needed. Bad art encouraged.</p><span class="t">7:00</span></div>
       <div class="step rv"><div class="n">Step 03</div><h3>Draw a card</h3><p>Between rounds we pull conversation cards. Deep ones, funny ones, ones that start real stories. Everyone answers.</p><span class="t">7:45</span></div>
       <div class="step rv"><div class="n">Step 04</div><h3>Talk until you're done</h3><p>No agenda after that. Most people stay the full two hours and don't want to leave. Phones back at the door on your way out.</p><span class="t">9:00</span></div>
+    </div>
     </div>
   </div>
 </section>
@@ -406,7 +477,7 @@ footer a:hover{color:var(--amber)}
       <p class="kicker">Night One &middot; Date to be announced</p>
       <h2 class="st"><span class="wipe"><span>Clay Night.</span></span> <span class="wipe"><span><em>The first one.</em></span></span></h2>
     </div>
-    <div class="event rv">
+    <div class="ticket-wrap rv"><div class="event">
       <div class="glow" aria-hidden="true"></div>
       <p class="kicker" style="color:var(--gold)">Tyler, Texas &middot; Date announced soon</p>
       <h3>Air-dry clay, good music, <em>and strangers who won't be strangers by 9 PM.</em></h3>
@@ -422,7 +493,7 @@ footer a:hover{color:var(--amber)}
           <button class="btn" type="submit">Notify me</button>
       </form>
       <p class="notify-done" hidden>You're on the list. We'll write when the date drops.</p>
-    </div>
+    </div></div>
   </div>
 </section>
 
@@ -496,6 +567,7 @@ footer a:hover{color:var(--amber)}
 <!-- FINAL -->
 <section class="final wood-dark">
   <div class="wrap">
+    <div class="candle" aria-hidden="true"><span class="bloom"></span><span class="wax"></span><span class="wick"></span><span class="fl"></span></div>
     <h2 class="rv">Your best nights had <em>no screens.</em></h2>
     <p class="rv">You already know the feeling. Lantern Club just makes it happen on purpose.</p>
     <div class="rv"><a class="btn" href="mailto:hello@orielaco.com?subject=Night%20One%20ticket">Get a ticket</a></div>
@@ -568,7 +640,7 @@ setTimeout(function(){
 
   if (!reduceMotion) {
     gsap.set(".h1 .line", { yPercent: 115 });
-    gsap.set(".rv", { y: 36, opacity: 0 });
+    gsap.set(".hero .rv", { y: 36, opacity: 0 });
   }
 
   /* preloader: the glow breathes, then the night begins */
@@ -578,7 +650,7 @@ setTimeout(function(){
   function heroIntro(){
     var tl = gsap.timeline();
     tl.to(".h1 .line", { yPercent: 0, duration: 1.4, stagger: 0.14 }, 0)
-      .to(".rv", { y: 0, opacity: 1, duration: 1.1, stagger: 0.09 }, 0.45)
+      .to(".hero .rv", { y: 0, opacity: 1, duration: 1.1, stagger: 0.09 }, 0.45)
       .to("nav", { opacity: 1, y: 0, duration: 1 }, 0.6);
   }
   function openSite(){
@@ -615,10 +687,79 @@ setTimeout(function(){
         scrollTrigger: { trigger: el, start: "top 84%" }
       });
     });
-    document.querySelectorAll(".step, .dcard, .event, .kit").forEach(function(el){
-      gsap.fromTo(el, { y: 44 }, { y: 0, duration: 1.1, ease: "expo.out",
+    /* Section reveals as you reach them (hero items come in with the intro instead) */
+    gsap.utils.toArray(".rv").filter(function(el){ return !el.closest(".hero") && !el.classList.contains("dcard"); }).forEach(function(el){
+      gsap.fromTo(el, { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: "expo.out",
         scrollTrigger: { trigger: el, start: "top 88%" } });
     });
+
+    /* The deck gets dealt: cards start stacked and fanned in the middle of the table, then slide to their places as you scroll */
+    var deck = document.querySelector(".deck");
+    if (deck) {
+      deck.style.position = "relative";
+      gsap.utils.toArray(".dcard").forEach(function(c, i, all){
+        gsap.fromTo(c, {
+          x: function(){ return deck.clientWidth / 2 - (c.offsetLeft + c.offsetWidth / 2); },
+          y: function(){ return deck.clientHeight / 2 - (c.offsetTop + c.offsetHeight / 2) + 40; },
+          rotation: (i - (all.length - 1) / 2) * 7, opacity: 0.6
+        }, { x: 0, y: 0, rotation: 0, opacity: 1, ease: "power1.inOut",
+          scrollTrigger: { trigger: deck, start: "top 85%", end: "top 25%", scrub: 0.6, invalidateOnRefresh: true } });
+      });
+    }
+
+    /* The wick burns along the timeline as you read the night */
+    gsap.to(".tl-fill", { scaleX: 1, ease: "none",
+      scrollTrigger: { trigger: ".steps", start: "top 78%", end: "bottom 55%", scrub: true } });
+    gsap.utils.toArray(".steps .step").forEach(function(st, i){
+      gsap.from(st, { rotateX: 16, transformPerspective: 900, transformOrigin: "50% 0%", duration: 1.3, delay: i * 0.08, ease: "expo.out",
+        scrollTrigger: { trigger: ".steps", start: "top 85%" } });
+    });
+
+    /* Nightfall: the edges of the room darken as the evening goes on */
+    gsap.to(".nightfall", { opacity: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: true } });
+
+    /* Evening clock: doors at 6:30, last conversation at 9:00 */
+    (function(){
+      var clock = document.querySelector(".eve-clock");
+      if (!clock) return;
+      var tEl = clock.querySelector(".time"), hr = clock.querySelector("b"), mn = clock.querySelector("i");
+      function paint(p){
+        var m = 390 + Math.round(p * 150), h = Math.floor(m / 60), mm = m % 60;
+        tEl.textContent = (h > 12 ? h - 12 : h) + ":" + (mm < 10 ? "0" : "") + mm;
+        hr.style.transform = "rotate(" + ((h % 12) * 30 + mm * 0.5) + "deg)";
+        mn.style.transform = "rotate(" + (mm * 6) + "deg)";
+      }
+      paint(0);
+      ScrollTrigger.create({ trigger: "#story", start: "top 70%", end: "max", scrub: true,
+        onUpdate: function(self){ paint(self.progress); },
+        onToggle: function(self){ clock.classList.toggle("on", self.isActive); } });
+    })();
+
+    /* Embers drift up at three depths */
+    gsap.to(".embers .e1", { yPercent: -28, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".embers .e2", { yPercent: -16, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".embers .e3", { yPercent: -6, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+    /* The taped note settles onto the wall */
+    gsap.fromTo(".pull", { rotation: 9, yPercent: 18 }, { rotation: 2, yPercent: 0, ease: "none",
+      scrollTrigger: { trigger: ".story-grid", start: "top 85%", end: "center 50%", scrub: true } });
+
+    /* The candle's light grows as you reach the end */
+    gsap.fromTo(".candle .bloom", { scale: 0.35, opacity: 0.25 }, { scale: 1.35, opacity: 1, ease: "none",
+      scrollTrigger: { trigger: ".final", start: "top bottom", end: "center center", scrub: true } });
+
+    /* The kit tilts toward the cursor */
+    if (window.matchMedia("(pointer: fine)").matches) {
+      var kit = document.querySelector(".kit");
+      if (kit) {
+        var kx = gsap.quickTo(kit, "rotationY", { duration: 0.8, ease: "power3" }), ky = gsap.quickTo(kit, "rotationX", { duration: 0.8, ease: "power3" });
+        kit.addEventListener("pointermove", function(e){
+          var r = kit.getBoundingClientRect();
+          kx(((e.clientX - r.left) / r.width - 0.5) * 10); ky(-((e.clientY - r.top) / r.height - 0.5) * 8);
+        });
+        kit.addEventListener("pointerleave", function(){ kx(0); ky(0); });
+      }
+    }
   }
 
   /* lantern glow drift */
