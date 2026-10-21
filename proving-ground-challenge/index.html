@@ -177,6 +177,7 @@ table.raw td b{color:inherit}
 /* ============ FINAL ============ */
 .final{text-align:center;padding:110px 0}
 .final h2{font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.9;font-size:clamp(46px,11vw,120px)}
+.final h2 .wd{display:inline-block;white-space:nowrap}
 .final h2 .ch{display:inline-block;animation:cbounce 1.6s ease-in-out infinite}
 @keyframes cbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 .final .price{font-family:var(--mono);font-size:15px;letter-spacing:.3em;margin:28px 0 8px;color:var(--fg)}
@@ -823,7 +824,7 @@ if(animOK){
   setTimeout(slam,2600);
   gsap.set(".rv",{y:34,opacity:0});
   ScrollTrigger.batch(".rv",{start:"top 90%",
-    onEnter:function(b){gsap.to(b,{y:0,opacity:1,duration:0.85,ease:"expo.out",stagger:0.07,overwrite:true});}});
+    onEnter:function(b){gsap.to(b,{y:0,opacity:1,duration:0.85,ease:"expo.out",stagger:0.07,overwrite:"auto"});}});
   document.querySelectorAll("[data-count]").forEach(function(el){
     el.textContent="0";
     ScrollTrigger.create({trigger:el,start:"top 94%",once:true,onEnter:function(){roll(el);}});
@@ -847,12 +848,17 @@ if("IntersectionObserver" in window){
   var h=document.getElementById("finalh");if(!h||reduce)return;
   var txt=h.textContent;h.textContent="";h.setAttribute("aria-label",txt);
   var i=0;
-  txt.split("").forEach(function(c){
-    var s=document.createElement("span");
-    s.className="ch";s.textContent=c;s.setAttribute("aria-hidden","true");
-    if(c===" ")s.style.width=".35em";
-    s.style.animationDelay=(i*0.06)+"s";i++;
-    h.appendChild(s);
+  /* letters bounce, but each word stays whole so lines only break between words */
+  txt.split(" ").forEach(function(w,wi,all){
+    var word=document.createElement("span");word.className="wd";word.setAttribute("aria-hidden","true");
+    w.split("").forEach(function(c){
+      var s=document.createElement("span");
+      s.className="ch";s.textContent=c;
+      s.style.animationDelay=(i*0.06)+"s";i++;
+      word.appendChild(s);
+    });
+    h.appendChild(word);
+    if(wi<all.length-1)h.appendChild(document.createTextNode(" "));
   });
 })();
 
@@ -997,7 +1003,7 @@ ScrollTrigger.create({start:0,end:"max",onUpdate:function(self){
   var v=gsap.utils.clamp(-4,4,self.getVelocity()/-500); lean.forEach(function(f){ f(v); });
 }});
 /* The 28 days fill in as you read */
-gsap.to(".dc i",{scaleY:1,ease:"none",stagger:0.05,scrollTrigger:{trigger:".dgrid",start:"top 85%",end:"bottom 45%",scrub:true}});
+gsap.to(".dc i",{scaleY:1,ease:"none",stagger:0.05,scrollTrigger:{trigger:".dgrid",start:"top 88%",end:"center 50%",scrub:.4}});
 /* Payout bars slam out to their share */
 gsap.utils.toArray(".bar .fl").forEach(function(f,i){
   gsap.fromTo(f,{scaleX:0},{scaleX:parseFloat(f.getAttribute("data-w")),duration:1.2,delay:i*0.12,ease:"expo.out",scrollTrigger:{trigger:".bars",start:"top 85%"}});
@@ -1011,10 +1017,10 @@ gsap.to(".hero h1 .w:nth-child(1) > span",{xPercent:-14,ease:"none",scrollTrigge
 gsap.to(".hero h1 .w:nth-child(2) > span",{xPercent:14,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:.5}});
 gsap.to(".hero .wrap",{yPercent:-10,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
 gsap.utils.toArray("h2.st").forEach(function(h,i){
-  gsap.fromTo(h,{x:i%2?-60:60},{x:i%2?40:-40,ease:"none",scrollTrigger:{trigger:h,start:"top bottom",end:"bottom top",scrub:.6}});
+  gsap.fromTo(h,{x:i%2?-80:80},{x:0,ease:"power2.out",scrollTrigger:{trigger:h,start:"top bottom",end:"top 45%",scrub:.6}});
 });
 gsap.utils.toArray(".step, .wkrow, .div").forEach(function(r){
-  gsap.fromTo(r,{xPercent:6},{xPercent:0,ease:"power2.out",scrollTrigger:{trigger:r,start:"top bottom",end:"top 65%",scrub:.5}});
+  gsap.fromTo(r,{xPercent:6},{xPercent:0,ease:"power2.out",scrollTrigger:{trigger:r,start:"top bottom",end:"top 72%",scrub:.4}});
 });
 /* Footer mark slides in from the side */
 gsap.from(".fmark",{xPercent:-12,opacity:0,duration:1.4,ease:"expo.out",scrollTrigger:{trigger:"footer",start:"top 90%"}});
