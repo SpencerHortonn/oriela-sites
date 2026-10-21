@@ -58,7 +58,10 @@ a{color:inherit}
 
 /* ============ NAV ============ */
 nav{position:fixed;top:0;left:0;right:0;z-index:800;transition:background-color .7s var(--ease)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+nav.solid{background:var(--bg);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+nav.solid .nav-in{padding-top:13px;padding-bottom:13px}
+.nav-in{transition:padding .45s var(--ease)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding-top:20px;padding-bottom:20px}
 .brand{font-family:Fraunces,serif;font-weight:600;font-size:24px;letter-spacing:-.01em;text-decoration:none;display:inline-block}
 .nav-links{display:flex;gap:28px;align-items:center}
 .nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--muted);transition:color .3s var(--ease);position:relative}
@@ -172,7 +175,7 @@ section.block.now-band{padding:90px 0}
 
 /* ============ MOBILE ============ */
 @media(max-width:768px){
-  .nav-in{padding:14px 0}
+  .nav-in{padding-top:14px;padding-bottom:14px}
   .brand{display:inline-flex;align-items:center;min-height:44px}
   .nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
 }
@@ -295,7 +298,7 @@ section.block.now-band{padding:90px 0}
           <h3 class="ch-name"><a href="https://provingground.orielaco.com" target="_blank" rel="noopener">Proving Ground</a></h3>
           <p class="ch-why">I wanted a race worth training for. So I built one.</p>
           <p class="ch-desc">A 4-week hybrid fitness challenge. Real programming, divisions for every level, video-verified leaderboard, and a prize pool.</p>
-          <div class="ch-meta"><span class="ch-price">$99 entry</span><a class="ch-link" href="https://provingground.orielaco.com" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
+          <div class="ch-meta"><span class="ch-price">Coming 2027</span><a class="ch-link" href="https://provingground.orielaco.com" target="_blank" rel="noopener">Visit site <span class="arr">&rarr;</span></a></div>
         </div>
         <div class="ch-visual" aria-hidden="true"><div class="soon-card"><span class="soon-kicker">Coming soon</span><span class="soon-date">2026-2027</span><span class="soon-visit">Visit site <span class="arr">&rarr;</span></span></div></div>
       </article>
@@ -498,7 +501,7 @@ setTimeout(function(){
     var flip = Flip.from(state, { duration: 1.25, ease: "expo.inOut", absolute: true,
       onComplete: function(){ gsap.set(navBrand, { clearProps: "all" }); gsap.set(navBrand, { opacity: 1 }); } });
     gsap.set(navBrand, { opacity: 1 });
-    var wipe = gsap.to(loader, { clipPath: "inset(0 0 100% 0)", duration: 1.7, ease: "expo.inOut",
+    var wipe = gsap.to(loader, { clipPath: "inset(0 0 100% 0)", duration: 1.3, ease: "expo.inOut",
       onComplete: function(){ loader.style.display = "none"; } });
     flip.play(0); wipe.play(0);
     heroIntro();
@@ -514,7 +517,7 @@ setTimeout(function(){
     var cnt = { v: 0 };
     var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
     var minTime = new Promise(function(r){ setTimeout(r, 700); });
-    var counted = gsap.to(cnt, { v: 100, duration: 2.6, ease: "power2.inOut",
+    var counted = gsap.to(cnt, { v: 100, duration: 1.5, ease: "power2.inOut",
       onUpdate: function(){
         var n = Math.round(cnt.v);
         lCount.textContent = (n < 10 ? "0" : "") + n;
@@ -522,7 +525,7 @@ setTimeout(function(){
       }});
     Promise.race([
       Promise.all([fontsReady, minTime, counted.then()]),
-      new Promise(function(r){ setTimeout(r, 4800); })
+      new Promise(function(r){ setTimeout(r, 3200); })
     ]).then(function(){
       try { sessionStorage.setItem("oriela-seen", "1"); } catch(e){}
       if (lenis) lenis.start();
@@ -626,6 +629,8 @@ var fine=window.matchMedia("(pointer: fine)").matches;
 if(reduce||typeof gsap==="undefined"||typeof ScrollTrigger==="undefined"){ return; }
 gsap.registerPlugin(ScrollTrigger);
 
+/* Nav gets a glass bar once you leave the top, in the colour of the section under it */
+(function(){ var nv=document.querySelector("nav"); function f(){ nv.classList.toggle("solid",scrollY>40); } addEventListener("scroll",f,{passive:true}); f(); })();
 /* Below-the-fold content reveals as you reach it (it used to fade in all at once during the hero intro) */
 gsap.utils.toArray(".rv").filter(function(el){ return !el.closest(".hero"); }).forEach(function(el){
   gsap.fromTo(el,{y:36,opacity:0},{y:0,opacity:1,duration:1.1,ease:"expo.out",scrollTrigger:{trigger:el,start:"top 88%"}});
