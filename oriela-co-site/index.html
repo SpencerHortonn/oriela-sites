@@ -197,6 +197,21 @@ section.block.now-band{padding:90px 0}
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
   #loader{display:none}
 }
+
+/* ===== Oct 20 polish: each chapter card carries its venture's light ===== */
+.ch-visual{transform-style:preserve-3d;isolation:isolate}
+.ch-visual::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.9;transition:opacity .5s var(--ease)}
+.chapter[data-url*="lantern"] .ch-visual::before{background:radial-gradient(60% 70% at 70% 20%,rgba(224,168,62,.45),transparent 65%),linear-gradient(180deg,#2a1d12,#1c130c)}
+.chapter[data-url*="provingground"] .ch-visual::before{background:repeating-linear-gradient(-45deg,rgba(198,255,0,.18) 0 10px,transparent 10px 20px),linear-gradient(180deg,#121212,#0b0b0b)}
+.chapter[data-url*="studio"] .ch-visual::before{background:linear-gradient(180deg,rgba(232,163,61,.3),transparent 70%) 50% 0/40% 100% no-repeat,linear-gradient(180deg,#141715,#0b0d0c)}
+.chapter[data-url*="hearth"] .ch-visual::before{background:radial-gradient(70% 60% at 50% 110%,rgba(255,140,50,.5),transparent 65%),linear-gradient(180deg,#1c1108,#2b1b0d)}
+.chapter[data-url*="halfframe"] .ch-visual::before{background:radial-gradient(circle at 50% 10px,#0b0b0a 4px,transparent 4.5px) 0 0/22px 20px repeat-x,radial-gradient(circle at 50% 10px,#0b0b0a 4px,transparent 4.5px) 0 100%/22px 20px repeat-x,radial-gradient(60% 50% at 60% 50%,rgba(232,163,61,.3),transparent 70%),#141412}
+.chapter[data-url*="proof"] .ch-visual::before{background:radial-gradient(60% 60% at 30% 30%,rgba(127,176,105,.4),transparent 65%),linear-gradient(180deg,#1f3529,#152a1e)}
+.chapter .ch-visual .soon-kicker,.chapter .ch-visual .soon-date{color:#f4ecdc}
+.chapter .ch-visual .soon-visit{color:#f4ecdc}
+.ch-visual{box-shadow:0 30px 60px -30px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+/* the counts in Right now get a lit edge */
+.now-num{text-shadow:0 0 28px var(--hl)}
 </style>
 </head>
 <body data-theme="forest">
@@ -448,7 +463,7 @@ setTimeout(function(){
   if (!reduceMotion) {
     gsap.set(".h1 .line", { yPercent: 115 });
     gsap.set("#cycler", { yPercent: 115 });
-    gsap.set(".rv", { y: 36, opacity: 0 });
+    gsap.set(".hero .rv", { y: 36, opacity: 0 });
     gsap.set(".st .hl", { scaleX: 0 });
     gsap.set(".ch-num", { yPercent: 60, opacity: 0 });
   }
@@ -467,7 +482,7 @@ setTimeout(function(){
     var tl = gsap.timeline();
     tl.to(".h1 .line", { yPercent: 0, duration: 1.3, stagger: 0.12 }, 0)
       .to("#cycler", { yPercent: 0, duration: 1.1 }, 0.35)
-      .to(".rv", { y: 0, opacity: 1, duration: 1.1, stagger: 0.1 }, 0.5)
+      .to(".hero .rv", { y: 0, opacity: 1, duration: 1.1, stagger: 0.1 }, 0.5)
       .add(startCycler, 1.0);
     return tl;
   }
@@ -600,6 +615,47 @@ setTimeout(function(){
   }
 
   window.addEventListener("load", function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+<script>
+/* Oct 20 polish. Separate script; structure and copy unchanged. */
+(function(){
+"use strict";
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fine=window.matchMedia("(pointer: fine)").matches;
+if(reduce||typeof gsap==="undefined"||typeof ScrollTrigger==="undefined"){ return; }
+gsap.registerPlugin(ScrollTrigger);
+
+/* Below-the-fold content reveals as you reach it (it used to fade in all at once during the hero intro) */
+gsap.utils.toArray(".rv").filter(function(el){ return !el.closest(".hero"); }).forEach(function(el){
+  gsap.fromTo(el,{y:36,opacity:0},{y:0,opacity:1,duration:1.1,ease:"expo.out",scrollTrigger:{trigger:el,start:"top 88%"}});
+});
+
+/* Hero rings drift on scroll too, each at its own depth */
+gsap.utils.toArray(".hero .player").forEach(function(l){
+  var d=parseFloat(l.getAttribute("data-depth"))||0.05;
+  gsap.to(l,{yPercent:-d*900,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+});
+
+/* Chapter cards tilt toward the cursor */
+if(fine){
+  document.querySelectorAll(".chapter").forEach(function(ch){
+    var v=ch.querySelector(".ch-visual"); if(!v){ return; }
+    gsap.set(v,{transformPerspective:800,yPercent:-50,y:0});
+    var rx=gsap.quickTo(v,"rotationX",{duration:0.8,ease:"power3"}),ry=gsap.quickTo(v,"rotationY",{duration:0.8,ease:"power3"});
+    ch.addEventListener("pointermove",function(e){ var r=ch.getBoundingClientRect(); ry(((e.clientX-r.left)/r.width-0.5)*16); rx(-((e.clientY-r.top)/r.height-0.5)*10); });
+    ch.addEventListener("pointerleave",function(){ rx(0); ry(0); });
+  });
+}
+
+/* Right now: numbers count up when they arrive */
+document.querySelectorAll(".now-num").forEach(function(n){
+  var target=parseInt(n.textContent,10); if(isNaN(target)){ return; }
+  var o={v:0}; n.textContent="0";
+  ScrollTrigger.create({trigger:n,start:"top 90%",once:true,onEnter:function(){
+    gsap.to(o,{v:target,duration:1.4,ease:"power2.out",onUpdate:function(){ n.textContent=Math.round(o.v); }});
+  }});
+});
 })();
 </script>
 <script>(function(){try{fetch("https://oriela-mail.spencerhorton28.workers.dev/api/view",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({site:"orielaco"}),keepalive:true}).catch(function(){});}catch(e){}})();</script>
