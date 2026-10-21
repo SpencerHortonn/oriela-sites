@@ -7,7 +7,7 @@
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <meta name="description" content="A 4-week hybrid fitness challenge by Proof. Lift, run, score. Cash prize pool, 3 divisions. Coming 2027. Get notified.">
 <meta property="og:title" content="Proving Ground Challenge | Coming 2027">
-<meta property="og:description" content="A 4-week hybrid fitness challenge. Lift, run, score. $99 entry, cash prize pool, 3 divisions.">
+<meta property="og:description" content="A 4-week hybrid fitness challenge. Lift, run, score. Cash prize pool, 3 divisions.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://provingground.orielaco.com">
 <meta property="og:description" content="A 4-week hybrid fitness challenge by Proof. Coming 2027.">
@@ -250,6 +250,56 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
   .wkhead .wt h3{font-size:18px}
   .notify-form input[type="email"]{font-size:16px}
 }
+/* ============ OCT 20 REVAMP: scoreboard + chalk ============ */
+/* chalk dust canvas over the hero */
+#chalk{position:absolute;inset:0;z-index:3;pointer-events:none}
+/* scanlines on dark sections, like a gym scoreboard */
+.th-dark .scan{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.06;background:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 4px)}
+/* GROUND fills with lime as you scroll */
+.hero h1 .out{background:linear-gradient(90deg,var(--lim) 0 50%,transparent 50% 100%);background-size:200% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text}
+.hero h1{position:relative}
+/* scoreboard stats: lit digits */
+.hstat .n{text-shadow:0 0 18px rgba(198,255,0,.55),0 0 2px rgba(198,255,0,.9)}
+.hstats{transition:box-shadow .25s}
+/* hazard dividers slide with the scroll */
+.rule{background-size:45.25px 45.25px}
+/* marquees lean with scroll speed */
+.mq{will-change:transform}
+/* 28-day grid */
+.days{margin-top:54px;background:var(--crm);color:#0b0b0b;padding:22px 22px 18px;border:3px solid #0b0b0b;box-shadow:12px 12px 0 var(--lim);--fg:#0b0b0b;--mut:rgba(11,11,11,.64)}
+.days-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:16px;font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--mut)}
+.days-head b{color:var(--fg);font-family:Archivo,sans-serif;font-weight:900;font-size:22px;letter-spacing:.02em}
+.dgrid{display:grid;grid-template-columns:repeat(28,1fr);gap:4px}
+.dc{position:relative;aspect-ratio:1/1.6;border:2px solid var(--fg);background:transparent;overflow:hidden}
+.dc i{position:absolute;inset:0;background:var(--blk);transform:scaleY(0);transform-origin:bottom}
+.dc.rest{border-style:dashed;opacity:.45}
+.dc.scored::after{content:"";position:absolute;left:50%;top:6px;width:7px;height:7px;margin-left:-3.5px;background:var(--lim);border:2px solid var(--blk);z-index:2}
+.dc span{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:0;color:var(--fg);z-index:2;mix-blend-mode:difference;color:#fff}
+.dweeks{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--mut)}
+.dweeks span{border-top:3px solid var(--fg);padding-top:6px}
+.dlegend{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mut)}
+.dlegend em{font-style:normal;display:inline-block;width:12px;height:12px;border:2px solid var(--fg);vertical-align:-2px;margin-right:8px}
+.dlegend .lg-s{background:var(--lim);border-color:var(--blk)}
+.dlegend .lg-r{border-style:dashed;opacity:.5}
+@media(max-width:760px){.dgrid{grid-template-columns:repeat(14,1fr)}.dweeks{grid-template-columns:repeat(2,1fr)}.dc span{display:none}}
+/* payout bars */
+.bars{margin-top:34px;display:grid;gap:12px;max-width:680px}
+.bar{display:grid;grid-template-columns:110px 1fr 64px;gap:14px;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.16em}
+.bar .tr{height:34px;border:3px solid var(--fg);position:relative;background:transparent}
+.bar .fl{position:absolute;inset:0;background:var(--blk);transform-origin:left;transform:scaleX(0)}
+.bar b{font-family:Archivo,sans-serif;font-weight:900;font-size:22px;letter-spacing:0;text-align:right}
+/* hard shadows swing against the cursor */
+.plog,.hstats,.ptab table.raw{transition:box-shadow .2s}
+/* (no transform on hover: GSAP owns .rv transforms) */
+.div{transition:background .25s,box-shadow .35s var(--ease)}
+.div:hover{box-shadow:inset 8px 0 0 var(--lim);background:rgba(11,11,11,.05)}
+/* divisions: numerals flood as you reach them */
+.div .rn,.step .sn{background:linear-gradient(0deg,var(--lim) 0 50%,transparent 50% 100%);background-size:100% 200%;background-position:0 0;-webkit-background-clip:text;background-clip:text}
+.th-cream .div .rn,.th-cream .step .sn{background-image:linear-gradient(0deg,#0b0b0b 0 50%,transparent 50% 100%)}
+/* big footer mark */
+.fmark{display:block;font-weight:900;text-transform:uppercase;letter-spacing:-.04em;line-height:.85;font-size:clamp(30px,9vw,150px);color:transparent;-webkit-text-stroke:2px rgba(239,235,224,.28);margin-bottom:36px;white-space:nowrap}
+.fmark span{color:var(--lim);-webkit-text-stroke:0}
+@media(prefers-reduced-motion:reduce){#chalk{display:none}.hero h1 .out{background-position:0 0}}
 </style>
 </head>
 <body>
@@ -341,6 +391,8 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
 <section class="hero th-dark" id="top" data-theme="dark">
   <div class="tex tex-chalk tx-par" data-speed="10" aria-hidden="true"></div>
   <div class="tex-scrim" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+  <canvas id="chalk" aria-hidden="true"></canvas>
   <div class="hp-wrap hpw-1 hp-par" data-speed="-30" aria-hidden="true"><svg viewBox="0 0 300 380"><use href="#hp-a"/></svg></div>
   <div class="hp-wrap hpw-2 hp-par" data-speed="24" aria-hidden="true"><svg viewBox="0 0 300 380"><use href="#hp-b"/></svg></div>
   <div class="hp-wrap hpw-3 hp-par" data-speed="48" aria-hidden="true"><svg viewBox="0 0 300 380"><use href="#hp-a"/></svg></div>
@@ -379,6 +431,12 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
       <div class="step rv"><div class="sn">03</div><h3>Train</h3><p>Five days a week. Strength plus running, programmed for you. Log every day for <b>consistency points</b>. Friday workouts are scored.</p></div>
       <div class="step rv"><div class="sn">04</div><h3>Prove it</h3><p>Test week. Retest every baseline, then the <b>Final Exam</b>. Winners are announced Sunday and paid within 7 days.</p></div>
     </div>
+    <div class="days rv" aria-label="28 days: five training days a week, weekends off, Fridays in weeks 2 to 4 are scored">
+      <div class="days-head"><b>28 DAYS</b><span>// 5 SESSIONS A WEEK // FRIDAYS SCORED</span></div>
+      <div class="dgrid" aria-hidden="true"><div class="dc" title="Week 1 MON"><i></i><span>1</span></div><div class="dc" title="Week 1 TUE"><i></i><span>2</span></div><div class="dc" title="Week 1 WED"><i></i><span>3</span></div><div class="dc" title="Week 1 THU"><i></i><span>4</span></div><div class="dc" title="Week 1 FRI"><i></i><span>5</span></div><div class="dc rest" title="Week 1 SAT"><i></i><span>6</span></div><div class="dc rest" title="Week 1 SUN"><i></i><span>7</span></div><div class="dc" title="Week 2 MON"><i></i><span>8</span></div><div class="dc" title="Week 2 TUE"><i></i><span>9</span></div><div class="dc" title="Week 2 WED"><i></i><span>10</span></div><div class="dc" title="Week 2 THU"><i></i><span>11</span></div><div class="dc scored" title="Week 2 FRI"><i></i><span>12</span></div><div class="dc rest" title="Week 2 SAT"><i></i><span>13</span></div><div class="dc rest" title="Week 2 SUN"><i></i><span>14</span></div><div class="dc" title="Week 3 MON"><i></i><span>15</span></div><div class="dc" title="Week 3 TUE"><i></i><span>16</span></div><div class="dc" title="Week 3 WED"><i></i><span>17</span></div><div class="dc" title="Week 3 THU"><i></i><span>18</span></div><div class="dc scored" title="Week 3 FRI"><i></i><span>19</span></div><div class="dc rest" title="Week 3 SAT"><i></i><span>20</span></div><div class="dc rest" title="Week 3 SUN"><i></i><span>21</span></div><div class="dc" title="Week 4 MON"><i></i><span>22</span></div><div class="dc" title="Week 4 TUE"><i></i><span>23</span></div><div class="dc" title="Week 4 WED"><i></i><span>24</span></div><div class="dc" title="Week 4 THU"><i></i><span>25</span></div><div class="dc scored" title="Week 4 FRI"><i></i><span>26</span></div><div class="dc rest" title="Week 4 SAT"><i></i><span>27</span></div><div class="dc rest" title="Week 4 SUN"><i></i><span>28</span></div></div>
+      <div class="dweeks" aria-hidden="true"><span>WK 01 // BASELINE</span><span>WK 02 // BUILD</span><span>WK 03 // PEAK</span><span>WK 04 // TEST</span></div>
+      <div class="dlegend" aria-hidden="true"><span><em></em>Training day</span><span><em class="lg-s"></em>Scored</span><span><em class="lg-r"></em>Rest</span></div>
+    </div>
   </div>
 </section>
 
@@ -388,6 +446,7 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
 <section class="block th-dark" id="program" data-theme="dark">
   <div class="tex tex-rubber tx-par" data-speed="8" aria-hidden="true"></div>
   <div class="tex-scrim" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
   <div class="wrap">
     <span class="sec-tag rv">FILE 02 // TRAINING LOG</span>
     <h2 class="st rv">The program</h2>
@@ -454,12 +513,12 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
     <p class="lede rv" style="margin-top:18px">The pool grows with the field. The exact number is published to every athlete before day one.</p>
     <div class="ptables">
       <div class="ptab rv">
-        <h3><span class="u">Pool math</span> // 100 athletes</h3>
+        <h3><span class="u">Pool math</span> // how it scales</h3>
         <table class="raw">
           <tr><th>Field</th><th>Value</th></tr>
-          <tr><td>Athletes</td><td class="num" data-count="100">100</td></tr>
-          <tr><td>Collected</td><td class="num" data-count="9900" data-prefix="$" data-comma="1">$9,900</td></tr>
-          <tr><td>Prize pool</td><td class="num" data-count="2970" data-prefix="$" data-comma="1">$2,970</td></tr>
+          <tr><td>To the pool</td><td class="num" data-count="30" data-suffix="%">30%</td></tr>
+          <tr><td>Of</td><td>Every entry</td></tr>
+          <tr><td>Pool size</td><td>Grows with the field</td></tr>
         </table>
       </div>
       <div class="ptab rv">
@@ -471,6 +530,11 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
           <tr><td class="num">03</td><td>3rd place</td><td class="num" data-count="20" data-suffix="%">20%</td></tr>
         </table>
       </div>
+    </div>
+    <div class="bars rv" aria-label="Payout: 1st place 50 percent, 2nd 30 percent, 3rd 20 percent">
+      <div class="bar" aria-hidden="true"><span>1ST PLACE</span><span class="tr"><span class="fl" data-w="1"></span></span><b>50%</b></div>
+      <div class="bar" aria-hidden="true"><span>2ND PLACE</span><span class="tr"><span class="fl" data-w="0.6"></span></span><b>30%</b></div>
+      <div class="bar" aria-hidden="true"><span>3RD PLACE</span><span class="tr"><span class="fl" data-w="0.4"></span></span><b>20%</b></div>
     </div>
     <p class="prize-note rv"><b>Kept honest by video.</b> Any score that puts you in prize position must be backed by unedited video submitted within 24 hours. No video, no prize, no exceptions. Random audits run all month.</p>
     <div class="plinks rv">
@@ -555,7 +619,7 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
       </div>
       <div class="qi">
         <button class="qq">What is the refund policy?</button>
-        <div class="qa2"><p><b>Full refund any time before the cohort starts</b>, no questions asked. Once day one begins, entries lock because your $99 is already feeding the prize pool. Injured in week 1? We roll your entry to the next cohort once.</p></div>
+        <div class="qa2"><p><b>Full refund any time before the cohort starts</b>, no questions asked. Once day one begins, entries lock because your entry is already feeding the prize pool. Injured in week 1? We roll your entry to the next cohort once.</p></div>
       </div>
     </div>
   </div>
@@ -595,6 +659,7 @@ section::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:
 
 <footer class="th-dark" data-theme="dark">
   <div class="wrap">
+    <span class="fmark" aria-hidden="true">Proving <span>Ground</span></span>
     <p>PROVING GROUND BY PROOF // <a href="https://orielaco.com" style="color:inherit">AN ORIELA CO PROJECT</a> · © 2026</p>
     <p>Questions? <a href="mailto:hello@orielaco.com">hello@orielaco.com</a></p>
   </div>
@@ -642,7 +707,7 @@ setTimeout(killLoader,3000);
 /* ---- header console ticker: typewriter, dependency-free ---- */
 (function(){
   var el=document.getElementById("ticktxt");if(!el)return;
-  var msgs=["SYS.READY // COHORT 01 // COMING 2027","30% OF EVERY $99 TO THE POOL","3 DIVISIONS // 370 POINTS // 28 DAYS","VIDEO OR IT DID NOT HAPPEN"];
+  var msgs=["SYS.READY // COHORT 01 // COMING 2027","30% OF EVERY ENTRY TO THE POOL","3 DIVISIONS // 370 POINTS // 28 DAYS","VIDEO OR IT DID NOT HAPPEN"];
   var mi=0,ci=0,del=false;
   (function step(){
     var m=msgs[mi];
@@ -846,6 +911,103 @@ document.querySelectorAll(".notify-form").forEach(function(form){
   });
 });
 })();
+})();
+</script>
+<script>
+/* Oct 20 revamp: scoreboard + chalk layer. Separate script; the main script above is unchanged apart from one ticker string. */
+(function(){
+"use strict";
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fine=window.matchMedia("(pointer: fine)").matches;
+
+/* Chalk dust: claps off the cursor in the hero, plus a slow ambient drift off the handprints. */
+(function chalk(){
+  var cv=document.getElementById("chalk"),hero=document.querySelector(".hero");
+  if(!cv||!hero||!cv.getContext||reduce){ return; }
+  var ctx=cv.getContext("2d"),W=0,H=0,P=[],on=true;
+  function size(){ var d=Math.min(window.devicePixelRatio||1,1.5),r=hero.getBoundingClientRect(); W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cv.style.width=W+"px";cv.style.height=H+"px";ctx.setTransform(d,0,0,d,0,0); }
+  size();window.addEventListener("resize",size);
+  function puff(x,y,n,force){
+    for(var i=0;i<n;i++){ var a=Math.random()*6.283,sp=Math.random()*force;
+      P.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-0.25,r:Math.random()*2.2+0.4,life:1,decay:0.006+Math.random()*0.012}); }
+    if(P.length>900){ P.splice(0,P.length-900); }
+  }
+  var lx=0,ly=0;
+  if(fine){
+    hero.addEventListener("pointermove",function(e){
+      var r=hero.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,d=Math.hypot(x-lx,y-ly);
+      if(d>14){ puff(x,y,Math.min(10,2+d/12),1.1); lx=x;ly=y; }
+    });
+    hero.addEventListener("pointerdown",function(e){ var r=hero.getBoundingClientRect(); puff(e.clientX-r.left,e.clientY-r.top,70,3.2); });
+  }
+  var hps=Array.prototype.slice.call(document.querySelectorAll(".hp-wrap"));
+  setInterval(function(){
+    if(!on||!hps.length){ return; }
+    var hp=hps[(Math.random()*hps.length)|0],r=hp.getBoundingClientRect(),hr=hero.getBoundingClientRect();
+    puff(r.left-hr.left+r.width*(0.3+Math.random()*0.4),r.top-hr.top+r.height*(0.3+Math.random()*0.4),6,0.5);
+  },420);
+  new IntersectionObserver(function(e){ on=e[0].isIntersecting; if(on){ requestAnimationFrame(frame); } }).observe(hero);
+  function frame(){
+    if(!on){ return; }
+    ctx.clearRect(0,0,W,H);
+    for(var i=P.length-1;i>=0;i--){
+      var p=P[i]; p.vx*=0.97;p.vy=p.vy*0.97-0.006;p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;
+      if(p.life<=0){ P.splice(i,1);continue; }
+      ctx.globalAlpha=p.life*0.55;ctx.fillStyle="#f2f4ef";
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*(1.6-p.life*0.6),0,6.283);ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* Hard offset shadows swing away from the cursor, like a light moving overhead. */
+(function shadows(){
+  if(!fine||reduce){ return; }
+  var els=[[".plog","#c6ff00"],[".hstats","#c6ff00"],[".ptab table.raw","#0b0b0b"]],list=[];
+  els.forEach(function(e){ document.querySelectorAll(e[0]).forEach(function(el){ list.push([el,e[1]]); }); });
+  var tx=0,ty=0,cx=0,cy=0,raf=0;
+  window.addEventListener("pointermove",function(e){
+    tx=(e.clientX/window.innerWidth-0.5)*-2; ty=(e.clientY/window.innerHeight-0.5)*-2;
+    if(!raf){ raf=requestAnimationFrame(paint); }
+  });
+  function paint(){
+    raf=0; cx+=(tx-cx)*0.2; cy+=(ty-cy)*0.2;
+    list.forEach(function(p){ p[0].style.boxShadow=(12+cx*8).toFixed(1)+"px "+(12+cy*8).toFixed(1)+"px 0 "+p[1]; });
+    if(Math.abs(tx-cx)>0.01||Math.abs(ty-cy)>0.01){ raf=requestAnimationFrame(paint); }
+  }
+})();
+
+if(reduce||typeof gsap==="undefined"||typeof ScrollTrigger==="undefined"){
+  document.querySelectorAll(".bar .fl").forEach(function(f){ f.style.transform="scaleX("+f.getAttribute("data-w")+")"; });
+  document.querySelectorAll(".dc i").forEach(function(c){ c.style.transform="scaleY(1)"; });
+  return;
+}
+gsap.registerPlugin(ScrollTrigger);
+
+/* GROUND floods with lime as you leave the hero */
+gsap.to(".hero h1 .out",{backgroundPosition:"0% 0",ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom 30%",scrub:true}});
+/* Hazard stripes slide as you scroll past */
+gsap.utils.toArray(".rule").forEach(function(r,i){
+  gsap.fromTo(r,{backgroundPositionX:"0px"},{backgroundPositionX:(i%2?-1:1)*360+"px",ease:"none",scrollTrigger:{trigger:r,start:"top bottom",end:"bottom top",scrub:true}});
+});
+/* Marquees lean into the scroll */
+var lean=gsap.utils.toArray(".mq").map(function(m){ return gsap.quickTo(m,"skewY",{duration:0.5,ease:"power3"}); });
+ScrollTrigger.create({start:0,end:"max",onUpdate:function(self){
+  var v=gsap.utils.clamp(-4,4,self.getVelocity()/-500); lean.forEach(function(f){ f(v); });
+}});
+/* The 28 days fill in as you read */
+gsap.to(".dc i",{scaleY:1,ease:"none",stagger:0.05,scrollTrigger:{trigger:".dgrid",start:"top 85%",end:"bottom 45%",scrub:true}});
+/* Payout bars slam out to their share */
+gsap.utils.toArray(".bar .fl").forEach(function(f,i){
+  gsap.fromTo(f,{scaleX:0},{scaleX:parseFloat(f.getAttribute("data-w")),duration:1.2,delay:i*0.12,ease:"expo.out",scrollTrigger:{trigger:".bars",start:"top 85%"}});
+});
+/* Step and division numerals flood from the bottom */
+gsap.utils.toArray(".step .sn, .div .rn").forEach(function(n){
+  gsap.fromTo(n,{backgroundPosition:"0% 0%"},{backgroundPosition:"0% 100%",ease:"none",scrollTrigger:{trigger:n.parentNode,start:"top 85%",end:"top 45%",scrub:true}});
+});
+/* Footer mark slides in from the side */
+gsap.from(".fmark",{xPercent:-12,opacity:0,duration:1.4,ease:"expo.out",scrollTrigger:{trigger:"footer",start:"top 90%"}});
 })();
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
