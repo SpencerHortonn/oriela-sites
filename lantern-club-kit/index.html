@@ -540,7 +540,7 @@ setTimeout(function(){ var l=document.getElementById("loader"); if(l&&l.style.di
   $$(".faq-item").forEach(function(it){ it.addEventListener("click",function(){ var o=it.classList.toggle("open"); var a=$(".faq-a",it); a.style.maxHeight=o?a.scrollHeight+"px":"0"; }); });
 
   /* Nav goes solid once you are inside */
-  var nav=$("nav"); addEventListener("scroll",function(){ nav.classList.toggle("solid",scrollY>innerHeight*.9); },{passive:true});
+  var nav=$("nav"); addEventListener("scroll",function(){ nav.classList.toggle("solid",scrollY>60); },{passive:true});
 
   /* Fireflies over the meadow, embers over the hearth */
   function particles(cv, opts){
@@ -596,7 +596,7 @@ setTimeout(function(){ var l=document.getElementById("loader"); if(l&&l.style.di
         var s=SplitText.create(el,{type:"lines",mask:"lines",linesClass:"line"}); gsap.from(s.lines,{yPercent:110,duration:1.3,stagger:.1,scrollTrigger:{trigger:el,start:"top 86%"}}); });
       ScrollTrigger.refresh();
     });
-    gsap.from(".letter",{y:100,rotation:-6,opacity:0,duration:1.4,scrollTrigger:{trigger:".letter",start:"top 85%"}});
+    gsap.from(".letter",{y:100,rotation:innerWidth<700?-2:-6,opacity:0,duration:1.4,scrollTrigger:{trigger:".letter",start:"top 85%"}});
     gsap.from(".frame",{rotation:-8,y:60,opacity:0,duration:1.4,scrollTrigger:{trigger:".frame",start:"top 88%"}});
     gsap.fromTo(".frame",{rotation:-1},{rotation:2.5,ease:"none",scrollTrigger:{trigger:".inside",start:"top 90%",end:"center 50%",scrub:true}});
 
