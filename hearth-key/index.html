@@ -180,6 +180,57 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
   .ember-glow{display:none}
   .dawn{display:none}
 }
+
+/* ===== Oct 20 revamp: one object, lit ===== */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+/* the hero token: a real coin with a table shadow, a moving sheen, a warm pool of light */
+.coin-wrap{position:relative;width:170px;height:200px;margin:0 auto 34px;perspective:900px}
+.coin-wrap .key-visual{margin:0;width:150px;height:150px;position:absolute;left:10px;top:0}
+.coin{position:absolute;left:0;top:0;width:170px;height:170px;transform-style:preserve-3d;will-change:transform;animation:bob 6s ease-in-out infinite}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.coin .sheen{position:absolute;left:10px;top:0;width:150px;height:150px;border-radius:50%;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(60% 45% at var(--sx,30%) var(--sy,25%),rgba(255,226,170,.45),transparent 60%)}
+.coin .rim{position:absolute;left:10px;top:0;width:150px;height:150px;border-radius:50%;pointer-events:none;box-shadow:inset 0 -6px 14px rgba(0,0,0,.45),inset 0 4px 10px rgba(255,214,150,.25)}
+.coin-shadow{position:absolute;left:50%;bottom:0;width:120px;height:18px;margin-left:-60px;border-radius:50%;background:rgba(10,4,0,.6);filter:blur(10px);animation:shadowbob 6s ease-in-out infinite}
+@keyframes shadowbob{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(.86);opacity:.55}}
+.hearth-pool{position:absolute;left:50%;top:40%;width:min(900px,120vw);height:min(900px,120vw);transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(circle,rgba(255,150,60,.16),rgba(232,120,40,.06) 35%,transparent 62%);animation:flicker 4.5s ease-in-out infinite}
+@keyframes flicker{0%,100%{opacity:.85}22%{opacity:1}48%{opacity:.75}70%{opacity:.95}}
+/* the phone by the bed: its screen dims as you scroll */
+.night-scene{position:relative;width:min(420px,86vw);height:260px;margin:46px auto 0}
+.nightstand{position:absolute;left:8%;right:8%;bottom:0;height:16px;border-radius:4px;background:linear-gradient(180deg,#5a3818,#2c1a0a);box-shadow:0 20px 40px -10px rgba(0,0,0,.8)}
+.phone{position:absolute;left:50%;bottom:16px;width:86px;height:170px;margin-left:-43px;border-radius:16px;background:#0e0a07;border:3px solid #2a2018;transform:rotate(-8deg);transform-origin:50% 100%;
+  box-shadow:0 30px 40px -18px rgba(0,0,0,.9)}
+.phone .screen{position:absolute;inset:6px;border-radius:11px;background:linear-gradient(160deg,#b7d4ff,#6f8fd8 45%,#3e4fa8);opacity:1}
+.phone .screen::after{content:"";position:absolute;inset:14px 10px auto;height:34px;border-radius:6px;background:rgba(255,255,255,.35);box-shadow:0 44px 0 rgba(255,255,255,.22),0 88px 0 rgba(255,255,255,.16)}
+.phone-glow{position:absolute;left:50%;bottom:60px;width:360px;height:280px;margin-left:-180px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(140,175,255,.32),rgba(100,130,240,.08) 45%,transparent 70%)}
+.moon{position:absolute;right:6%;top:0;width:34px;height:34px;border-radius:50%;box-shadow:inset -9px -4px 0 0 #f3e3bd;opacity:.25;filter:drop-shadow(0 0 12px rgba(243,227,189,.5))}
+/* uses: the token flips like a coin, uses become warm glass */
+.beat .coin3d{transform-style:preserve-3d;will-change:transform}
+.no-pin .slide{max-width:34em;padding:34px 30px;border-radius:22px;background:linear-gradient(170deg,rgba(255,200,130,.08),rgba(255,200,130,.02));border:1px solid rgba(246,238,218,.12);
+  box-shadow:0 40px 70px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,235,200,.08)}
+/* pricing: hairline rows become paper cards */
+.light .tier{background:rgba(255,250,238,.55);border:1px solid rgba(43,29,15,.1)!important;border-radius:20px;padding:38px 34px;margin-top:22px;
+  box-shadow:0 30px 60px -36px rgba(80,44,12,.45),inset 0 1px 0 rgba(255,255,255,.7)}
+.light .tier:first-of-type{margin-top:54px}
+.tier .price{background:linear-gradient(180deg,#3b2410,#8a5526);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+/* ritual: key taps the phone, NFC rings */
+.tap-demo{position:relative;height:150px;width:220px;margin:26px 0 8px}
+.tap-demo .tp{position:absolute;left:110px;top:12px;width:62px;height:124px;border-radius:12px;background:#2b1d0f;border:2px solid #4a3420}
+.tap-demo .tp::after{content:"";position:absolute;inset:5px;border-radius:8px;background:linear-gradient(160deg,#f4e3c0,#e2c58e)}
+.tap-demo .tk{position:absolute;left:30px;top:30px;width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#9a6130,#53300f 60%,#2b1a0d);box-shadow:0 10px 18px -6px rgba(43,29,15,.6);animation:tap 3.2s var(--ease) infinite}
+@keyframes tap{0%,18%{transform:translate(0,0)}36%,48%{transform:translate(40px,4px)}70%,100%{transform:translate(0,0)}}
+.tap-demo .ring{position:absolute;left:141px;top:74px;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;border:2px solid #c46d2a;opacity:0;animation:nfc 3.2s ease-out infinite}
+.tap-demo .ring.r2{animation-delay:.18s}.tap-demo .ring.r3{animation-delay:.36s}
+@keyframes nfc{0%,34%{transform:scale(.4);opacity:0}38%{opacity:.9}62%{transform:scale(7);opacity:0}100%{opacity:0}}
+/* notify: dawn arrives */
+#notify{position:relative;overflow:hidden}
+.sun{position:absolute;left:50%;top:10%;width:min(520px,90vw);height:min(520px,90vw);margin-left:calc(min(520px,90vw) / -2);border-radius:50%;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle,rgba(255,214,140,.95),rgba(255,180,90,.45) 35%,rgba(255,170,80,.12) 55%,transparent 70%);filter:blur(4px)}
+#notify .col{position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){.coin,.coin-shadow,.hearth-pool,.tap-demo .tk,.tap-demo .ring{animation:none}}
 </style>
 </head>
 <body>
@@ -200,9 +251,11 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
 <main>
 <header class="hero" id="top">
   <div class="hero-vignette" aria-hidden="true"></div>
+  <div class="hearth-pool" aria-hidden="true"></div>
   <div class="col">
     <p class="kicker rv">Hearth · A Lantern Club object</p>
-    <svg class="key-visual rv" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
+    <div class="coin-wrap rv"><div class="coin">
+    <svg class="key-visual" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
       <defs>
         <radialGradient id="woodG" cx="35%" cy="30%" r="85%">
           <stop offset="0" stop-color="#9a6130"/><stop offset=".58" stop-color="#53300f"/><stop offset="1" stop-color="#2b1a0d"/>
@@ -229,6 +282,8 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
         <path d="M87,55 C88,69 86,85 88,95"/>
       </g>
     </svg>
+    <span class="rim" aria-hidden="true"></span><span class="sheen" aria-hidden="true"></span>
+    </div><div class="coin-shadow" aria-hidden="true"></div></div>
     <h1 class="rv">One tap puts the <em>phone to bed.</em></h1>
     <p class="body-copy rv">The Hearth Key is a beautiful wooden token with an NFC chip inside. Tap it against your iPhone and your distracting apps go quiet. Tap again when you're ready to come back.</p>
     <div class="cta-row rv">
@@ -244,13 +299,14 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
     <h2 class="rv">The phone by <em>the bed.</em></h2>
     <p class="body-copy rv">Bedtime, deep work, dinner, a Lantern night. The phone wants to come to all of them, glowing.</p>
     <p class="body-copy rv">It can stay, for calls and maps. Everything else can rest.</p>
+    <div class="night-scene" aria-hidden="true"><div class="phone-glow"></div><div class="moon"></div><div class="phone"><div class="screen"></div></div><div class="nightstand"></div></div>
   </div>
 </section>
 
 <section class="beat" id="uses">
   <div class="beat-vignette" aria-hidden="true"></div>
   <div class="beat-inner">
-    <svg class="key-visual" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
+    <div class="coin3d"><svg class="key-visual" viewBox="0 0 148 148" role="img" aria-label="Wooden Hearth Key token with a burned-in H">
       <circle cx="74" cy="74" r="72" fill="url(#woodG)"/>
       <g fill="none" stroke="#241204" stroke-width="1.4" opacity=".42">
         <path d="M16,63 C40,55 68,69 132,57"/>
@@ -265,7 +321,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
         <path d="M91,55 C92,69 90,85 92,95"/>
         <path d="M59,75 C69,73 81,77 91,74"/>
       </g>
-    </svg>
+    </svg></div>
     <div class="beat-count" id="beatCount" aria-hidden="true">01 / 03</div>
     <div class="beat-slides">
       <article class="slide s1">
@@ -330,7 +386,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
         <li>Add the <strong>Set Focus</strong> action, pick your rest Focus, and set it to <strong>Toggle</strong>. One tap turns it on, the next tap turns it off.</li>
       </ol>
       <p class="setup-note">Works with iPhone Xs and later. No app to install, no account, nothing to charge.</p></div>
-    <div class="step rv"><div class="n">02</div><h3>Tap to rest</h3><p>Dinner, deep work, bedtime, a Lantern night. Tap the key and your problem apps disappear behind Focus. The phone is still there for calls and maps.</p></div>
+    <div class="step rv"><div class="n">02</div><div class="tap-demo" aria-hidden="true"><span class="tp"></span><span class="ring"></span><span class="ring r2"></span><span class="ring r3"></span><span class="tk"></span></div><h3>Tap to rest</h3><p>Dinner, deep work, bedtime, a Lantern night. Tap the key and your problem apps disappear behind Focus. The phone is still there for calls and maps.</p></div>
     <div class="step rv"><div class="n">03</div><h3>Tap to return</h3><p>Tap again and everything comes back. You're in control the whole time. The key is a ritual, not a lock.</p></div>
     <div class="honest-note rv">
       <h3>Honest by design</h3>
@@ -351,6 +407,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
 </section>
 
 <section class="band light" id="notify">
+  <div class="sun" aria-hidden="true"></div>
   <div class="col waitlist">
     <h2 class="rv">First batch: <em>50 keys</em></h2>
     <p class="body-copy rv">Drop your email and you'll get first dibs when batch one opens, plus the setup video the moment it's ready.</p>
@@ -374,6 +431,7 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 (function(){
   "use strict";
@@ -589,6 +647,59 @@ footer .fmark{font-family:var(--serif);font-weight:300;font-style:italic;color:v
       }
     });
   });
+})();
+</script>
+<script>
+/* Oct 20 revamp: one object, lit. Separate script; the page's own script above is unchanged. */
+(function(){
+"use strict";
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fine=window.matchMedia("(pointer: fine)").matches;
+if(reduce||typeof gsap==="undefined"||typeof ScrollTrigger==="undefined"){ return; }
+gsap.registerPlugin(ScrollTrigger);
+document.documentElement.style.scrollBehavior="auto";
+
+/* Smooth scroll */
+if(typeof Lenis!=="undefined"){
+  var lenis=new Lenis({lerp:0.08});
+  lenis.on("scroll",ScrollTrigger.update);
+  gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+  gsap.ticker.lagSmoothing(0);
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click",function(e){
+      var el=a.getAttribute("href").length>1&&document.querySelector(a.getAttribute("href"));
+      if(el){ e.preventDefault(); e.stopImmediatePropagation(); lenis.scrollTo(el,{offset:-60,duration:1.6}); }
+    },true);
+  });
+}
+
+/* Hero token tilts toward the cursor; the sheen slides to face the light */
+var coin=document.querySelector(".coin"),sheen=document.querySelector(".coin .sheen");
+if(coin&&fine){
+  var rx=gsap.quickTo(coin,"rotationX",{duration:0.9,ease:"power3"}),ry=gsap.quickTo(coin,"rotationY",{duration:0.9,ease:"power3"});
+  window.addEventListener("pointermove",function(e){
+    var nx=e.clientX/window.innerWidth-0.5,ny=e.clientY/window.innerHeight-0.5;
+    ry(nx*34); rx(-ny*28);
+    if(sheen){ sheen.style.setProperty("--sx",(50-nx*60)+"%"); sheen.style.setProperty("--sy",(40-ny*60)+"%"); }
+  });
+}
+/* Hero recedes into the dark as you scroll */
+gsap.to(".hero .col",{yPercent:-14,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+gsap.to(".hearth-pool",{scale:1.25,opacity:0.4,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+
+/* The phone goes to bed: screen dims, glow fades, moon comes up */
+var tl=gsap.timeline({scrollTrigger:{trigger:".night-scene",start:"top 85%",end:"bottom 35%",scrub:true}});
+tl.to(".phone .screen",{opacity:0.04,ease:"none"},0)
+  .to(".phone-glow",{opacity:0,scale:0.6,ease:"none"},0)
+  .to(".phone",{rotation:0,y:2,ease:"none"},0)
+  .to(".moon",{opacity:1,y:-14,ease:"none"},0.2);
+
+/* The token flips like a coin while you read the three uses */
+gsap.fromTo(".beat .coin3d",{rotationY:0},{rotationY:720,ease:"none",scrollTrigger:{trigger:".beat",start:"top 70%",end:"bottom 40%",scrub:1}});
+gsap.from(".no-pin .slide",{rotationX:12,transformPerspective:1000,transformOrigin:"50% 0%",stagger:0.12,duration:1.4,ease:"expo.out",scrollTrigger:{trigger:".beat-slides",start:"top 80%"}});
+
+/* Dawn: the sun rises behind the last section */
+gsap.fromTo(".sun",{yPercent:70,scale:0.7,opacity:0.2},{yPercent:-6,scale:1,opacity:1,ease:"none",scrollTrigger:{trigger:"#notify",start:"top bottom",end:"center center",scrub:true}});
 })();
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
