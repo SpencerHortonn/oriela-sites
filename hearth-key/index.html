@@ -457,8 +457,9 @@ gsap.from(".tier",{y:100,opacity:0,duration:1.4,stagger:.15,ease:"expo.out",scro
 gsap.from(".tier .amt",{scale:.6,opacity:0,duration:1.2,stagger:.15,ease:"back.out(1.6)",delay:.25,scrollTrigger:{trigger:".tiers",start:"top 86%"}});
 
 /* Ritual: steps slide in from the left, the setup list ticks down from the right */
-gsap.from(".step",{x:-70,opacity:0,duration:1.2,stagger:.12,ease:"expo.out",scrollTrigger:{trigger:".steps",start:"top 85%"}});
-gsap.from(".setup",{x:70,opacity:0,duration:1.3,ease:"expo.out",scrollTrigger:{trigger:".setup",start:"top 85%"}});
+var wideR=matchMedia("(min-width:900px)").matches;
+gsap.from(".step",{x:wideR?-70:0,y:wideR?0:40,opacity:0,duration:1.2,stagger:.12,ease:"expo.out",scrollTrigger:{trigger:".steps",start:"top 85%"}});
+gsap.from(".setup",{x:wideR?70:0,y:wideR?0:60,opacity:0,duration:1.3,ease:"expo.out",scrollTrigger:{trigger:".setup",start:"top 85%"}});
 gsap.from(".setup li",{y:24,opacity:0,duration:.9,stagger:.1,ease:"expo.out",delay:.3,scrollTrigger:{trigger:".setup",start:"top 85%"}});
 
 /* Dawn: the sun rises and the quote lights word by word, finished at mid-screen */
