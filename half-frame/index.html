@@ -27,7 +27,7 @@
   --expo:cubic-bezier(0.16,1,0.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:auto;scroll-snap-type:y proximity}
+html{scroll-behavior:auto}
 body{background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
 ::selection{background:var(--gold);color:#0b0b0a}
 a{color:inherit}
@@ -257,6 +257,30 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
   .leaks,#iris,.cone{display:none}
   html{scroll-snap-type:none}
 }
+
+/* ===== Oct 20 revamp: the darkroom ===== */
+/* halation: highlights bloom red-orange like real emulsion */
+h1,h2{text-shadow:0 0 18px rgba(255,90,40,.18),0 0 2px rgba(255,140,80,.25)}
+h1 em,h2 em{text-shadow:0 0 22px rgba(255,120,40,.45),0 0 60px rgba(255,80,20,.18)}
+/* the hero print develops from a faint negative */
+#camera h1{will-change:filter}
+/* contact sheet: a grease-pencil circle marks the frame you hover */
+.cell{transition:transform .5s var(--expo),box-shadow .5s var(--expo)}
+.cell:hover{transform:translateY(-6px);box-shadow:0 30px 50px -24px rgba(0,0,0,.95)}
+.cell .mark{position:absolute;left:-10px;top:-10px;width:calc(100% + 20px);height:calc(100% + 20px);pointer-events:none;z-index:3;overflow:visible}
+.cell .mark path{fill:none;stroke:#e2493b;stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;vector-effect:non-scaling-stroke;transition:stroke-dashoffset .7s var(--expo),opacity .2s}
+.cell:hover .mark path{stroke-dashoffset:0;opacity:.9}
+.cell .shot::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 70% 30%,rgba(255,120,60,.18),transparent 60%);mix-blend-mode:screen;pointer-events:none}
+/* darkroom: prints hang from a line with clothespins and develop as they arrive */
+.cfilm-inner{position:relative;padding-top:46px}
+.cfilm-inner::before{content:"";position:absolute;left:-4%;right:-4%;top:14px;height:2px;background:linear-gradient(90deg,transparent,#5b5446 8%,#5b5446 92%,transparent);box-shadow:0 2px 4px rgba(0,0,0,.6)}
+.cframe{transform-origin:50% -28px}
+.cframe::before{content:"";position:absolute;left:50%;top:-34px;width:12px;height:40px;margin-left:-6px;border-radius:3px;
+  background:linear-gradient(90deg,#8a6a42,#c49a62 45%,#7a5c38);box-shadow:0 4px 6px rgba(0,0,0,.55);z-index:2}
+.cframe .shot{transition:none}
+/* safelight swells as you enter the darkroom */
+#develop .frame-body{background:radial-gradient(80% 60% at 50% 100%,rgba(192,57,43,.14),transparent 70%)}
+@media(prefers-reduced-motion:reduce){.cell .mark path{transition:none}}
 </style>
 </head>
 <body>
@@ -353,14 +377,14 @@ footer .rewind{display:inline-block;margin-top:26px;font-family:var(--mono);font
           <h2><span class="line"><span class="line-in">Built like <em>film.</em></span></span></h2>
         </div>
         <div class="spec-grid">
-          <div class="cell"><div class="shot s1"></div><div class="n">01</div><h3>36 shots per roll</h3><p>Every roll is 36 exposures. Shoot with intent, like it costs something.</p></div>
-          <div class="cell"><div class="shot s2"></div><div class="n">02</div><h3>Three film looks</h3><p>Half Frame, 2000s, and Disposable. Pick your stock before you shoot.</p></div>
-          <div class="cell"><div class="shot s3"></div><div class="n">03</div><h3>Real film grain</h3><p>Grain is baked into every frame, not smeared on after.</p></div>
-          <div class="cell"><div class="shot s4"></div><div class="n">04</div><h3>Halation glow</h3><p>Highlights bloom and bleed the way they do on real emulsion.</p></div>
-          <div class="cell"><div class="shot s5"></div><div class="n">05</div><h3>Date stamps</h3><p>The amber date stamp, bottom right, on every single shot.</p></div>
-          <div class="cell"><div class="shot s6"></div><div class="n">06</div><h3>Develop overnight</h3><p>Flip it on and your shots appear the next day. Delayed gratification.</p></div>
-          <div class="cell"><div class="shot s7"></div><div class="n">07</div><h3>Light leaks</h3><p>The Disposable look burns the edges like a cracked plastic body.</p></div>
-          <div class="cell"><div class="shot s8"></div><div class="n">08</div><h3>Live viewfinder</h3><p>Frame and grade through the live camera in real time. Full app.</p></div>
+          <div class="cell"><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M52,3 C80,2 98,20 97,50 C96,80 76,98 48,97 C20,96 2,78 3,49 C4,22 24,5 56,6"/></svg><div class="shot s1"></div><div class="n">01</div><h3>36 shots per roll</h3><p>Every roll is 36 exposures. Shoot with intent, like it costs something.</p></div>
+          <div class="cell"><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M52,3 C80,2 98,20 97,50 C96,80 76,98 48,97 C20,96 2,78 3,49 C4,22 24,5 56,6"/></svg><div class="shot s2"></div><div class="n">02</div><h3>Three film looks</h3><p>Half Frame, 2000s, and Disposable. Pick your stock before you shoot.</p></div>
+          <div class="cell"><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M52,3 C80,2 98,20 97,50 C96,80 76,98 48,97 C20,96 2,78 3,49 C4,22 24,5 56,6"/></svg><div class="shot s3"></div><div class="n">03</div><h3>Real film grain</h3><p>Grain is baked into every frame, not smeared on after.</p></div>
+          <div class="cell"><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M52,3 C80,2 98,20 97,50 C96,80 76,98 48,97 C20,96 2,78 3,49 C4,22 24,5 56,6"/></svg><div class="shot s4"></div><div class="n">04</div><h3>Halation glow</h3><p>Highlights bloom and bleed the way they do on real emulsion.</p></div>
+          <div class="cell"><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M52,3 C80,2 98,20 97,50 C96,80 76,98 48,97 C20,96 2,78 3,49 C4,22 24,5 56,6"/></svg><div class="shot s5"></div><div class="n">05</div><h3>Date stamps</h3><p>The amber date stamp, bottom right, on every single shot.</p></div>
+          <div class="cell"><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M52,3 C80,2 98,20 97,50 C96,80 76,98 48,97 C20,96 2,78 3,49 C4,22 24,5 56,6"/></svg><div class="shot s6"></div><div class="n">06</div><h3>Develop overnight</h3><p>Flip it on and your shots appear the next day. Delayed gratification.</p></div>
+          <div class="cell"><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M52,3 C80,2 98,20 97,50 C96,80 76,98 48,97 C20,96 2,78 3,49 C4,22 24,5 56,6"/></svg><div class="shot s7"></div><div class="n">07</div><h3>Light leaks</h3><p>The Disposable look burns the edges like a cracked plastic body.</p></div>
+          <div class="cell"><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M52,3 C80,2 98,20 97,50 C96,80 76,98 48,97 C20,96 2,78 3,49 C4,22 24,5 56,6"/></svg><div class="shot s8"></div><div class="n">08</div><h3>Live viewfinder</h3><p>Frame and grade through the live camera in real time. Full app.</p></div>
         </div>
       </div>
     </div>
@@ -807,6 +831,43 @@ setTimeout(function(){
       }
     });
   });
+})();
+</script>
+<script>
+/* Oct 20 revamp: the darkroom. Separate script; the page's own script above is unchanged. */
+(function(){
+"use strict";
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(reduce||typeof gsap==="undefined"||typeof ScrollTrigger==="undefined"){ return; }
+gsap.registerPlugin(ScrollTrigger);
+
+/* Film advances through the gate: the sprocket rails move with the scroll */
+var railStep=window.innerWidth<=760?44:52;
+gsap.to(".rail",{backgroundPositionY:function(){ return -railStep*40+"px"; },ease:"none",scrollTrigger:{start:0,end:"max",scrub:0.4}});
+
+/* The hero print develops: a faint inverted negative clears into the positive */
+gsap.fromTo("#camera h1",{filter:"invert(1) brightness(.55) blur(6px)",opacity:0.35},{filter:"invert(0) brightness(1) blur(0px)",opacity:1,duration:2.6,ease:"power2.out",delay:2.2});
+
+/* Darkroom prints swing gently on the line and develop from blank as they arrive */
+gsap.utils.toArray(".cframe").forEach(function(c,i){
+  var base=[1.2,-1.6,0.8,-1][i%4];
+  gsap.to(c,{rotation:base+(i%2?2.4:-2.4),duration:2.6+i*0.4,ease:"sine.inOut",yoyo:true,repeat:-1});
+  var shot=c.querySelector(".shot");
+  if(shot){ gsap.fromTo(shot,{filter:"brightness(2.4) saturate(0) contrast(.4)"},{filter:"brightness(1) saturate(1) contrast(1)",ease:"none",scrollTrigger:{trigger:c,start:"top 95%",end:"top 45%",scrub:true}}); }
+});
+
+/* Price cards tilt toward the cursor like prints held to the light */
+if(window.matchMedia("(pointer: fine)").matches){
+  document.querySelectorAll(".price-card").forEach(function(card){
+    var rx=gsap.quickTo(card,"rotationX",{duration:0.7,ease:"power3"}),ry=gsap.quickTo(card,"rotationY",{duration:0.7,ease:"power3"});
+    gsap.set(card,{transformPerspective:900});
+    card.addEventListener("pointermove",function(e){ var r=card.getBoundingClientRect(); ry(((e.clientX-r.left)/r.width-0.5)*10); rx(-((e.clientY-r.top)/r.height-0.5)*8); });
+    card.addEventListener("pointerleave",function(){ rx(0); ry(0); });
+  });
+}
+
+/* Spec cells come up out of the tray in a stagger */
+gsap.from(".spec-grid .cell",{yPercent:16,opacity:0,duration:1.1,stagger:0.06,ease:"expo.out",scrollTrigger:{trigger:".spec-grid",start:"top 85%"}});
 })();
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
