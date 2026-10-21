@@ -800,7 +800,7 @@ if(animOK){
   gsap.registerPlugin(ScrollTrigger);
   var lenis=null;
   if(typeof Lenis!=="undefined"){
-    lenis=new Lenis({lerp:0.09});
+    lenis=new Lenis({lerp:0.075,smoothWheel:true,wheelMultiplier:1.05,touchMultiplier:1.4});
     window.__lenis=lenis;
     lenis.on("scroll",ScrollTrigger.update);
     gsap.ticker.add(function(t){lenis.raf(t*1000);});
@@ -1005,6 +1005,16 @@ gsap.utils.toArray(".bar .fl").forEach(function(f,i){
 /* Step and division numerals flood from the bottom */
 gsap.utils.toArray(".step .sn, .div .rn").forEach(function(n){
   gsap.fromTo(n,{backgroundPosition:"0% 0%"},{backgroundPosition:"0% 100%",ease:"none",scrollTrigger:{trigger:n.parentNode,start:"top 85%",end:"top 45%",scrub:true}});
+});
+/* Kinetic scrolling: hero words part as you leave, headlines drift sideways, rows slide in with momentum */
+gsap.to(".hero h1 .w:nth-child(1) > span",{xPercent:-14,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:.5}});
+gsap.to(".hero h1 .w:nth-child(2) > span",{xPercent:14,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:.5}});
+gsap.to(".hero .wrap",{yPercent:-10,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+gsap.utils.toArray("h2.st").forEach(function(h,i){
+  gsap.fromTo(h,{x:i%2?-60:60},{x:i%2?40:-40,ease:"none",scrollTrigger:{trigger:h,start:"top bottom",end:"bottom top",scrub:.6}});
+});
+gsap.utils.toArray(".step, .wkrow, .div").forEach(function(r){
+  gsap.fromTo(r,{xPercent:6},{xPercent:0,ease:"power2.out",scrollTrigger:{trigger:r,start:"top bottom",end:"top 65%",scrub:.5}});
 });
 /* Footer mark slides in from the side */
 gsap.from(".fmark",{xPercent:-12,opacity:0,duration:1.4,ease:"expo.out",scrollTrigger:{trigger:"footer",start:"top 90%"}});
