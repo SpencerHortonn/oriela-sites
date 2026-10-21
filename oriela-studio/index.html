@@ -224,6 +224,75 @@ footer a{color:var(--amber);text-decoration:none}
   .car-hint{display:none}
   .mi-t{font-size:clamp(24px,4.6vw,52px)}
 }
+/* ===== Oct 20 revamp: film-set depth layer ===== */
+/* camera viewfinder overlay on the hero */
+.vf{position:absolute;inset:92px 28px 130px;z-index:3;pointer-events:none}
+.vf i{position:absolute;width:34px;height:34px;border:1.5px solid rgba(244,236,220,.55)}
+.vf .c1{left:0;top:0;border-right:0;border-bottom:0}.vf .c2{right:0;top:0;border-left:0;border-bottom:0}
+.vf .c3{left:0;bottom:0;border-right:0;border-top:0}.vf .c4{right:0;bottom:0;border-left:0;border-top:0}
+.vf-rec{position:absolute;left:46px;top:10px;font-size:11px;letter-spacing:.24em;font-weight:600;color:var(--cream);display:flex;align-items:center;gap:8px;opacity:.8}
+.vf-rec::before{content:"";width:9px;height:9px;border-radius:50%;background:#e2493b;box-shadow:0 0 12px #e2493b;animation:recblink 1.2s steps(2) infinite}
+@keyframes recblink{50%{opacity:0}}
+.vf-tc{position:absolute;right:46px;top:10px;font-size:11px;letter-spacing:.2em;color:var(--cream);opacity:.7;font-variant-numeric:tabular-nums}
+.vf-cross{position:absolute;left:50%;top:50%;width:26px;height:26px;transform:translate(-50%,-50%);opacity:.3}
+.vf-cross::before,.vf-cross::after{content:"";position:absolute;background:var(--cream)}
+.vf-cross::before{left:50%;top:0;bottom:0;width:1px}.vf-cross::after{top:50%;left:0;right:0;height:1px}
+#dust{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen}
+.pointer-light{position:absolute;z-index:1;width:620px;height:620px;left:0;top:0;margin:-310px 0 0 -310px;border-radius:50%;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(circle,rgba(232,163,61,.16),transparent 62%);opacity:0;transition:opacity .6s}
+.hero-pin:hover .pointer-light{opacity:1}
+.h1{text-shadow:0 40px 90px rgba(0,0,0,.6)}
+/* client marquee */
+.clients{overflow:hidden;position:relative}
+.clients::before,.clients::after{content:"";position:absolute;top:0;bottom:0;width:12vw;z-index:2;pointer-events:none}
+.clients::before{left:0;background:linear-gradient(90deg,var(--bg2),transparent)}
+.clients::after{right:0;background:linear-gradient(-90deg,var(--bg2),transparent)}
+.cl-row{display:flex;flex-direction:column;align-items:stretch;gap:16px;padding:28px 0 32px}
+.cl-label{align-self:center;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);font-weight:600}
+.cl-marq{display:flex;white-space:nowrap;will-change:transform}
+.cl-track{display:flex;align-items:center;gap:56px;padding-right:56px;flex:none}
+.cl-track span{font-family:'Fraunces',serif;font-size:clamp(22px,2.6vw,34px);color:var(--dim);transition:color .3s}
+.cl-track span:hover{color:var(--cream)}
+.cl-track b{color:var(--amber);font-weight:400;font-size:18px}
+/* stats get a lit plinth */
+.stat{position:relative;padding:26px 24px;border-radius:18px;background:linear-gradient(180deg,rgba(244,236,220,.04),rgba(244,236,220,0));border:1px solid rgba(232,163,61,.12);box-shadow:0 30px 60px -36px rgba(0,0,0,.9)}
+.stat-num{text-shadow:0 0 40px rgba(232,163,61,.35)}
+/* work: letterboxed screen, tilts toward the cursor */
+.frames-tilt{perspective:1600px}
+.tilt-in{will-change:transform;transform-style:preserve-3d}
+.frames::before,.frames::after{content:"";position:absolute;left:0;right:0;height:7%;z-index:5;background:#000;pointer-events:none}
+.frames::before{top:0}.frames::after{bottom:0}
+.frame-num{text-shadow:0 20px 60px rgba(0,0,0,.6)}
+/* services: numerals fill with light as you read */
+.spread-num{background:linear-gradient(0deg,var(--amber) 0 50%,transparent 50% 100%);background-size:100% 200%;background-position:0 0;-webkit-background-clip:text;background-clip:text}
+.spread{position:relative}
+.spread::before{content:"";position:absolute;width:44vw;height:44vw;max-width:620px;max-height:620px;border-radius:50%;top:50%;transform:translateY(-50%);pointer-events:none;z-index:-1;
+  background:radial-gradient(circle,rgba(232,163,61,.07),transparent 65%)}
+.spread:not(.flip)::before{left:-12vw}.spread.flip::before{right:-12vw}
+.spread-body{position:relative}
+.spread .from{display:inline-block;margin-top:2px;padding:10px 18px;border:1px solid rgba(232,163,61,.35);border-radius:999px;background:rgba(232,163,61,.06)}
+/* podcast tiers become lit slates */
+.tiers{display:grid;gap:20px}
+@media(min-width:960px){.tiers{grid-template-columns:repeat(3,1fr)}}
+.tier{border:1px solid rgba(232,163,61,.16)!important;border-radius:22px;padding:34px 30px;background:linear-gradient(170deg,#141816,#0c0e0d);
+  box-shadow:0 50px 80px -40px rgba(0,0,0,.95),inset 0 1px 0 rgba(244,236,220,.06);transition:transform .6s cubic-bezier(.22,1,.36,1),box-shadow .6s,border-color .4s}
+.tier:hover{transform:translateY(-8px);border-color:rgba(232,163,61,.45)!important;box-shadow:0 60px 90px -40px rgba(0,0,0,.95),0 0 60px -20px rgba(232,163,61,.35),inset 0 1px 0 rgba(244,236,220,.08)}
+.tier::before{content:"";display:block;height:14px;margin:-34px -30px 26px;border-radius:22px 22px 0 0;background:repeating-linear-gradient(-45deg,rgba(244,236,220,.85) 0 12px,#111 12px 24px);opacity:.85}
+@media(min-width:760px){.tiers .tier-list{grid-template-columns:1fr}}
+/* about: words light up as you read */
+.fill .w{opacity:.18;transition:none}
+/* process: a strip of film frames */
+.proc-grid{position:relative;padding-top:34px;padding-bottom:34px}
+.proc-grid::before,.proc-grid::after{content:"";position:absolute;left:6vw;right:6vw;height:16px;background-image:radial-gradient(circle at 50% 50%,var(--bg) 0 4px,transparent 4.5px);background-size:30px 16px;background-color:rgba(244,236,220,.08);border-radius:3px}
+.proc-grid::before{top:0}.proc-grid::after{bottom:0}
+.proc{padding:28px 24px;border-radius:12px;background:linear-gradient(170deg,#141816,#0d0f0e);border:1px solid rgba(232,163,61,.12);box-shadow:0 34px 60px -36px rgba(0,0,0,.9)}
+/* contact: second spotlight */
+.contact-sec::after{content:"";position:absolute;left:50%;top:-10%;width:min(620px,90vw);height:120%;transform:translateX(-50%);pointer-events:none;z-index:-1;clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);
+  background:linear-gradient(180deg,rgba(232,163,61,.14),transparent 80%);filter:blur(40px)}
+.contact-sec{isolation:isolate}
+.contact-sec .h2{font-size:clamp(48px,8vw,110px)}
+@media(max-width:700px){.vf{inset:80px 14px 120px}.vf-cross{display:none}.pointer-light{display:none}}
+@media(prefers-reduced-motion:reduce){.vf-rec::before{animation:none}#dust{display:none}.fill .w{opacity:1}}
 </style>
 </head>
 <body>
@@ -254,6 +323,9 @@ footer a{color:var(--amber);text-decoration:none}
 <section class="hero" id="top">
 <div class="hero-pin">
 <div class="spot" aria-hidden="true"><div class="spot-beam b1"></div><div class="spot-beam b2"></div><div class="spot-beam b3"></div><div class="spot-pool"></div></div>
+<canvas id="dust" aria-hidden="true"></canvas>
+<div class="pointer-light" aria-hidden="true"></div>
+<div class="vf" aria-hidden="true"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i><span class="vf-rec">REC</span><span class="vf-tc" id="tc">00:00:00:00</span><span class="vf-cross"></span></div>
 <div class="kicker hero-fade">The service arm of Oriela Co</div>
 <h1 class="h1"><span class="hw hw1">ORIELA</span><span class="hw hw2">STUDIO</span></h1>
 <p class="sub hero-fade">Brand films. Short-form video. Websites that book customers. Content retainers. Business automations. One studio, everything you need to be seen, trusted, and chosen.</p>
@@ -268,7 +340,7 @@ footer a{color:var(--amber);text-decoration:none}
 </div>
 </section>
 
-<div class="clients"><div class="clients-in"><span class="clients-label">On the reel</span><span class="c">Matador</span><span class="c">Onno</span><span class="c">Lightbox Collective</span><span class="c">Chick-fil-A</span><span class="c">Christus Health</span></div></div>
+<div class="clients"><div class="cl-row"><span class="cl-label">On the reel</span><div class="cl-marq" aria-label="Matador, Onno, Lightbox Collective, Chick-fil-A, Christus Health"><div class="cl-track" aria-hidden="true"><span>Matador</span><b>·</b><span>Onno</span><b>·</b><span>Lightbox Collective</span><b>·</b><span>Chick-fil-A</span><b>·</b><span>Christus Health</span><b>·</b></div><div class="cl-track" aria-hidden="true"><span>Matador</span><b>·</b><span>Onno</span><b>·</b><span>Lightbox Collective</span><b>·</b><span>Chick-fil-A</span><b>·</b><span>Christus Health</span><b>·</b></div><div class="cl-track" aria-hidden="true"><span>Matador</span><b>·</b><span>Onno</span><b>·</b><span>Lightbox Collective</span><b>·</b><span>Chick-fil-A</span><b>·</b><span>Christus Health</span><b>·</b></div></div></div></div>
 
 <section class="stats" aria-label="Studio numbers">
 <div class="stats-row">
@@ -283,6 +355,7 @@ footer a{color:var(--amber);text-decoration:none}
 <div class="work-vig" aria-hidden="true"></div>
 <div class="sec-head"><div class="kicker">Selected work</div><h2 class="h2 rv">We have done<br><em>this before.</em></h2><p class="lede rv">One frame at a time. Drag, or use the arrows.</p></div>
 <div class="carousel" id="carousel">
+<div class="frames-tilt"><div class="tilt-in">
 <div class="frames" data-lenis-prevent>
 <figure class="frame is-active">
 <div class="frame-bg" style="background-image:url('assets/acoustic.jpg')"></div><div class="frame-scrim"></div>
@@ -315,6 +388,7 @@ footer a{color:var(--amber);text-decoration:none}
 <figcaption class="cap"><div class="cap-type">Ongoing</div><h3>Your Business</h3><p>The next one on this list.</p><span class="cap-next">Your slot is open</span></figcaption>
 </figure>
 </div>
+</div></div>
 <div class="car-ui">
 <button class="car-arrow" id="car-prev" aria-label="Previous project">←</button>
 <button class="car-arrow" id="car-next" aria-label="Next project">→</button>
@@ -331,22 +405,22 @@ footer a{color:var(--amber);text-decoration:none}
 
 <article class="spread rv" id="video-production">
 <div class="spread-num">01</div>
-<div class="spread-body"><h3>Video Production</h3><p class="plead">Brand films, commercials, event coverage, and short-form video that actually gets watched.</p><ul><li>Brand films and company stories</li><li>Short-form: reels, TikToks, shorts</li><li>Event and conference coverage</li><li>Product and commercial spots</li></ul></div>
+<div class="spread-body"><h3>Video Production</h3><p class="plead">Brand films, commercials, event coverage, and short-form video that actually gets watched.</p><ul><li>Brand films and company stories</li><li>Short-form: reels, TikToks, shorts</li><li>Event and conference coverage</li><li>Product and commercial spots</li></ul><div class="from">Custom quote</div></div>
 </article>
 <div class="rule"></div>
 <article class="spread flip rv" id="websites-that-book">
 <div class="spread-num">02</div>
-<div class="spread-body"><h3>Websites That Book</h3><p class="plead">Fast, clean websites designed to turn visitors into customers. Booking and follow-up built in.</p><ul><li>Custom design, mobile-first</li><li>Online booking and scheduling</li><li>Contact forms that convert</li><li>Launch in weeks, not months</li></ul></div>
+<div class="spread-body"><h3>Websites That Book</h3><p class="plead">Fast, clean websites designed to turn visitors into customers. Booking and follow-up built in.</p><ul><li>Custom design, mobile-first</li><li>Online booking and scheduling</li><li>Contact forms that convert</li><li>Launch in weeks, not months</li></ul><div class="from">Custom quote</div></div>
 </article>
 <div class="rule"></div>
 <article class="spread rv" id="content-retainers">
 <div class="spread-num">03</div>
-<div class="spread-body"><h3>Content Retainers</h3><p class="plead">Your content, handled. Monthly short-form video, podcast repurposing, or both.</p><ul><li>Short-form video monthly</li><li><a href="#podcast">Podcast repurposing packs</a></li><li>Done for you, simple monthly plan</li><li>No long contracts</li></ul></div>
+<div class="spread-body"><h3>Content Retainers</h3><p class="plead">Your content, handled. Monthly short-form video, podcast repurposing, or both.</p><ul><li>Short-form video monthly</li><li><a href="#podcast">Podcast repurposing packs</a></li><li>Done for you, simple monthly plan</li><li>No long contracts</li></ul><div class="from">Custom quote</div></div>
 </article>
 <div class="rule"></div>
 <article class="spread flip rv" id="business-automations">
 <div class="spread-num">04</div>
-<div class="spread-body"><h3>Business Automations</h3><p class="plead">Systems that save you hours every week. Running while you sleep.</p><ul><li>Missed-call text back</li><li>Booking confirmations</li><li>Review and referral automations</li><li>Lead follow-up sequences</li></ul></div>
+<div class="spread-body"><h3>Business Automations</h3><p class="plead">Systems that save you hours every week. Running while you sleep.</p><ul><li>Missed-call text back</li><li>Booking confirmations</li><li>Review and referral automations</li><li>Lead follow-up sequences</li></ul><div class="from">Custom quote</div></div>
 </article>
 <div class="svc-divider rv"><span class="svc-divider-label">Also under this roof</span></div>
 <article class="spread rv" id="ai-agents">
@@ -361,7 +435,7 @@ footer a{color:var(--amber);text-decoration:none}
 <div class="rule"></div>
 <article class="spread rv" id="product-photography">
 <div class="spread-num">07</div>
-<div class="spread-body"><h3>Product Photography</h3><p class="plead">Product photos that make people stop scrolling and start buying. Shot for your store, your ads, and your feed.</p><ul><li>Clean e-commerce product shots</li><li>Lifestyle and in-use photos</li><li>Flat lays and detail shots</li><li>Delivered fast, ready to post</li></ul></div>
+<div class="spread-body"><h3>Product Photography</h3><p class="plead">Product photos that make people stop scrolling and start buying. Shot for your store, your ads, and your feed.</p><ul><li>Clean e-commerce product shots</li><li>Lifestyle and in-use photos</li><li>Flat lays and detail shots</li><li>Delivered fast, ready to post</li></ul><div class="from">Custom quote</div></div>
 </article>
 </section>
 
@@ -376,7 +450,7 @@ footer a{color:var(--amber);text-decoration:none}
 </section>
 
 <section class="about-sec" id="about">
-<div class="sec-head"><div class="kicker">About</div><h2 class="h2 rv">One studio,<br><em>no handoffs.</em></h2><p class="big rv">Oriela Studio is the <em>service arm</em> of Oriela Co.</p><p class="small rv">Video production, websites that book, content retainers, and business automations from one team, so nothing gets lost between vendors. You talk to the person making the thing, and the thing ships.</p></div>
+<div class="sec-head"><div class="kicker">About</div><h2 class="h2 rv">One studio,<br><em>no handoffs.</em></h2><p class="big rv">Oriela Studio is the <em>service arm</em> of Oriela Co.</p><p class="small rv fill">Video production, websites that book, content retainers, and business automations from one team, so nothing gets lost between vendors. You talk to the person making the thing, and the thing ships.</p></div>
 </section>
 
 <section class="proc-sec" id="process">
@@ -629,6 +703,136 @@ document.querySelectorAll(".notify-form").forEach(function(form){
     }
   });
 });
+})();
+</script>
+<script>
+/* Oct 20 revamp: film-set depth layer. Separate from the main script on purpose: nothing above is modified. */
+(function(){
+"use strict";
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fine=window.matchMedia("(pointer: fine)").matches;
+function pad(n){ return (n<10?"0":"")+n; }
+
+/* Viewfinder timecode, 24 frames per second. */
+var tc=document.getElementById("tc");
+if(tc&&!reduce){
+  var t0=performance.now();
+  setInterval(function(){
+    var f=Math.floor((performance.now()-t0)/1000*24);
+    tc.textContent=pad(Math.floor(f/86400)%24)+":"+pad(Math.floor(f/1440)%60)+":"+pad(Math.floor(f/24)%60)+":"+pad(f%24);
+  },1000/24);
+}
+
+/* Dust drifting through the spotlight cone. */
+(function dust(){
+  var cv=document.getElementById("dust");
+  if(!cv||!cv.getContext||reduce){ return; }
+  var ctx=cv.getContext("2d"),W=0,H=0,parts=[],raf=0,on=true;
+  function size(){
+    var d=Math.min(window.devicePixelRatio||1,1.5),r=cv.parentNode.getBoundingClientRect();
+    W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cv.style.width=W+"px";cv.style.height=H+"px";ctx.setTransform(d,0,0,d,0,0);
+  }
+  function mk(){
+    var y=Math.random()*H,spread=0.08+0.42*(y/H);
+    return {x:W/2+(Math.random()-0.5)*W*spread*2,y:y,r:Math.random()*1.6+0.3,vx:(Math.random()-0.5)*0.12,vy:-(Math.random()*0.18+0.04),a:Math.random()*0.5+0.15,ph:Math.random()*6.28};
+  }
+  size();window.addEventListener("resize",size);
+  for(var i=0;i<(W<700?60:130);i++){ parts.push(mk()); }
+  var io=new IntersectionObserver(function(e){ on=e[0].isIntersecting; if(on){ raf=requestAnimationFrame(frame); } });
+  io.observe(cv);
+  function frame(t){
+    if(!on){ return; }
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<parts.length;i++){
+      var p=parts[i];
+      p.x+=p.vx+Math.sin(t*0.0006+p.ph)*0.08;p.y+=p.vy;
+      if(p.y<-10){ parts[i]=mk();parts[i].y=H+5;continue; }
+      var tw=0.6+0.4*Math.sin(t*0.002+p.ph);
+      ctx.globalAlpha=p.a*tw;ctx.fillStyle="#f6d9a8";
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill();
+    }
+    raf=requestAnimationFrame(frame);
+  }
+  raf=requestAnimationFrame(frame);
+})();
+
+/* A soft key light that follows the cursor across the hero. */
+var hero=document.querySelector(".hero-pin"),pl=document.querySelector(".pointer-light");
+if(hero&&pl&&fine&&!reduce){
+  hero.addEventListener("pointermove",function(e){
+    var r=hero.getBoundingClientRect();
+    pl.style.transform="translate3d("+(e.clientX-r.left)+"px,"+(e.clientY-r.top)+"px,0)";
+  });
+}
+
+/* Client marquee: steady drift that speeds up and follows the direction you scroll. */
+(function marquee(){
+  var m=document.querySelector(".cl-marq");
+  if(!m||reduce){ return; }
+  var track=m.querySelector(".cl-track"),x=0,v=0.45,boost=0,dir=1,lastY=window.scrollY;
+  window.addEventListener("scroll",function(){
+    var y=window.scrollY,dy=y-lastY;lastY=y;
+    if(dy!==0){ dir=dy>0?1:-1; }
+    boost=Math.min(14,boost+Math.abs(dy)*0.08);
+  },{passive:true});
+  (function loop(){
+    var w=track.offsetWidth;
+    boost*=0.92;
+    x-=(v+boost)*dir;
+    if(w){ if(x<=-w){ x+=w; } if(x>0){ x-=w; } }
+    m.style.transform="translate3d("+x+"px,0,0)";
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* Work screen tilts toward the cursor like a monitor on a stand. */
+(function tilt(){
+  var wrap=document.querySelector(".frames-tilt"),inner=document.querySelector(".tilt-in");
+  if(!wrap||!inner||!fine||reduce){ return; }
+  var rx=0,ry=0,tx=0,ty=0;
+  wrap.addEventListener("pointermove",function(e){
+    var r=wrap.getBoundingClientRect();
+    ty=((e.clientX-r.left)/r.width-0.5)*7; tx=-((e.clientY-r.top)/r.height-0.5)*5;
+  });
+  wrap.addEventListener("pointerleave",function(){ tx=0;ty=0; });
+  (function loop(){
+    rx+=(tx-rx)*0.08;ry+=(ty-ry)*0.08;
+    inner.style.transform="rotateX("+rx.toFixed(3)+"deg) rotateY("+ry.toFixed(3)+"deg)";
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* Split the About paragraph into words for the read-along fill. */
+document.querySelectorAll(".fill").forEach(function(p){
+  var words=p.textContent.trim().split(/\s+/);
+  p.textContent="";
+  words.forEach(function(w,i){
+    var s=document.createElement("span");s.className="w";s.textContent=w;p.appendChild(s);
+    if(i<words.length-1){ p.appendChild(document.createTextNode(" ")); }
+  });
+});
+
+if(reduce||typeof gsap==="undefined"||typeof ScrollTrigger==="undefined"){ return; }
+gsap.registerPlugin(ScrollTrigger);
+
+/* Service numerals fill with amber from the bottom as each spread passes, and float on their own plane. */
+gsap.utils.toArray(".spread-num").forEach(function(n){
+  gsap.fromTo(n,{backgroundPosition:"0% 0%"},{backgroundPosition:"0% 100%",ease:"none",scrollTrigger:{trigger:n.parentNode,start:"top 80%",end:"center 45%",scrub:true}});
+  gsap.fromTo(n,{yPercent:18},{yPercent:-18,ease:"none",scrollTrigger:{trigger:n.parentNode,start:"top bottom",end:"bottom top",scrub:true}});
+});
+/* About paragraph: words light up as you read. */
+gsap.utils.toArray(".fill").forEach(function(p){
+  gsap.to(p.querySelectorAll(".w"),{opacity:1,stagger:0.08,ease:"none",scrollTrigger:{trigger:p,start:"top 82%",end:"bottom 55%",scrub:true}});
+});
+/* Process frames advance like film through a gate. */
+/* (.proc, .stat and .tier already fade in via the main script's .rv reveal, so these only add transforms it does not touch) */
+gsap.from(".proc",{xPercent:30,stagger:0.12,duration:1.4,ease:"expo.out",scrollTrigger:{trigger:".proc-grid",start:"top 82%"}});
+/* Stats rise on a slight stagger. */
+gsap.from(".stat",{rotateX:24,transformPerspective:800,transformOrigin:"50% 100%",stagger:0.08,duration:1.4,ease:"expo.out",scrollTrigger:{trigger:".stats-row",start:"top 85%"}});
+/* Tiers swing in like slates. */
+gsap.from(".tier",{rotation:function(i){ return [-4,0,4][i%3]; },scale:0.94,stagger:0.1,duration:1.4,ease:"expo.out",scrollTrigger:{trigger:".tiers",start:"top 82%"}});
+/* Work screen eases forward out of the dark. */
+gsap.fromTo(".frames-tilt",{scale:0.9,opacity:0.4},{scale:1,opacity:1,ease:"none",scrollTrigger:{trigger:".carousel",start:"top 95%",end:"top 45%",scrub:true}});
 })();
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
