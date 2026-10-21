@@ -216,6 +216,66 @@ body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;op
   [data-anim]{opacity:1!important;transform:none!important;clip-path:none!important}
   #loader{transition:none}
 }
+
+/* ===== Oct 20 revamp: the desk ===== */
+/* brief becomes a two-column desk: copy left, a clipped stack of the four deliverables right */
+@media(min-width:1100px){
+  #brief{display:grid;grid-template-columns:minmax(0,1fr) 300px;column-gap:3rem;max-width:none}
+  #brief>*{grid-column:1}
+  #brief .docstack{grid-column:2;grid-row:2 / span 6;align-self:start;margin-top:.4rem}
+}
+.docstack{position:relative;height:400px;margin:2.4rem auto 0;width:min(300px,86vw);perspective:1200px}
+.doc{position:absolute;left:0;right:0;top:0;height:340px;background:#f6eedb;border:1.5px solid rgba(33,26,12,.55);padding:1.1rem 1.1rem 1rem;
+  box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 22px 34px -18px rgba(33,26,12,.45),0 3px 6px rgba(33,26,12,.12);will-change:transform}
+.doc .dh{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:700;display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:.5rem;margin-bottom:.8rem}
+.doc .dt{font-size:1.05rem;line-height:1.25;margin-bottom:.7rem}
+.doc .ln{height:6px;background:rgba(33,26,12,.16);margin:.5rem 0;border-radius:2px}
+.doc .ln.s{width:62%}.doc .ln.m{width:80%}
+.doc .ts{display:flex;gap:.6rem;align-items:center;font-family:var(--mono);font-size:.62rem;color:var(--ink-dim);margin:.45rem 0}
+.doc .ts b{color:var(--red);font-weight:700}
+.doc .ts .ln{flex:1;margin:0}
+.doc .posts{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.doc .posts i{display:block;height:46px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(156,58,36,.08),transparent)}
+.doc .quote{font-style:italic;font-size:1.25rem;line-height:1.3;border-left:3px solid var(--red);padding-left:.8rem;margin-top:.4rem}
+.d1{transform:rotate(-7deg) translate(-26px,30px);z-index:1}
+.d2{transform:rotate(4deg) translate(22px,18px);z-index:2}
+.d3{transform:rotate(-2deg) translate(-8px,8px);z-index:3}
+.d4{transform:rotate(1.5deg);z-index:4}
+.clip{position:absolute;z-index:6;top:-22px;left:38px;width:26px;height:64px;pointer-events:none;filter:drop-shadow(0 3px 2px rgba(0,0,0,.25))}
+.ring{position:absolute;z-index:0;right:-30px;bottom:-6px;width:150px;height:150px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,transparent 58%,rgba(120,72,28,.22) 60%,rgba(120,72,28,.1) 66%,transparent 70%)}
+@media(max-width:1099px){.docstack{height:360px}.doc{height:300px}}
+@media(max-width:600px){.docstack{display:none}}
+/* problem: 10 percent meter */
+.meter{display:flex;height:58px;border:2px solid var(--ink);margin:0 0 2.6rem;max-width:640px;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;position:relative;overflow:hidden}
+.meter .m-rec{width:10%;background:var(--ink);color:var(--paper);display:flex;align-items:flex-end;padding:.5rem;white-space:nowrap;transform-origin:left}
+.meter .m-grind{flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:.5rem .7rem;color:var(--red);
+  background:repeating-linear-gradient(-45deg,rgba(156,58,36,.16) 0 8px,transparent 8px 16px)}
+.meter .m-grind span{background:var(--paper);padding:.1rem .4rem}
+.meter-cap{display:flex;justify-content:space-between;max-width:640px;margin:-2.2rem 0 2.4rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+/* evidence: exhibits fanned on the desk, no sticky stacking */
+.evidence-stack{display:grid;gap:2.2rem;padding:1rem 0 1.4rem}
+.exhibit{position:relative!important;top:auto!important;transform:none;margin-bottom:0}
+.exhibit:hover{box-shadow:12px 12px 0 rgba(33,26,12,.2),inset 0 1px 0 rgba(255,255,255,.55)}
+.exhibit .view{transition:letter-spacing .3s var(--ease)}
+.exhibit .view:hover{letter-spacing:.18em}
+/* rates: the hovered plan column lights up */
+table.rates td,table.rates thead th{transition:background .25s}
+table.rates .col-on{background:rgba(156,58,36,.1)!important}
+table.rates thead th.col-on{background:var(--red)!important}
+/* contact: a rubber stamp */
+#contact{position:relative}
+.big-stamp{position:absolute;right:2rem;top:5.4rem;border:5px solid var(--red);color:var(--red);padding:.7rem 1.2rem;font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:.2em;text-transform:uppercase;
+  transform:rotate(-12deg);mix-blend-mode:multiply;-webkit-mask-image:var(--inknoise);-webkit-mask-size:170px;mask-image:var(--inknoise);mask-size:170px;pointer-events:none;text-align:center;line-height:1.3}
+@media(max-width:760px){.big-stamp{position:relative;right:auto;top:auto;display:inline-block;margin-bottom:1.4rem}}
+/* paper edges: each entry sits on the one below with a soft cast shadow */
+.entry{position:relative;background:linear-gradient(180deg,rgba(255,250,236,.35),transparent 40%)}
+.entry::after{content:"";position:absolute;left:2.6rem;right:2rem;bottom:-1px;height:14px;pointer-events:none;background:radial-gradient(60% 100% at 50% 0,rgba(33,26,12,.14),transparent 70%)}
+@media(prefers-reduced-motion:reduce){.doc{transform:none!important}}
+/* Fix: grid columns could not shrink below their content, so phones got a ~700px wide page. */
+.dossier>*{min-width:0}
+@media(max-width:900px){.dossier{grid-template-columns:minmax(0,1fr)}}
+@supports (overflow-x:clip){html,body{overflow-x:clip}}
 </style>
 <noscript><style>#loader{display:none}[data-anim]{opacity:1;transform:none;clip-path:none}.rl{transform:none}</style></noscript>
 </head>
@@ -279,6 +339,14 @@ body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;op
         <a class="btn ghost" href="#evidence">See the evidence</a>
       </div>
       <p class="proof"><strong>First episode free.</strong> Keep the full pack either way. No risk, no pitch deck, just the work.</p>
+      <div class="docstack" aria-hidden="true">
+        <div class="ring"></div>
+        <svg class="clip" viewBox="0 0 26 64"><path d="M8 8 v40 a5 5 0 0 0 10 0 V12 a8 8 0 0 0 -16 0 v38 a11 11 0 0 0 22 0 V20" fill="none" stroke="#8a8f96" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <div class="doc d1"><div class="dh"><span>04 / Quote graphics</span><span>x5</span></div><p class="quote">Pull the line people will screenshot.</p><div class="ln m"></div><div class="ln s"></div></div>
+        <div class="doc d2"><div class="dh"><span>03 / Newsletter</span><span>200 to 300 words</span></div><p class="dt">Subject line</p><div class="ln"></div><div class="ln m"></div><div class="ln"></div><div class="ln s"></div><div class="ln m"></div></div>
+        <div class="doc d3"><div class="dh"><span>02 / Social posts</span><span>x8</span></div><div class="posts"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="doc d4"><div class="dh"><span>01 / Show notes</span><span>SEO</span></div><p class="dt">Title, summary, chapters</p><div class="ts"><b>00:00</b><span class="ln"></span></div><div class="ts"><b>04:12</b><span class="ln"></span></div><div class="ts"><b>11:38</b><span class="ln"></span></div><div class="ts"><b>23:05</b><span class="ln"></span></div><div class="ln m"></div><div class="ln s"></div></div>
+      </div>
       <div class="filemeta" data-anim="rise">
         <div><div class="k">Input</div><div class="v">One episode</div></div>
         <div><div class="k">Output</div><div class="v">4 deliverables</div></div>
@@ -292,6 +360,8 @@ body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;op
       <div class="stamp-tag" data-anim="stamp">Finding 01</div>
       <h2 data-anim="wipe"><span class="mask"><span class="rl">The episode is <em>10%</em></span></span><span class="mask"><span class="rl">of the work</span></span></h2>
       <p class="lede">Recording is the fun part. Everything after is the grind that never gets done.</p>
+      <div class="meter" aria-label="Recording is 10 percent of the work, everything after is 90 percent"><span class="m-rec" aria-hidden="true">Record</span><span class="m-grind" aria-hidden="true"><span>Everything after</span></span></div>
+      <div class="meter-cap" aria-hidden="true"><span>10%</span><span>90%</span></div>
       <div class="subentry" data-anim="rise"><div class="n">01.1</div><div><h3>Show notes never ship</h3><p>Your episode goes live with two sentences of description. Google never finds it. New listeners never discover it.</p></div></div>
       <div class="subentry" data-anim="rise"><div class="n">01.2</div><div><h3>Social goes quiet</h3><p>You post the link once, maybe a quote. The episode's best moments never become posts, clips, or threads.</p></div></div>
       <div class="subentry" data-anim="rise"><div class="n">01.3</div><div><h3>The newsletter starves</h3><p>Your list is your most valuable channel and it gets nothing, because turning an hour of audio into an issue takes half a day.</p></div></div>
@@ -402,6 +472,7 @@ body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;op
     <section class="entry" id="contact">
       <div class="meta"><span><b>Entry 06</b></span><span>Subject: Contact</span><span>Action required</span></div>
       <div class="stamp-tag" data-anim="stamp">Filed 06</div>
+      <div class="big-stamp" aria-hidden="true">First<br>episode<br>free</div>
       <h2 class="big" data-anim="wipe"><span class="mask"><span class="rl">Get your <em>free episode</em></span></span></h2>
       <p class="cp">Send us one episode. We will send back the full pack within 5 business days. Keep it either way.</p>
       <a class="btn" href="mailto:hello@orielaco.com?subject=Free%20podcast%20episode%20repurposing">Email us the episode</a>
@@ -602,6 +673,77 @@ setTimeout(function(){
       }
     });
   });
+})();
+</script>
+<script>
+/* Oct 20 revamp: the desk. Separate script; the page's own script above is unchanged. */
+(function(){
+"use strict";
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fine=window.matchMedia("(pointer: fine)").matches;
+
+/* Rates: light the plan column under the cursor */
+var table=document.querySelector("table.rates");
+if(table){
+  table.addEventListener("pointerover",function(e){
+    var cell=e.target.closest("td,thead th"); if(!cell){ return; }
+    var idx=Array.prototype.indexOf.call(cell.parentNode.children,cell);
+    table.querySelectorAll(".col-on").forEach(function(c){ c.classList.remove("col-on"); });
+    if(idx<1){ return; }
+    table.querySelectorAll("tr").forEach(function(tr){ var c=tr.children[idx]; if(c){ c.classList.add("col-on"); } });
+  });
+  table.addEventListener("pointerleave",function(){ table.querySelectorAll(".col-on").forEach(function(c){ c.classList.remove("col-on"); }); });
+}
+
+/* Fix: the wipe headlines start fully clipped, and a fully clipped element never reports an intersection,
+   so the page's IntersectionObserver could not reveal them. Reveal them on scroll position instead. */
+var wipes=document.querySelectorAll('[data-anim="wipe"]');
+if(typeof gsap!=="undefined"&&typeof ScrollTrigger!=="undefined"&&!reduce){
+  gsap.registerPlugin(ScrollTrigger);
+  wipes.forEach(function(el){ ScrollTrigger.create({trigger:el,start:"top 90%",once:true,onEnter:function(){ el.classList.add("on"); }}); });
+}else{
+  wipes.forEach(function(el){ el.classList.add("on"); });
+}
+
+if(reduce||typeof gsap==="undefined"){ return; }
+var hasST=typeof ScrollTrigger!=="undefined";
+
+/* Document stack: deals in, then drifts with the cursor at four depths */
+var docs=gsap.utils.toArray(".doc");
+if(docs.length){
+  gsap.from(docs,{y:-60,rotation:function(i){ return [-18,14,-10,6][i]; },opacity:0,duration:1.3,ease:"expo.out",stagger:0.12,delay:1.6});
+  gsap.from(".clip",{y:-30,opacity:0,duration:0.8,ease:"back.out(2)",delay:2.3});
+  if(fine){
+    var stack=document.querySelector(".docstack");
+    var movers=docs.map(function(d,i){ var k=(i+1)*4; return {x:gsap.quickTo(d,"x",{duration:0.9,ease:"power3"}),y:gsap.quickTo(d,"y",{duration:0.9,ease:"power3"}),k:k}; });
+    window.addEventListener("pointermove",function(e){
+      var nx=e.clientX/window.innerWidth-0.5,ny=e.clientY/window.innerHeight-0.5;
+      movers.forEach(function(m){ m.x(nx*m.k); m.y(ny*m.k); });
+    });
+  }
+  if(hasST){
+    docs.forEach(function(d,i){
+      gsap.to(d,{yPercent:-(4-i)*6,ease:"none",scrollTrigger:{trigger:"#brief",start:"top top",end:"bottom top",scrub:true}});
+    });
+  }
+}
+if(!hasST){ return; }
+
+/* Problem meter: the 10 percent inks in, then the grind hatching slides */
+gsap.from(".meter .m-rec",{scaleX:0,duration:1.2,ease:"expo.out",scrollTrigger:{trigger:".meter",start:"top 85%"}});
+gsap.fromTo(".meter .m-grind",{backgroundPositionX:"0px"},{backgroundPositionX:"160px",ease:"none",scrollTrigger:{trigger:".meter",start:"top bottom",end:"bottom top",scrub:true}});
+
+/* Evidence: exhibits start fanned across the desk and straighten as you read them */
+gsap.utils.toArray(".exhibit").forEach(function(ex,i){
+  var rot=[-4.5,3.5,-2.5][i%3],dx=[-28,34,-18][i%3];
+  gsap.fromTo(ex,{rotation:rot,x:dx},{rotation:rot*0.12,x:0,ease:"none",scrollTrigger:{trigger:ex,start:"top 95%",end:"top 45%",scrub:true}});
+});
+
+/* Contact: the stamp slams down */
+gsap.fromTo(".big-stamp",{scale:2.6,rotation:-30,opacity:0},{scale:1,rotation:-12,opacity:1,duration:0.55,ease:"back.out(2.2)",scrollTrigger:{trigger:"#contact",start:"top 70%"}});
+
+/* Hot plan flag swings like a tag */
+gsap.fromTo(".hotflag",{rotation:-14},{rotation:-2,duration:1.6,ease:"elastic.out(1,.35)",scrollTrigger:{trigger:"table.rates",start:"top 80%"}});
 })();
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
