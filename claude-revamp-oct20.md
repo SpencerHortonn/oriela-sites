@@ -178,13 +178,41 @@ Each rebuilt page is a new template. A build script injects the protected code b
 
 **Rollback** works the same way. `pre-revamp-oct20` is the original state, and each commit above can be reverted on its own.
 
+## Round 3: flagship pass, overlaps and timing (after Spencer's second round of feedback)
+
+Spencer's notes: Lantern's cottage looked bad and the lanterns overlapped everything, Studio overlapped and its hero should go back to what it was, Hearth and Podcast get full rebuilds, scroll animations should finish while you are looking at them (not as they leave the screen), and every site gets three proof passes.
+
+**Timing rule applied everywhere:** a scrubbed reveal or fill now ends when its element is around the middle of the screen (`center 50%` to `center 55%`, or `top 40%` to `top 72%` for short rows). Sideways tracks end at `bottom bottom` or `center 42%`. Parallax on the way out of a hero is the only thing still running to `bottom top`.
+
+**Overlap fixes everywhere:** every fixed header now becomes a solid glass bar once you scroll, so no content reads through the nav. CSS hover transitions that fought GSAP on the same `transform` were moved to the separate `translate`, `rotate` and `scale` properties. That clash was what left Studio's podcast cards stuck tilted over their button.
+
+| Site | Commits | What changed |
+|---|---|---|
+| Lantern Club | `37425f9`, `a599a1e` | The drawn cottage is gone. The hero is now a lamplit room: a plank wall, warm light pools, and dust drifting in the lamplight. The lanterns now live inside the hero instead of floating over the whole page (a CSS position change only; the rope physics, segment count and lamp weights are byte-identical). The deck is dealt as a face-down pile and the faces turn up as the cards land, all settled by mid-screen. On phones the unbox spreads into a clean 2x2 and the lid stays out of the way. The FAQ hover no longer fights its entrance, the letter paper is warmer and easier to read, and the nav goes solid as soon as you scroll. |
+| Oriela Studio | `10a7e3c` | The original hero is back: the spotlit ORIELA / STUDIO wordmark in the viewfinder with REC, timecode, dust and the pointer light. The words drift apart as you scroll away. The header is now a solid bar. The work reel finishes by mid-screen, and the frames are taller on phones so the frame numbers clear the titles. The podcast ticket stubs and work-frame hovers no longer fight GSAP. |
+| Proving Ground | `604a3a7`, `f253ed9` | The rows were stuck partway because the reveal killed the slide (`overwrite:true` changed to `"auto"`). Section headings now slide in and settle mid-screen instead of drifting forever. The final headline breaks only between words (it used to split "WONDERI / NG"), with looser line spacing. No prices, no buy buttons, the footer and the handprints are untouched. |
+| Hearth Key | `1abfed9`, `84acb4c` | **Full rebuild: night to dawn.** A starry night hero with a moon and a walnut Hearth Key that drops in, breathes and tilts toward the cursor, with NFC rings pulsing. At the bedside the key taps a glowing phone: the badges clear, the apps grey out and the screen turns to Rest, finished by mid-screen. Then the three objects, walnut pricing tickets ($39 and $99, Save $18), the ritual with the four Shortcuts steps, and the "Honest by design" quote lighting word by word as the sun rises. The FAQ and the waitlist sit in the morning light. Same copy and prices; the form is byte-identical. |
+| Podcast | `abce867` | **Full rebuild: on air.** A walnut slat-wall studio with an ON AIR sign that flickers on, a live waveform that gets louder as you scroll, and an Input / Output / Turnaround / Cost readout. Next come a ticker, a 10% vs 90% bar for "the episode is 10% of the work", and one signal line that splits into the four deliverables. The three sample packs are podcast cover cards (same links), and the rates are channel strips whose meters fill to 4, 8 or 12 packs ($397 / $497 / $597). The FAQ and the free-episode contact follow. Same copy; the form is byte-identical. |
+| Proof | `bc3b3c0` | Scrubbed scenes (manifesto words, canopy reveal, the green 1, the receipt, 2027 filling, the sunrise) all land mid-screen. The glass track finishes when the section is fully in view. The header becomes a solid bar after the hero, the giant 2027 is pulled in from the edge, the floating chapter chip is hidden on phones (it covered the FAQ), and the hover lifts no longer fight the intro. |
+| Half Frame | `66eaf0d` | The dog-eared corner moved off the "overexposed, kept it anyway" caption. |
+| Oriela Co | `af379dd` | A glass nav bar in the colour of the section under it. The nav had no side padding on phones (the wordmark touched the edge); that is fixed. The first-visit loader is about 1.5s shorter. Proving Ground is listed as "Coming 2027" instead of "$99 entry", to match the no-prices rule. |
+
+**Proof passes (3).** Each pass ran the overlap checker on all 8 sites. The checker scrolls the page in half-screen steps, flags visible text sitting on other text and anything poking past the right edge, and skips decorative, fixed and clipped layers. Each pass ran at 1440x900 and at 375x812, with screenshots of every section.
+- **Pass 1** found the PG hero (a stalled intro only), Studio's FAQ (closed answers, so a checker fix) and the Hearth and Lantern phone entrance states. Those were fixed.
+- **Pass 2** found the Lantern nav and the PG headline spacing. Those were fixed.
+- **Pass 3** was clean on all 8 desktop runs and on the phone runs of the sites changed since pass 2.
+
+The only standing flag is the giant "2027" on Proof. Its invisible text box is taller than the glyphs; the screenshots show clear space above and below.
+
+All eight verified live at 22:15 (HTTP 200, view beacon present, new-build marker present). **Guard** passed on every site: forms, `turnstileToken()`, the beacon and the rope physics are byte-identical, with no em-dashes and no pinning.
+
 ## Deploy queue note
 
 Every push rebuilds all eight Cloudflare Pages projects, one at a time, so each deploy waited behind the others. A proof-lab build looked hung for about 15 minutes, then the queue cleared on its own. All eight sites were verified live by 20:19.
 
 ## Flagged, not changed
 
-- **Proving Ground price on the hub.** orielaco.com still lists Proving Ground as "$99 entry", while the Proving Ground site itself now shows no prices. This is copy on the hub, which was polish-only, so it was left as is.
+- **Proving Ground price on the hub.** Fixed in round 3: orielaco.com now says "Coming 2027" for Proving Ground.
 - **Studio contact.** The contact section says "Coming 2027" above its notify form, which reads oddly on a services site. Unchanged.
 - **Podcast prices.** The page says $397 / $497 / $597 while the old README says $297 / $347 / $447. The page was left as is; the README is stale.
 - **Stale README.** It still describes Netlify; deploys are Cloudflare Pages.
